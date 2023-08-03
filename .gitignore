@@ -47,3 +47,4 @@ server/yarn-error.log*
 client/public/.DS_Store
 client/public/assets/.DS_Store
 client/public/assets/images/.DS_Store
+.DS_Store
