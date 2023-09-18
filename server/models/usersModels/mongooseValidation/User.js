@@ -1,6 +1,50 @@
 const mongoose = require("mongoose");
 
-const Name = new mongoose.Schema({
+// const Name = new mongoose.Schema({
+//   first: {
+//     type: String,
+//     trim: true,
+//     minLength: 2,
+//     maxLength: 256,
+//     lowercase: true,
+//     required: true,
+//   },
+//   last: {
+//     type: String,
+//     trim: true,
+//     minLength: 2,
+//     maxLength: 256,
+//     lowercase: true,
+//     required: true,
+//   },
+// });
+
+// const Address = new mongoose.Schema({
+//   city: {
+//     type: String,
+//     trim: true,
+//     minLength: 2,
+//     maxLength: 256,
+//     lowercase: true,
+//     required: true,
+//   },
+//   street: {
+//     type: String,
+//     trim: true,
+//     minLength: 2,
+//     maxLength: 256,
+//     lowercase: true,
+//     required: true,
+//   },
+//   houseNumber: {
+//     type: Number,
+//     minLength: 1,
+//     required: true,
+//   },
+// });
+
+const schema = new mongoose.Schema({
+  // name: Name,
   first: {
     type: String,
     trim: true,
@@ -17,34 +61,6 @@ const Name = new mongoose.Schema({
     lowercase: true,
     required: true,
   },
-});
-
-const Address = new mongoose.Schema({
-  city: {
-    type: String,
-    trim: true,
-    minLength: 2,
-    maxLength: 256,
-    lowercase: true,
-    required: true,
-  },
-  street: {
-    type: String,
-    trim: true,
-    minLength: 2,
-    maxLength: 256,
-    lowercase: true,
-    required: true,
-  },
-  houseNumber: {
-    type: Number,
-    minLength: 1,
-    required: true,
-  },
-});
-
-const schema = new mongoose.Schema({
-  name: Name,
   phone: {
     type: String,
     required: true,
@@ -66,7 +82,28 @@ const schema = new mongoose.Schema({
     required: true,
     trim: true,
   },
-  address: Address,
+  city: {
+    type: String,
+    trim: true,
+    minLength: 2,
+    maxLength: 256,
+    lowercase: true,
+    required: true,
+  },
+  street: {
+    type: String,
+    trim: true,
+    minLength: 2,
+    maxLength: 256,
+    lowercase: true,
+    required: true,
+  },
+  houseNumber: {
+    type: Number,
+    minLength: 1,
+    required: true,
+  },
+  // address: Address,
   createdAt: {
     type: Date,
     default: Date.now,
@@ -76,6 +113,10 @@ const schema = new mongoose.Schema({
     default: false,
   },
   isBlocked: {
+    type: Boolean,
+    default: false,
+  },
+  isAdmin: {
     type: Boolean,
     default: false,
   },

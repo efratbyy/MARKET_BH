@@ -1,5 +1,4 @@
 export interface UserInterface {
-  _id: string;
   first: string;
   last: string;
   phone: string;
@@ -8,4 +7,22 @@ export interface UserInterface {
   city: string;
   street: string;
   houseNumber: number;
+
+  // address: {
+  //   city: string;
+  //   street: string;
+  //   houseNumber: number;
+  // };
+}
+
+export interface ProductInterface {
+  title: string;
+  brand: string;
+  barcode: string;
+  category: string;
+  price: number;
+  image: {
+    url: string;
+    alt: string;
+  };
 }

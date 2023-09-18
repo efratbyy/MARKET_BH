@@ -1,6 +1,6 @@
 import Joi from "joi";
 
-const registerSchema = Joi.object({
+const registerSchema = {
   first: Joi.string().min(2).max(256).required(),
   last: Joi.string().min(2).max(256).required(),
   phone: Joi.string()
@@ -22,6 +22,11 @@ const registerSchema = Joi.object({
   city: Joi.string().min(2).max(256).required(),
   street: Joi.string().min(2).max(256).required(),
   houseNumber: Joi.number().min(1).required(),
-});
+  // address: Joi.object().keys({
+  //   city: Joi.string().required(),
+  //   street: Joi.string().required(),
+  //   houseNumber: Joi.number().min(1).required(),
+  // }),
+};
 
 export default registerSchema;
