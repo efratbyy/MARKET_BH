@@ -1,6 +1,6 @@
-const registerJoiValidation = require("../models/usersModels/joiValidation/registerValidation");
+const registerJoiValidation = require("../models/joiValidation/registerValidation");
 const { handleError } = require("../utils/handleErrors");
-const User = require("../models/usersModels/mongooseValidation/User");
+const User = require("../models/mongooseValidation/User");
 const bcrypt = require("bcryptjs");
 const config = require("config");
 const jwt = require("jsonwebtoken");
