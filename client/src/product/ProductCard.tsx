@@ -6,7 +6,6 @@ import {
   CardContent,
   CardHeader,
   CardMedia,
-  Typography,
 } from "@mui/material";
 
 type Props = {
@@ -22,16 +21,9 @@ const ProductCard: React.FC<Props> = ({ product }) => {
     <Card sx={{ minWidth: 280 }} square raised>
       <CardContent>
         <CardHeader title={title} subheader={brand} />
-        <CardHeader subheader={":ברקוד" + barcode} />
-        <CardHeader subheader={":קטגוריה" + category} />
-        <CardHeader title={":מחיר" + price} />
-        <Typography variant="body2" color="text.secondary">
-          <Typography fontWeight={700} component="span">
-            {title}:{" "}
-          </Typography>
-          {price}
-        </Typography>
-        <Typography>{image.url}</Typography>
+        <CardHeader subheader={"barcode: " + barcode} />
+        <CardHeader subheader={"category: " + category} />
+        <CardHeader title={"price: ₪" + price} />
       </CardContent>
       <CardActionArea>
         <CardMedia

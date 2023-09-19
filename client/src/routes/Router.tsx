@@ -4,7 +4,8 @@ import ROUTES from "./routesModel";
 import RegistrationForm from "../register/RegistrationForm";
 import ErrorPage from "../pages/ErrorPage";
 import Login from "../login/Login";
-import ProductsPage from "../product/ProductsPage";
+import ProductsPage from "../product/Products";
+import HomePage from "../components/HomePage";
 
 const Router = () => {
   return (
@@ -12,6 +13,8 @@ const Router = () => {
       <Route path={ROUTES.REGISTER} element={<RegistrationForm />} />
       <Route path={ROUTES.LOGIN} element={<Login />} />
       <Route path={ROUTES.PRODUCTS} element={<ProductsPage />} />
+      <Route path={ROUTES.ROOT} element={<HomePage />} />
+
       <Route path="*" element={<ErrorPage />} />
     </Routes>
   );
