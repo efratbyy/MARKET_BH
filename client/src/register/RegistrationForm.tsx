@@ -13,11 +13,13 @@ import registerSchema from "../models/joiValidation/registerJoiValidation";
 import { UserInterface } from "../models/interfaces/interfaces.ts";
 import { makeFirstLetterCapital } from "../utils/algoMethods";
 import { registrationApi } from "../apiService/userApiService";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import ROUTES from "../routes/routesModel";
 import Navbar from "../navbar/Navbar";
+import { useSnack } from "../providers/SnackbarProvider";
 
 const RegistrationForm: React.FC = () => {
+  const snack = useSnack();
   const [formData, setFormData] = useState<UserInterface>({
     first: "",
     last: "",
@@ -29,6 +31,7 @@ const RegistrationForm: React.FC = () => {
     houseNumber: 0,
   });
 
+  const navigate = useNavigate();
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null); // Store recaptcha value
 
@@ -86,8 +89,14 @@ const RegistrationForm: React.FC = () => {
     }
     // Clear any previous errors
     setErrors({});
-    registrationApi(formData);
-    <Navigate replace to={`${ROUTES.ROOT}`} />;
+
+    try {
+      await registrationApi(formData);
+      snack("success", "A new user has been created");
+      navigate(ROUTES.ROOT, { replace: true });
+    } catch (error) {
+      snack("error", error);
+    }
   };
 
   return (

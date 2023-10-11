@@ -17,7 +17,7 @@ const Products = () => {
       .catch((error) => {
         console.log(error);
       });
-  });
+  }, [handleGetProducts]);
 
   return (
     <Grid container spacing={2} pb={2}>

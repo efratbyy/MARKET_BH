@@ -67,7 +67,7 @@ function Navbar() {
                 textDecoration: "none",
               }}
             >
-              LOGO
+              MARKET BEIT HAKEREM
             </Typography>
 
             <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -103,26 +103,26 @@ function Navbar() {
                   <Typography textAlign="center">סתם</Typography>
                 </MenuItem>
 
-                {!user && (
-                  <>
-                    <MenuItem
-                      onClick={() => navigate(`${ROUTES.LOGIN}`)}
-                      sx={{
-                        display: { xs: "flex", md: "none" },
-                      }}
-                    >
-                      <Typography textAlign="center">התחבר</Typography>
-                    </MenuItem>
-                    <MenuItem
-                      onClick={() => navigate(`${ROUTES.REGISTER}`)}
-                      sx={{
-                        display: { xs: "flex", md: "none" },
-                      }}
-                    >
-                      <Typography textAlign="center">הרשמה</Typography>
-                    </MenuItem>
-                  </>
-                )}
+                {!user && [
+                  <MenuItem
+                    key="login"
+                    onClick={() => navigate(`${ROUTES.LOGIN}`)}
+                    sx={{
+                      display: { xs: "flex", md: "none" },
+                    }}
+                  >
+                    <Typography textAlign="center">התחבר</Typography>
+                  </MenuItem>,
+                  <MenuItem
+                    key="register"
+                    onClick={() => navigate(`${ROUTES.REGISTER}`)}
+                    sx={{
+                      display: { xs: "flex", md: "none" },
+                    }}
+                  >
+                    <Typography textAlign="center">הרשמה</Typography>
+                  </MenuItem>,
+                ]}
               </Menu>
             </Box>
             <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
@@ -142,7 +142,7 @@ function Navbar() {
                 textDecoration: "none",
               }}
             >
-              LOGO
+              MARKET BEIT HAKEREM
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
               <Button
@@ -157,10 +157,7 @@ function Navbar() {
               <Box sx={{ flexGrow: 0 }}>
                 <Tooltip title="Open settings">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar
-                      alt="Remy Sharp"
-                      src="/static/images/avatar/2.jpg"
-                    />
+                    <Avatar alt="Remy Sharp" src="/assets/images/avatar.png" />
                   </IconButton>
                 </Tooltip>
                 <Menu

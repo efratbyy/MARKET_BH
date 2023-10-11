@@ -7,12 +7,6 @@ export interface UserInterface {
   city: string;
   street: string;
   houseNumber: number;
-
-  // address: {
-  //   city: string;
-  //   street: string;
-  //   houseNumber: number;
-  // };
 }
 
 export interface ProductInterface {
@@ -20,6 +14,7 @@ export interface ProductInterface {
   brand: string;
   barcode: string;
   category: string;
+  amount: number;
   price: number;
   image: {
     url: string;

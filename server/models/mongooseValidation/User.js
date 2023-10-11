@@ -1,50 +1,41 @@
 const mongoose = require("mongoose");
 
-// const Name = new mongoose.Schema({
-//   first: {
-//     type: String,
-//     trim: true,
-//     minLength: 2,
-//     maxLength: 256,
-//     lowercase: true,
-//     required: true,
-//   },
-//   last: {
-//     type: String,
-//     trim: true,
-//     minLength: 2,
-//     maxLength: 256,
-//     lowercase: true,
-//     required: true,
-//   },
-// });
-
-// const Address = new mongoose.Schema({
-//   city: {
-//     type: String,
-//     trim: true,
-//     minLength: 2,
-//     maxLength: 256,
-//     lowercase: true,
-//     required: true,
-//   },
-//   street: {
-//     type: String,
-//     trim: true,
-//     minLength: 2,
-//     maxLength: 256,
-//     lowercase: true,
-//     required: true,
-//   },
-//   houseNumber: {
-//     type: Number,
-//     minLength: 1,
-//     required: true,
-//   },
-// });
+const CartProduct = new mongoose.Schema({
+  productName: {
+    type: String,
+    trim: true,
+    minLength: 2,
+    maxLength: 256,
+    lowercase: true,
+    required: true,
+  },
+  price: {
+    type: Number,
+    trim: true,
+    minLength: 2,
+    maxLength: 256,
+    lowercase: true,
+    required: true,
+  },
+  amount: {
+    type: Number,
+    trim: true,
+    minLength: 1,
+    maxLength: 256,
+    lowercase: true,
+    required: true,
+  },
+  barcode: {
+    type: String,
+    trim: true,
+    minLength: 2,
+    maxLength: 20,
+    lowercase: true,
+    required: true,
+  },
+});
 
 const schema = new mongoose.Schema({
-  // name: Name,
   first: {
     type: String,
     trim: true,
@@ -103,7 +94,6 @@ const schema = new mongoose.Schema({
     minLength: 1,
     required: true,
   },
-  // address: Address,
   createdAt: {
     type: Date,
     default: Date.now,
@@ -128,6 +118,7 @@ const schema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  cart: [CartProduct],
 });
 
 const User = mongoose.model("user", schema);
