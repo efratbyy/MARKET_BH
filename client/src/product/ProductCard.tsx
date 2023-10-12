@@ -54,10 +54,12 @@ const ProductCard: React.FC<Props> = ({ product, amountInCart }) => {
       try {
         if (totalAmount > 0) {
           const newCart = await removeFromCartApi(userId, barcode, 1);
-          setTotalAmount(Number(totalAmount) - 1);
-          console.log("Cart response:", newCart);
-          snack("success", "!המוצר הוסר מעגלתך בהצלחה");
-          navigate(ROUTES.ROOT);
+          if (newCart) {
+            setTotalAmount(Number(totalAmount) - 1);
+            snack("success", "!המוצר הוסר מעגלתך בהצלחה");
+          } else {
+            snack("error", "!נכשל בהוספת המוצר לעגלתך");
+          }
         }
       } catch (error) {
         console.error("Cart API error:", error);
