@@ -1,7 +1,6 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { ProductInterface } from "../models/interfaces/interfaces.ts.js";
 import {
-  Button,
   Card,
   CardActionArea,
   CardContent,
@@ -13,33 +12,65 @@ import { getUser } from "../services/LocalStorageService";
 import ROUTES from "../routes/routesModel";
 import { useNavigate } from "react-router-dom";
 import { useSnack } from "../providers/SnackbarProvider";
-import { addToCartApi } from "../apiService/cartApiService";
+import { addToCartApi, removeFromCartApi } from "../apiService/cartApiService";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
 
 type Props = {
   product: ProductInterface;
+  amountInCart: number;
 };
 
-const ProductCard: React.FC<Props> = ({ product }) => {
-  const { title, barcode, brand, category, image, price, amount = 1 } = product;
+const ProductCard: React.FC<Props> = ({ product, amountInCart }) => {
+  const { title, barcode, brand, category, image, price } = product;
   const user = getUser();
   const navigate = useNavigate();
   const snack = useSnack();
+  const [totalAmount, setTotalAmount] = useState(0);
 
   const handleAddToCart = useCallback(
     async (userId: string, barcode: string, amount: number) => {
       try {
-        const cart = await addToCartApi(userId, barcode, amount);
-        console.log("Cart response:", cart);
-        snack("success", "!המוצר התווסף לעגלתך בהצלחה");
-        navigate(ROUTES.ROOT);
+        const newCart = await addToCartApi(userId, barcode, 1);
+
+        if (newCart) {
+          setTotalAmount(totalAmount + 1);
+
+          snack("success", "!המוצר התווסף לעגלתך בהצלחה");
+        } else {
+          snack("error", "!נכשל בהוספת המוצר לעגלתך");
+        }
       } catch (error) {
         console.error("Cart API error:", error);
 
         // if (typeof error === "string") requestStatus(false, error, null);
       }
     },
-    []
+    [totalAmount]
   );
+
+  const handleRemoveFromCart = useCallback(
+    async (userId: string, barcode: string, amount: number) => {
+      try {
+        if (totalAmount > 0) {
+          const newCart = await removeFromCartApi(userId, barcode, 1);
+          setTotalAmount(Number(totalAmount) - 1);
+          console.log("Cart response:", newCart);
+          snack("success", "!המוצר הוסר מעגלתך בהצלחה");
+          navigate(ROUTES.ROOT);
+        }
+      } catch (error) {
+        console.error("Cart API error:", error);
+
+        // if (typeof error === "string") requestStatus(false, error, null);
+      }
+    },
+    [totalAmount]
+  );
+
+  useEffect(() => {
+    setTotalAmount(amountInCart);
+  }, [amountInCart]);
 
   return (
     <Card
@@ -71,6 +102,7 @@ const ProductCard: React.FC<Props> = ({ product }) => {
           Barcode: {barcode}
         </Typography>
       </CardContent>
+
       <Typography
         variant="h6"
         sx={{ marginTop: "auto", marginRight: "35px", color: "blue" }}
@@ -79,12 +111,30 @@ const ProductCard: React.FC<Props> = ({ product }) => {
       </Typography>
 
       {user && (
-        <Button
-          onClick={() => handleAddToCart(user?._id, barcode, amount)}
-          sx={{ marginTop: "auto", marginRight: "35px", color: "blue" }}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
         >
-          הוסף לסל +
-        </Button>
+          <RemoveIcon
+            onClick={() => handleRemoveFromCart(user?._id, barcode, 1)}
+            sx={{
+              color: totalAmount > 0 ? "green" : "gray",
+              marginRight: "130px",
+              fontSize: "40px",
+            }}
+          />
+
+          <Typography variant="h4" sx={{ color: "green" }}>
+            {String(totalAmount)}
+          </Typography>
+          <AddIcon
+            onClick={() => handleAddToCart(user?._id, barcode, 1)}
+            sx={{ color: "green", marginLeft: "130px", fontSize: "40px" }}
+          />
+        </div>
       )}
 
       <CardActionArea>

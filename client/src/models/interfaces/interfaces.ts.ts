@@ -21,3 +21,10 @@ export interface ProductInterface {
     alt: string;
   };
 }
+
+export interface CartProductInterface {
+  title: string;
+  barcode: string;
+  amount: number;
+  price: number;
+}
