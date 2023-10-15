@@ -9,12 +9,11 @@ import {
   Typography,
 } from "@mui/material";
 import { getUser } from "../services/LocalStorageService";
-import ROUTES from "../routes/routesModel";
-import { useNavigate } from "react-router-dom";
 import { useSnack } from "../providers/SnackbarProvider";
 import { addToCartApi, removeFromCartApi } from "../apiService/cartApiService";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
+import ProductDialog from "./ProductDialog";
 
 type Props = {
   product: ProductInterface;
@@ -22,11 +21,20 @@ type Props = {
 };
 
 const ProductCard: React.FC<Props> = ({ product, amountInCart }) => {
-  const { title, barcode, brand, category, image, price } = product;
+  const { productName, barcode, brand, category, image, price } = product;
   const user = getUser();
-  const navigate = useNavigate();
   const snack = useSnack();
   const [totalAmount, setTotalAmount] = useState(0);
+  const [isDialogOpen, setDialog] = useState(false);
+
+  // const handleDialog = (term?: string) => {
+  //   if (term === "open") return setDialog(true);
+  //   setDialog(false);
+  // };
+
+  const openDialog = () => {
+    setDialog(true);
+  };
 
   const handleAddToCart = useCallback(
     async (userId: string, barcode: string, amount: number) => {
@@ -88,18 +96,18 @@ const ProductCard: React.FC<Props> = ({ product, amountInCart }) => {
       raised
     >
       <CardContent>
-        <CardHeader title={title} subheader={brand} />
+        <CardHeader title={productName} subheader={brand} />
         <Typography
           variant="body2"
           color="textSecondary"
-          sx={{ marginTop: "auto", marginRight: "20px" }}
+          sx={{ marginTop: "auto", paddingRight: "10%" }}
         >
           Category: {category}
         </Typography>
         <Typography
           variant="body2"
           color="textSecondary"
-          sx={{ marginTop: "auto", marginRight: "20px" }}
+          sx={{ marginTop: "auto", paddingRight: "10%" }}
         >
           Barcode: {barcode}
         </Typography>
@@ -107,7 +115,7 @@ const ProductCard: React.FC<Props> = ({ product, amountInCart }) => {
 
       <Typography
         variant="h6"
-        sx={{ marginTop: "auto", marginRight: "35px", color: "blue" }}
+        sx={{ marginTop: "auto", paddingRight: "10%", color: "blue" }}
       >
         Price: ₪{price}
       </Typography>
@@ -124,7 +132,7 @@ const ProductCard: React.FC<Props> = ({ product, amountInCart }) => {
             onClick={() => handleRemoveFromCart(user?._id, barcode, 1)}
             sx={{
               color: totalAmount > 0 ? "green" : "gray",
-              marginRight: "130px",
+              paddingRight: "10%",
               fontSize: "40px",
             }}
           />
@@ -134,12 +142,16 @@ const ProductCard: React.FC<Props> = ({ product, amountInCart }) => {
           </Typography>
           <AddIcon
             onClick={() => handleAddToCart(user?._id, barcode, 1)}
-            sx={{ color: "green", marginLeft: "130px", fontSize: "40px" }}
+            sx={{ color: "green", paddingLeft: "10%", fontSize: "40px" }}
           />
         </div>
       )}
 
-      <CardActionArea>
+      <CardActionArea
+        onClick={() => {
+          openDialog();
+        }}
+      >
         <CardMedia
           component="img"
           image={image.url}
@@ -148,14 +160,18 @@ const ProductCard: React.FC<Props> = ({ product, amountInCart }) => {
             flex: 1,
             objectFit: "cover",
             marginTop: "auto",
-            marginRight: "20px",
-            borderTopLeftRadius: "16px",
-            borderTopRightRadius: "16px",
-            width: "400px",
-            height: "400px",
+            width: "100%",
           }}
         />
       </CardActionArea>
+      <ProductDialog
+        isDialogOpen={isDialogOpen}
+        product={product}
+        onClose={() => setDialog(false)}
+        handleRemoveFromCart={handleRemoveFromCart}
+        totalAmount={totalAmount}
+        handleAddToCart={handleAddToCart}
+      />
     </Card>
   );
 };

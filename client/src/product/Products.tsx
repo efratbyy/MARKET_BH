@@ -42,7 +42,7 @@ const Products = () => {
           console.log(error);
         });
     }
-  }, [handleGetProducts, handleGetCart, user]);
+  }, [handleGetProducts, handleGetCart]);
 
   return (
     <Grid container spacing={2} pb={2}>
