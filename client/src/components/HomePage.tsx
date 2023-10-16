@@ -48,9 +48,11 @@ const HomePage = () => {
         </Grid>
         <Grid
           item
-          sx={{
-            display: { xs: "none", md: "inline" },
-          }}
+          xs={0}
+          md={3}
+          // sx={{
+          //   display: { xs: "none", md: "block" },
+          // }}
         >
           <ShoppingCart updateCart={updateCart} cart={cart} />
         </Grid>
