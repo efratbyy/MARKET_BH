@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Image = require("./Image");
 
 const CartProduct = new mongoose.Schema({
   productName: {
@@ -26,6 +27,15 @@ const CartProduct = new mongoose.Schema({
     required: true,
   },
   barcode: {
+    type: String,
+    trim: true,
+    minLength: 2,
+    maxLength: 20,
+    lowercase: true,
+    required: true,
+  },
+  image: Image,
+  brand: {
     type: String,
     trim: true,
     minLength: 2,

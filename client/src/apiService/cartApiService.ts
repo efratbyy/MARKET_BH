@@ -11,7 +11,7 @@ export const addToCartApi = async (
   amount: number
 ) => {
   try {
-    const { data } = await axios.patch(
+    const { data } = await axios.patch<CartProductInterface[]>(
       `${apiUrl}/cart/addToCart/${userId}/${barcode}/${amount}`,
       null,
       { headers: { "x-auth-token": token } }
@@ -30,7 +30,7 @@ export const removeFromCartApi = async (
   amount: number
 ) => {
   try {
-    const { data } = await axios.patch(
+    const { data } = await axios.patch<CartProductInterface[]>(
       `${apiUrl}/cart/removeFromCart/${userId}/${barcode}/${amount}`,
       null,
       { headers: { "x-auth-token": token } }

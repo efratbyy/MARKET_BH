@@ -54,7 +54,6 @@ const ProductDialog: FC<Props> = ({
           ₪{price}
         </DialogContentText>
         <CardMedia
-          // TODO:
           component="img"
           image={image.url}
           alt={image.alt}
@@ -62,11 +61,7 @@ const ProductDialog: FC<Props> = ({
             flex: 1,
             objectFit: "cover",
             marginTop: "auto",
-            marginRight: "20px",
-            borderTopLeftRadius: "16px",
-            borderTopRightRadius: "16px",
-            width: "400px",
-            height: "400px",
+            width: "100%",
           }}
         />
         <DialogContentText id="alert-dialog-description">
@@ -84,7 +79,7 @@ const ProductDialog: FC<Props> = ({
           onClick={() => handleRemoveFromCart(user!._id, barcode, 1)}
           sx={{
             color: totalAmount > 0 ? "green" : "gray",
-            marginRight: "130px",
+            marginRight: "10%",
             fontSize: "40px",
           }}
         />
@@ -93,7 +88,7 @@ const ProductDialog: FC<Props> = ({
         </Typography>
         <AddIcon
           onClick={() => handleAddToCart(user!._id, barcode, 1)}
-          sx={{ color: "green", marginLeft: "130px", fontSize: "40px" }}
+          sx={{ color: "green", marginLeft: "10%", fontSize: "40px" }}
         />
       </DialogActions>
     </Dialog>

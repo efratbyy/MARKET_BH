@@ -2,33 +2,82 @@ import React, { useEffect, useState } from "react";
 import { getUser } from "../services/LocalStorageService";
 import useCart from "./useCart";
 import { CartProductInterface } from "../models/interfaces/interfaces.ts";
-import { Grid } from "@mui/material";
+import { Box, Divider, Grid, Typography } from "@mui/material";
 
-const ShoppingCart = () => {
-  const user = getUser();
-  const { handleGetCart } = useCart();
-  const [cart, setCart] = useState<CartProductInterface[] | undefined>([]);
+import Button from "@mui/material/Button";
+import ButtonGroup from "@mui/material/ButtonGroup";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
 
-  useEffect(() => {
-    if (user) {
-      handleGetCart(user._id)
-        .then((data) => {
-          setCart(data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-  }, [handleGetCart]);
+type Props = {
+  cart: CartProductInterface[] | undefined;
+  updateCart: (barcode: string, amountToAdd: number) => any;
+};
+
+const ShoppingCart: React.FC<Props> = ({ cart, updateCart }) => {
+  // const [cart, setCart] = useState<CartProductInterface[] | undefined>([]);
+
+  // useEffect(() => {
+  //   if (user) {
+  //     handleGetCart(user._id)
+  //       .then((data) => {
+  //         setCart(data);
+  //       })
+  //       .catch((error) => {
+  //         console.log(error);
+  //       });
+  //   }
+  // }, [handleGetCart]);
 
   return (
-    <>
-      {cart?.map((item: CartProductInterface) => (
-        <Grid item key={item.barcode} xs={12} sm={6} md={6} lg={4}>
-          <li>{item.productName}</li>
-        </Grid>
+    <Box>
+      {cart?.map((item: CartProductInterface, index) => (
+        <div key={item.barcode}>
+          <Grid
+            container
+            // sx={{
+            //   padding: 4,
+            // }}
+          >
+            <Grid
+              item
+              xs={12}
+              sm={6}
+              md={3}
+              lg={3}
+              container
+              alignContent="center"
+              alignItems="center"
+            >
+              <ButtonGroup orientation="vertical" variant="contained">
+                <Button onClick={() => updateCart(item.barcode, -1)}>
+                  <RemoveIcon />
+                </Button>
+                <Button disabled>
+                  <Typography variant="body1">{item.amount}</Typography>
+                </Button>
+                <Button onClick={() => updateCart(item.barcode, 1)}>
+                  <AddIcon />
+                </Button>
+              </ButtonGroup>
+            </Grid>
+            <Grid item xs={12} sm={6} md={3} lg={3}>
+              <div>{item.amount}</div>
+            </Grid>
+            <Grid item xs={12} sm={6} md={3} lg={3}>
+              <div style={{ marginTop: "10%" }}>{item.productName}</div>
+              <div style={{ marginTop: "10%" }}>{item.productName}</div>
+              <div style={{ marginTop: "10%" }}>{item.productName}</div>
+            </Grid>
+            <Grid item xs={12} sm={6} md={3} lg={3}>
+              <div>{item.price.toFixed(2)}</div>
+            </Grid>
+            {/* <div className={`weight ${item.isProductOutOfStock ? 'disabled' : ''}`}>{item.product.weight}</div> */}
+          </Grid>
+          {index < cart.length - 1 && <Divider variant="middle" />}
+        </div>
       ))}
-    </>
+    </Box>
   );
 };
 

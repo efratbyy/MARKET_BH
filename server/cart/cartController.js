@@ -22,6 +22,8 @@ const addToCart = async (req, res) => {
         price: product.price * amount,
         barcode: product.barcode,
         amount: amount,
+        image: product.image,
+        brand: product.brand,
       };
       userFromDB.cart.push(itemToAdd);
     } else {
@@ -33,7 +35,7 @@ const addToCart = async (req, res) => {
       new: true,
     });
     if (!userUpdatedCart) throw new Error("Add to cart failed!");
-    res.status(201).send(userUpdatedCart);
+    res.status(201).send(userUpdatedCart.cart);
   } catch (error) {
     return handleError(res, 404, `Mongoose Error: ${error.message}`);
   }
@@ -76,7 +78,7 @@ const removeFromCart = async (req, res) => {
     // });
 
     if (!userUpdatedCart) throw new Error("Remove from cart failed!");
-    res.status(201).send(userUpdatedCart);
+    res.status(201).send(userUpdatedCart.cart);
   } catch (error) {
     return handleError(res, 404, `Mongoose Error: ${error.message}`);
   }

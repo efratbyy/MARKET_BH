@@ -12,7 +12,6 @@ const Router = () => {
     <Routes>
       <Route path={ROUTES.REGISTER} element={<RegistrationForm />} />
       <Route path={ROUTES.LOGIN} element={<Login />} />
-      <Route path={ROUTES.PRODUCTS} element={<ProductsPage />} />
       <Route path={ROUTES.ROOT} element={<HomePage />} />
 
       <Route path="*" element={<ErrorPage />} />

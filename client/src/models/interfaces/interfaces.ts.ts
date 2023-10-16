@@ -27,4 +27,9 @@ export interface CartProductInterface {
   barcode: string;
   amount: number;
   price: number;
+  image: {
+    url: string;
+    alt: string;
+  };
+  brand: string;
 }

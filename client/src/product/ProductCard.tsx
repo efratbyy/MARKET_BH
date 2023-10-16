@@ -1,5 +1,8 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { ProductInterface } from "../models/interfaces/interfaces.ts.js";
+import {
+  CartProductInterface,
+  ProductInterface,
+} from "../models/interfaces/interfaces.ts.js";
 import {
   Card,
   CardActionArea,
@@ -18,9 +21,14 @@ import ProductDialog from "./ProductDialog";
 type Props = {
   product: ProductInterface;
   amountInCart: number;
+  updateCart: (barcode: string, amountToAdd: number) => CartProductInterface[];
 };
 
-const ProductCard: React.FC<Props> = ({ product, amountInCart }) => {
+const ProductCard: React.FC<Props> = ({
+  product,
+  updateCart,
+  amountInCart,
+}) => {
   const { productName, barcode, brand, category, image, price } = product;
   const user = getUser();
   const snack = useSnack();
@@ -39,7 +47,7 @@ const ProductCard: React.FC<Props> = ({ product, amountInCart }) => {
   const handleAddToCart = useCallback(
     async (userId: string, barcode: string, amount: number) => {
       try {
-        const newCart = await addToCartApi(userId, barcode, 1);
+        const newCart = updateCart(barcode, 1);
 
         if (newCart) {
           setTotalAmount(totalAmount + 1);
@@ -61,7 +69,7 @@ const ProductCard: React.FC<Props> = ({ product, amountInCart }) => {
     async (userId: string, barcode: string, amount: number) => {
       try {
         if (totalAmount > 0) {
-          const newCart = await removeFromCartApi(userId, barcode, 1);
+          const newCart = updateCart(barcode, -1);
           if (newCart) {
             setTotalAmount(Number(totalAmount) - 1);
             snack("success", "!המוצר הוסר מעגלתך בהצלחה");

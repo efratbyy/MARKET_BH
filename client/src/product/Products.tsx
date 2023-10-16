@@ -6,18 +6,17 @@ import {
 import { Grid, Typography } from "@mui/material";
 import ProductCard from "./ProductCard";
 import useProducts from "./useProducts";
-import useCart from "../cart/useCart";
-import { getUser } from "../services/LocalStorageService";
 
-const Products = () => {
+type Props = {
+  cart: CartProductInterface[] | undefined;
+  updateCart: (barcode: string, amountToAdd: number) => any;
+};
+
+const Products: React.FC<Props> = ({ cart, updateCart }) => {
   const { handleGetProducts } = useProducts();
-  const { handleGetCart } = useCart();
-
   const [products, setProducts] = useState<ProductInterface[] | undefined>([]);
-  const [cart, setCart] = useState<CartProductInterface[] | undefined>([]);
 
-  const user = getUser();
-
+  //
   const getAmountInCart = (barcode: String) => {
     const findProductInCart = cart?.find(
       (product) => product.barcode === barcode
@@ -33,16 +32,7 @@ const Products = () => {
       .catch((error) => {
         console.log(error);
       });
-    if (user && user._id) {
-      handleGetCart(user?._id)
-        .then((data) => {
-          setCart(data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-  }, [handleGetProducts, handleGetCart]);
+  }, [handleGetProducts]);
 
   return (
     <Grid container spacing={2} pb={2}>
@@ -52,6 +42,7 @@ const Products = () => {
           <ProductCard
             product={product}
             amountInCart={getAmountInCart(product.barcode)}
+            updateCart={updateCart}
           />
         </Grid>
       ))}
