@@ -16,7 +16,6 @@ const addToCart = async (req, res) => {
     );
     if (!findProduct) {
       const product = await Product.findOne({ barcode });
-      // console.log(product);
       const itemToAdd = {
         productName: product.title,
         price: product.price * amount,
@@ -51,10 +50,6 @@ const removeFromCart = async (req, res) => {
     const userFromDB = await User.findById(userId);
     if (!userFromDB) throw new Error("User not registered");
 
-    // const findProduct = userFromDB.cart.find(
-    //   (product) => product.barcode === barcode
-    // );
-
     // Checks if the product is in the cart
     const findProductIndex = userFromDB.cart.findIndex(
       (product) => product.barcode === barcode
@@ -73,9 +68,6 @@ const removeFromCart = async (req, res) => {
       userFromDB.cart.splice(findProductIndex, 1);
 
     const userUpdatedCart = await userFromDB.save();
-    // const userUpdatedCart = await User.findByIdAndUpdate(userId, userFromDB, {
-    //   new: true,
-    // });
 
     if (!userUpdatedCart) throw new Error("Remove from cart failed!");
     res.status(201).send(userUpdatedCart.cart);

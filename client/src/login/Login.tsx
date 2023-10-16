@@ -12,14 +12,6 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  //   const handleLogin = () => {
-  //     // You can implement your authentication logic here.
-  //     // For simplicity, we'll just check if the username and password are non-empty.
-  //     if (username && password) {
-  //       setIsLoggedIn(true);
-  //     }
-  //   };
-
   const handleLogin = async () => {
     try {
       const user: LoginType = { email: useremail, password: password };
@@ -32,34 +24,6 @@ const Login = () => {
   };
 
   if (getUser()) return <Navigate replace to={ROUTES.ROOT} />;
-
-  //   return (
-  //     <div>
-  //       {isLoggedIn ? (
-  //         <div>
-  //           <p>Welcome, {username}! You are logged in.</p>
-  //           <button onClick={handleLogout}>Logout</button>
-  //         </div>
-  //       ) : (
-  //         <div>
-  //           <h2>Login Page</h2>
-  //           <input
-  //             type="text"
-  //             placeholder="Username"
-  //             value={username}
-  //             onChange={(e) => setUsername(e.target.value)}
-  //           />
-  //           <input
-  //             type="password"
-  //             placeholder="Password"
-  //             value={password}
-  //             onChange={(e) => setPassword(e.target.value)}
-  //           />
-  //           <button onClick={handleLogin}>Login</button>
-  //         </div>
-  //       )}
-  //     </div>
-  //   );
 
   return (
     <>

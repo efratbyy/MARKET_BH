@@ -46,14 +46,7 @@ const HomePage = () => {
         <Grid item xs={12} md={9}>
           <ProductsPage updateCart={updateCart} cart={cart} />
         </Grid>
-        <Grid
-          item
-          xs={0}
-          md={3}
-          // sx={{
-          //   display: { xs: "none", md: "block" },
-          // }}
-        >
+        <Grid item xs={0} md={3}>
           <ShoppingCart updateCart={updateCart} cart={cart} />
         </Grid>
       </Grid>

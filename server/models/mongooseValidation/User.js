@@ -1,41 +1,6 @@
 const mongoose = require("mongoose");
 const CartProduct = require("./Cart");
 
-// const CartProduct = new mongoose.Schema({
-//   productName: {
-//     type: String,
-//     trim: true,
-//     minLength: 2,
-//     maxLength: 256,
-//     lowercase: true,
-//     required: true,
-//   },
-//   price: {
-//     type: Number,
-//     trim: true,
-//     minLength: 2,
-//     maxLength: 256,
-//     lowercase: true,
-//     required: true,
-//   },
-//   amount: {
-//     type: Number,
-//     trim: true,
-//     minLength: 1,
-//     maxLength: 256,
-//     lowercase: true,
-//     required: true,
-//   },
-//   barcode: {
-//     type: String,
-//     trim: true,
-//     minLength: 2,
-//     maxLength: 20,
-//     lowercase: true,
-//     required: true,
-//   },
-// });
-
 const schema = new mongoose.Schema({
   first: {
     type: String,

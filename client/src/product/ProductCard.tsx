@@ -35,11 +35,6 @@ const ProductCard: React.FC<Props> = ({
   const [totalAmount, setTotalAmount] = useState(0);
   const [isDialogOpen, setDialog] = useState(false);
 
-  // const handleDialog = (term?: string) => {
-  //   if (term === "open") return setDialog(true);
-  //   setDialog(false);
-  // };
-
   const openDialog = () => {
     setDialog(true);
   };

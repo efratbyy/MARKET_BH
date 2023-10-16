@@ -15,30 +15,11 @@ type Props = {
 };
 
 const ShoppingCart: React.FC<Props> = ({ cart, updateCart }) => {
-  // const [cart, setCart] = useState<CartProductInterface[] | undefined>([]);
-
-  // useEffect(() => {
-  //   if (user) {
-  //     handleGetCart(user._id)
-  //       .then((data) => {
-  //         setCart(data);
-  //       })
-  //       .catch((error) => {
-  //         console.log(error);
-  //       });
-  //   }
-  // }, [handleGetCart]);
-
   return (
     <Box>
       {cart?.map((item: CartProductInterface, index) => (
         <div key={item.barcode}>
-          <Grid
-            container
-            // sx={{
-            //   padding: 4,
-            // }}
-          >
+          <Grid container>
             <Grid
               item
               xs={12}

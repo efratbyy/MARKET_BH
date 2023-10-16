@@ -16,7 +16,6 @@ const Products: React.FC<Props> = ({ cart, updateCart }) => {
   const { handleGetProducts } = useProducts();
   const [products, setProducts] = useState<ProductInterface[] | undefined>([]);
 
-  //
   const getAmountInCart = (barcode: String) => {
     const findProductInCart = cart?.find(
       (product) => product.barcode === barcode
