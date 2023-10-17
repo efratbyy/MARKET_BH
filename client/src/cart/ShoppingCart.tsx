@@ -1,9 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { getUser } from "../services/LocalStorageService";
-import useCart from "./useCart";
+import React from "react";
 import { CartProductInterface } from "../models/interfaces/interfaces.ts";
 import { Box, Divider, Grid, Typography } from "@mui/material";
-
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import AddIcon from "@mui/icons-material/Add";
@@ -43,12 +40,23 @@ const ShoppingCart: React.FC<Props> = ({ cart, updateCart }) => {
               </ButtonGroup>
             </Grid>
             <Grid item xs={12} sm={6} md={3} lg={3}>
-              <div>{item.amount}</div>
+              <div>
+                <img
+                  src={item.image.url}
+                  alt={item.productName}
+                  style={{
+                    maxWidth: "100%",
+                    width: "100%",
+                    height: "auto",
+                  }}
+                />
+              </div>
             </Grid>
+
             <Grid item xs={12} sm={6} md={3} lg={3}>
+              <div style={{ marginTop: "10%" }}>{item.brand}</div>
               <div style={{ marginTop: "10%" }}>{item.productName}</div>
-              <div style={{ marginTop: "10%" }}>{item.productName}</div>
-              <div style={{ marginTop: "10%" }}>{item.productName}</div>
+              <div style={{ marginTop: "10%" }}>{item.barcode}</div>
             </Grid>
             <Grid item xs={12} sm={6} md={3} lg={3}>
               <div>{item.price.toFixed(2)}</div>

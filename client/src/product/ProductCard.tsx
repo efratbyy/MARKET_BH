@@ -13,7 +13,6 @@ import {
 } from "@mui/material";
 import { getUser } from "../services/LocalStorageService";
 import { useSnack } from "../providers/SnackbarProvider";
-import { addToCartApi, removeFromCartApi } from "../apiService/cartApiService";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import ProductDialog from "./ProductDialog";

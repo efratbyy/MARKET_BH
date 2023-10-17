@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../navbar/Navbar";
 import ProductsPage from "../product/Products";
 import ShoppingCart from "../cart/ShoppingCart";
-
 import "./HomePage.css";
 import { Grid } from "@mui/material";
 import { CartProductInterface } from "../models/interfaces/interfaces.ts";
