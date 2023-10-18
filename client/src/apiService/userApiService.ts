@@ -18,7 +18,6 @@ export const registrationApi = async (user: UserInterface) => {
 export const loginApi = async (user: LoginType) => {
   try {
     const { data } = await axios.post<string>(`${apiUrl}/users/login`, user);
-    console.log(data);
     return Promise.resolve(data);
   } catch (error) {
     if (axios.isAxiosError(error)) return Promise.reject(error.message);

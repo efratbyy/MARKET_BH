@@ -19,8 +19,10 @@ const ShoppingCart: React.FC<Props> = ({
   updateCartNote,
 }) => {
   // Function to handle changes in the input field
-  const handleNoteChange = (event: any, barcode: string): void => {
-    console.log(event.nativeEvent.data);
+  const handleNoteChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    barcode: string
+  ): void => {
     updateCartNote(barcode, event.target.value.toString());
   };
 
@@ -76,7 +78,7 @@ const ShoppingCart: React.FC<Props> = ({
               <div>
                 <img
                   src={item.image.url}
-                  alt={item.productName}
+                  alt={item.title}
                   style={{
                     maxWidth: "100%",
                     width: "85%",
@@ -88,7 +90,7 @@ const ShoppingCart: React.FC<Props> = ({
 
             <Grid item xs={12} sm={6} md={4}>
               <div style={{ marginTop: "10%" }}>{item.brand}</div>
-              <div style={{ marginTop: "10%" }}>{item.productName}</div>
+              <div style={{ marginTop: "10%" }}>{item.title}</div>
               <div style={{ marginTop: "10%" }}>
                 <Input
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
