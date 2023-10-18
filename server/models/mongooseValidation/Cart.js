@@ -43,6 +43,12 @@ const CartProduct = new mongoose.Schema({
     lowercase: true,
     required: true,
   },
+  note: {
+    type: String,
+    trim: true,
+    maxLength: 15,
+    lowercase: true,
+  },
 });
 
 module.exports = CartProduct;
