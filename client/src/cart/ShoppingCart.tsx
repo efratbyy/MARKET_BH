@@ -10,9 +10,20 @@ import DeleteIcon from "@mui/icons-material/Delete";
 type Props = {
   cart: CartProductInterface[] | undefined;
   updateCart: (barcode: string, amountToAdd: number) => any;
+  updateCartNote: (barcode: string, note: string) => any;
 };
 
-const ShoppingCart: React.FC<Props> = ({ cart, updateCart }) => {
+const ShoppingCart: React.FC<Props> = ({
+  cart,
+  updateCart,
+  updateCartNote,
+}) => {
+  // Function to handle changes in the input field
+  const handleNoteChange = (event: any, barcode: string): void => {
+    console.log(event.nativeEvent.data);
+    updateCartNote(barcode, event.target.value.toString());
+  };
+
   return (
     <Box>
       {cart?.map((item: CartProductInterface, index) => (
@@ -80,11 +91,20 @@ const ShoppingCart: React.FC<Props> = ({ cart, updateCart }) => {
               <div style={{ marginTop: "10%" }}>{item.productName}</div>
               <div style={{ marginTop: "10%" }}>
                 <Input
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    handleNoteChange(e, item.barcode)
+                  } // Handle input changes
+                  value={item.note}
                   placeholder="הוסף הערה:"
                   sx={{
                     border: "1px solid rgba(0,0,0,0.3)",
                     borderRadius: "2px",
                   }}
+                  // onKeyDown={(e) => {
+                  //   if (e.key === " ") {
+                  //     e.preventDefault(); // Prevent the default behavior of the space key
+                  //   }
+                  // }}
                 ></Input>
               </div>
             </Grid>

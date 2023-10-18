@@ -43,6 +43,25 @@ export const removeFromCartApi = async (
   }
 };
 
+export const addCartNoteApi = async (
+  userId: string,
+  barcode: string,
+  note: string
+) => {
+  try {
+    const { data } = await axios.patch<CartProductInterface[]>(
+      `${apiUrl}/cart/addNote/${userId}/${barcode}`,
+      { note: note }, // Send note parameter in request Body
+      { headers: { "x-auth-token": token } }
+    );
+    return Promise.resolve(data);
+  } catch (error) {
+    console.log(error);
+    if (axios.isAxiosError(error)) return Promise.reject(error.response?.data);
+    return Promise.reject("An unexpected error occurred!");
+  }
+};
+
 export const getCartApi = async (userId: String) => {
   try {
     const { data } = await axios.get<CartProductInterface[]>(

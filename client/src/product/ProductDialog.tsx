@@ -32,7 +32,7 @@ const ProductDialog: FC<Props> = ({
   handleAddToCart,
 }) => {
   const user = getUser();
-  const { productName, barcode, brand, category, image, price } = product;
+  const { productName, barcode, brand, image, price } = product;
 
   return (
     <Dialog

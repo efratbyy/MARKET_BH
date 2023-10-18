@@ -7,7 +7,11 @@ import { Grid } from "@mui/material";
 import { CartProductInterface } from "../models/interfaces/interfaces.ts";
 import useCart from "../cart/useCart";
 import { getUser } from "../services/LocalStorageService";
-import { addToCartApi, removeFromCartApi } from "../apiService/cartApiService";
+import {
+  addCartNoteApi,
+  addToCartApi,
+  removeFromCartApi,
+} from "../apiService/cartApiService";
 
 const HomePage = () => {
   const [cart, setCart] = useState<CartProductInterface[] | undefined>([]);
@@ -38,6 +42,12 @@ const HomePage = () => {
     }
   };
 
+  const updateCartNote = async (barcode: string, note: string) => {
+    if (user) {
+      const newCart = await addCartNoteApi(user?._id, barcode, note);
+      setCart(newCart);
+    }
+  };
   return (
     <>
       <Navbar />
@@ -46,7 +56,11 @@ const HomePage = () => {
           <ProductsPage updateCart={updateCart} cart={cart} />
         </Grid>
         <Grid item xs={0} md={3}>
-          <ShoppingCart updateCart={updateCart} cart={cart} />
+          <ShoppingCart
+            updateCart={updateCart}
+            cart={cart}
+            updateCartNote={updateCartNote}
+          />
         </Grid>
       </Grid>
     </>

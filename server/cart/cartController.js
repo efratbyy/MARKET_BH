@@ -2,6 +2,32 @@ const Product = require("../models/mongooseValidation/Product");
 const User = require("../models/mongooseValidation/User");
 const { handleError } = require("../utils/handleErrors");
 
+const addNote = async (req, res) => {
+  try {
+    let { note } = req.body;
+    const user = req.user;
+    const { userId, barcode } = req.params;
+
+    if (user._id !== userId) throw new Error("Illegal action");
+
+    const userFromDB = await User.findById(userId);
+    if (!userFromDB) throw new Error("User not registered");
+    const findProduct = userFromDB.cart.find(
+      (product) => product.barcode === barcode
+    );
+
+    findProduct.note = note;
+
+    const userUpdatedCart = await User.findByIdAndUpdate(userId, userFromDB, {
+      new: true,
+    });
+    if (!userUpdatedCart) throw new Error("Add to cart failed!");
+    console.log(userUpdatedCart.cart);
+    res.status(201).send(userUpdatedCart.cart);
+  } catch (error) {
+    return handleError(res, 404, `Mongoose Error: ${error.message}`);
+  }
+};
 const addToCart = async (req, res) => {
   try {
     const user = req.user;
@@ -23,6 +49,7 @@ const addToCart = async (req, res) => {
         amount: amount,
         image: product.image,
         brand: product.brand,
+        note: "",
       };
       userFromDB.cart.push(itemToAdd);
     } else {
@@ -94,3 +121,4 @@ const getCart = async (req, res) => {
 exports.addToCart = addToCart;
 exports.removeFromCart = removeFromCart;
 exports.getCart = getCart;
+exports.addNote = addNote;

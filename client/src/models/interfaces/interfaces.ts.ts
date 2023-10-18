@@ -32,4 +32,5 @@ export interface CartProductInterface {
     alt: string;
   };
   brand: string;
+  note: string;
 }
