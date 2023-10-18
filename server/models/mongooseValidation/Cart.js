@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Image = require("./Image");
 
 const CartProduct = new mongoose.Schema({
-  productName: {
+  title: {
     type: String,
     trim: true,
     minLength: 2,

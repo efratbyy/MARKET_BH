@@ -10,7 +10,7 @@ export interface UserInterface {
 }
 
 export interface ProductInterface {
-  productName: string;
+  title: string;
   brand: string;
   barcode: string;
   category: string;
@@ -23,7 +23,7 @@ export interface ProductInterface {
 }
 
 export interface CartProductInterface {
-  productName: string;
+  title: string;
   barcode: string;
   amount: number;
   price: number;

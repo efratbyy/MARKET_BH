@@ -11,10 +11,10 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
 import { getUser, removeUser } from "../services/LocalStorageService";
 import { useNavigate } from "react-router-dom";
 import ROUTES from "../routes/routesModel";
+import SearchBar from "../searchBar/SearchBar";
 
 function Navbar() {
   const navigate = useNavigate();
@@ -51,7 +51,6 @@ function Navbar() {
       <AppBar position="static">
         <Container maxWidth="xl">
           <Toolbar disableGutters>
-            <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
             <Typography
               variant="h6"
               noWrap
@@ -125,7 +124,6 @@ function Navbar() {
                 ]}
               </Menu>
             </Box>
-            <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
             <Typography
               variant="h5"
               noWrap
@@ -152,7 +150,7 @@ function Navbar() {
                 {}
               </Button>
             </Box>
-
+            <SearchBar />
             {user && (
               <Box sx={{ flexGrow: 0 }}>
                 <Tooltip title="Open settings">
@@ -216,6 +214,29 @@ function Navbar() {
           </Toolbar>
         </Container>
       </AppBar>
+      {/* <Toolbar disableGutters>
+        <AppBar position="static">
+          <Container maxWidth="xl">
+            <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              href="/"
+              sx={{
+                mr: 2,
+                display: { xs: "none", md: "flex" },
+                fontFamily: "monospace",
+                fontWeight: 700,
+                letterSpacing: ".3rem",
+                color: "inherit",
+                textDecoration: "none",
+              }}
+            >
+              <SearchBar />
+            </Typography>
+          </Container>
+        </AppBar>
+      </Toolbar> */}
     </>
   );
 }

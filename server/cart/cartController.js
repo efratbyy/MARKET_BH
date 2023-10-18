@@ -22,7 +22,6 @@ const addNote = async (req, res) => {
       new: true,
     });
     if (!userUpdatedCart) throw new Error("Add to cart failed!");
-    console.log(userUpdatedCart.cart);
     res.status(201).send(userUpdatedCart.cart);
   } catch (error) {
     return handleError(res, 404, `Mongoose Error: ${error.message}`);
@@ -43,7 +42,7 @@ const addToCart = async (req, res) => {
     if (!findProduct) {
       const product = await Product.findOne({ barcode });
       const itemToAdd = {
-        productName: product.title,
+        title: product.title,
         price: product.price * amount,
         barcode: product.barcode,
         amount: amount,

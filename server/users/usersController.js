@@ -58,7 +58,6 @@ const login = async (req, res) => {
       // במידה ולא חסום והכניס מייל וסיסמא נכונים אז יוכנס למערכת
       const { _id, isAdmin } = userInDB;
       const token = jwt.sign({ _id, isAdmin }, JWT_KEY);
-      console.log(userInDB);
       res.send(token);
     } else {
       const twentyFourHoursBefore = new Date(

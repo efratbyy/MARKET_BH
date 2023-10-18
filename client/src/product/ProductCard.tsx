@@ -28,7 +28,7 @@ const ProductCard: React.FC<Props> = ({
   updateCart,
   amountInCart,
 }) => {
-  const { productName, barcode, brand, category, image, price } = product;
+  const { title, barcode, brand, category, image, price } = product;
   const user = getUser();
   const snack = useSnack();
   const [totalAmount, setTotalAmount] = useState(0);
@@ -98,7 +98,7 @@ const ProductCard: React.FC<Props> = ({
       raised
     >
       <CardContent>
-        <CardHeader title={productName} subheader={brand} />
+        <CardHeader title={title} subheader={brand} />
         <Typography
           variant="body2"
           color="textSecondary"

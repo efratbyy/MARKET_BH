@@ -32,7 +32,7 @@ const ProductDialog: FC<Props> = ({
   handleAddToCart,
 }) => {
   const user = getUser();
-  const { productName, barcode, brand, image, price } = product;
+  const { title, barcode, brand, image, price } = product;
 
   return (
     <Dialog
@@ -42,7 +42,7 @@ const ProductDialog: FC<Props> = ({
       aria-describedby="alert-dialog-description"
       maxWidth="xs"
     >
-      <DialogTitle id="alert-dialog-title">{productName}</DialogTitle>
+      <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
           {brand}
