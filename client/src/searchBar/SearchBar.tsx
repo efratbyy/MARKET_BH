@@ -21,7 +21,7 @@ const SearchBar = () => {
       <FormControl variant="standard">
         <OutlinedInput
           sx={{ backgroundColor: "#e3f2fd" }}
-          placeholder="Search"
+          placeholder="חיפוש מרקט בית הכרם"
           size="small"
           onChange={handleChange}
           endAdornment={
