@@ -87,31 +87,28 @@ const ProductCard: React.FC<Props> = ({
   return (
     <Card
       sx={{
-        minWidth: 280,
+        minWidth: "280",
         display: "flax",
         flexDirection: "column",
         minHeight: "100%",
-        borderRadius: "16px",
-        border: "5px solid #ccc",
       }}
       square
-      raised
     >
-      <CardContent>
+      <CardContent sx={{ height: "150px" }}>
         <CardHeader title={title} subheader={brand} />
         <Typography
           variant="body2"
           color="textSecondary"
           sx={{ marginTop: "auto", paddingRight: "10%" }}
         >
-          Category: {category}
+          קטגוריה: {category}
         </Typography>
         <Typography
           variant="body2"
           color="textSecondary"
           sx={{ marginTop: "auto", paddingRight: "10%" }}
         >
-          Barcode: {barcode}
+          ברקוד: {barcode}
         </Typography>
       </CardContent>
 
@@ -119,7 +116,7 @@ const ProductCard: React.FC<Props> = ({
         variant="h6"
         sx={{ marginTop: "auto", paddingRight: "10%", color: "blue" }}
       >
-        Price: ₪{price}
+        מחיר: ₪{price}
       </Typography>
 
       {user && (
@@ -150,6 +147,7 @@ const ProductCard: React.FC<Props> = ({
       )}
 
       <CardActionArea
+        sx={{ padding: "0%" }}
         onClick={() => {
           openDialog();
         }}
@@ -159,10 +157,12 @@ const ProductCard: React.FC<Props> = ({
           image={image.url}
           alt={image.alt}
           sx={{
+            mx: "auto",
+            display: "flex",
             flex: 1,
-            objectFit: "cover",
+            objectFit: "fill",
+            width: "50%",
             marginTop: "auto",
-            width: "100%",
           }}
         />
       </CardActionArea>

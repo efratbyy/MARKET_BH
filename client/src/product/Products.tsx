@@ -52,10 +52,10 @@ const Products: React.FC<Props> = ({ cart, updateCart }) => {
   }, [handleGetProducts, query]);
 
   return (
-    <Grid container spacing={2} pb={2}>
+    <Grid container>
       <Typography title="Products Page" />
       {products?.map((product: ProductInterface) => (
-        <Grid item key={product.barcode} xs={12} sm={6} md={6} lg={4}>
+        <Grid item key={product.barcode} xs={12} sm={6} md={4} lg={3}>
           <ProductCard
             product={product}
             amountInCart={getAmountInCart(product.barcode)}

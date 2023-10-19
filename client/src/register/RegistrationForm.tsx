@@ -5,7 +5,6 @@ import React, {
   useCallback,
   useEffect,
 } from "react";
-import axios from "axios";
 import { TextField, Button, Container, Typography } from "@mui/material";
 import Joi from "joi";
 import ReCAPTCHA from "react-google-recaptcha";
@@ -13,7 +12,7 @@ import registerSchema from "../models/joiValidation/registerJoiValidation";
 import { UserInterface } from "../models/interfaces/interfaces.ts";
 import { makeFirstLetterCapital } from "../utils/algoMethods";
 import { registrationApi } from "../apiService/userApiService";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ROUTES from "../routes/routesModel";
 import Navbar from "../navbar/Navbar";
 import { useSnack } from "../providers/SnackbarProvider";
@@ -104,13 +103,13 @@ const RegistrationForm: React.FC = () => {
       <Navbar />
       <Container maxWidth="sm">
         <Typography variant="h4" align="center" gutterBottom>
-          User Registration
+          רישום משתמש חדש
         </Typography>
         <form onSubmit={handleSubmit}>
           <TextField
             type="text"
             name="first"
-            label={makeFirstLetterCapital("First name")}
+            label={makeFirstLetterCapital("שם פרטי")}
             fullWidth
             margin="normal"
             value={formData.first}
@@ -121,7 +120,7 @@ const RegistrationForm: React.FC = () => {
           <TextField
             type="text"
             name="last"
-            label="Last name"
+            label="שם משפחה"
             fullWidth
             margin="normal"
             value={formData.last}
@@ -132,7 +131,7 @@ const RegistrationForm: React.FC = () => {
           <TextField
             type="phone"
             name="phone"
-            label="Phone"
+            label="טלפון"
             fullWidth
             margin="normal"
             value={formData.phone}
@@ -143,7 +142,7 @@ const RegistrationForm: React.FC = () => {
           <TextField
             type="email"
             name="email"
-            label="Email"
+            label="מייל"
             fullWidth
             margin="normal"
             value={formData.email}
@@ -154,7 +153,7 @@ const RegistrationForm: React.FC = () => {
           <TextField
             type="password"
             name="password"
-            label="Password"
+            label="סיסמא"
             fullWidth
             margin="normal"
             value={formData.password}
@@ -165,7 +164,7 @@ const RegistrationForm: React.FC = () => {
           <TextField
             type="text"
             name="city"
-            label="City"
+            label="עיר"
             fullWidth
             margin="normal"
             value={formData.city}
@@ -176,7 +175,7 @@ const RegistrationForm: React.FC = () => {
           <TextField
             type="street"
             name="street"
-            label="Street"
+            label="רחוב"
             fullWidth
             margin="normal"
             value={formData.street}
@@ -187,7 +186,7 @@ const RegistrationForm: React.FC = () => {
           <TextField
             type="houseNumber"
             name="houseNumber"
-            label="HouseNumber"
+            label="מספר בית"
             fullWidth
             margin="normal"
             value={formData.houseNumber}
@@ -208,7 +207,7 @@ const RegistrationForm: React.FC = () => {
             color="primary"
             disabled={!allFieldsValid}
           >
-            Register
+            הרשם
           </Button>
         </form>
       </Container>

@@ -3,6 +3,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import {
   Box,
   FormControl,
+  Grid,
   IconButton,
   InputAdornment,
   OutlinedInput,
@@ -17,11 +18,26 @@ const SearchBar = () => {
   };
 
   return (
-    <Box display="inline-flex">
-      <FormControl variant="standard">
+    <Grid
+      item
+      display="inline-flex"
+      xs={12}
+      sx={{
+        width: "100%",
+      }}
+    >
+      <FormControl
+        variant="standard"
+        sx={{
+          width: "100%",
+        }}
+      >
         <OutlinedInput
-          sx={{ backgroundColor: "#e3f2fd" }}
-          placeholder="חיפוש מרקט בית הכרם"
+          sx={{
+            backgroundColor: "#e3f2fd",
+            width: "100%",
+          }}
+          placeholder="חיפוש מרקט גבעת בית הכרם"
           size="small"
           onChange={handleChange}
           endAdornment={
@@ -33,7 +49,7 @@ const SearchBar = () => {
           }
         />
       </FormControl>
-    </Box>
+    </Grid>
   );
 };
 export default SearchBar;

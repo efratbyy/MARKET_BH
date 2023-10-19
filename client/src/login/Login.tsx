@@ -38,12 +38,12 @@ const Login = () => {
       >
         <Grid item>
           <Typography variant="h4" component="div">
-            Login
+            התחבר
           </Typography>
         </Grid>
         <Grid item>
           <TextField
-            label="Useremail"
+            label="מייל"
             variant="outlined"
             fullWidth
             value={useremail}
@@ -52,7 +52,7 @@ const Login = () => {
         </Grid>
         <Grid item>
           <TextField
-            label="Password"
+            label="סיסמא"
             variant="outlined"
             type="password"
             fullWidth
@@ -67,7 +67,7 @@ const Login = () => {
             fullWidth
             onClick={handleLogin}
           >
-            Login
+            התחבר
           </Button>
         </Grid>
       </Grid>
