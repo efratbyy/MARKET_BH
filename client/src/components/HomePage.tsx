@@ -12,6 +12,7 @@ import {
   addToCartApi,
   removeFromCartApi,
 } from "../apiService/cartApiService";
+import Footer from "../footer/Footer";
 
 const HomePage = () => {
   const [cart, setCart] = useState<CartProductInterface[] | undefined>([]);
@@ -63,6 +64,7 @@ const HomePage = () => {
           />
         </Grid>
       </Grid>
+      <Footer />
     </>
   );
 };

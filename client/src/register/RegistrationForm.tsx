@@ -5,7 +5,7 @@ import React, {
   useCallback,
   useEffect,
 } from "react";
-import { TextField, Button, Container, Typography } from "@mui/material";
+import { TextField, Button, Container, Typography, Grid } from "@mui/material";
 import Joi from "joi";
 import ReCAPTCHA from "react-google-recaptcha";
 import registerSchema from "../models/joiValidation/registerJoiValidation";
@@ -16,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 import ROUTES from "../routes/routesModel";
 import Navbar from "../navbar/Navbar";
 import { useSnack } from "../providers/SnackbarProvider";
+import Footer from "../footer/Footer";
 
 const RegistrationForm: React.FC = () => {
   const snack = useSnack();
@@ -92,7 +93,7 @@ const RegistrationForm: React.FC = () => {
     try {
       await registrationApi(formData);
       snack("success", "A new user has been created");
-      navigate(ROUTES.ROOT, { replace: true });
+      navigate(`${ROUTES.ROOT}`, { replace: true });
     } catch (error) {
       snack("error", error);
     }
@@ -101,15 +102,32 @@ const RegistrationForm: React.FC = () => {
   return (
     <>
       <Navbar />
+      <Grid
+        sx={{
+          minHeight: "100vh",
+          backgroundImage: "url(/assets/images/register.png)",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          position: "fixed",
+          width: "100%",
+          zIndex: -1,
+        }}
+      ></Grid>
       <Container maxWidth="sm">
-        <Typography variant="h4" align="center" gutterBottom>
-          רישום משתמש חדש
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ color: "darkslategrey" }}
+        >
+          הרשמה
         </Typography>
         <form onSubmit={handleSubmit}>
           <TextField
             type="text"
             name="first"
             label={makeFirstLetterCapital("שם פרטי")}
+            color="success"
             fullWidth
             margin="normal"
             value={formData.first}
@@ -121,6 +139,7 @@ const RegistrationForm: React.FC = () => {
             type="text"
             name="last"
             label="שם משפחה"
+            color="success"
             fullWidth
             margin="normal"
             value={formData.last}
@@ -132,6 +151,7 @@ const RegistrationForm: React.FC = () => {
             type="phone"
             name="phone"
             label="טלפון"
+            color="success"
             fullWidth
             margin="normal"
             value={formData.phone}
@@ -143,6 +163,7 @@ const RegistrationForm: React.FC = () => {
             type="email"
             name="email"
             label="מייל"
+            color="success"
             fullWidth
             margin="normal"
             value={formData.email}
@@ -154,6 +175,7 @@ const RegistrationForm: React.FC = () => {
             type="password"
             name="password"
             label="סיסמא"
+            color="success"
             fullWidth
             margin="normal"
             value={formData.password}
@@ -165,6 +187,7 @@ const RegistrationForm: React.FC = () => {
             type="text"
             name="city"
             label="עיר"
+            color="success"
             fullWidth
             margin="normal"
             value={formData.city}
@@ -176,6 +199,7 @@ const RegistrationForm: React.FC = () => {
             type="street"
             name="street"
             label="רחוב"
+            color="success"
             fullWidth
             margin="normal"
             value={formData.street}
@@ -187,6 +211,7 @@ const RegistrationForm: React.FC = () => {
             type="houseNumber"
             name="houseNumber"
             label="מספר בית"
+            color="success"
             fullWidth
             margin="normal"
             value={formData.houseNumber}
@@ -204,13 +229,14 @@ const RegistrationForm: React.FC = () => {
           <Button
             type="submit"
             variant="contained"
-            color="primary"
+            color="success"
             disabled={!allFieldsValid}
           >
             הרשם
           </Button>
         </form>
       </Container>
+      <Footer />
     </>
   );
 };

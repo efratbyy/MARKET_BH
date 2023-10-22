@@ -16,7 +16,7 @@ const registerSchema = {
       /((?=.*\d{1})(?=.*[A-Z]{1})(?=.*[a-z]{1})(?=.*[!@#$%^&*-]{1}).{7,20})/
     )
     .message(
-      'user "password" must be at least nine characters long and contain an uppercase letter, a lowercase letter, a number, and one of the following characters !@#$%^&*-'
+      'user "password" must be at least seven characters long and contain an uppercase letter, a lowercase letter, a number, and one of the following characters !@#$%^&*-'
     )
     .required(),
   city: Joi.string().min(2).max(256).required(),

@@ -62,7 +62,7 @@ const DesktopNavbar = () => {
             alignItems="center"
           >
             {/* Title */}
-            <Grid item md={3}>
+            <Grid item md={4}>
               <Typography
                 variant="h6"
                 noWrap
@@ -78,7 +78,10 @@ const DesktopNavbar = () => {
                   letterSpacing: ".3rem",
                   color: "red",
                   textDecoration: "none",
-                  fontSize: "200%",
+                  fontSize: {
+                    md: "130%",
+                    lg: "170%",
+                  },
                 }}
               >
                 מרקט גבעת בית הכרם
@@ -126,35 +129,41 @@ const DesktopNavbar = () => {
             )}
 
             {!user && (
-              <Grid item md={1}>
-                <Button
-                  onClick={() => navigate(`${ROUTES.LOGIN}`)}
-                  sx={{
-                    my: 2,
-                    color: "white",
-                    display: {
-                      xs: "none",
-                      md: "block",
-                      fontSize: "150%",
-                      padding: 0,
-                    },
-                  }}
-                >
-                  התחבר
-                </Button>
-                <Button
-                  onClick={() => navigate(`${ROUTES.REGISTER}`)}
-                  sx={{
-                    my: 2,
-                    color: "white",
-                    display: { xs: "none", md: "block" },
-                    fontSize: "150%",
-                    padding: 0,
-                    paddingRight: 3,
-                  }}
-                >
-                  הרשם
-                </Button>
+              <Grid item md={2}>
+                <Grid container justifyContent="center" alignItems="center">
+                  <Grid>
+                    <Button
+                      onClick={() => navigate(`${ROUTES.LOGIN}`)}
+                      sx={{
+                        my: 2,
+                        color: "white",
+                        display: {
+                          xs: "none",
+                          md: "block",
+                          fontSize: "100%",
+                          padding: 0,
+                        },
+                      }}
+                    >
+                      התחבר
+                    </Button>
+                  </Grid>
+                  <Grid>
+                    <Button
+                      onClick={() => navigate(`${ROUTES.REGISTER}`)}
+                      sx={{
+                        my: 2,
+                        color: "white",
+                        display: { xs: "none", md: "block" },
+                        fontSize: "100%",
+                        padding: 0,
+                        paddingRight: 3,
+                      }}
+                    >
+                      הרשם
+                    </Button>
+                  </Grid>
+                </Grid>
               </Grid>
             )}
           </Grid>

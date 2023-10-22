@@ -52,7 +52,20 @@ const Products: React.FC<Props> = ({ cart, updateCart }) => {
   }, [handleGetProducts, query]);
 
   return (
-    <Grid container>
+    <Grid
+      container
+      sx={{
+        "--Grid-borderWidth": "0.5px",
+        borderTop: "var(--Grid-borderWidth) 0px solid",
+        borderLeft: "var(--Grid-borderWidth) solid",
+        borderColor: "rgba(211, 211, 211, 0.05)",
+        "& > div": {
+          borderRight: "var(--Grid-borderWidth) solid",
+          borderBottom: "var(--Grid-borderWidth) solid",
+          borderColor: "rgba(211, 211, 211, 0.05)",
+        },
+      }}
+    >
       <Typography title="Products Page" />
       {products?.map((product: ProductInterface) => (
         <Grid item key={product.barcode} xs={12} sm={6} md={4} lg={3}>

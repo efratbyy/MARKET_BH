@@ -94,30 +94,69 @@ const ProductCard: React.FC<Props> = ({
       }}
       square
     >
+      <CardActionArea
+        sx={{ padding: "0%" }}
+        onClick={() => {
+          openDialog();
+        }}
+      >
+        <CardMedia
+          component="img"
+          image={image.url}
+          alt={image.alt}
+          sx={{
+            mx: "auto",
+            display: "flex",
+            flex: 1,
+            objectFit: "fill",
+            width: "50%",
+            marginTop: 2,
+          }}
+        />
+      </CardActionArea>
       <CardContent sx={{ height: "150px" }}>
-        <CardHeader title={title} subheader={brand} />
         <Typography
           variant="body2"
           color="textSecondary"
-          sx={{ marginTop: "auto", paddingRight: "10%" }}
-        >
-          קטגוריה: {category}
-        </Typography>
-        <Typography
-          variant="body2"
-          color="textSecondary"
-          sx={{ marginTop: "auto", paddingRight: "10%" }}
+          sx={{ marginTop: "auto", paddingRight: "10%", fontWeight: "lighter" }}
         >
           ברקוד: {barcode}
         </Typography>
-      </CardContent>
+        <Typography
+          variant="body2"
+          color="textSecondary"
+          sx={{ marginTop: "auto", paddingRight: "10%" }}
+        >
+          {brand}
+        </Typography>
+        <Typography
+          sx={{
+            marginTop: "auto",
+            paddingRight: "10%",
+            color: "textSecondary",
+            height: "50%",
+          }}
+        >
+          {title}
+        </Typography>
 
-      <Typography
-        variant="h6"
-        sx={{ marginTop: "auto", paddingRight: "10%", color: "blue" }}
-      >
-        מחיר: ₪{price}
-      </Typography>
+        <Typography
+          sx={{
+            marginTop: "auto",
+            paddingRight: "10%",
+            color: "textSecondary",
+          }}
+        >
+          מחיר: ₪{price}
+        </Typography>
+        <Typography
+          variant="body2"
+          color="textSecondary"
+          sx={{ marginTop: "auto", paddingRight: "10%", fontWeight: "lighter" }}
+        >
+          מחיר ל-100 גר׳:
+        </Typography>
+      </CardContent>
 
       {user && (
         <div
@@ -146,26 +185,6 @@ const ProductCard: React.FC<Props> = ({
         </div>
       )}
 
-      <CardActionArea
-        sx={{ padding: "0%" }}
-        onClick={() => {
-          openDialog();
-        }}
-      >
-        <CardMedia
-          component="img"
-          image={image.url}
-          alt={image.alt}
-          sx={{
-            mx: "auto",
-            display: "flex",
-            flex: 1,
-            objectFit: "fill",
-            width: "50%",
-            marginTop: "auto",
-          }}
-        />
-      </CardActionArea>
       <ProductDialog
         isDialogOpen={isDialogOpen}
         product={product}

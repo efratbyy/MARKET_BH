@@ -6,6 +6,7 @@ import { getUser, saveUserToken } from "../services/LocalStorageService";
 import { Button, Grid, TextField, Typography } from "@mui/material";
 import { Navigate, useNavigate } from "react-router-dom";
 import Navbar from "../navbar/Navbar";
+import Footer from "../footer/Footer";
 
 const Login = () => {
   const [useremail, setUseremail] = useState("");
@@ -29,15 +30,36 @@ const Login = () => {
     <>
       <Navbar />
       <Grid
+        sx={{
+          minHeight: "100vh",
+          backgroundImage: "url(/assets/images/login_page_image.png)",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          position: "fixed",
+          width: "100%",
+          zIndex: -1,
+        }}
+      ></Grid>
+      <Grid
         container
         spacing={3}
         direction="column"
         alignItems="center"
         justifyContent="center"
-        style={{ minHeight: "100vh" }}
+        sx={{
+          position: "relative",
+          minHeight: "90vh",
+          marginRight: "150px",
+          width: "30%",
+          height: "30%",
+        }}
       >
         <Grid item>
-          <Typography variant="h4" component="div">
+          <Typography
+            variant="h4"
+            component="div"
+            sx={{ color: "darkslategrey" }}
+          >
             התחבר
           </Typography>
         </Grid>
@@ -45,9 +67,10 @@ const Login = () => {
           <TextField
             label="מייל"
             variant="outlined"
-            fullWidth
+            color="success"
             value={useremail}
             onChange={(e) => setUseremail(e.target.value)}
+            sx={{ width: "300px" }}
           />
         </Grid>
         <Grid item>
@@ -55,22 +78,19 @@ const Login = () => {
             label="סיסמא"
             variant="outlined"
             type="password"
-            fullWidth
+            color="success"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            sx={{ width: "300px" }}
           />
         </Grid>
         <Grid item>
-          <Button
-            variant="contained"
-            color="primary"
-            fullWidth
-            onClick={handleLogin}
-          >
+          <Button variant="contained" color="success" onClick={handleLogin}>
             התחבר
           </Button>
         </Grid>
       </Grid>
+      <Footer />
     </>
   );
 };
