@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Image = require("./Image");
+const productDetails = require("./ProductDetails");
 
 const schema = new mongoose.Schema({
   title: {
@@ -36,13 +37,11 @@ const schema = new mongoose.Schema({
   },
   price: {
     type: Number,
-    // trim: true,
     minLength: 1,
-    // maxLength: 256,
-    // lowercase: true,
     required: true,
   },
   image: Image,
+  details: productDetails,
 });
 
 const Product = mongoose.model("product", schema);

@@ -7,10 +7,13 @@ import {
   Card,
   CardActionArea,
   CardContent,
-  CardHeader,
   CardMedia,
+  Grid,
   Typography,
 } from "@mui/material";
+
+import Divider from "@mui/material/Divider";
+
 import { getUser } from "../services/LocalStorageService";
 import { useSnack } from "../providers/SnackbarProvider";
 import AddIcon from "@mui/icons-material/Add";
@@ -28,7 +31,7 @@ const ProductCard: React.FC<Props> = ({
   updateCart,
   amountInCart,
 }) => {
-  const { title, barcode, brand, category, image, price } = product;
+  const { title, barcode, brand, category, image, price, details } = product;
   const user = getUser();
   const snack = useSnack();
   const [totalAmount, setTotalAmount] = useState(0);
@@ -118,17 +121,12 @@ const ProductCard: React.FC<Props> = ({
         <Typography
           variant="body2"
           color="textSecondary"
-          sx={{ marginTop: "auto", paddingRight: "10%", fontWeight: "lighter" }}
-        >
-          ברקוד: {barcode}
-        </Typography>
-        <Typography
-          variant="body2"
-          color="textSecondary"
           sx={{ marginTop: "auto", paddingRight: "10%" }}
         >
-          {brand}
+          {brand} {details ? "|" : ""} {details?.weightDisplay}{" "}
+          {details?.weightUnitDisplay}
         </Typography>
+
         <Typography
           sx={{
             marginTop: "auto",
@@ -139,7 +137,6 @@ const ProductCard: React.FC<Props> = ({
         >
           {title}
         </Typography>
-
         <Typography
           sx={{
             marginTop: "auto",
@@ -154,7 +151,13 @@ const ProductCard: React.FC<Props> = ({
           color="textSecondary"
           sx={{ marginTop: "auto", paddingRight: "10%", fontWeight: "lighter" }}
         >
-          מחיר ל-100 גר׳:
+          {details && details.weight
+            ? "מחיר ל-100 " +
+              details?.weightUnit +
+              " : " +
+              "₪" +
+              price / (details?.weight / 100)
+            : ""}
         </Typography>
       </CardContent>
 

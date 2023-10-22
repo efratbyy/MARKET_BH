@@ -20,6 +20,12 @@ export interface ProductInterface {
     url: string;
     alt: string;
   };
+  details: {
+    weightDisplay: number;
+    weightUnitDisplay: string;
+    weight: number;
+    weightUnit: string;
+  };
 }
 
 export interface CartProductInterface {
