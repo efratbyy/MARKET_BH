@@ -5,7 +5,15 @@ import React, {
   useCallback,
   useEffect,
 } from "react";
-import { TextField, Button, Container, Typography, Grid } from "@mui/material";
+import {
+  TextField,
+  Button,
+  Container,
+  Typography,
+  Grid,
+  InputAdornment,
+  IconButton,
+} from "@mui/material";
 import Joi from "joi";
 import ReCAPTCHA from "react-google-recaptcha";
 import registerSchema from "../models/joiValidation/registerJoiValidation";
@@ -16,6 +24,8 @@ import ROUTES from "../routes/routesModel";
 import Navbar from "../navbar/Navbar";
 import { useSnack } from "../providers/SnackbarProvider";
 import Footer from "../footer/Footer";
+import { saveUserToken } from "../services/LocalStorageService";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 const RegistrationForm: React.FC = () => {
   const snack = useSnack();
@@ -33,6 +43,11 @@ const RegistrationForm: React.FC = () => {
   const navigate = useNavigate();
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null); // Store recaptcha value
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleTogglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   const allFieldsValid =
     Object.keys(errors).length === 0 &&
@@ -89,7 +104,8 @@ const RegistrationForm: React.FC = () => {
     setErrors({});
 
     try {
-      await registrationApi(formData);
+      const token = await registrationApi(formData);
+      saveUserToken(token);
       snack("success", "משתמש חדש נוצר בהצלחה");
       navigate(`${ROUTES.ROOT}`, { replace: true });
     } catch (error) {
@@ -219,7 +235,7 @@ const RegistrationForm: React.FC = () => {
               }}
             />
             <TextField
-              type="password"
+              type={showPassword ? "text" : "password"}
               name="password"
               label="סיסמא"
               color="success"
@@ -235,6 +251,19 @@ const RegistrationForm: React.FC = () => {
                     borderColor: "rgba(0, 0, 0, 1)", // Change border color to fully opaque
                   },
                 },
+              }}
+              InputProps={{
+                dir: "ltr",
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={handleTogglePasswordVisibility}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
               }}
             />
             <TextField

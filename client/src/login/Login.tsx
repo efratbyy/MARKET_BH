@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { LoginType } from "../types/userTypes";
 import { loginApi } from "../apiService/userApiService";
 import ROUTES from "../routes/routesModel";
@@ -9,7 +9,6 @@ import Navbar from "../navbar/Navbar";
 import Footer from "../footer/Footer";
 import { useSnack } from "../providers/SnackbarProvider";
 import loginSchema from "../models/joiValidation/loginSchema";
-import { UserInterface } from "../models/interfaces/interfaces.ts";
 import Joi from "joi";
 
 const Login = () => {
@@ -21,6 +20,7 @@ const Login = () => {
 
   const handleLogin = async () => {
     try {
+      validateForm(useremail, password);
       const user: LoginType = { email: useremail, password: password };
       const token = await loginApi(user);
       saveUserToken(token);
@@ -31,10 +31,13 @@ const Login = () => {
     }
   };
 
-  const validateForm = (formData: UserInterface) => {
-    const validationResult = Joi.object(loginSchema).validate(formData, {
-      abortEarly: false, // indicates that all validation errors should be collected rather than stopping at the first error
-    });
+  const validateForm = (useremail: string, password: string) => {
+    const validationResult = Joi.object(loginSchema).validate(
+      { email: useremail, password: password },
+      {
+        abortEarly: false, // indicates that all validation errors should be collected rather than stopping at the first error
+      }
+    );
 
     const newErrors: { [key: string]: string } = {}; // Define the type for newErrors
     if (validationResult.error) {
@@ -44,6 +47,10 @@ const Login = () => {
     }
     setErrors(newErrors);
   };
+
+  useEffect(() => {
+    validateForm(useremail, password);
+  }, [useremail, password]);
 
   if (getUser()) return <Navigate replace to={ROUTES.ROOT} />;
 
@@ -91,6 +98,8 @@ const Login = () => {
             color="success"
             value={useremail}
             onChange={(e) => setUseremail(e.target.value)}
+            error={Boolean(errors.email)}
+            helperText={errors.email}
             sx={{
               width: "300px",
               "& .MuiOutlinedInput-root": {
@@ -109,6 +118,8 @@ const Login = () => {
             color="success"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            error={Boolean(errors.password)}
+            helperText={errors.password}
             sx={{
               width: "300px",
               "& .MuiOutlinedInput-root": {

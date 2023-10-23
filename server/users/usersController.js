@@ -22,7 +22,9 @@ const register = async (req, res) => {
     newUser.password = bcrypt.hashSync(newUser.password, 10);
 
     const userFromDB = await newUser.save();
-    res.status(201).send(userFromDB);
+    const { _id, isAdmin } = userFromDB;
+    const token = jwt.sign({ _id, isAdmin }, JWT_KEY);
+    res.status(201).send(token);
   } catch (error) {
     return handleError(res, 404, `Mongoose Error: ${error.message}`);
   }
@@ -70,7 +72,7 @@ const login = async (req, res) => {
         userInDB.loginFailedCounter = 0;
         await User.findByIdAndUpdate(userInDB.id, userInDB);
         const { _id, isAdmin } = userInDB;
-        const token = generateAuthToken({ _id, isAdmin });
+        const token = jwt.sign({ _id, isAdmin }, JWT_KEY);
         res.send(token);
       } else {
         throw new Error("Authentication Error: User is still Blocked!");
