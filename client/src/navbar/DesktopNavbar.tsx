@@ -49,7 +49,7 @@ const DesktopNavbar = () => {
   return (
     <>
       <AppBar
-        position="static"
+        position="sticky"
         sx={{ backgroundColor: "black", display: { xs: "none", md: "flex" } }}
       >
         {/* <Container maxWidth="xl"> */}

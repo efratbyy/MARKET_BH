@@ -10,7 +10,6 @@ import Joi from "joi";
 import ReCAPTCHA from "react-google-recaptcha";
 import registerSchema from "../models/joiValidation/registerJoiValidation";
 import { UserInterface } from "../models/interfaces/interfaces.ts";
-import { makeFirstLetterCapital } from "../utils/algoMethods";
 import { registrationApi } from "../apiService/userApiService";
 import { useNavigate } from "react-router-dom";
 import ROUTES from "../routes/routesModel";
@@ -145,7 +144,7 @@ const RegistrationForm: React.FC = () => {
             <TextField
               type="text"
               name="first"
-              label={makeFirstLetterCapital("שם פרטי")}
+              label="שם פרטי"
               color="success"
               fullWidth
               margin="normal"
@@ -153,6 +152,14 @@ const RegistrationForm: React.FC = () => {
               onChange={handleChange}
               error={Boolean(errors.first)}
               helperText={errors.first}
+              variant="outlined"
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  "& fieldset": {
+                    borderColor: "rgba(0, 0, 0, 1)", // Change border color to fully opaque
+                  },
+                },
+              }}
             />
             <TextField
               type="text"
@@ -165,6 +172,13 @@ const RegistrationForm: React.FC = () => {
               onChange={handleChange}
               error={Boolean(errors.last)}
               helperText={errors.last}
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  "& fieldset": {
+                    borderColor: "rgba(0, 0, 0, 1)", // Change border color to fully opaque
+                  },
+                },
+              }}
             />
             <TextField
               type="phone"
@@ -177,6 +191,13 @@ const RegistrationForm: React.FC = () => {
               onChange={handleChange}
               error={Boolean(errors.phone)}
               helperText={errors.phone}
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  "& fieldset": {
+                    borderColor: "rgba(0, 0, 0, 1)", // Change border color to fully opaque
+                  },
+                },
+              }}
             />
             <TextField
               type="email"
@@ -189,6 +210,13 @@ const RegistrationForm: React.FC = () => {
               onChange={handleChange}
               error={Boolean(errors.email)}
               helperText={errors.email}
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  "& fieldset": {
+                    borderColor: "rgba(0, 0, 0, 1)", // Change border color to fully opaque
+                  },
+                },
+              }}
             />
             <TextField
               type="password"
@@ -201,6 +229,13 @@ const RegistrationForm: React.FC = () => {
               onChange={handleChange}
               error={Boolean(errors.password)}
               helperText={errors.password}
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  "& fieldset": {
+                    borderColor: "rgba(0, 0, 0, 1)", // Change border color to fully opaque
+                  },
+                },
+              }}
             />
             <TextField
               type="text"
@@ -213,6 +248,13 @@ const RegistrationForm: React.FC = () => {
               onChange={handleChange}
               error={Boolean(errors.city)}
               helperText={errors.city}
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  "& fieldset": {
+                    borderColor: "rgba(0, 0, 0, 1)", // Change border color to fully opaque
+                  },
+                },
+              }}
             />
             <TextField
               type="street"
@@ -225,6 +267,13 @@ const RegistrationForm: React.FC = () => {
               onChange={handleChange}
               error={Boolean(errors.street)}
               helperText={errors.street}
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  "& fieldset": {
+                    borderColor: "rgba(0, 0, 0, 1)", // Change border color to fully opaque
+                  },
+                },
+              }}
             />
             <TextField
               type="houseNumber"
@@ -237,6 +286,13 @@ const RegistrationForm: React.FC = () => {
               onChange={handleChange}
               error={Boolean(errors.houseNumber)}
               helperText={errors.houseNumber}
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  "& fieldset": {
+                    borderColor: "rgba(0, 0, 0, 1)", // Change border color to fully opaque
+                  },
+                },
+              }}
             />
 
             {/* Add the reCAPTCHA component */}

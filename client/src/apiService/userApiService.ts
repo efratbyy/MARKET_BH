@@ -20,7 +20,11 @@ export const loginApi = async (user: LoginType) => {
     const { data } = await axios.post<string>(`${apiUrl}/users/login`, user);
     return Promise.resolve(data);
   } catch (error) {
-    if (axios.isAxiosError(error)) return Promise.reject(error.message);
+    if (axios.isAxiosError(error)) {
+      if (error.response?.status === 403)
+        return Promise.reject("שם משתמש ו/או סיסמא לא נכונים!");
+      return Promise.reject(error.response?.data);
+    }
     return Promise.reject("An unexpected error occurred!");
   }
 };
