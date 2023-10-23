@@ -103,138 +103,161 @@ const RegistrationForm: React.FC = () => {
       <Navbar />
       <Grid
         sx={{
-          minHeight: "100vh",
-          backgroundImage: "url(/assets/images/register.png)",
-          backgroundSize: "cover",
+          position: "relative",
+          backgroundColor: "#fff", // Set your desired background color
+          zIndex: 1,
+          padding: 16,
+          overflowY: "scroll",
+          height: "100vh",
+          backgroundAttachment: "fixed",
+          backgroundImage: "url(/assets/images/register.png)", // Set your background image
           backgroundPosition: "center",
-          position: "fixed",
-          width: "100%",
-          zIndex: -1,
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
         }}
-      ></Grid>
-      <Container maxWidth="sm">
-        <Typography
-          variant="h4"
-          align="center"
-          gutterBottom
-          sx={{ color: "darkslategrey" }}
-        >
-          הרשמה
-        </Typography>
-        <form onSubmit={handleSubmit}>
-          <TextField
-            type="text"
-            name="first"
-            label={makeFirstLetterCapital("שם פרטי")}
-            color="success"
-            fullWidth
-            margin="normal"
-            value={formData.first}
-            onChange={handleChange}
-            error={Boolean(errors.first)}
-            helperText={errors.first}
-          />
-          <TextField
-            type="text"
-            name="last"
-            label="שם משפחה"
-            color="success"
-            fullWidth
-            margin="normal"
-            value={formData.last}
-            onChange={handleChange}
-            error={Boolean(errors.last)}
-            helperText={errors.last}
-          />
-          <TextField
-            type="phone"
-            name="phone"
-            label="טלפון"
-            color="success"
-            fullWidth
-            margin="normal"
-            value={formData.phone}
-            onChange={handleChange}
-            error={Boolean(errors.phone)}
-            helperText={errors.phone}
-          />
-          <TextField
-            type="email"
-            name="email"
-            label="מייל"
-            color="success"
-            fullWidth
-            margin="normal"
-            value={formData.email}
-            onChange={handleChange}
-            error={Boolean(errors.email)}
-            helperText={errors.email}
-          />
-          <TextField
-            type="password"
-            name="password"
-            label="סיסמא"
-            color="success"
-            fullWidth
-            margin="normal"
-            value={formData.password}
-            onChange={handleChange}
-            error={Boolean(errors.password)}
-            helperText={errors.password}
-          />
-          <TextField
-            type="text"
-            name="city"
-            label="עיר"
-            color="success"
-            fullWidth
-            margin="normal"
-            value={formData.city}
-            onChange={handleChange}
-            error={Boolean(errors.city)}
-            helperText={errors.city}
-          />
-          <TextField
-            type="street"
-            name="street"
-            label="רחוב"
-            color="success"
-            fullWidth
-            margin="normal"
-            value={formData.street}
-            onChange={handleChange}
-            error={Boolean(errors.street)}
-            helperText={errors.street}
-          />
-          <TextField
-            type="houseNumber"
-            name="houseNumber"
-            label="מספר בית"
-            color="success"
-            fullWidth
-            margin="normal"
-            value={formData.houseNumber !== 0 ? formData.houseNumber : ""}
-            onChange={handleChange}
-            error={Boolean(errors.houseNumber)}
-            helperText={errors.houseNumber}
-          />
-
-          {/* Add the reCAPTCHA component */}
-          <ReCAPTCHA
-            sitekey="6LfT2HgnAAAAADAVSv1TUHbhkZvOz94uM-30XM-L"
-            onChange={(value: any) => setRecaptchaValue(value)}
-          />
-
-          <Button
-            type="submit"
-            variant="contained"
-            color="success"
-            disabled={!allFieldsValid}
+      >
+        <Grid
+          sx={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            zIndex: -1,
+            backgroundAttachment: "fixed",
+            backgroundImage: "url(/assets/images/register.png)", // Set your background image
+            backgroundPosition: "center",
+            backgroundSize: "cover",
+            backgroundRepeat: "no-repeat",
+            opacity: 0.3, // Adjust the opacity as needed
+          }}
+        ></Grid>
+        <Container maxWidth="sm">
+          <Typography
+            variant="h4"
+            align="center"
+            gutterBottom
+            sx={{ color: "darkslategrey" }}
           >
-            הרשם
-          </Button>
-        </form>
-      </Container>
+            הרשמה
+          </Typography>
+          <form onSubmit={handleSubmit}>
+            <TextField
+              type="text"
+              name="first"
+              label={makeFirstLetterCapital("שם פרטי")}
+              color="success"
+              fullWidth
+              margin="normal"
+              value={formData.first}
+              onChange={handleChange}
+              error={Boolean(errors.first)}
+              helperText={errors.first}
+            />
+            <TextField
+              type="text"
+              name="last"
+              label="שם משפחה"
+              color="success"
+              fullWidth
+              margin="normal"
+              value={formData.last}
+              onChange={handleChange}
+              error={Boolean(errors.last)}
+              helperText={errors.last}
+            />
+            <TextField
+              type="phone"
+              name="phone"
+              label="טלפון"
+              color="success"
+              fullWidth
+              margin="normal"
+              value={formData.phone}
+              onChange={handleChange}
+              error={Boolean(errors.phone)}
+              helperText={errors.phone}
+            />
+            <TextField
+              type="email"
+              name="email"
+              label="מייל"
+              color="success"
+              fullWidth
+              margin="normal"
+              value={formData.email}
+              onChange={handleChange}
+              error={Boolean(errors.email)}
+              helperText={errors.email}
+            />
+            <TextField
+              type="password"
+              name="password"
+              label="סיסמא"
+              color="success"
+              fullWidth
+              margin="normal"
+              value={formData.password}
+              onChange={handleChange}
+              error={Boolean(errors.password)}
+              helperText={errors.password}
+            />
+            <TextField
+              type="text"
+              name="city"
+              label="עיר"
+              color="success"
+              fullWidth
+              margin="normal"
+              value={formData.city}
+              onChange={handleChange}
+              error={Boolean(errors.city)}
+              helperText={errors.city}
+            />
+            <TextField
+              type="street"
+              name="street"
+              label="רחוב"
+              color="success"
+              fullWidth
+              margin="normal"
+              value={formData.street}
+              onChange={handleChange}
+              error={Boolean(errors.street)}
+              helperText={errors.street}
+            />
+            <TextField
+              type="houseNumber"
+              name="houseNumber"
+              label="מספר בית"
+              color="success"
+              fullWidth
+              margin="normal"
+              value={formData.houseNumber !== 0 ? formData.houseNumber : ""}
+              onChange={handleChange}
+              error={Boolean(errors.houseNumber)}
+              helperText={errors.houseNumber}
+            />
+
+            {/* Add the reCAPTCHA component */}
+            <ReCAPTCHA
+              sitekey="6LfT2HgnAAAAADAVSv1TUHbhkZvOz94uM-30XM-L"
+              onChange={(value: any) => setRecaptchaValue(value)}
+              style={{ margin: "10px" }}
+            />
+
+            <Button
+              type="submit"
+              variant="contained"
+              color="success"
+              disabled={!allFieldsValid}
+              sx={{ margin: "10px" }}
+            >
+              הרשם
+            </Button>
+          </form>
+        </Container>
+      </Grid>
       <Footer />
     </>
   );
