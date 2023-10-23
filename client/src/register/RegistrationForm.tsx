@@ -58,14 +58,13 @@ const RegistrationForm: React.FC = () => {
       abortEarly: false, // indicates that all validation errors should be collected rather than stopping at the first error
     });
 
+    const newErrors: { [key: string]: string } = {}; // Define the type for newErrors
     if (validationResult.error) {
-      const newErrors: { [key: string]: string } = {}; // Define the type for newErrors
       validationResult.error.details.forEach((error: any) => {
         if (error.context.value) newErrors[error.path[0]] = error.message;
       });
-      setErrors(newErrors);
-      return;
     }
+    setErrors(newErrors);
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -92,7 +91,7 @@ const RegistrationForm: React.FC = () => {
 
     try {
       await registrationApi(formData);
-      snack("success", "A new user has been created");
+      snack("success", "משתמש חדש נוצר בהצלחה");
       navigate(`${ROUTES.ROOT}`, { replace: true });
     } catch (error) {
       snack("error", error);
@@ -214,7 +213,7 @@ const RegistrationForm: React.FC = () => {
             color="success"
             fullWidth
             margin="normal"
-            value={formData.houseNumber}
+            value={formData.houseNumber !== 0 ? formData.houseNumber : ""}
             onChange={handleChange}
             error={Boolean(errors.houseNumber)}
             helperText={errors.houseNumber}
