@@ -10,6 +10,7 @@ import Footer from "../footer/Footer";
 import { useSnack } from "../providers/SnackbarProvider";
 import loginSchema from "../models/joiValidation/loginSchema";
 import Joi from "joi";
+import { useUser } from "../providers/UserProvider";
 
 const Login = () => {
   const [useremail, setUseremail] = useState("");
@@ -17,17 +18,19 @@ const Login = () => {
   const navigate = useNavigate();
   const snack = useSnack();
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
-
+  const { user, setToken, setUser } = useUser();
   const handleLogin = async () => {
     try {
       validateForm(useremail, password);
       const user: LoginType = { email: useremail, password: password };
       const token = await loginApi(user);
-      saveUserToken(token);
+      saveUserToken(token); // Save token to local storage
+      setToken(token); // update state of the token (UserProvider)
+      const decryptedUser = getUser();
+      setUser(decryptedUser); // update state of the user (UserProvider)
       navigate(`${ROUTES.ROOT}`);
     } catch (error) {
       snack("error", error);
-      console.log(error);
     }
   };
 
@@ -52,7 +55,7 @@ const Login = () => {
     validateForm(useremail, password);
   }, [useremail, password]);
 
-  if (getUser()) return <Navigate replace to={ROUTES.ROOT} />;
+  if (user) return <Navigate replace to={ROUTES.ROOT} />;
 
   return (
     <>

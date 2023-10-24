@@ -11,7 +11,7 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import { getUser, removeUser } from "../services/LocalStorageService";
+import { removeUser } from "../services/LocalStorageService";
 import { useNavigate } from "react-router-dom";
 import ROUTES from "../routes/routesModel";
 import SearchBar from "../searchBar/SearchBar";
@@ -19,6 +19,7 @@ import { Grid } from "@mui/material";
 import SideNavBar from "./SideNavBar";
 import DesktopNavbar from "./DesktopNavbar";
 import MobileNavbar from "./MobileNavbar";
+import { useUser } from "../providers/UserProvider";
 
 function Navbar() {
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ function Navbar() {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
-  const user = getUser();
+  const { user } = useUser();
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };

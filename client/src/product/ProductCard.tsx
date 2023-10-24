@@ -14,11 +14,11 @@ import {
 
 import Divider from "@mui/material/Divider";
 
-import { getUser } from "../services/LocalStorageService";
 import { useSnack } from "../providers/SnackbarProvider";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import ProductDialog from "./ProductDialog";
+import { useUser } from "../providers/UserProvider";
 
 type Props = {
   product: ProductInterface;
@@ -32,7 +32,7 @@ const ProductCard: React.FC<Props> = ({
   amountInCart,
 }) => {
   const { title, barcode, brand, category, image, price, details } = product;
-  const user = getUser();
+  const { user } = useUser();
   const snack = useSnack();
   const [totalAmount, setTotalAmount] = useState(0);
   const [isDialogOpen, setDialog] = useState(false);

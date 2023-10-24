@@ -9,7 +9,6 @@ export const registrationApi = async (user: UserInterface) => {
     const { data } = await axios.post(`${apiUrl}/users/register`, user);
     return Promise.resolve(data);
   } catch (error) {
-    console.log(error);
     if (axios.isAxiosError(error)) return Promise.reject(error.response?.data);
     return Promise.reject("An unexpected error occurred!");
   }

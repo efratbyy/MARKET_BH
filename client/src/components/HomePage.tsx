@@ -6,20 +6,22 @@ import "./HomePage.css";
 import { Grid } from "@mui/material";
 import { CartProductInterface } from "../models/interfaces/interfaces.ts";
 import useCart from "../cart/useCart";
-import { getUser } from "../services/LocalStorageService";
 import {
   addCartNoteApi,
   addToCartApi,
   removeFromCartApi,
 } from "../apiService/cartApiService";
 import Footer from "../footer/Footer";
+import { useUser } from "../providers/UserProvider";
+import { getUser } from "../services/LocalStorageService";
 
 const HomePage = () => {
   const [cart, setCart] = useState<CartProductInterface[] | undefined>([]);
   const { handleGetCart } = useCart();
-  const user = getUser();
+  const { user } = useUser();
 
   useEffect(() => {
+    const user = getUser();
     if (user && user._id) {
       handleGetCart(user?._id)
         .then((data) => {
@@ -29,7 +31,7 @@ const HomePage = () => {
           console.log(error);
         });
     }
-  }, [handleGetCart]);
+  }, [user, handleGetCart]);
 
   const updateCart = async (barcode: string, amount: number) => {
     if (user) {
@@ -57,11 +59,13 @@ const HomePage = () => {
           <ProductsPage updateCart={updateCart} cart={cart} />
         </Grid>
         <Grid item sx={{ display: { xs: "none", md: "inline-flex" } }} md={3}>
-          <ShoppingCart
-            updateCart={updateCart}
-            cart={cart}
-            updateCartNote={updateCartNote}
-          />
+          {user && (
+            <ShoppingCart
+              updateCart={updateCart}
+              cart={cart}
+              updateCartNote={updateCartNote}
+            />
+          )}
         </Grid>
       </Grid>
       <Footer />

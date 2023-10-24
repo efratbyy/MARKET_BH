@@ -7,8 +7,8 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { ProductInterface } from "../models/interfaces/interfaces.ts";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
-import { getUser } from "../services/LocalStorageService";
 import { CardMedia, Typography } from "@mui/material";
+import { useUser } from "../providers/UserProvider";
 
 type Props = {
   isDialogOpen: boolean;
@@ -31,7 +31,7 @@ const ProductDialog: FC<Props> = ({
   totalAmount,
   handleAddToCart,
 }) => {
-  const user = getUser();
+  const { user } = useUser();
   const { title, barcode, brand, image, price } = product;
 
   return (

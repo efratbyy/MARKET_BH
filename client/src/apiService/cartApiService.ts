@@ -3,14 +3,13 @@ import { CartProductInterface } from "../models/interfaces/interfaces.ts";
 
 const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8188";
 
-const token = localStorage.getItem("token_key");
-
 export const addToCartApi = async (
   userId: string,
   barcode: string,
   amount: number
 ) => {
   try {
+    const token = localStorage.getItem("token_key");
     const { data } = await axios.patch<CartProductInterface[]>(
       `${apiUrl}/cart/addToCart/${userId}/${barcode}/${amount}`,
       null,
@@ -18,7 +17,6 @@ export const addToCartApi = async (
     );
     return Promise.resolve(data);
   } catch (error) {
-    console.log(error);
     if (axios.isAxiosError(error)) return Promise.reject(error.response?.data);
     return Promise.reject("An unexpected error occurred!");
   }
@@ -30,6 +28,7 @@ export const removeFromCartApi = async (
   amount: number
 ) => {
   try {
+    const token = localStorage.getItem("token_key");
     const { data } = await axios.patch<CartProductInterface[]>(
       `${apiUrl}/cart/removeFromCart/${userId}/${barcode}/${amount}`,
       null,
@@ -37,7 +36,6 @@ export const removeFromCartApi = async (
     );
     return Promise.resolve(data);
   } catch (error) {
-    console.log(error);
     if (axios.isAxiosError(error)) return Promise.reject(error.response?.data);
     return Promise.reject("An unexpected error occurred!");
   }
@@ -49,6 +47,7 @@ export const addCartNoteApi = async (
   note: string
 ) => {
   try {
+    const token = localStorage.getItem("token_key");
     const { data } = await axios.patch<CartProductInterface[]>(
       `${apiUrl}/cart/addNote/${userId}/${barcode}`,
       { note: note }, // Send note parameter in request Body
@@ -56,7 +55,6 @@ export const addCartNoteApi = async (
     );
     return Promise.resolve(data);
   } catch (error) {
-    console.log(error);
     if (axios.isAxiosError(error)) return Promise.reject(error.response?.data);
     return Promise.reject("An unexpected error occurred!");
   }
@@ -64,6 +62,7 @@ export const addCartNoteApi = async (
 
 export const getCartApi = async (userId: String) => {
   try {
+    const token = localStorage.getItem("token_key");
     const { data } = await axios.get<CartProductInterface[]>(
       `${apiUrl}/cart/${userId}`,
       {
