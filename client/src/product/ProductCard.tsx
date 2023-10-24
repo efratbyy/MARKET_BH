@@ -123,8 +123,10 @@ const ProductCard: React.FC<Props> = ({
           color="textSecondary"
           sx={{ marginTop: "auto", paddingRight: "10%" }}
         >
-          {brand} {details ? "|" : ""} {details?.weightDisplay}{" "}
-          {details?.weightUnitDisplay}
+          {brand}
+          {details && details.weightDisplay !== 0
+            ? " | " + details.weightDisplay + " " + details.weightUnitDisplay
+            : ""}
         </Typography>
 
         <Typography
@@ -144,7 +146,7 @@ const ProductCard: React.FC<Props> = ({
             color: "textSecondary",
           }}
         >
-          מחיר: ₪{price}
+          ₪{price}
         </Typography>
         <Typography
           variant="body2"
@@ -152,11 +154,10 @@ const ProductCard: React.FC<Props> = ({
           sx={{ marginTop: "auto", paddingRight: "10%", fontWeight: "lighter" }}
         >
           {details && details.weight
-            ? "מחיר ל-100 " +
-              details?.weightUnit +
-              " : " +
-              "₪" +
-              price / (details?.weight / 100)
+            ? "₪" +
+              price / (details?.weight / details.divideBy) +
+              " ל " +
+              details?.weightUnit
             : ""}
         </Typography>
       </CardContent>

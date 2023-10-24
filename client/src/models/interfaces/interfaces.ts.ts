@@ -25,6 +25,7 @@ export interface ProductInterface {
     weightUnitDisplay: string;
     weight: number;
     weightUnit: string;
+    divideBy: number;
   };
 }
 

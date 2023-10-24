@@ -14,6 +14,9 @@ const productDetails = new mongoose.Schema({
   weightUnit: {
     type: String, // ל-100 מ״ל
   },
+  divideBy: {
+    type: Number, // 100
+  },
 });
 
 module.exports = productDetails;
