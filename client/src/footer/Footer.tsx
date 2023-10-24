@@ -8,41 +8,49 @@ import { useNavigate } from "react-router-dom";
 import ROUTES from "../routes/routesModel";
 import PhoneInTalkIcon from "@mui/icons-material/PhoneInTalk";
 import AccessibilityNewIcon from "@mui/icons-material/AccessibilityNew";
+import { Grid } from "@mui/material";
 
 const Footer = () => {
   const navigate = useNavigate();
 
   return (
-    <Paper
-      sx={{ position: "static", bottom: 0, left: 0, right: 0 }}
-      elevation={3}
-    >
-      <BottomNavigation showLabels>
-        <BottomNavigationAction
-          onClick={() => navigate(ROUTES.ROOT)}
-          label="אודות"
-          icon={<InfoIcon />}
-        />
+    <>
+      <Grid
+        className="container"
+        sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
+      >
+        <Paper
+          elevation={3}
+          sx={{ flex: 1, position: "fixed", bottom: 0, left: 0, right: 0 }}
+        >
+          <BottomNavigation showLabels>
+            <BottomNavigationAction
+              onClick={() => navigate(ROUTES.ROOT)}
+              label="אודות"
+              icon={<InfoIcon />}
+            />
 
-        <BottomNavigationAction
-          onClick={() => navigate(ROUTES.ROOT)}
-          label="הצהרת נגישות"
-          icon={<AccessibilityNewIcon />}
-        />
+            <BottomNavigationAction
+              onClick={() => navigate(ROUTES.ROOT)}
+              label="הצהרת נגישות"
+              icon={<AccessibilityNewIcon />}
+            />
 
-        <BottomNavigationAction
-          onClick={() => navigate(ROUTES.ROOT)}
-          label="צור קשר"
-          icon={<PhoneInTalkIcon />}
-        />
+            <BottomNavigationAction
+              onClick={() => navigate(ROUTES.ROOT)}
+              label="צור קשר"
+              icon={<PhoneInTalkIcon />}
+            />
 
-        <BottomNavigationAction
-          onClick={() => navigate(ROUTES.ROOT)}
-          label="הצהרת נגישות"
-          icon={<AccessibilityNewIcon />}
-        />
-      </BottomNavigation>
-    </Paper>
+            <BottomNavigationAction
+              onClick={() => navigate(ROUTES.ROOT)}
+              label="הצהרת נגישות"
+              icon={<AccessibilityNewIcon />}
+            />
+          </BottomNavigation>
+        </Paper>
+      </Grid>
+    </>
   );
 };
 
