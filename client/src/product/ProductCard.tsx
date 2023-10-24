@@ -19,6 +19,7 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import ProductDialog from "./ProductDialog";
 import { useUser } from "../providers/UserProvider";
+import { log } from "console";
 
 type Props = {
   product: ProductInterface;
@@ -84,6 +85,8 @@ const ProductCard: React.FC<Props> = ({
   );
 
   useEffect(() => {
+    console.log(product);
+
     setTotalAmount(amountInCart);
   }, [amountInCart]);
 

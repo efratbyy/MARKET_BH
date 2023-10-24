@@ -26,6 +26,8 @@ export interface ProductInterface {
     weight: number;
     weightUnit: string;
     divideBy: number;
+    isSugar: boolean;
+    isSodium: boolean;
   };
 }
 

@@ -9,6 +9,8 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { CardMedia, Typography } from "@mui/material";
 import { useUser } from "../providers/UserProvider";
+import SvgSugar from "./SvgSugar";
+import SvgSodium from "./SvgSodium";
 
 type Props = {
   isDialogOpen: boolean;
@@ -32,7 +34,7 @@ const ProductDialog: FC<Props> = ({
   handleAddToCart,
 }) => {
   const { user } = useUser();
-  const { title, barcode, brand, image, price } = product;
+  const { title, barcode, brand, image, price, details } = product;
 
   return (
     <Dialog
@@ -73,6 +75,9 @@ const ProductDialog: FC<Props> = ({
         <DialogContentText id="alert-dialog-description">
           תכולה: {}
         </DialogContentText>
+
+        {details.isSodium === true && <SvgSodium />}
+        {details.isSugar === true && <SvgSugar />}
       </DialogContent>
       <DialogActions>
         <RemoveIcon

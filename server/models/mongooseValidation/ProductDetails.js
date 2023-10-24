@@ -17,6 +17,12 @@ const productDetails = new mongoose.Schema({
   divideBy: {
     type: Number, // 100
   },
+  isSodium: {
+    type: Boolean,
+  },
+  isSugar: {
+    type: Boolean,
+  },
 });
 
 module.exports = productDetails;
