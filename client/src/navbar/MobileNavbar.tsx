@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect } from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
@@ -20,17 +20,19 @@ import { useUser } from "../providers/UserProvider";
 import Badge, { BadgeProps } from "@mui/material/Badge";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { styled } from "@mui/material/styles";
+import { useCartProvider } from "../providers/CartProvider";
 
 const MobileNavbar = () => {
   const navigate = useNavigate();
-
+  const { cart } = useCartProvider();
+  const { user } = useUser();
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
-  const { user } = useUser();
+  const [totalAmountInCart, setTotalAmountInCart] = React.useState<number>(0);
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -59,6 +61,11 @@ const MobileNavbar = () => {
       padding: "0 4px",
     },
   }));
+
+  useEffect(() => {
+    if (cart)
+      setTotalAmountInCart(cart.reduce((acc, item) => acc + item.amount, 0));
+  }, [cart]);
 
   return (
     <>
@@ -236,11 +243,15 @@ const MobileNavbar = () => {
               {/* Cart Icon */}
               <Grid item xs={2}>
                 <IconButton aria-label="cart">
-                  <StyledBadge badgeContent={4} color="secondary">
+                  <StyledBadge
+                    badgeContent={totalAmountInCart}
+                    color="secondary"
+                  >
                     <ShoppingCartIcon sx={{ color: "white", fontSize: 40 }} />
                   </StyledBadge>
                 </IconButton>
               </Grid>
+
               {/* Search Bar */}
               <Grid item xs={10}>
                 <SearchBar />
