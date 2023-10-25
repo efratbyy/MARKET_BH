@@ -20,75 +20,53 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import ProductDialog from "./ProductDialog";
 import { useUser } from "../providers/UserProvider";
 import { log } from "console";
+import { useCartProvider } from "../providers/CartProvider";
+import { get } from "http";
 
 type Props = {
   product: ProductInterface;
-  amountInCart: number;
-  updateCart: (barcode: string, amountToAdd: number) => CartProductInterface[];
 };
 
-const ProductCard: React.FC<Props> = ({
-  product,
-  updateCart,
-  amountInCart,
-}) => {
+const ProductCard: React.FC<Props> = ({ product }) => {
   const { title, barcode, brand, category, image, price, details } = product;
   const { user } = useUser();
   const snack = useSnack();
   const [totalAmount, setTotalAmount] = useState(0);
   const [isDialogOpen, setDialog] = useState(false);
-
+  const { cart, updateCartProvider } = useCartProvider();
   const openDialog = () => {
     setDialog(true);
   };
 
+  const getAmountInCart = (barcode: String) => {
+    const findProductInCart = cart?.find(
+      (product) => product.barcode === barcode
+    );
+    return findProductInCart?.amount || 0;
+  };
+
   const handleAddToCart = useCallback(
     async (userId: string, barcode: string, amount: number) => {
-      try {
-        const newCart = updateCart(barcode, 1);
-
-        if (newCart) {
-          setTotalAmount(totalAmount + 1);
-
-          snack("success", "!המוצר התווסף לעגלתך בהצלחה");
-        } else {
-          snack("error", "!נכשל בהוספת המוצר לעגלתך");
-        }
-      } catch (error) {
-        console.error("Cart API error:", error);
-
-        // if (typeof error === "string") requestStatus(false, error, null);
-      }
+      updateCartProvider(barcode, 1);
+      setTotalAmount(totalAmount + 1);
+      snack("success", "!המוצר התווסף לעגלתך בהצלחה");
     },
     [totalAmount]
   );
 
   const handleRemoveFromCart = useCallback(
     async (userId: string, barcode: string, amount: number) => {
-      try {
-        if (totalAmount > 0) {
-          const newCart = updateCart(barcode, -1);
-          if (newCart) {
-            setTotalAmount(Number(totalAmount) - 1);
-            snack("success", "!המוצר הוסר מעגלתך בהצלחה");
-          } else {
-            snack("error", "!נכשל בהוספת המוצר לעגלתך");
-          }
-        }
-      } catch (error) {
-        console.error("Cart API error:", error);
-
-        // if (typeof error === "string") requestStatus(false, error, null);
+      if (totalAmount > 0) {
+        updateCartProvider(barcode, -1);
+        setTotalAmount(Number(totalAmount) - 1);
       }
     },
     [totalAmount]
   );
 
   useEffect(() => {
-    console.log(product);
-
-    setTotalAmount(amountInCart);
-  }, [amountInCart]);
+    setTotalAmount(getAmountInCart(barcode));
+  }, [cart]);
 
   return (
     <Card

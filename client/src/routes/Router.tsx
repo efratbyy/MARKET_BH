@@ -4,7 +4,6 @@ import ROUTES from "./routesModel";
 import RegistrationForm from "../register/RegistrationForm";
 import ErrorPage from "../pages/ErrorPage";
 import Login from "../login/Login";
-import ProductsPage from "../product/Products";
 import HomePage from "../components/HomePage";
 
 const Router = () => {

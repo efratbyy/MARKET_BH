@@ -6,24 +6,19 @@ import ButtonGroup from "@mui/material/ButtonGroup";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { useCartProvider } from "../providers/CartProvider";
 
-type Props = {
-  cart: CartProductInterface[] | undefined;
-  updateCart: (barcode: string, amountToAdd: number) => any;
-  updateCartNote: (barcode: string, note: string) => any;
-};
+type Props = {};
 
-const ShoppingCart: React.FC<Props> = ({
-  cart,
-  updateCart,
-  updateCartNote,
-}) => {
+const ShoppingCart: React.FC<Props> = () => {
+  const { cart, updateCartNoteProvider, updateCartProvider } =
+    useCartProvider();
   // Function to handle changes in the input field
   const handleNoteChange = (
     event: React.ChangeEvent<HTMLInputElement>,
     barcode: string
   ): void => {
-    updateCartNote(barcode, event.target.value.toString());
+    updateCartNoteProvider(barcode, event.target.value.toString());
   };
 
   return (
@@ -52,13 +47,13 @@ const ShoppingCart: React.FC<Props> = ({
                   width: "65%", // Set the desired width to make it smaller
                 }}
               >
-                <Button onClick={() => updateCart(item.barcode, -1)}>
+                <Button onClick={() => updateCartProvider(item.barcode, -1)}>
                   <RemoveIcon />
                 </Button>
                 <Button disabled>
                   <Typography variant="body1">{item.amount}</Typography>
                 </Button>
-                <Button onClick={() => updateCart(item.barcode, 1)}>
+                <Button onClick={() => updateCartProvider(item.barcode, 1)}>
                   <AddIcon />
                 </Button>
               </ButtonGroup>
@@ -137,7 +132,9 @@ const ShoppingCart: React.FC<Props> = ({
               }}
             >
               <Button
-                onClick={() => updateCart(item.barcode, item.amount * -1)}
+                onClick={() =>
+                  updateCartProvider(item.barcode, item.amount * -1)
+                }
               >
                 <DeleteIcon sx={{ color: "#ce0a0a" }} />
               </Button>
