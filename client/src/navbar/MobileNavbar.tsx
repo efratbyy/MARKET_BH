@@ -17,6 +17,9 @@ import SearchBar from "../searchBar/SearchBar";
 import { Grid } from "@mui/material";
 import SideNavBar from "./SideNavBar";
 import { useUser } from "../providers/UserProvider";
+import Badge, { BadgeProps } from "@mui/material/Badge";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { styled } from "@mui/material/styles";
 
 const MobileNavbar = () => {
   const navigate = useNavigate();
@@ -47,6 +50,15 @@ const MobileNavbar = () => {
     removeUser();
     handleCloseUserMenu();
   };
+
+  const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
+    "& .MuiBadge-badge": {
+      right: -3,
+      top: 13,
+      border: `2px solid ${theme.palette.background.paper}`,
+      padding: "0 4px",
+    },
+  }));
 
   return (
     <>
@@ -221,6 +233,14 @@ const MobileNavbar = () => {
                 </Grid>
               )}
 
+              {/* Cart Icon */}
+              <Grid item xs={2}>
+                <IconButton aria-label="cart">
+                  <StyledBadge badgeContent={4} color="secondary">
+                    <ShoppingCartIcon sx={{ color: "white", fontSize: 40 }} />
+                  </StyledBadge>
+                </IconButton>
+              </Grid>
               {/* Search Bar */}
               <Grid item xs={10}>
                 <SearchBar />
