@@ -34,7 +34,7 @@ const ShoppingCart: React.FC<Props> = () => {
           >
             <Grid
               item
-              xs={12}
+              xs={2}
               md={2}
               container
               alignContent="center"
@@ -70,8 +70,7 @@ const ShoppingCart: React.FC<Props> = () => {
 
             <Grid
               item
-              xs={12}
-              sm={6}
+              xs={2}
               md={2}
               sx={{
                 textAlign: "center", // Center horizontally
@@ -93,7 +92,7 @@ const ShoppingCart: React.FC<Props> = () => {
               </div>
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={4} md={4}>
               <div style={{ marginTop: "10%" }}>{item.brand}</div>
               <div style={{ marginTop: "10%" }}>{item.title}</div>
               <div style={{ marginTop: "10%" }}>
@@ -117,7 +116,7 @@ const ShoppingCart: React.FC<Props> = () => {
             </Grid>
             <Grid
               item
-              xs={12}
+              xs={2}
               md={2}
               sx={{
                 textAlign: "center", // Center horizontally
@@ -130,7 +129,7 @@ const ShoppingCart: React.FC<Props> = () => {
             </Grid>
             <Grid
               item
-              xs={12}
+              xs={2}
               md={2}
               sx={{
                 textAlign: "center", // Center horizontally

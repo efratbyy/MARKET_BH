@@ -17,7 +17,7 @@ const Footer = () => {
     <>
       <Grid
         className="container"
-        sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
+        sx={{ display: "flex", flexDirection: "column", minHeight: "30px" }}
       >
         <Paper
           elevation={3}

@@ -160,7 +160,7 @@ const MobileNavbar = () => {
                     letterSpacing: ".3rem",
                     color: "red",
                     textDecoration: "none",
-                    fontSize: "200%",
+                    fontSize: "140%",
                   }}
                 >
                   מרקט גבעת בית הכרם{" "}
@@ -242,7 +242,10 @@ const MobileNavbar = () => {
 
               {/* Cart Icon */}
               <Grid item xs={2}>
-                <IconButton aria-label="cart">
+                <IconButton
+                  onClick={() => navigate(ROUTES.SHOPPING_CART)}
+                  aria-label="cart"
+                >
                   <StyledBadge badgeContent={totalAmountInCart} color="error">
                     <ShoppingCartIcon sx={{ color: "white", fontSize: 40 }} />
                   </StyledBadge>
