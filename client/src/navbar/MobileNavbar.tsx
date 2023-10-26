@@ -243,10 +243,7 @@ const MobileNavbar = () => {
               {/* Cart Icon */}
               <Grid item xs={2}>
                 <IconButton aria-label="cart">
-                  <StyledBadge
-                    badgeContent={totalAmountInCart}
-                    color="secondary"
-                  >
+                  <StyledBadge badgeContent={totalAmountInCart} color="error">
                     <ShoppingCartIcon sx={{ color: "white", fontSize: 40 }} />
                   </StyledBadge>
                 </IconButton>
