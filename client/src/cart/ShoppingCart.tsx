@@ -7,10 +7,12 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useCartProvider } from "../providers/CartProvider";
+import { useUser } from "../providers/UserProvider";
 
 type Props = {};
 
 const ShoppingCart: React.FC<Props> = () => {
+  const { user } = useUser();
   const { cart, updateCartNoteProvider, updateCartProvider } =
     useCartProvider();
   // Function to handle changes in the input field
@@ -18,7 +20,8 @@ const ShoppingCart: React.FC<Props> = () => {
     event: React.ChangeEvent<HTMLInputElement>,
     barcode: string
   ): void => {
-    updateCartNoteProvider(barcode, event.target.value.toString());
+    if (user)
+      updateCartNoteProvider(user?._id, barcode, event.target.value.toString());
   };
 
   return (
@@ -32,7 +35,6 @@ const ShoppingCart: React.FC<Props> = () => {
             <Grid
               item
               xs={12}
-              sm={6}
               md={2}
               container
               alignContent="center"
@@ -44,20 +46,28 @@ const ShoppingCart: React.FC<Props> = () => {
                 orientation="vertical"
                 variant="contained"
                 sx={{
-                  width: "65%", // Set the desired width to make it smaller
+                  width: "100%",
+                  boxShadow: 0, // Set the desired width to make it smaller
                 }}
               >
-                <Button onClick={() => updateCartProvider(item.barcode, -1)}>
+                <Button
+                  onClick={() =>
+                    updateCartProvider(user!._id, item.barcode, -1)
+                  }
+                >
                   <RemoveIcon />
                 </Button>
                 <Button disabled>
                   <Typography variant="body1">{item.amount}</Typography>
                 </Button>
-                <Button onClick={() => updateCartProvider(item.barcode, 1)}>
+                <Button
+                  onClick={() => updateCartProvider(user!._id, item.barcode, 1)}
+                >
                   <AddIcon />
                 </Button>
               </ButtonGroup>
             </Grid>
+
             <Grid
               item
               xs={12}
@@ -83,7 +93,7 @@ const ShoppingCart: React.FC<Props> = () => {
               </div>
             </Grid>
 
-            <Grid item xs={12} sm={6} md={4}>
+            <Grid item xs={12} md={4}>
               <div style={{ marginTop: "10%" }}>{item.brand}</div>
               <div style={{ marginTop: "10%" }}>{item.title}</div>
               <div style={{ marginTop: "10%" }}>
@@ -108,7 +118,6 @@ const ShoppingCart: React.FC<Props> = () => {
             <Grid
               item
               xs={12}
-              sm={6}
               md={2}
               sx={{
                 textAlign: "center", // Center horizontally
@@ -122,7 +131,6 @@ const ShoppingCart: React.FC<Props> = () => {
             <Grid
               item
               xs={12}
-              sm={6}
               md={2}
               sx={{
                 textAlign: "center", // Center horizontally
@@ -133,7 +141,7 @@ const ShoppingCart: React.FC<Props> = () => {
             >
               <Button
                 onClick={() =>
-                  updateCartProvider(item.barcode, item.amount * -1)
+                  updateCartProvider(user!._id, item.barcode, item.amount * -1)
                 }
               >
                 <DeleteIcon sx={{ color: "#ce0a0a" }} />

@@ -21,14 +21,17 @@ export interface ProductInterface {
     alt: string;
   };
   details: {
-    weightDisplay: number;
-    weightUnitDisplay: string;
+    weightTopDisplay: number;
+    weightUnitTopDisplay: string;
     weight: number;
     weightUnit: string;
     divideBy: number;
     isSugar: boolean;
     isSodium: boolean;
   };
+  ingredients: string;
+  content: string;
+  manufacturingCountry: string;
 }
 
 export interface CartProductInterface {

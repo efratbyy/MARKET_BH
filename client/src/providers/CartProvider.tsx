@@ -11,8 +11,12 @@ import useCart from "../cart/useCart";
 
 type ContextArgs = {
   cart: CartProductInterface[] | undefined;
-  updateCartProvider: (barcode: string, amount: number) => void;
-  updateCartNoteProvider: (barcode: string, note: string) => void;
+  updateCartProvider: (userId: string, barcode: string, amount: number) => void;
+  updateCartNoteProvider: (
+    userId: string,
+    barcode: string,
+    note: string
+  ) => void;
 };
 
 const CartContext = React.createContext<null | ContextArgs>(null);
@@ -30,8 +34,7 @@ export const CartProvider: React.FC<Props> = ({ children }) => {
   const { updateCart, updateCartNote, handleGetCart } = useCart();
 
   useEffect(() => {
-    console.log(user);
-    if (user && !cart) {
+    if (user) {
       handleGetCart(user?._id)
         .then((data) => {
           setCart(data);
@@ -40,20 +43,29 @@ export const CartProvider: React.FC<Props> = ({ children }) => {
           console.log(error);
         });
     }
-  }, [cart, user]);
+  }, [user]);
 
-  const updateCartProvider = (barcode: string, amount: number) => {
-    updateCart(barcode, amount)
-      .then((data) => {
-        setCart(data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  const updateCartProvider = (
+    userId: string,
+    barcode: string,
+    amount: number
+  ) => {
+    if (userId)
+      updateCart(userId, barcode, amount)
+        .then((data) => {
+          setCart(data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
   };
 
-  const updateCartNoteProvider = (barcode: string, note: string) => {
-    updateCartNote(barcode, note)
+  const updateCartNoteProvider = (
+    userId: string,
+    barcode: string,
+    note: string
+  ) => {
+    updateCartNote(userId, barcode, note)
       .then((data) => {
         setCart(data);
       })

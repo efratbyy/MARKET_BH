@@ -14,6 +14,7 @@ type ContextArgs = {
   setUser: (value: SetStateAction<null | TokenType>) => void;
   token: null | string;
   setToken: (value: SetStateAction<null | string>) => void;
+  isLoading: boolean;
 };
 
 const UserContext = React.createContext<null | ContextArgs>(null);
@@ -25,16 +26,18 @@ type Props = {
 export const UserProvider: React.FC<Props> = ({ children }) => {
   const [user, setUser] = useState<null | TokenType>(null);
   const [token, setToken] = useState<null | string>(getToken);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (!user) {
+    if (user == null) {
       const userFromLocalStorage = getUser();
       setUser(userFromLocalStorage);
+      setIsLoading(false);
     }
   }, [user]);
   const value = useMemo(() => {
-    return { user, setUser, token, setToken };
-  }, [user, token]);
+    return { user, setUser, token, setToken, isLoading };
+  }, [user, token, isLoading]);
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };

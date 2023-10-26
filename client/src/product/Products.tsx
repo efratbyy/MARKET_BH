@@ -25,9 +25,6 @@ const Products: React.FC<Props> = () => {
   useEffect(() => {
     handleGetProducts()
       .then((products) => {
-        console.log(products);
-
-        // TODO: filter data
         const filteredProducts = products?.filter((product) =>
           product.title.includes(query)
         );

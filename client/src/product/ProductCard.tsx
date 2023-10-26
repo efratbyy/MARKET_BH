@@ -4,6 +4,7 @@ import {
   ProductInterface,
 } from "../models/interfaces/interfaces.ts.js";
 import {
+  ButtonGroup,
   Card,
   CardActionArea,
   CardContent,
@@ -11,9 +12,8 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-
+import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
-
 import { useSnack } from "../providers/SnackbarProvider";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
@@ -47,9 +47,8 @@ const ProductCard: React.FC<Props> = ({ product }) => {
 
   const handleAddToCart = useCallback(
     async (userId: string, barcode: string, amount: number) => {
-      updateCartProvider(barcode, 1);
+      updateCartProvider(userId, barcode, amount);
       setTotalAmount(totalAmount + 1);
-      snack("success", "!המוצר התווסף לעגלתך בהצלחה");
     },
     [totalAmount]
   );
@@ -57,8 +56,8 @@ const ProductCard: React.FC<Props> = ({ product }) => {
   const handleRemoveFromCart = useCallback(
     async (userId: string, barcode: string, amount: number) => {
       if (totalAmount > 0) {
-        updateCartProvider(barcode, -1);
-        setTotalAmount(Number(totalAmount) - 1);
+        updateCartProvider(userId, barcode, -1 * amount);
+        setTotalAmount(Number(totalAmount) - amount);
       }
     },
     [totalAmount]
@@ -75,6 +74,7 @@ const ProductCard: React.FC<Props> = ({ product }) => {
         display: "flax",
         flexDirection: "column",
         minHeight: "100%",
+        position: "relative",
       }}
       square
     >
@@ -95,18 +95,27 @@ const ProductCard: React.FC<Props> = ({ product }) => {
             objectFit: "fill",
             width: "50%",
             marginTop: 2,
+            height: "180px",
           }}
         />
       </CardActionArea>
-      <CardContent sx={{ height: "150px" }}>
+      <CardContent
+        sx={{
+          height: "150px",
+          marginBottom: "50px",
+        }}
+      >
         <Typography
           variant="body2"
           color="textSecondary"
           sx={{ marginTop: "auto", paddingRight: "10%" }}
         >
           {brand}
-          {details && details.weightDisplay !== 0
-            ? " | " + details.weightDisplay + " " + details.weightUnitDisplay
+          {details && details.weightTopDisplay !== 0
+            ? " | " +
+              details.weightTopDisplay +
+              " " +
+              details.weightUnitTopDisplay
             : ""}
         </Typography>
 
@@ -127,7 +136,7 @@ const ProductCard: React.FC<Props> = ({ product }) => {
             color: "textSecondary",
           }}
         >
-          ₪{price}
+          ₪{price.toFixed(2)}
         </Typography>
         <Typography
           variant="body2"
@@ -136,7 +145,7 @@ const ProductCard: React.FC<Props> = ({ product }) => {
         >
           {details && details.weight
             ? "₪" +
-              price / (details?.weight / details.divideBy) +
+              (price / (details?.weight / details.divideBy)).toFixed(2) +
               " ל " +
               details?.weightUnit
             : ""}
@@ -144,30 +153,52 @@ const ProductCard: React.FC<Props> = ({ product }) => {
       </CardContent>
 
       {user && (
-        <div
-          style={{
-            display: "flex",
+        <Grid
+          container
+          sx={{
+            alignContent: "center",
             alignItems: "center",
-            justifyContent: "space-between",
+            justifyContent: "center",
+            pb: "3%",
+            position: "absolute",
+            bottom: 0,
           }}
         >
-          <RemoveIcon
-            onClick={() => handleRemoveFromCart(user?._id, barcode, 1)}
+          <ButtonGroup
+            orientation="horizontal"
+            variant="contained"
             sx={{
-              color: totalAmount > 0 ? "green" : "gray",
-              paddingRight: "10%",
-              fontSize: "40px",
+              width: "90%", // Set the desired width to make it smaller
+              height: "5.5vh",
             }}
-          />
+          >
+            <Button
+              onClick={() => handleRemoveFromCart(user?._id, barcode, 1)}
+              sx={{
+                borderRadius: "0px",
+                width: "40%",
+                backgroundColor: "#800080",
+              }}
+            >
+              <RemoveIcon />
+            </Button>
 
-          <Typography variant="h4" sx={{ color: "green" }}>
-            {String(totalAmount)}
-          </Typography>
-          <AddIcon
-            onClick={() => handleAddToCart(user?._id, barcode, 1)}
-            sx={{ color: "green", paddingLeft: "10%", fontSize: "40px" }}
-          />
-        </div>
+            <Button sx={{ width: "40%" }} disabled>
+              <Typography variant="body1">{String(totalAmount)}</Typography>
+            </Button>
+
+            <Button
+              onClick={() => handleAddToCart(user?._id, barcode, 1)}
+              sx={{
+                borderRadius: "0px",
+                width: "40%",
+                backgroundColor: "#800080",
+              }}
+            >
+              <AddIcon />
+            </Button>
+          </ButtonGroup>
+        </Grid>
       )}
 
       <ProductDialog

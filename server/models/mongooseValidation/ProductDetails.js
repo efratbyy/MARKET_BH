@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 
 const productDetails = new mongoose.Schema({
-  weightDisplay: {
+  weightTopDisplay: {
     type: Number, // 1
   },
-  weightUnitDisplay: {
+  weightUnitTopDisplay: {
     type: String, // ליטר
   },
 
