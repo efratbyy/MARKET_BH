@@ -25,7 +25,7 @@ const ShoppingCart: React.FC<Props> = () => {
   };
 
   return (
-    <Box>
+    <Box sx={{ height: "60%" }}>
       {cart?.map((item: CartProductInterface, index) => (
         <div key={item.barcode}>
           <Grid

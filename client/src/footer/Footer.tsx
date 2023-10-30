@@ -1,14 +1,15 @@
 import React from "react";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import Paper from "@mui/material/Paper";
-import InfoIcon from "@mui/icons-material/Info";
+import InfoTwoToneIcon from "@mui/icons-material/InfoTwoTone";
 import { useNavigate } from "react-router-dom";
 import ROUTES from "../routes/routesModel";
-import PhoneInTalkIcon from "@mui/icons-material/PhoneInTalk";
-import AccessibilityNewIcon from "@mui/icons-material/AccessibilityNew";
+import InstagramIcon from "@mui/icons-material/Instagram";
 import { Grid } from "@mui/material";
+import HomeTwoToneIcon from "@mui/icons-material/HomeTwoTone";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import FormatListBulletedTwoToneIcon from "@mui/icons-material/FormatListBulletedTwoTone";
 
 const Footer = () => {
   const navigate = useNavigate();
@@ -26,26 +27,42 @@ const Footer = () => {
           <BottomNavigation showLabels>
             <BottomNavigationAction
               onClick={() => navigate(ROUTES.ROOT)}
+              label="בית"
+              icon={<HomeTwoToneIcon />}
+            />
+
+            <BottomNavigationAction
+              onClick={() => navigate(ROUTES.ABOUT)}
               label="אודות"
-              icon={<InfoIcon />}
+              icon={<InfoTwoToneIcon />}
             />
 
             <BottomNavigationAction
               onClick={() => navigate(ROUTES.ROOT)}
-              label="הצהרת נגישות"
-              icon={<AccessibilityNewIcon />}
+              label="מוצרים"
+              icon={<FormatListBulletedTwoToneIcon />}
             />
 
             <BottomNavigationAction
-              onClick={() => navigate(ROUTES.ROOT)}
-              label="צור קשר"
-              icon={<PhoneInTalkIcon />}
+              onClick={() =>
+                window.open(
+                  "https://www.facebook.com/p/%D7%9E%D7%A8%D7%A7%D7%98-%D7%92%D7%91%D7%A2%D7%AA-%D7%91%D7%99%D7%AA-%D7%94%D7%9B%D7%A8%D7%9D-100005717800641/?locale=he_IL",
+                  "_blank"
+                )
+              }
+              label="פייסבוק"
+              icon={<FacebookIcon />}
             />
 
             <BottomNavigationAction
-              onClick={() => navigate(ROUTES.ROOT)}
-              label="הצהרת נגישות"
-              icon={<AccessibilityNewIcon />}
+              onClick={() =>
+                window.open(
+                  "https://www.instagram.com/market_bet_hakerem/?hl=en",
+                  "_blank"
+                )
+              }
+              label="אינסטגרם"
+              icon={<InstagramIcon />}
             />
           </BottomNavigation>
         </Paper>

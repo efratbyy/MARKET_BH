@@ -53,7 +53,7 @@ const DesktopNavbar = () => {
     <>
       <AppBar
         position="sticky"
-        sx={{ backgroundColor: "black", display: { xs: "none", md: "flex" } }}
+        sx={{ backgroundColor: "#5b9822", display: { xs: "none", md: "flex" } }}
       >
         {/* <Container maxWidth="xl"> */}
         <Toolbar disableGutters>
@@ -79,7 +79,7 @@ const DesktopNavbar = () => {
                   fontFamily: "monospace",
                   fontWeight: 700,
                   letterSpacing: ".3rem",
-                  color: "red",
+                  color: "#282828",
                   textDecoration: "none",
                   fontSize: {
                     md: "130%",
@@ -99,7 +99,8 @@ const DesktopNavbar = () => {
               <Grid item md={1} sx={{ flexGrow: 0 }}>
                 <Tooltip title="Open settings">
                   <IconButton onClick={handleOpenUserMenu}>
-                    <Avatar alt="Remy Sharp" src="/assets/images/avatar.png" />
+                    {/* //TODO: Change to their username first letter */}
+                    <Avatar>H</Avatar>
                   </IconButton>
                 </Tooltip>
                 <Menu

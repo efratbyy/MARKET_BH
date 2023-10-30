@@ -71,7 +71,7 @@ const MobileNavbar = () => {
     <>
       <AppBar
         position="static"
-        sx={{ backgroundColor: "black", display: { md: "none" } }}
+        sx={{ backgroundColor: "#5b9822", display: { md: "none" } }}
       >
         <Container maxWidth="xl">
           <Toolbar disableGutters>
@@ -158,12 +158,12 @@ const MobileNavbar = () => {
                     fontFamily: "monospace",
                     fontWeight: 700,
                     letterSpacing: ".3rem",
-                    color: "red",
+                    color: "#282828",
                     textDecoration: "none",
                     fontSize: "140%",
                   }}
                 >
-                  מרקט גבעת בית הכרם{" "}
+                  מרקט גבעת בית הכרם
                 </Typography>
               </Grid>
 
@@ -172,10 +172,8 @@ const MobileNavbar = () => {
                 <Grid item xs={1} sx={{ flexGrow: 0 }}>
                   <Tooltip title="Open settings">
                     <IconButton onClick={handleOpenUserMenu}>
-                      <Avatar
-                        alt="Remy Sharp"
-                        src="/assets/images/avatar.png"
-                      />
+                      {/* //TODO: Change to their username first letter */}
+                      <Avatar>H</Avatar>
                     </IconButton>
                   </Tooltip>
                   <Menu
@@ -246,8 +244,8 @@ const MobileNavbar = () => {
                   onClick={() => navigate(ROUTES.SHOPPING_CART)}
                   aria-label="cart"
                 >
-                  <StyledBadge badgeContent={totalAmountInCart} color="error">
-                    <ShoppingCartIcon sx={{ color: "white", fontSize: 40 }} />
+                  <StyledBadge badgeContent={totalAmountInCart} color="default">
+                    <ShoppingCartIcon sx={{ color: "#282828", fontSize: 40 }} />
                   </StyledBadge>
                 </IconButton>
               </Grid>
