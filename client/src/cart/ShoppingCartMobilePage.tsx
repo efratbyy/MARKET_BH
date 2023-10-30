@@ -230,7 +230,7 @@ const ShoppingCartMobilePage = () => {
         sx={{
           display: "flex",
           flexDirection: "column",
-          minHeight: "100vh",
+          // minHeight: "100vh",
         }}
       >
         <Grid
@@ -249,6 +249,7 @@ const ShoppingCartMobilePage = () => {
                 color: "white",
                 padding: "10px",
                 width: "100%",
+                marginBottom: "30px",
               }}
             >
               <Typography>לקופה</Typography>
