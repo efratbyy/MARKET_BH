@@ -15,10 +15,13 @@ import HistoryIcon from "@mui/icons-material/History";
 import PhoneInTalkIcon from "@mui/icons-material/PhoneInTalk";
 import AccessibilityNewIcon from "@mui/icons-material/AccessibilityNew";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import { useUser } from "../providers/UserProvider";
+import Person2TwoToneIcon from "@mui/icons-material/Person2TwoTone";
 
 export default function SideNavBar() {
   const [leftDrawerOpen, setLeftDrawerOpen] = React.useState(false);
   const navigate = useNavigate();
+  const { user } = useUser();
 
   const toggleLeftDrawer =
     (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -46,6 +49,22 @@ export default function SideNavBar() {
     >
       {/* Inbox Link */}
       <List>
+        <ListItem
+          // key={"Inbox"}
+          disablePadding
+          onClick={() => navigate(`${ROUTES.LOGIN}`)}
+        >
+          <ListItemButton>
+            <ListItemIcon>
+              <Person2TwoToneIcon />
+            </ListItemIcon>
+            <ListItemText
+              primary={user?.first + " " + user?.last + " " + user?.email}
+            />
+          </ListItemButton>
+        </ListItem>
+        <Divider />
+
         <ListItem
           // key={"Inbox"}
           disablePadding

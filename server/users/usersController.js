@@ -22,8 +22,8 @@ const register = async (req, res) => {
     newUser.password = bcrypt.hashSync(newUser.password, 10);
 
     const userFromDB = await newUser.save();
-    const { _id, isAdmin } = userFromDB;
-    const token = jwt.sign({ _id, isAdmin }, JWT_KEY);
+    const { _id, isAdmin, first, last } = userInDB;
+    const token = jwt.sign({ _id, isAdmin, email, first, last }, JWT_KEY);
     res.status(201).send(token);
   } catch (error) {
     return handleError(res, 404, `Mongoose Error: ${error.message}`);
@@ -58,8 +58,8 @@ const login = async (req, res) => {
       throw new Error("Authentication Error: Invalid email or password");
     } else if (!userInDB.isBlocked) {
       // במידה ולא חסום והכניס מייל וסיסמא נכונים אז יוכנס למערכת
-      const { _id, isAdmin } = userInDB;
-      const token = jwt.sign({ _id, isAdmin }, JWT_KEY);
+      const { _id, isAdmin, email, first, last } = userInDB;
+      const token = jwt.sign({ _id, isAdmin, email, first, last }, JWT_KEY);
       res.send(token);
     } else {
       const twentyFourHoursBefore = new Date(
@@ -71,8 +71,8 @@ const login = async (req, res) => {
         userInDB.blockedTime = new Date();
         userInDB.loginFailedCounter = 0;
         await User.findByIdAndUpdate(userInDB.id, userInDB);
-        const { _id, isAdmin } = userInDB;
-        const token = jwt.sign({ _id, isAdmin }, JWT_KEY);
+        const { _id, isAdmin, email, first, last } = userInDB;
+        const token = jwt.sign({ _id, isAdmin, email, first, last }, JWT_KEY);
         res.send(token);
       } else {
         throw new Error("Authentication Error: User is still Blocked!");
