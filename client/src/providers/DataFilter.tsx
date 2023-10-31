@@ -56,6 +56,14 @@ const DataFilter = () => {
         console.log(error);
       });
   }, [handleGetProducts]);
+
+  useEffect(() => {
+    const joinedString = selectedBrands?.join(", ");
+    const query = searchParams.get("q");
+    const sort = searchParams.get("sort");
+    setSearch({ sort: sort || "", q: query || "", brand: joinedString || "" });
+  }, [selectedBrands]);
+
   return (
     <>
       {/* Sort products */}
