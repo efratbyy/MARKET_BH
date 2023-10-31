@@ -12,6 +12,7 @@ const Products: React.FC<Props> = () => {
   const [products, setProducts] = useState<ProductInterface[] | undefined>([]);
   const [query, setQuery] = useState<string>("");
   const [searchParams] = useSearchParams();
+  const [sort, setSort] = useState<string>("");
 
   useEffect(() => {
     const query = searchParams.get("q");
@@ -23,17 +24,31 @@ const Products: React.FC<Props> = () => {
   }, [searchParams]);
 
   useEffect(() => {
+    const sort = searchParams.get("sort");
+    if (sort != null) {
+      setSort(sort);
+    } else {
+      setSort("");
+    }
+  }, [searchParams]);
+
+  useEffect(() => {
     handleGetProducts()
       .then((products) => {
         const filteredProducts = products?.filter((product) =>
           product.title.includes(query)
         );
-        setProducts(filteredProducts);
+        // sort the products by default
+        const sortedFilteredProducts =
+          sort === "" || sort === "Asc"
+            ? filteredProducts?.sort((a, b) => a.price - b.price)
+            : filteredProducts?.sort((a, b) => b.price - a.price);
+        setProducts(sortedFilteredProducts);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, [handleGetProducts, query]);
+  }, [handleGetProducts, query, sort]);
 
   return (
     <Grid

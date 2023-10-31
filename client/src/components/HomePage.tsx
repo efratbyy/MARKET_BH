@@ -8,6 +8,7 @@ import Footer from "../footer/Footer";
 import { useUser } from "../providers/UserProvider";
 import CategoryNavbar from "../navbar/CategoryNavbar";
 import Example from "../navbar/Example";
+import DataFilter from "../providers/DataFilter";
 
 const HomePage = () => {
   const { user } = useUser();
@@ -27,7 +28,10 @@ const HomePage = () => {
         }}
       ></Grid>
       <Grid container>
-        <Grid item xs={12} md={9}>
+        <Grid item xs={12} md={1.5}>
+          <DataFilter />
+        </Grid>
+        <Grid item xs={12} md={7.5}>
           <Products />
         </Grid>
         <Grid item sx={{ display: { xs: "none", md: "inline-flex" } }} md={3}>
