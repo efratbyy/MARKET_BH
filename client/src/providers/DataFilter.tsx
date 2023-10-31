@@ -25,12 +25,14 @@ const DataFilter = () => {
 
   const handleSortAsc = () => {
     const query = searchParams.get("q");
-    setSearch({ sort: "Asc", q: query || "" });
+    const brand = searchParams.get("brand");
+    setSearch({ sort: "Asc", q: query || "", brand: brand || "" });
   };
 
   const handleSortDesc = () => {
     const query = searchParams.get("q");
-    setSearch({ sort: "Desc", q: query || "" });
+    const brand = searchParams.get("brand");
+    setSearch({ sort: "Desc", q: query || "", brand: brand || "" });
   };
 
   const toggleBrand = (brand: string) => {

@@ -14,8 +14,9 @@ const SearchBar = () => {
   const [searchParams, setSearch] = useSearchParams();
 
   const handleChange = ({ target }: any) => {
-    let sort = searchParams.get("sort");
-    setSearch({ q: target.value, sort: sort || "" });
+    const sort = searchParams.get("sort");
+    const brand = searchParams.get("brand");
+    setSearch({ q: target.value, sort: sort || "", brand: brand || "" });
   };
 
   return (
