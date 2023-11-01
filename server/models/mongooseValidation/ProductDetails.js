@@ -23,6 +23,9 @@ const productDetails = new mongoose.Schema({
   isSugar: {
     type: Boolean,
   },
+  isSaturatedFat: {
+    type: Boolean,
+  },
 });
 
 module.exports = productDetails;

@@ -14,6 +14,7 @@ const Products: React.FC<Props> = () => {
   const [searchParams] = useSearchParams();
   const [sort, setSort] = useState<string>("");
   const [brands, setBrands] = useState<string>("");
+  const [stickers, setStickers] = useState<string>("");
 
   useEffect(() => {
     const query = searchParams.get("q");
@@ -43,18 +44,78 @@ const Products: React.FC<Props> = () => {
   }, [searchParams]);
 
   useEffect(() => {
+    const sticker = searchParams.get("sticker");
+    if (sticker != null) {
+      setStickers(sticker);
+    } else {
+      setStickers("");
+    }
+  }, [searchParams]);
+
+  useEffect(() => {
     handleGetProducts()
       .then((products) => {
         // Filter by q
         let filteredProducts = products?.filter((product) =>
           product.title.includes(query)
         );
+
         // Filter by brand
         if (brands !== "") {
           const brandsArray = brands.split(", ");
           filteredProducts = filteredProducts?.filter((x) =>
             brandsArray.includes(x.brand)
           );
+        }
+
+        console.log(stickers);
+
+        // Filter by sticker
+        if (stickers !== "") {
+          const stickersArray = stickers.split(", ");
+
+          let sugarProducts: ProductInterface[] | undefined = [];
+          let saturatedFatProducts: ProductInterface[] | undefined = [];
+          let sodiumProducts: ProductInterface[] | undefined = [];
+          // let greenMarkProducts: ProductInterface[] | undefined = [];
+          // let supervisedProducts: ProductInterface[] | undefined = [];
+
+          if (stickersArray.includes("סוכר"))
+            sugarProducts = filteredProducts?.filter(
+              (x) => x.details.isSugar === true
+            );
+
+          if (stickersArray.includes("שומן רווי"))
+            saturatedFatProducts = filteredProducts?.filter(
+              (x) => x.details.isSaturatedFat
+            );
+
+          if (stickersArray.includes("נתרן"))
+            sodiumProducts = filteredProducts?.filter(
+              (x) => x.details.isSodium
+            );
+
+          // if (stickersArray.includes("הסימון הירוק"))
+          //   greenMarkProducts = filteredProducts?.filter(
+          //     (x) => x.details.is
+          //   );
+
+          // if (stickersArray.includes("מוצר בפיקוח"))
+          //   supervisedProducts = filteredProducts?.filter(
+          //     (x) => x.details.is
+          //   );
+
+          // Create array thant contains all the products with chosen stickers
+          // it may contains duplicate products
+          const mergedArray = ([] as ProductInterface[]).concat(
+            sugarProducts || [],
+            saturatedFatProducts || [],
+            sodiumProducts || []
+            // greenMarkProducts || [],
+            // supervisedProducts || []
+          );
+
+          filteredProducts = Array.from(new Set(mergedArray));
         }
 
         // sort the products by default
@@ -67,7 +128,7 @@ const Products: React.FC<Props> = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, [handleGetProducts, query, sort, brands]);
+  }, [handleGetProducts, query, sort, brands, stickers]);
 
   return (
     <Grid
@@ -86,7 +147,7 @@ const Products: React.FC<Props> = () => {
     >
       <Typography title="Products Page" />
       {products?.map((product: ProductInterface) => (
-        <Grid item key={product.barcode} xs={12} sm={6} md={4} lg={3}>
+        <Grid item key={product.barcode} xs={6} sm={6} md={4} lg={3}>
           <ProductCard product={product} />
         </Grid>
       ))}

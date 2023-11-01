@@ -14,7 +14,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { removeUser } from "../services/LocalStorageService";
 import { useNavigate } from "react-router-dom";
 import ROUTES from "../routes/routesModel";
-import SearchBar from "../searchBar/SearchBar";
+import SearchBar from "../search_filter/SearchBar";
 import { Grid } from "@mui/material";
 import SideNavBar from "./SideNavBar";
 import DesktopNavbar from "./DesktopNavbar";

@@ -17,6 +17,7 @@ import AccessibilityNewIcon from "@mui/icons-material/AccessibilityNew";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { useUser } from "../providers/UserProvider";
 import Person2TwoToneIcon from "@mui/icons-material/Person2TwoTone";
+import DataFilter from "../search_filter/DataFilter";
 
 export default function SideNavBar() {
   const [leftDrawerOpen, setLeftDrawerOpen] = React.useState(false);
@@ -121,6 +122,7 @@ export default function SideNavBar() {
         </ListItem>
       </List>
       <Divider />
+      {/* <DataFilter></DataFilter> */}
     </Box>
   );
 

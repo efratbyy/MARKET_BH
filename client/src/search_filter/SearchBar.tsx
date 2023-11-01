@@ -1,7 +1,6 @@
 import React from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import {
-  Box,
   FormControl,
   Grid,
   IconButton,
@@ -16,7 +15,13 @@ const SearchBar = () => {
   const handleChange = ({ target }: any) => {
     const sort = searchParams.get("sort");
     const brand = searchParams.get("brand");
-    setSearch({ q: target.value, sort: sort || "", brand: brand || "" });
+    const sticker = searchParams.get("sticker");
+    setSearch({
+      q: target.value,
+      sort: sort || "",
+      brand: brand || "",
+      sticker: sticker || "",
+    });
   };
 
   return (

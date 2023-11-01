@@ -11,6 +11,7 @@ import { CardMedia, Grid, Typography } from "@mui/material";
 import { useUser } from "../providers/UserProvider";
 import SvgSugar from "./SvgSugar";
 import SvgSodium from "./SvgSodium";
+import SvgSaturatedFat from "./SvgSaturatedFat";
 
 type Props = {
   isDialogOpen: boolean;
@@ -109,6 +110,7 @@ const ProductDialog: FC<Props> = ({
         <Grid sx={{ margin: "20px" }}>
           {details.isSodium === true && <SvgSodium />}
           {details.isSugar === true && <SvgSugar />}
+          {details.isSaturatedFat === true && <SvgSaturatedFat />}
         </Grid>
       </DialogContent>
       <DialogActions>

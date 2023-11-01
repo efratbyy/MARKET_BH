@@ -28,6 +28,7 @@ export interface ProductInterface {
     divideBy: number;
     isSugar: boolean;
     isSodium: boolean;
+    isSaturatedFat: boolean;
   };
   ingredients: string;
   content: string;

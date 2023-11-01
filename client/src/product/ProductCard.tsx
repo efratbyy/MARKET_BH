@@ -70,7 +70,7 @@ const ProductCard: React.FC<Props> = ({ product }) => {
   return (
     <Card
       sx={{
-        minWidth: "280",
+        // minWidth: "280",
         display: "flax",
         flexDirection: "column",
         minHeight: "100%",
@@ -93,9 +93,9 @@ const ProductCard: React.FC<Props> = ({ product }) => {
             display: "flex",
             flex: 1,
             objectFit: "fill",
-            width: "50%",
+            width: "40%",
             marginTop: 2,
-            height: "180px",
+            // height: "15vh",
           }}
         />
       </CardActionArea>
