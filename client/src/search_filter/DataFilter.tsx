@@ -220,7 +220,7 @@ const DataFilter = () => {
                   />
                 }
                 label={brand}
-                sx={{ pl: 4 }}
+                sx={{ pl: 4, minWidth: "100% !important" }}
               />
             ))}
           </List>
@@ -258,7 +258,7 @@ const DataFilter = () => {
                   />
                 }
                 label={sticker}
-                sx={{ pl: 4 }}
+                sx={{ pl: 4, minWidth: "100% !important" }}
               />
             ))}
           </List>

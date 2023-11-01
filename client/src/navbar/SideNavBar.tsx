@@ -45,8 +45,8 @@ export default function SideNavBar() {
     <Box
       sx={{ width: 250 }}
       role="presentation"
-      onClick={toggleLeftDrawer(false)}
-      onKeyDown={toggleLeftDrawer(false)}
+      onClick={toggleLeftDrawer(true)}
+      onKeyDown={toggleLeftDrawer(true)}
     >
       {/* Inbox Link */}
       <List>
@@ -122,7 +122,7 @@ export default function SideNavBar() {
         </ListItem>
       </List>
       <Divider />
-      {/* <DataFilter></DataFilter> */}
+      <DataFilter></DataFilter>
     </Box>
   );
 
