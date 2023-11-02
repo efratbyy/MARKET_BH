@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const CartProduct = require("./Cart");
+const Purchase = require("./Purchase");
 
 const schema = new mongoose.Schema({
   first: {
@@ -85,6 +86,7 @@ const schema = new mongoose.Schema({
     default: Date.now,
   },
   cart: [CartProduct],
+  purchaseHistory: [Purchase],
 });
 
 const User = mongoose.model("user", schema);

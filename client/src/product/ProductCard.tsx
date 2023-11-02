@@ -177,7 +177,7 @@ const ProductCard: React.FC<Props> = ({ product }) => {
               sx={{
                 borderRadius: "0px",
                 width: "40%",
-                backgroundColor: "#800080",
+                backgroundColor: "#5b9822",
               }}
             >
               <RemoveIcon />
@@ -192,7 +192,7 @@ const ProductCard: React.FC<Props> = ({ product }) => {
               sx={{
                 borderRadius: "0px",
                 width: "40%",
-                backgroundColor: "#800080",
+                backgroundColor: "#5b9822",
               }}
             >
               <AddIcon />

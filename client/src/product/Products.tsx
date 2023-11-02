@@ -77,8 +77,8 @@ const Products: React.FC<Props> = () => {
           let sugarProducts: ProductInterface[] | undefined = [];
           let saturatedFatProducts: ProductInterface[] | undefined = [];
           let sodiumProducts: ProductInterface[] | undefined = [];
-          // let greenMarkProducts: ProductInterface[] | undefined = [];
-          // let supervisedProducts: ProductInterface[] | undefined = [];
+          let greenMarkProducts: ProductInterface[] | undefined = [];
+          let supervisedProducts: ProductInterface[] | undefined = [];
 
           if (stickersArray.includes("סוכר"))
             sugarProducts = filteredProducts?.filter(
@@ -87,32 +87,32 @@ const Products: React.FC<Props> = () => {
 
           if (stickersArray.includes("שומן רווי"))
             saturatedFatProducts = filteredProducts?.filter(
-              (x) => x.details.isSaturatedFat
+              (x) => x.details.isSaturatedFat === true
             );
 
           if (stickersArray.includes("נתרן"))
             sodiumProducts = filteredProducts?.filter(
-              (x) => x.details.isSodium
+              (x) => x.details.isSodium === true
             );
 
-          // if (stickersArray.includes("הסימון הירוק"))
-          //   greenMarkProducts = filteredProducts?.filter(
-          //     (x) => x.details.is
-          //   );
+          if (stickersArray.includes("הסימון הירוק"))
+            greenMarkProducts = filteredProducts?.filter(
+              (x) => x.details.isGreenMark === true
+            );
 
-          // if (stickersArray.includes("מוצר בפיקוח"))
-          //   supervisedProducts = filteredProducts?.filter(
-          //     (x) => x.details.is
-          //   );
+          if (stickersArray.includes("מוצר בפיקוח"))
+            supervisedProducts = filteredProducts?.filter(
+              (x) => x.details.isSupervised === true
+            );
 
           // Create array thant contains all the products with chosen stickers
           // it may contains duplicate products
           const mergedArray = ([] as ProductInterface[]).concat(
             sugarProducts || [],
             saturatedFatProducts || [],
-            sodiumProducts || []
-            // greenMarkProducts || [],
-            // supervisedProducts || []
+            sodiumProducts || [],
+            greenMarkProducts || [],
+            supervisedProducts || []
           );
 
           filteredProducts = Array.from(new Set(mergedArray));

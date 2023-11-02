@@ -29,6 +29,8 @@ export interface ProductInterface {
     isSugar: boolean;
     isSodium: boolean;
     isSaturatedFat: boolean;
+    isGreenMark: boolean;
+    isSupervised: boolean;
   };
   ingredients: string;
   content: string;

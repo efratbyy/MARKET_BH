@@ -4,6 +4,7 @@ const User = require("../models/mongooseValidation/User");
 const bcrypt = require("bcryptjs");
 const config = require("config");
 const jwt = require("jsonwebtoken");
+const Purchase = require("../models/mongooseValidation/Purchase");
 const JWT_KEY = config.get("JWT_KEY");
 
 const register = async (req, res) => {
@@ -88,5 +89,31 @@ const login = async (req, res) => {
   }
 };
 
+// Move cart to parches history
+const checkout = async (req, res) => {
+  try {
+    const user = req.user;
+    const { userId } = req.params;
+    if (user._id !== userId) throw new Error("Illegal action");
+    const userFromDB = await User.findById(userId);
+    if (!userFromDB) throw new Error("User not registered");
+
+    // TODO: insert cart to purchase history and clean cart
+    userFromDB.purchaseHistory.push({
+      order: userFromDB.cart,
+    });
+    userFromDB.cart = [];
+
+    const userUpdated = await User.findByIdAndUpdate(userId, userFromDB, {
+      new: true,
+    });
+    if (!userUpdated) throw new Error("Purchase failed !");
+    res.status(201).send(userUpdated.purchaseHistory);
+  } catch (error) {
+    return handleError(res, 404, `Mongoose Error: ${error.message}`);
+  }
+};
+
 exports.register = register;
 exports.login = login;
+exports.checkout = checkout;

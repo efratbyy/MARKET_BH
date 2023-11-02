@@ -26,6 +26,12 @@ const productDetails = new mongoose.Schema({
   isSaturatedFat: {
     type: Boolean,
   },
+  isGreenMark: {
+    type: Boolean,
+  },
+  isSupervised: {
+    type: Boolean,
+  },
 });
 
 module.exports = productDetails;
