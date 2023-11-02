@@ -6,6 +6,7 @@ import {
   removeFromCartApi,
 } from "../apiService/cartApiService";
 import { useSnack } from "../providers/SnackbarProvider";
+import { checkoutApi } from "../apiService/userApiService";
 
 const useCart = () => {
   const snack = useSnack();
@@ -51,10 +52,19 @@ const useCart = () => {
       return newCart;
     }
   };
+
+  const handleCheckout = async (userId: string) => {
+    if (userId) {
+      const updateDate = await checkoutApi(userId);
+      return updateDate;
+    }
+  };
+
   return {
     handleGetCart,
     updateCart,
     updateCartNote,
+    handleCheckout,
   };
 };
 

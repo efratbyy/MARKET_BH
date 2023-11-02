@@ -17,6 +17,7 @@ type ContextArgs = {
     barcode: string,
     note: string
   ) => void;
+  checkoutProvider: (userId: string | undefined) => void;
 };
 
 const CartContext = React.createContext<null | ContextArgs>(null);
@@ -31,7 +32,8 @@ export const CartProvider: React.FC<Props> = ({ children }) => {
   );
 
   const { user } = useUser();
-  const { updateCart, updateCartNote, handleGetCart } = useCart();
+  const { updateCart, updateCartNote, handleGetCart, handleCheckout } =
+    useCart();
 
   useEffect(() => {
     if (user) {
@@ -44,6 +46,17 @@ export const CartProvider: React.FC<Props> = ({ children }) => {
         });
     }
   }, [user]);
+
+  const checkoutProvider = (userId: string | undefined) => {
+    if (userId)
+      handleCheckout(userId)
+        .then((data) => {
+          if (data) setCart([]);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+  };
 
   const updateCartProvider = (
     userId: string,
@@ -75,8 +88,14 @@ export const CartProvider: React.FC<Props> = ({ children }) => {
   };
 
   const value = useMemo(() => {
-    return { cart, updateCartProvider, updateCartNoteProvider };
-  }, [cart]);
+    return {
+      cart,
+      setCart,
+      updateCartProvider,
+      updateCartNoteProvider,
+      checkoutProvider,
+    };
+  }, [cart, setCart]);
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 };

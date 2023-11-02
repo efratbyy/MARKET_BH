@@ -98,7 +98,7 @@ const checkout = async (req, res) => {
     const userFromDB = await User.findById(userId);
     if (!userFromDB) throw new Error("User not registered");
 
-    // TODO: insert cart to purchase history and clean cart
+    // insert cart to purchase history and clean cart
     userFromDB.purchaseHistory.push({
       order: userFromDB.cart,
     });
@@ -108,7 +108,13 @@ const checkout = async (req, res) => {
       new: true,
     });
     if (!userUpdated) throw new Error("Purchase failed !");
-    res.status(201).send(userUpdated.purchaseHistory);
+
+    res
+      .status(201)
+      .send(
+        userUpdated.purchaseHistory[userUpdated.purchaseHistory.length - 1]
+          .orderDate
+      );
   } catch (error) {
     return handleError(res, 404, `Mongoose Error: ${error.message}`);
   }

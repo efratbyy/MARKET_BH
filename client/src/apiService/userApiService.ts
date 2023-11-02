@@ -27,3 +27,18 @@ export const loginApi = async (user: LoginType) => {
     return Promise.reject("An unexpected error occurred!");
   }
 };
+
+export const checkoutApi = async (userId: string) => {
+  try {
+    const token = localStorage.getItem("token_key");
+    const { data } = await axios.patch<Date>(
+      `${apiUrl}/users/checkout/${userId}`,
+      null,
+      { headers: { "x-auth-token": token } }
+    );
+    return Promise.resolve(data);
+  } catch (error) {
+    if (axios.isAxiosError(error)) return Promise.reject(error.response?.data);
+    return Promise.reject("An unexpected error occurred!");
+  }
+};
