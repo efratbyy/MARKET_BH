@@ -35,18 +35,19 @@ const ShoppingCart: React.FC<Props> = () => {
             <Grid
               item
               xs={2}
-              md={2}
+              md={1.5}
               container
               alignContent="center"
               alignItems="center"
               justifyContent="center"
-              padding={"3%"}
+              // padding={"3%"}
             >
               <ButtonGroup
                 orientation="vertical"
                 variant="contained"
                 sx={{
-                  width: "100%",
+                  // width: "70%",
+                  // height: "100%",
                   boxShadow: 0, // Set the desired width to make it smaller
                 }}
               >
@@ -54,16 +55,31 @@ const ShoppingCart: React.FC<Props> = () => {
                   onClick={() =>
                     updateCartProvider(user!._id, item.barcode, -1)
                   }
+                  sx={{
+                    backgroundColor: "#5b9822",
+                    minWidth: "0px !important",
+                    width: "32px",
+                  }}
                 >
-                  <RemoveIcon />
+                  <RemoveIcon sx={{ fontSize: "large" }} />
                 </Button>
-                <Button disabled>
-                  <Typography variant="body1">{item.amount}</Typography>
+                <Button
+                  disabled
+                  sx={{ minWidth: "0px !important", width: "32px" }}
+                >
+                  <Typography sx={{ fontSize: "small" }} variant="body1">
+                    {item.amount}
+                  </Typography>
                 </Button>
                 <Button
                   onClick={() => updateCartProvider(user!._id, item.barcode, 1)}
+                  sx={{
+                    backgroundColor: "#5b9822",
+                    minWidth: "0px !important",
+                    width: "32px",
+                  }}
                 >
-                  <AddIcon />
+                  <AddIcon sx={{ fontSize: "large" }} />
                 </Button>
               </ButtonGroup>
             </Grid>
@@ -92,7 +108,7 @@ const ShoppingCart: React.FC<Props> = () => {
               </div>
             </Grid>
 
-            <Grid item xs={4} md={4}>
+            <Grid item xs={4} md={4.5}>
               <div style={{ marginTop: "10%" }}>{item.brand}</div>
               <div style={{ marginTop: "10%" }}>{item.title}</div>
               <div style={{ marginTop: "10%" }}>
