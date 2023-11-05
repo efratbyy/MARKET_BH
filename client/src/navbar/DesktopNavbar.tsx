@@ -99,8 +99,7 @@ const DesktopNavbar = () => {
               <Grid item md={1} sx={{ flexGrow: 0 }}>
                 <Tooltip title="Open settings">
                   <IconButton onClick={handleOpenUserMenu}>
-                    {/* //TODO: Change to their username first letter */}
-                    <Avatar>H</Avatar>
+                    <Avatar>{user.first.charAt(0).toUpperCase()}</Avatar>
                   </IconButton>
                 </Tooltip>
                 <Menu
