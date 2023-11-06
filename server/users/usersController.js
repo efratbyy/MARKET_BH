@@ -23,7 +23,7 @@ const register = async (req, res) => {
     newUser.password = bcrypt.hashSync(newUser.password, 10);
 
     const userFromDB = await newUser.save();
-    const { _id, isAdmin, first, last } = userInDB;
+    const { _id, isAdmin, first, last } = userFromDB;
     const token = jwt.sign({ _id, isAdmin, email, first, last }, JWT_KEY);
     res.status(201).send(token);
   } catch (error) {
