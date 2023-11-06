@@ -15,7 +15,8 @@ import { useSnack } from "../providers/SnackbarProvider";
 import Footer from "../footer/Footer";
 import creditCardSchema from "../models/joiValidation/CreditCardSchema";
 import CreditCardInput from "react-credit-card-input";
-// import * as luhn from "luhn";
+import { emailPaymentDetailsApi } from "../apiService/emailApiService";
+import { useUser } from "../providers/UserProvider";
 
 const CheckoutPage: React.FC = () => {
   const snack = useSnack();
@@ -29,6 +30,7 @@ const CheckoutPage: React.FC = () => {
 
   const navigate = useNavigate();
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const { user } = useUser();
 
   const luhnValidate = (creditCardNumber: string): boolean => {
     // Double every other digit in the credit card number, starting with the rightmost digit.
@@ -137,8 +139,14 @@ const CheckoutPage: React.FC = () => {
     setErrors({});
 
     try {
-      // TODO: send email of credit card details
       // TODO: Message on the screen: Your order has been successfully received and send an email to the customer with his order
+
+      const res = await emailPaymentDetailsApi(
+        formData.creditCardNumber,
+        user?.email || "No User Email"
+      );
+      console.log(res);
+
       snack("success", "פרטי האשראי התקבלו בהצלחה");
       navigate(`${ROUTES.ROOT}`, { replace: true });
     } catch (error) {

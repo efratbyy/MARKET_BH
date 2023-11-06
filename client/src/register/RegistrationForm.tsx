@@ -24,8 +24,9 @@ import ROUTES from "../routes/routesModel";
 import Navbar from "../navbar/Navbar";
 import { useSnack } from "../providers/SnackbarProvider";
 import Footer from "../footer/Footer";
-import { saveUserToken } from "../services/LocalStorageService";
+import { getUser, saveUserToken } from "../services/LocalStorageService";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { useUser } from "../providers/UserProvider";
 
 const RegistrationForm: React.FC = () => {
   const snack = useSnack();
@@ -44,6 +45,7 @@ const RegistrationForm: React.FC = () => {
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null); // Store recaptcha value
   const [showPassword, setShowPassword] = useState(false);
+  const { setToken, setUser } = useUser();
 
   const handleTogglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -105,7 +107,12 @@ const RegistrationForm: React.FC = () => {
 
     try {
       const token = await registrationApi(formData);
-      saveUserToken(token);
+
+      saveUserToken(token); // Save token to local storage
+      setToken(token); // update state of the token (UserProvider)
+      const decryptedUser = getUser();
+      setUser(decryptedUser); // update state of the user (UserProvider)
+
       snack("success", "משתמש חדש נוצר בהצלחה");
       navigate(`${ROUTES.ROOT}`, { replace: true });
     } catch (error) {
