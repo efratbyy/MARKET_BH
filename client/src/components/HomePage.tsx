@@ -27,7 +27,7 @@ const HomePage = () => {
           minHeight: "400px", //
         }}
       ></Grid>
-      <Grid container>
+      <Grid container sx={{ marginBottom: "27px" }}>
         <Grid item sx={{ display: { xs: "none", md: "block" } }} md={2}>
           <DataFilter />
         </Grid>

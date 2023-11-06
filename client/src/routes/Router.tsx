@@ -7,6 +7,7 @@ import Login from "../login/Login";
 import HomePage from "../components/HomePage";
 import ShoppingCartMobilePage from "../cart/ShoppingCartMobilePage";
 import AboutPage from "../components/AboutPage";
+import CheckoutPage from "../components/CheckoutPage";
 
 const Router = () => {
   return (
@@ -16,6 +17,7 @@ const Router = () => {
       <Route path={ROUTES.ROOT} element={<HomePage />} />
       <Route path={ROUTES.SHOPPING_CART} element={<ShoppingCartMobilePage />} />
       <Route path={ROUTES.ABOUT} element={<AboutPage />} />
+      <Route path={ROUTES.CHECKOUT} element={<CheckoutPage />} />
       <Route path="*" element={<ErrorPage />} />
     </Routes>
   );

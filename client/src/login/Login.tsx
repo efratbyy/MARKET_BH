@@ -107,7 +107,7 @@ const Login = () => {
               width: "300px",
               "& .MuiOutlinedInput-root": {
                 "& fieldset": {
-                  borderColor: "rgba(0, 0, 0, 1)", // Change border color to fully opaque
+                  borderColor: "rgba(255, 255, 255, 1)", // Change border color to fully opaque
                 },
               },
             }}
@@ -117,8 +117,8 @@ const Login = () => {
           <TextField
             label="סיסמא"
             variant="outlined"
-            type="password"
             color="success"
+            type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             error={Boolean(errors.password)}
@@ -127,7 +127,7 @@ const Login = () => {
               width: "300px",
               "& .MuiOutlinedInput-root": {
                 "& fieldset": {
-                  borderColor: "rgba(0, 0, 0, 1)", // Change border color to fully opaque
+                  borderColor: "rgba(255, 255, 255, 1)", // Change border color to fully opaque
                 },
               },
             }}

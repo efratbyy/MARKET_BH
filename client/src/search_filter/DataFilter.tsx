@@ -132,6 +132,7 @@ const DataFilter = () => {
           width: "100%",
           maxWidth: 360,
           bgcolor: "background.paper",
+          direction: "rtl",
         }}
         component="nav"
         aria-labelledby="nested-list-subheader"
@@ -142,14 +143,17 @@ const DataFilter = () => {
         }
       >
         <ListItemButton onClick={() => setOpenSort(!openSort)}>
-          <ListItemText primary="מיון מוצרים ע״פ" sx={{ textAlign: "start" }} />
+          <ListItemText primary="מיון מוצרים" sx={{ textAlign: "start" }} />
           {openSort ? <ExpandLess /> : <ExpandMore />}
         </ListItemButton>
         <Collapse in={openSort} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
             <ListItemButton onClick={handleSortDesc} sx={{ pl: 4 }}>
               <ListItemIcon sx={{ minWidth: "0px" }}>₪</ListItemIcon>
-              <ListItemText primary="מחיר מהגבוה לנמוך" />
+              <ListItemText
+                sx={{ textAlign: "start", pr: "8px" }}
+                primary=" מהגבוה לנמוך"
+              />
             </ListItemButton>
           </List>
         </Collapse>
@@ -157,7 +161,10 @@ const DataFilter = () => {
           <List component="div" disablePadding>
             <ListItemButton onClick={handleSortAsc} sx={{ pl: 4 }}>
               <ListItemIcon sx={{ minWidth: "0px" }}>₪</ListItemIcon>
-              <ListItemText primary="מחיר מהנמוך לגבוה" />
+              <ListItemText
+                sx={{ textAlign: "start", pr: "8px" }}
+                primary="מהנמוך לגבוה"
+              />
             </ListItemButton>
           </List>
         </Collapse>
@@ -177,16 +184,16 @@ const DataFilter = () => {
         subheader={
           <ListSubheader component="div" id="nested-list-subheader">
             <Grid container>
-              <Grid item xs={6}>
+              <Grid item xs={6} md={7}>
                 סינון מוצרים
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={6} md={5}>
                 <Button
                   style={{
                     backgroundColor: "orange",
                     color: "black",
                     width: "95%",
-                    height: "70%",
+                    height: "34px",
                     padding: "0",
                     display: "flex",
                     alignItems: "center",
@@ -196,7 +203,7 @@ const DataFilter = () => {
                   }}
                   onClick={() => setSearch("")}
                 >
-                  אפס סינון
+                  אפס
                 </Button>
               </Grid>
             </Grid>

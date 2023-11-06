@@ -49,3 +49,11 @@ export interface CartProductInterface {
   brand: string;
   note: string;
 }
+
+export interface CreditCardInterface {
+  cardHolderName: string;
+  creditCardNumber: string;
+  EXPdate: string;
+  CVV: string;
+  ID: string;
+}

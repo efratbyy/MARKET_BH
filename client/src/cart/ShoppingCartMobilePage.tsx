@@ -240,23 +240,26 @@ const ShoppingCartMobilePage = () => {
             marginTop: "auto", // Push the button to the bottom
           }}
         >
-          <Paper>
-            <Button
-              onClick={() => {
-                checkoutProvider(user?._id);
-              }}
-              variant="contained"
-              sx={{
-                backgroundColor: "#5b9822",
-                color: "white",
-                padding: "10px",
-                width: "100%",
-                marginBottom: "30px",
-              }}
-            >
-              <Typography>לקופה</Typography>
-            </Button>
-          </Paper>
+          {cart?.length !== 0 && (
+            <Paper sx={{ marginTop: "40px" }}>
+              <Button
+                onClick={() => {
+                  checkoutProvider(user?._id);
+                  navigate(ROUTES.CHECKOUT);
+                }}
+                variant="contained"
+                sx={{
+                  backgroundColor: "#5b9822",
+                  color: "white",
+                  padding: "10px",
+                  width: "100%",
+                  marginBottom: "0px",
+                }}
+              >
+                <Typography>לקופה</Typography>
+              </Button>
+            </Paper>
+          )}
         </Grid>
       </Grid>
 
