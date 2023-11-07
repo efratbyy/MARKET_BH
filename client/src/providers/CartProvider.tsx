@@ -50,8 +50,11 @@ export const CartProvider: React.FC<Props> = ({ children }) => {
   const checkoutProvider = (userId: string | undefined) => {
     if (userId)
       handleCheckout(userId)
-        .then((data) => {
-          if (data) setCart([]);
+        .then((orderNumber) => {
+          if (orderNumber) {
+            setCart([]);
+            return orderNumber;
+          }
         })
         .catch((error) => {
           console.log(error);

@@ -8,7 +8,7 @@ import React, {
 import { TextField, Button, Container, Typography, Grid } from "@mui/material";
 import Joi from "joi";
 import { CreditCardInterface } from "../models/interfaces/interfaces.ts";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import ROUTES from "../routes/routesModel";
 import Navbar from "../navbar/Navbar";
 import { useSnack } from "../providers/SnackbarProvider";
@@ -17,6 +17,7 @@ import creditCardSchema from "../models/joiValidation/CreditCardSchema";
 import CreditCardInput from "react-credit-card-input";
 import { emailPaymentDetailsApi } from "../apiService/emailApiService";
 import { useUser } from "../providers/UserProvider";
+import { useCartProvider } from "../providers/CartProvider";
 
 const CheckoutPage: React.FC = () => {
   const snack = useSnack();
@@ -31,6 +32,7 @@ const CheckoutPage: React.FC = () => {
   const navigate = useNavigate();
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const { user } = useUser();
+  const { cart, checkoutProvider } = useCartProvider();
 
   const luhnValidate = (creditCardNumber: string): boolean => {
     // Double every other digit in the credit card number, starting with the rightmost digit.
@@ -138,6 +140,8 @@ const CheckoutPage: React.FC = () => {
     setErrors({});
 
     try {
+      const orderNumber = checkoutProvider(user?._id);
+
       // TODO: Message on the screen: Your order has been successfully received and send an email to the customer with his order
 
       const res = await emailPaymentDetailsApi(
@@ -157,6 +161,8 @@ const CheckoutPage: React.FC = () => {
       snack("error", error);
     }
   };
+
+  if (!user) return <Navigate replace to={ROUTES.ROOT} />;
 
   return (
     <>

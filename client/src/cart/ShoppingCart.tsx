@@ -182,7 +182,6 @@ const ShoppingCart = () => {
           <Paper sx={{ marginTop: "40px" }}>
             <Button
               onClick={() => {
-                checkoutProvider(user?._id);
                 navigate(ROUTES.CHECKOUT);
               }}
               variant="contained"

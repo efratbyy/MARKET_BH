@@ -5,6 +5,7 @@ const bcrypt = require("bcryptjs");
 const config = require("config");
 const jwt = require("jsonwebtoken");
 const Purchase = require("../models/mongooseValidation/Purchase");
+const generateOrderNumber = require("../helpers/generateOrderNumber");
 const JWT_KEY = config.get("JWT_KEY");
 
 const register = async (req, res) => {
@@ -100,6 +101,7 @@ const checkout = async (req, res) => {
 
     // insert cart to purchase history and clean cart
     userFromDB.purchaseHistory.push({
+      orderNumber: await generateOrderNumber(),
       order: userFromDB.cart,
     });
     userFromDB.cart = [];
@@ -112,8 +114,9 @@ const checkout = async (req, res) => {
     res
       .status(201)
       .send(
-        userUpdated.purchaseHistory[userUpdated.purchaseHistory.length - 1]
-          .orderDate
+        userUpdated.purchaseHistory[
+          userUpdated.purchaseHistory.length - 1
+        ].orderNumber.toString()
       );
   } catch (error) {
     return handleError(res, 404, `Mongoose Error: ${error.message}`);

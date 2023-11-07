@@ -55,8 +55,8 @@ const useCart = () => {
 
   const handleCheckout = async (userId: string) => {
     if (userId) {
-      const updateDate = await checkoutApi(userId);
-      return updateDate;
+      const orderNumber = await checkoutApi(userId);
+      return orderNumber;
     }
   };
 
