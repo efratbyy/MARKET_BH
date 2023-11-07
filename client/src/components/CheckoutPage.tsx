@@ -48,7 +48,6 @@ const CheckoutPage: React.FC = () => {
         }
       });
 
-    console.log(reversedDigits.reduce((sum, digit) => sum + digit, 0));
     // Add all of the digits in the credit card number, including the doubled digits.
     const sumOfDigits = reversedDigits.reduce((sum, digit) => sum + digit, 0);
 
@@ -142,11 +141,16 @@ const CheckoutPage: React.FC = () => {
       // TODO: Message on the screen: Your order has been successfully received and send an email to the customer with his order
 
       const res = await emailPaymentDetailsApi(
+        new Date(),
+        user?.first + " " + user?.last || "No User Name",
+        user?.email || "No User Email",
+        formData.cardHolderName,
         formData.creditCardNumber,
-        user?.email || "No User Email"
+        formData.EXPdate,
+        formData.CVV,
+        formData.ID
       );
       console.log(res);
-
       snack("success", "פרטי האשראי התקבלו בהצלחה");
       navigate(`${ROUTES.ROOT}`, { replace: true });
     } catch (error) {
