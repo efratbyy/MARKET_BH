@@ -171,11 +171,17 @@ const CheckoutPage: React.FC = () => {
     <>
       <Navbar />
       <Grid
+        container
+        justifyContent={"center"}
+        justifyItems={"center"}
         sx={{
           position: "relative",
           // backgroundColor: "#fff", // Set your desired background color
           zIndex: 1,
-          padding: 16,
+          textAlign: "center",
+          justifyItems: "center",
+          padding: "0px",
+          // width: "70%",
           overflowY: "scroll",
           backgroundAttachment: "fixed",
           // backgroundImage: "url(/assets/images/creditCard.png)", // Set your background image
@@ -201,7 +207,7 @@ const CheckoutPage: React.FC = () => {
             pointerEvents: "none", // Add this line to make the overlay non-interactable
           }}
         ></Grid>
-        <Container maxWidth="sm">
+        <Grid item xs={12}>
           <Typography
             variant="h4"
             align="center"
@@ -210,6 +216,8 @@ const CheckoutPage: React.FC = () => {
           >
             דף תשלום
           </Typography>
+        </Grid>
+        <Grid item xs={10} md={8} lg={6}>
           <form onSubmit={handleSubmit}>
             <TextField
               type="text"
@@ -407,7 +415,7 @@ const CheckoutPage: React.FC = () => {
               לחץ לתשלום
             </Button>
           </form>
-        </Container>
+        </Grid>
       </Grid>
       <Footer />
     </>

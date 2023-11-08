@@ -23,7 +23,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { useUser } from "../providers/UserProvider";
 
 const ShoppingCartMobilePage = () => {
-  const { cart, updateCartProvider, updateCartNoteProvider, checkoutProvider } =
+  const { cart, updateCartProvider, updateCartNoteProvider } =
     useCartProvider();
   const navigate = useNavigate();
   const { user } = useUser();
@@ -240,11 +240,10 @@ const ShoppingCartMobilePage = () => {
             marginTop: "auto", // Push the button to the bottom
           }}
         >
-          {cart?.length !== 0 && (
+          {cart && cart?.length !== 0 && (
             <Paper sx={{ marginTop: "40px" }}>
               <Button
                 onClick={() => {
-                  checkoutProvider(user?._id);
                   navigate(ROUTES.CHECKOUT);
                 }}
                 variant="contained"
