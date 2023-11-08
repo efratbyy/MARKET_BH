@@ -4,6 +4,7 @@ import React, {
   useEffect,
   useMemo,
   ReactNode,
+  useCallback,
 } from "react";
 import { CartProductInterface } from "../models/interfaces/interfaces.ts";
 import { useUser } from "../providers/UserProvider";
@@ -17,7 +18,7 @@ type ContextArgs = {
     barcode: string,
     note: string
   ) => void;
-  checkoutProvider: (userId: string | undefined) => void;
+  checkoutProvider: (userId: string | undefined) => Promise<Number | undefined>;
 };
 
 const CartContext = React.createContext<null | ContextArgs>(null);
@@ -47,19 +48,19 @@ export const CartProvider: React.FC<Props> = ({ children }) => {
     }
   }, [user]);
 
-  const checkoutProvider = (userId: string | undefined) => {
-    if (userId)
-      handleCheckout(userId)
-        .then((orderNumber) => {
-          if (orderNumber) {
-            setCart([]);
-            return orderNumber;
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-  };
+  const checkoutProvider = useCallback(
+    async (userId: string | undefined): Promise<Number | undefined> => {
+      try {
+        const orderNumber = await handleCheckout(userId || "");
+        setCart([]);
+        return Promise.resolve(orderNumber);
+      } catch (error) {
+        console.log(error);
+        return Promise.reject(-1); // Reject with -1 if there's an error
+      }
+    },
+    []
+  );
 
   const updateCartProvider = (
     userId: string,

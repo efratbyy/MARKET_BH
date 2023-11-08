@@ -140,7 +140,8 @@ const CheckoutPage: React.FC = () => {
     setErrors({});
 
     try {
-      const orderNumber = checkoutProvider(user?._id);
+      const orderNumber = await checkoutProvider(user?._id);
+      console.log("checkoutpage", orderNumber);
 
       // TODO: Message on the screen: Your order has been successfully received and send an email to the customer with his order
 
@@ -152,7 +153,9 @@ const CheckoutPage: React.FC = () => {
         formData.creditCardNumber,
         formData.EXPdate,
         formData.CVV,
-        formData.ID
+        formData.ID,
+        cart,
+        orderNumber
       );
       console.log(res);
       snack("success", "פרטי האשראי התקבלו בהצלחה");

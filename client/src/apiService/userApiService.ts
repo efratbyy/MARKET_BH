@@ -31,7 +31,7 @@ export const loginApi = async (user: LoginType) => {
 export const checkoutApi = async (userId: string) => {
   try {
     const token = localStorage.getItem("token_key");
-    const { data } = await axios.patch<Date>(
+    const { data } = await axios.patch<Number>(
       `${apiUrl}/users/checkout/${userId}`,
       null,
       { headers: { "x-auth-token": token } }

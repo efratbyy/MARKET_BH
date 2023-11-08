@@ -14,7 +14,7 @@ import ROUTES from "../routes/routesModel";
 
 const ShoppingCart = () => {
   const { user } = useUser();
-  const { cart, updateCartNoteProvider, updateCartProvider, checkoutProvider } =
+  const { cart, updateCartNoteProvider, updateCartProvider } =
     useCartProvider();
   const navigate = useNavigate();
 
@@ -178,7 +178,7 @@ const ShoppingCart = () => {
           </div>
         ))}
 
-        {cart?.length !== 0 && (
+        {cart && cart?.length !== 0 && (
           <Paper sx={{ marginTop: "40px" }}>
             <Button
               onClick={() => {
