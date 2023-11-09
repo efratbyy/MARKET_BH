@@ -255,7 +255,7 @@ const ShoppingCartMobilePage = () => {
                   marginBottom: "0px",
                 }}
               >
-                <Typography>לקופה</Typography>
+                <Typography>לקופה ({totalAmountInCart})</Typography>
               </Button>
             </Paper>
           )}
