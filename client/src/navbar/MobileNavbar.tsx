@@ -32,7 +32,7 @@ const MobileNavbar = () => {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
-  const [totalAmountInCart, setTotalAmountInCart] = React.useState<number>(0);
+  const [totalItemsInCart, setTotalItemsInCart] = React.useState<number>(0);
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -64,7 +64,7 @@ const MobileNavbar = () => {
 
   useEffect(() => {
     if (cart)
-      setTotalAmountInCart(cart.reduce((acc, item) => acc + item.amount, 0));
+      setTotalItemsInCart(cart.reduce((acc, item) => acc + item.amount, 0));
   }, [cart]);
 
   return (
@@ -244,7 +244,7 @@ const MobileNavbar = () => {
                   onClick={() => navigate(ROUTES.SHOPPING_CART)}
                   aria-label="cart"
                 >
-                  <StyledBadge badgeContent={totalAmountInCart} color="default">
+                  <StyledBadge badgeContent={totalItemsInCart} color="default">
                     <ShoppingCartIcon sx={{ color: "#282828", fontSize: 40 }} />
                   </StyledBadge>
                 </IconButton>

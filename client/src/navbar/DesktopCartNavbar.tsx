@@ -7,14 +7,23 @@ import { useNavigate } from "react-router-dom";
 import ROUTES from "../routes/routesModel";
 import ShoppingCartTwoToneIcon from "@mui/icons-material/ShoppingCartTwoTone";
 
-const DesktopCartNavbar = () => {
+type Props = {
+  backgroundColor: string;
+};
+const DesktopCartNavbar: React.FC<Props> = ({ backgroundColor }) => {
   const { cart } = useCartProvider();
-  const [totalAmountInCart, setTotalAmountInCart] = React.useState<number>(0);
+  const [totalItemsInCart, setTotalItemsInCart] = React.useState<number>(0);
+  const [totalPriceInCart, setTotalPriceInCart] = React.useState<number>(0);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (cart)
-      setTotalAmountInCart(cart.reduce((acc, item) => acc + item.amount, 0));
+      setTotalItemsInCart(cart.reduce((acc, item) => acc + item.amount, 0));
+  }, [cart]);
+
+  useEffect(() => {
+    if (cart)
+      setTotalPriceInCart(cart.reduce((acc, item) => acc + item.price, 0));
   }, [cart]);
 
   return (
@@ -23,13 +32,11 @@ const DesktopCartNavbar = () => {
         container
         sx={{
           width: "100%",
-          // display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          backgroundColor: "#333",
+          backgroundColor: backgroundColor,
           padding: "10px",
           color: "#fff",
-          height: "fit-content",
         }}
       >
         <Grid
@@ -44,11 +51,13 @@ const DesktopCartNavbar = () => {
 
         <Grid item container xs={4} lg={4} sx={{ display: "flex", gap: 2 }}>
           <Grid item sx={{ flexGrow: 1 }}>
-            <Typography variant="body1">aaaa</Typography>
+            <Typography variant="body1">{totalItemsInCart} מוצרים</Typography>
           </Grid>
           <Grid container sx={{ flexDirection: "column", flexGrow: 1 }}>
             <Grid item>
-              <Typography variant="body1">bbbb</Typography>
+              <Typography variant="body1">
+                {totalPriceInCart.toFixed(2)} ₪
+              </Typography>
             </Grid>
           </Grid>
         </Grid>
@@ -74,7 +83,7 @@ const DesktopCartNavbar = () => {
                 // padding: "30px",
               }}
             >
-              <Typography>לקופה ({totalAmountInCart})</Typography>
+              <Typography>לקופה ({totalItemsInCart})</Typography>
             </Button>
           )}
         </Grid>

@@ -21,6 +21,7 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 import { useUser } from "../providers/UserProvider";
+import DesktopCartNavbar from "../navbar/DesktopCartNavbar";
 
 const ShoppingCartMobilePage = () => {
   const { cart, updateCartProvider, updateCartNoteProvider } =
@@ -28,7 +29,7 @@ const ShoppingCartMobilePage = () => {
   const navigate = useNavigate();
   const { user } = useUser();
 
-  const [totalAmountInCart, setTotalAmountInCart] = React.useState<number>(0);
+  const [totalItemsInCart, setTotalItemsInCart] = React.useState<number>(0);
   const [query, setQuery] = useState<string>("");
   const [searchParams] = useSearchParams();
 
@@ -51,7 +52,7 @@ const ShoppingCartMobilePage = () => {
 
   useEffect(() => {
     if (cart) {
-      setTotalAmountInCart(
+      setTotalItemsInCart(
         cart.reduce((number, item) => number + item.amount, 0)
       );
     }
@@ -84,9 +85,12 @@ const ShoppingCartMobilePage = () => {
               variant="h5"
               sx={{ color: "white", paddingRight: "40px" }}
             >
-              סל קניות | {totalAmountInCart} פריטים
+              סל קניות | {totalItemsInCart} פריטים
             </Typography>
           </Paper>
+        </Grid>
+        <Grid item sx={{ position: "absolute", bottom: "0" }}>
+          <DesktopCartNavbar backgroundColor={"none"} />
         </Grid>
       </Grid>
       {/* <ShoppingCart /> */}
@@ -219,7 +223,6 @@ const ShoppingCartMobilePage = () => {
                     <DeleteIcon sx={{ color: "#ce0a0a" }} />
                   </Button>
                 </Grid>
-                {/* <div className={`weight ${item.isProductOutOfStock ? 'disabled' : ''}`}>{item.product.weight}</div> */}
               </Grid>
               {index < cart.length - 1 && <Divider variant="middle" />}
             </div>
@@ -255,7 +258,7 @@ const ShoppingCartMobilePage = () => {
                   marginBottom: "0px",
                 }}
               >
-                <Typography>לקופה ({totalAmountInCart})</Typography>
+                <Typography>לקופה ({totalItemsInCart})</Typography>
               </Button>
             </Paper>
           )}

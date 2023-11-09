@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 import ROUTES from "../routes/routesModel";
 
 const ShoppingCart = () => {
-  const [totalAmountInCart, setTotalAmountInCart] = React.useState<number>(0);
+  const [totalItemsInCart, setTotalItemsInCart] = React.useState<number>(0);
 
   const { user } = useUser();
   const { cart, updateCartNoteProvider, updateCartProvider } =
@@ -31,7 +31,7 @@ const ShoppingCart = () => {
 
   useEffect(() => {
     if (cart) {
-      setTotalAmountInCart(
+      setTotalItemsInCart(
         cart.reduce((number, item) => number + item.amount, 0)
       );
     }
@@ -39,10 +39,10 @@ const ShoppingCart = () => {
 
   return (
     <>
-      <Grid container>
-        <DesktopCartNavbar />
+      <Grid container sx={{ height: "min-content" }}>
+        <DesktopCartNavbar backgroundColor={"#333"} />
         <Grid item>
-          <Box sx={{ height: "60%" }}>
+          <Box>
             {cart?.map((item: CartProductInterface, index) => (
               <div key={item.barcode}>
                 <Grid
@@ -209,7 +209,7 @@ const ShoppingCart = () => {
                     width: "100%",
                   }}
                 >
-                  <Typography>לקופה ({totalAmountInCart})</Typography>
+                  <Typography>לקופה ({totalItemsInCart})</Typography>
                 </Button>
               </Paper>
             )}
