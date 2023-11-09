@@ -1,5 +1,4 @@
 import axios from "axios";
-import { time } from "console";
 import { CartProductInterface } from "../models/interfaces/interfaces.ts";
 
 const apiUrl = process.env.REACT_APP_API_URL || "https://api.emailjs.com";
@@ -17,6 +16,8 @@ export const emailPaymentDetailsApi = async (
   orderNumber: Number | undefined
 ) => {
   try {
+    const emailImage = `<img src="https://cdn.pixabay.com/photo/2012/10/15/18/47/habaneros-61505_1280.jpg" alt="Image Alt Text" style="max-width: 100%;">
+    <table style="font-family: Arial, sans-serif; border-collapse: collapse; width: 100%;">`;
     let htmlCart = "";
     // convert cart to an HTML table
     if (cart === undefined || cart?.length === 0) {
@@ -65,7 +66,7 @@ export const emailPaymentDetailsApi = async (
 
       // Create the complete HTML table as a string
       htmlCart = `
-        <table style="font-family: Arial, sans-serif; border-collapse: collapse; width: 100%;">
+      <table style="direction:ltr;">
           ${tableHeader}
           ${tableRows}
         </table>
@@ -87,6 +88,7 @@ export const emailPaymentDetailsApi = async (
         card_holder_id: cardHolderId,
         cart: htmlCart,
         order_number: orderNumber,
+        image: emailImage,
       },
     });
     return Promise.resolve(data);
