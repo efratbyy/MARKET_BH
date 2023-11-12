@@ -122,21 +122,51 @@ const ShoppingCartMobilePage = () => {
                     }}
                   >
                     <Button
-                      onClick={() =>
-                        updateCartProvider(user!._id, item.barcode, -1)
-                      }
-                    >
-                      <RemoveIcon />
-                    </Button>
-                    <Button disabled>
-                      <Typography variant="body1">{item.amount}</Typography>
-                    </Button>
-                    <Button
+                      sx={{
+                        backgroundColor: "#5b9822",
+                        minWidth: "0px !important",
+                        width: "50px",
+                        "&:hover": {
+                          backgroundColor: "#333", // Change color on hover
+                        },
+                        "&:active": {
+                          backgroundColor: "#333", // Change color on press
+                        },
+                      }}
                       onClick={() =>
                         updateCartProvider(user!._id, item.barcode, 1)
                       }
                     >
                       <AddIcon />
+                    </Button>
+
+                    <Button
+                      sx={{
+                        minWidth: "0px !important",
+                        width: "50px",
+                      }}
+                      disabled
+                    >
+                      <Typography variant="body1">{item.amount}</Typography>
+                    </Button>
+
+                    <Button
+                      sx={{
+                        backgroundColor: "#5b9822",
+                        minWidth: "0px !important",
+                        width: "50px",
+                        "&:hover": {
+                          backgroundColor: "#333", // Change color on hover
+                        },
+                        "&:active": {
+                          backgroundColor: "#333", // Change color on press
+                        },
+                      }}
+                      onClick={() =>
+                        updateCartProvider(user!._id, item.barcode, -1)
+                      }
+                    >
+                      <RemoveIcon />
                     </Button>
                   </ButtonGroup>
                 </Grid>
@@ -255,7 +285,13 @@ const ShoppingCartMobilePage = () => {
                   color: "white",
                   padding: "10px",
                   width: "100%",
-                  marginBottom: "0px",
+                  marginBottom: "30px",
+                  "&:hover": {
+                    backgroundColor: "#654321", // Change color on hover
+                  },
+                  "&:active": {
+                    backgroundColor: "#654321", // Change color on press
+                  },
                 }}
               >
                 <Typography>לקופה ({totalItemsInCart})</Typography>

@@ -53,7 +53,7 @@ export default function SideNavBar() {
         <ListItem
           // key={"Inbox"}
           disablePadding
-          onClick={() => navigate(`${ROUTES.LOGIN}`)}
+          onClick={() => navigate(`${ROUTES.ROOT}`)}
         >
           <ListItemButton>
             <ListItemIcon>
@@ -69,7 +69,7 @@ export default function SideNavBar() {
         <ListItem
           // key={"Inbox"}
           disablePadding
-          onClick={() => navigate(`${ROUTES.LOGIN}`)}
+          onClick={() => navigate(`${ROUTES.PURCHASE_HISTORY}`)}
         >
           <ListItemButton>
             <ListItemIcon>
@@ -83,7 +83,7 @@ export default function SideNavBar() {
         <ListItem
           // key={"Inbox"}
           disablePadding
-          onClick={() => navigate(`${ROUTES.LOGIN}`)}
+          onClick={() => navigate(`${ROUTES.ROOT}`)}
         >
           <ListItemButton>
             <ListItemIcon>
@@ -97,7 +97,7 @@ export default function SideNavBar() {
         <ListItem
           // key={"Inbox"}
           disablePadding
-          onClick={() => navigate(`${ROUTES.LOGIN}`)}
+          onClick={() => navigate(`${ROUTES.ROOT}`)}
         >
           <ListItemButton>
             <ListItemIcon>

@@ -173,14 +173,20 @@ const ProductCard: React.FC<Props> = ({ product }) => {
             }}
           >
             <Button
-              onClick={() => handleRemoveFromCart(user?._id, barcode, 1)}
+              onClick={() => handleAddToCart(user?._id, barcode, 1)}
               sx={{
                 borderRadius: "0px",
                 width: "40%",
                 backgroundColor: "#5b9822",
+                "&:hover": {
+                  backgroundColor: "#333", // Change color on hover
+                },
+                "&:active": {
+                  backgroundColor: "#333", // Change color on press
+                },
               }}
             >
-              <RemoveIcon />
+              <AddIcon />
             </Button>
 
             <Button sx={{ width: "40%" }} disabled>
@@ -188,14 +194,20 @@ const ProductCard: React.FC<Props> = ({ product }) => {
             </Button>
 
             <Button
-              onClick={() => handleAddToCart(user?._id, barcode, 1)}
+              onClick={() => handleRemoveFromCart(user?._id, barcode, 1)}
               sx={{
                 borderRadius: "0px",
                 width: "40%",
                 backgroundColor: "#5b9822",
+                "&:hover": {
+                  backgroundColor: "#333", // Change color on hover
+                },
+                "&:active": {
+                  backgroundColor: "#333", // Change color on press
+                },
               }}
             >
-              <AddIcon />
+              <RemoveIcon />
             </Button>
           </ButtonGroup>
         </Grid>

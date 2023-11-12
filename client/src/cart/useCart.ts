@@ -56,7 +56,6 @@ const useCart = () => {
   const handleCheckout = async (userId: string) => {
     if (userId) {
       const orderNumber = await checkoutApi(userId);
-      console.log("handleCheckout", orderNumber);
       return orderNumber;
     }
   };

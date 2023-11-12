@@ -79,6 +79,12 @@ const DesktopCartNavbar: React.FC<Props> = ({ backgroundColor }) => {
               sx={{
                 backgroundColor: "#5b9822",
                 color: "white",
+                "&:hover": {
+                  backgroundColor: "#654321", // Change color on hover
+                },
+                "&:active": {
+                  backgroundColor: "#654321", // Change color on press
+                },
                 // maxHeight: "36px",
                 // padding: "30px",
               }}

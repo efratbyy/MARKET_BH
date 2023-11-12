@@ -4,8 +4,6 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
@@ -15,28 +13,30 @@ import { useNavigate } from "react-router-dom";
 import ROUTES from "../routes/routesModel";
 import SearchBar from "../search_filter/SearchBar";
 import { Grid } from "@mui/material";
-import SideNavBar from "./SideNavBar";
 import { useUser } from "../providers/UserProvider";
 
 const DesktopNavbar = () => {
   const navigate = useNavigate();
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
-    null
-  );
+  const { user, setUser, setToken } = useUser();
+
+  // const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
+  //   null
+  // );
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
-  const { user, setUser, setToken } = useUser();
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElNav(event.currentTarget);
-  };
+
+  // const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
+  //   setAnchorElNav(event.currentTarget);
+  // };
+
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
   };
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
+  // const handleCloseNavMenu = () => {
+  //   setAnchorElNav(null);
+  // };
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
@@ -55,7 +55,6 @@ const DesktopNavbar = () => {
         position="sticky"
         sx={{ backgroundColor: "#5b9822", display: { xs: "none", md: "flex" } }}
       >
-        {/* <Container maxWidth="xl"> */}
         <Toolbar disableGutters>
           {/*  NavBar */}
           <Grid
@@ -71,7 +70,6 @@ const DesktopNavbar = () => {
                 noWrap
                 component="a"
                 href="/"
-                //   justifyContent="center"
                 sx={{
                   mr: 2,
                   pl: "20%",
@@ -118,12 +116,16 @@ const DesktopNavbar = () => {
                   open={Boolean(anchorElUser)}
                   onClose={handleCloseUserMenu}
                 >
-                  <MenuItem onClick={handleLogout}>
+                  <MenuItem onClick={() => navigate(`${ROUTES.ROOT}`)}>
                     <Typography textAlign="center">האזור האישי</Typography>
                   </MenuItem>
-                  <MenuItem onClick={handleLogout}>
+
+                  <MenuItem
+                    onClick={() => navigate(`${ROUTES.PURCHASE_HISTORY}`)}
+                  >
                     <Typography textAlign="center">הסטורית הזמנות</Typography>
                   </MenuItem>
+
                   <MenuItem onClick={handleLogout}>
                     <Typography textAlign="center">התנתקות</Typography>
                   </MenuItem>
@@ -171,7 +173,6 @@ const DesktopNavbar = () => {
             )}
           </Grid>
         </Toolbar>
-        {/* </Container> */}
       </AppBar>
     </>
   );

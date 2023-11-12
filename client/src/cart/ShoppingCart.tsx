@@ -70,16 +70,23 @@ const ShoppingCart = () => {
                     >
                       <Button
                         onClick={() =>
-                          updateCartProvider(user!._id, item.barcode, -1)
+                          updateCartProvider(user!._id, item.barcode, 1)
                         }
                         sx={{
                           backgroundColor: "#5b9822",
                           minWidth: "0px !important",
                           width: "32px",
+                          "&:hover": {
+                            backgroundColor: "#333", // Change color on hover
+                          },
+                          "&:active": {
+                            backgroundColor: "#333", // Change color on press
+                          },
                         }}
                       >
-                        <RemoveIcon sx={{ fontSize: "large" }} />
+                        <AddIcon sx={{ fontSize: "large" }} />
                       </Button>
+
                       <Button
                         disabled
                         sx={{ minWidth: "0px !important", width: "32px" }}
@@ -88,17 +95,24 @@ const ShoppingCart = () => {
                           {item.amount}
                         </Typography>
                       </Button>
+
                       <Button
                         onClick={() =>
-                          updateCartProvider(user!._id, item.barcode, 1)
+                          updateCartProvider(user!._id, item.barcode, -1)
                         }
                         sx={{
                           backgroundColor: "#5b9822",
                           minWidth: "0px !important",
                           width: "32px",
+                          "&:hover": {
+                            backgroundColor: "#333", // Change color on hover
+                          },
+                          "&:active": {
+                            backgroundColor: "#333", // Change color on press
+                          },
                         }}
                       >
-                        <AddIcon sx={{ fontSize: "large" }} />
+                        <RemoveIcon sx={{ fontSize: "large" }} />
                       </Button>
                     </ButtonGroup>
                   </Grid>
@@ -207,6 +221,12 @@ const ShoppingCart = () => {
                     color: "white",
                     padding: "10px",
                     width: "100%",
+                    "&:hover": {
+                      backgroundColor: "#654321", // Change color on hover
+                    },
+                    "&:active": {
+                      backgroundColor: "#654321", // Change color on press
+                    },
                   }}
                 >
                   <Typography>לקופה ({totalItemsInCart})</Typography>

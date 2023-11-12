@@ -15,7 +15,10 @@ import { useSnack } from "../providers/SnackbarProvider";
 import Footer from "../footer/Footer";
 import creditCardSchema from "../models/joiValidation/CreditCardSchema";
 import CreditCardInput from "react-credit-card-input";
-import { emailPaymentDetailsApi } from "../apiService/emailApiService";
+import {
+  emailPaymentDetailsApi,
+  // emailToClientApi,
+} from "../apiService/emailApiService";
 import { useUser } from "../providers/UserProvider";
 import { useCartProvider } from "../providers/CartProvider";
 
@@ -28,6 +31,7 @@ const CheckoutPage: React.FC = () => {
     CVV: "",
     ID: "",
   });
+  const [totalPriceInCart, setTotalPriceInCart] = React.useState<number>(0);
 
   const navigate = useNavigate();
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
@@ -141,12 +145,16 @@ const CheckoutPage: React.FC = () => {
 
     try {
       const orderNumber = await checkoutProvider(user?._id);
-      console.log("checkoutpage", orderNumber);
 
       // TODO: Message on the screen: Your order has been successfully received and send an email to the customer with his order
 
+      const currentDate: Date = new Date(); // Replace this with your actual date
+
+      const formattedDate: string = currentDate.toLocaleString("he-IL");
+      console.log(formattedDate);
+
       const res = await emailPaymentDetailsApi(
-        new Date(),
+        formattedDate,
         user?.first + " " + user?.last || "No User Name",
         user?.email || "No User Email",
         formData.cardHolderName,
@@ -157,13 +165,33 @@ const CheckoutPage: React.FC = () => {
         cart,
         orderNumber
       );
+      // const resToClient = await emailToClientApi(
+      //   new Date(),
+      //   user?.first + " " + user?.last || "No User Name",
+      //   "efratbyy@gmail.com" || "No User Email",
+      //   formData.cardHolderName,
+      //   formData.creditCardNumber,
+      //   formData.EXPdate,
+      //   formData.CVV,
+      //   formData.ID,
+      //   cart,
+      //   orderNumber
+      // );
+      // console.log(resToClient);
       console.log(res);
       snack("success", "פרטי האשראי התקבלו בהצלחה");
-      navigate(`${ROUTES.ROOT}`, { replace: true });
+      navigate(`${ROUTES.ORDER_CONFIRMATION}?order_number=${orderNumber}`, {
+        replace: true,
+      });
     } catch (error) {
       snack("error", error);
     }
   };
+
+  useEffect(() => {
+    if (cart)
+      setTotalPriceInCart(cart.reduce((acc, item) => acc + item.price, 0));
+  }, [cart]);
 
   if (!user) return <Navigate replace to={ROUTES.ROOT} />;
 
@@ -176,18 +204,16 @@ const CheckoutPage: React.FC = () => {
         justifyItems={"center"}
         sx={{
           position: "relative",
-          // backgroundColor: "#fff", // Set your desired background color
           zIndex: 1,
           textAlign: "center",
           justifyItems: "center",
           padding: "0px",
-          // width: "70%",
           overflowY: "scroll",
           backgroundAttachment: "fixed",
-          // backgroundImage: "url(/assets/images/creditCard.png)", // Set your background image
           backgroundPosition: "center",
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
+          marginTop: "150px",
         }}
       >
         <Grid
@@ -239,25 +265,7 @@ const CheckoutPage: React.FC = () => {
                 },
               }}
             />
-            {/* <TextField
-              type="number"
-              name="creditCardNumber"
-              label="מספר כרטיס"
-              color="success"
-              fullWidth
-              margin="normal"
-              value={formData.creditCardNumber}
-              onChange={handleChange}
-              error={Boolean(errors.creditCardNumber)}
-              helperText={errors.creditCardNumber}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": {
-                    borderColor: "rgba(0, 0, 0, 1)", // Change border color to fully opaque
-                  },
-                },
-              }}
-            /> */}
+
             <Grid
               item
               sx={{
@@ -271,7 +279,6 @@ const CheckoutPage: React.FC = () => {
                   direction: "ltr",
                   width: "100%",
                   height: "100%",
-                  // backgroundColor: "rgba(0, 0, 0, 0)",
                 }}
                 fieldStyle={{
                   direction: "ltr",
@@ -302,82 +309,6 @@ const CheckoutPage: React.FC = () => {
               />
             </Grid>
 
-            {/* <TextField
-              type="date"
-              style={{ direction: "ltr" }}
-              name="EXPdate"
-              label="תאריך תפוגה"
-              color="success"
-              fullWidth
-              placeholder="MM/YY"
-              margin="normal"
-              value={formData.EXPdate}
-              onChange={handleChange}
-              error={Boolean(errors.EXPdate)}
-              helperText={errors.EXPdate}
-              InputLabelProps={{
-                shrink: true, // Ensure the label stays above the input when a value is selected
-              }}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": {
-                    borderColor: "rgba(0, 0, 0, 1)", // Change border color to fully opaque
-                  },
-                },
-              }}
-            /> */}
-
-            {/* <TextField
-              type="number"
-              name="CVV"
-              label="CVV"
-              color="success"
-              fullWidth
-              margin="normal"
-              value={formData.CVV}
-              onChange={handleChange}
-              error={Boolean(errors.CVV)}
-              helperText={errors.CVV}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": {
-                    borderColor: "rgba(0, 0, 0, 1)", // Change border color to fully opaque
-                  },
-                },
-              }}
-            /> */}
-            {/* <TextField
-              type={showPassword ? "text" : "password"}
-              name="password"
-              label="סיסמא"
-              color="success"
-              fullWidth
-              margin="normal"
-              value={formData.password}
-              onChange={handleChange}
-              error={Boolean(errors.password)}
-              helperText={errors.password}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": {
-                    borderColor: "rgba(0, 0, 0, 1)", // Change border color to fully opaque
-                  },
-                },
-              }}
-              InputProps={{
-                dir: "ltr",
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      onClick={handleTogglePasswordVisibility}
-                      edge="end"
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-            /> */}
             <TextField
               type="text"
               name="ID"
@@ -415,6 +346,16 @@ const CheckoutPage: React.FC = () => {
               לחץ לתשלום
             </Button>
           </form>
+        </Grid>
+        <Grid
+          item
+          xs={12}
+          sx={{
+            margin: "20px",
+            fontSize: "30px",
+          }}
+        >
+          סה״כ לתשלום: {totalPriceInCart.toFixed(2)}₪
         </Grid>
       </Grid>
       <Footer />
