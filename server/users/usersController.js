@@ -123,6 +123,22 @@ const checkout = async (req, res) => {
   }
 };
 
+const purchaseHistory = async (req, res) => {
+  try {
+    const user = req.user;
+    const { userId } = req.params;
+
+    if (user._id !== userId) throw new Error("Illegal action");
+
+    const userFromDB = await User.findById(userId);
+    if (!userFromDB) throw new Error("User not registered");
+    return res.send(userFromDB.purchaseHistory);
+  } catch (error) {
+    return handleError(res, 404, `Mongoose Error: ${error.message}`);
+  }
+};
+
 exports.register = register;
 exports.login = login;
 exports.checkout = checkout;
+exports.purchaseHistory = purchaseHistory;

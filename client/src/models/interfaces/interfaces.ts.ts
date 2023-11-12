@@ -57,3 +57,9 @@ export interface CreditCardInterface {
   CVV: string;
   ID: string;
 }
+
+export interface PurchaseHistoryInterface {
+  orderDate: Date;
+  orderNumber: number;
+  order: [CartProductInterface];
+}
