@@ -73,7 +73,7 @@ const Login = () => {
 
   return (
     <>
-      <Navbar />
+      <Navbar showSearchBar={false} />
       <Grid
         sx={{
           minHeight: "100vh",
@@ -89,13 +89,13 @@ const Login = () => {
         container
         spacing={3}
         direction="column"
-        alignItems="center"
+        // alignItems="center"
         justifyContent="center"
         sx={{
           position: "relative",
           minHeight: "90vh",
-          marginRight: "150px",
-          width: "30%",
+          paddingRight: "15%",
+          width: "100%",
           height: "30%",
         }}
       >

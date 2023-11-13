@@ -18,11 +18,22 @@ const Footer = () => {
     <>
       <Grid
         className="container"
-        sx={{ display: "flex", flexDirection: "column", minHeight: "30px" }}
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          minHeight: "30px",
+        }}
       >
         <Paper
           elevation={3}
-          sx={{ flex: 1, position: "fixed", bottom: 0, left: 0, right: 0 }}
+          sx={{
+            flex: 1,
+            position: "fixed",
+            bottom: 0,
+            left: 0,
+            right: 0,
+            zIndex: 3,
+          }}
         >
           <BottomNavigation showLabels>
             <BottomNavigationAction

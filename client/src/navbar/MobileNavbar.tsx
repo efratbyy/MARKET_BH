@@ -22,7 +22,11 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { styled } from "@mui/material/styles";
 import { useCartProvider } from "../providers/CartProvider";
 
-const MobileNavbar = () => {
+type Props = {
+  showSearchBar?: boolean;
+};
+
+const MobileNavbar: React.FC<Props> = ({ showSearchBar = true }) => {
   const navigate = useNavigate();
   const { cart } = useCartProvider();
   const { user } = useUser();
@@ -239,20 +243,27 @@ const MobileNavbar = () => {
               )}
 
               {/* Cart Icon */}
-              <Grid item xs={2}>
-                <IconButton
-                  onClick={() => navigate(ROUTES.SHOPPING_CART)}
-                  aria-label="cart"
-                >
-                  <StyledBadge badgeContent={totalItemsInCart} color="default">
-                    <ShoppingCartIcon sx={{ color: "#282828", fontSize: 40 }} />
-                  </StyledBadge>
-                </IconButton>
-              </Grid>
+              {user && (
+                <Grid item xs={2}>
+                  <IconButton
+                    onClick={() => navigate(ROUTES.SHOPPING_CART)}
+                    aria-label="cart"
+                  >
+                    <StyledBadge
+                      badgeContent={totalItemsInCart}
+                      color="default"
+                    >
+                      <ShoppingCartIcon
+                        sx={{ color: "#282828", fontSize: 40 }}
+                      />
+                    </StyledBadge>
+                  </IconButton>
+                </Grid>
+              )}
 
               {/* Search Bar */}
               <Grid item xs={10}>
-                <SearchBar />
+                {showSearchBar && <SearchBar />}
               </Grid>
             </Grid>
           </Toolbar>

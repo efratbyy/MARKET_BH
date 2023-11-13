@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from "react";
-import DesktopNavbar from "../navbar/DesktopNavbar";
 import Footer from "../footer/Footer";
 import { DataGrid, GridRowsProp, GridColDef } from "@mui/x-data-grid";
 import { getPurchaseHistory } from "../apiService/userApiService";
@@ -7,6 +6,8 @@ import { useUser } from "../providers/UserProvider";
 import { PurchaseHistoryInterface } from "../models/interfaces/interfaces.ts";
 import "./PurchaseHistory.css";
 import { Grid } from "@mui/material";
+import Navbar from "../navbar/Navbar";
+//import Sheet from "styled-components/dist/sheet";
 
 const PurchaseHistory = () => {
   const { user } = useUser();
@@ -14,19 +15,6 @@ const PurchaseHistory = () => {
     PurchaseHistoryInterface[] | undefined
   >();
   const [rows, setRows] = useState<any[]>([]);
-
-  const columns: GridColDef[] = [
-    {
-      field: "id",
-      headerName: "",
-      headerAlign: "center",
-      align: "center",
-    },
-    { field: "col1", headerName: "מספר הזמנה", width: 150 },
-    { field: "col2", headerName: "תאריך הזמנה", width: 150 },
-    { field: "col3", headerName: "מספר פריטים", width: 150 },
-    { field: "col4", headerName: "סכום ההזמנה", width: 150 },
-  ];
 
   const handlePurchaseHistory = useCallback(async (userId: string) => {
     try {
@@ -42,6 +30,39 @@ const PurchaseHistory = () => {
     }
   }, []);
 
+  const columns: GridColDef[] = [
+    {
+      field: "id",
+      headerName: "",
+      headerAlign: "center",
+      align: "center",
+    },
+    {
+      field: "col1",
+      headerName: "מספר הזמנה",
+      width: 150,
+      headerClassName: "custom-header",
+    },
+    {
+      field: "col2",
+      headerName: "תאריך הזמנה",
+      width: 150,
+      headerClassName: "custom-header",
+    },
+    {
+      field: "col3",
+      headerName: "מספר פריטים",
+      width: 150,
+      headerClassName: "custom-header",
+    },
+    {
+      field: "col4",
+      headerName: "סכום ההזמנה",
+      width: 150,
+      headerClassName: "custom-header",
+    },
+  ];
+
   useEffect(() => {
     if (user) {
       handlePurchaseHistory(user?._id)
@@ -49,7 +70,7 @@ const PurchaseHistory = () => {
           setPurchaseHistory(data);
 
           //
-          let initrows: any[] = [];
+          let initRows: any[] = [];
           let inc = 1;
           data?.forEach((purchase) => {
             let totalCost = 0;
@@ -59,7 +80,7 @@ const PurchaseHistory = () => {
               totalItems += cartProduct.amount;
             });
 
-            initrows.push({
+            initRows.push({
               id: inc++,
               col1: purchase.orderNumber,
               col2: new Date(purchase.orderDate).toLocaleDateString("en-IL", {
@@ -73,7 +94,7 @@ const PurchaseHistory = () => {
             });
           });
 
-          setRows(initrows);
+          setRows(initRows);
         })
         .catch((error) => {
           console.log(error);
@@ -83,23 +104,60 @@ const PurchaseHistory = () => {
 
   return (
     <>
-      <DesktopNavbar />
-      <div style={{ height: 300, width: "100%" }}>
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          initialState={{
-            pagination: { paginationModel: { pageSize: 10 } },
+      <Navbar showSearchBar={false} />
+      <Grid
+        sx={{
+          backgroundImage:
+            "https://cdn.pixabay.com/photo/2015/06/15/20/21/register-810546_1280.jpg",
+        }}
+      >
+        <Grid
+          sx={{
+            textAlign: "center",
+            fontSize: "60px",
+            textDecoration: "underline",
+            color: "white",
           }}
-          sx={{ height: "85vh" }}
-          //autoHeight
-          pagination
-          pageSizeOptions={[5, 10, 25]}
-        />
-      </div>
-      <Grid sx={{ marginTop: "500px" }}>
-        <Footer />
+        >
+          היסטוריית הזמנות
+        </Grid>
+        <Grid>
+          <DataGrid
+            rows={rows}
+            columns={columns}
+            initialState={{
+              pagination: {
+                paginationModel: {
+                  pageSize: 10,
+                },
+              },
+            }}
+            sx={{
+              height: "85vh",
+              // m: 2,
+              boxShadow: 2,
+              border: 5,
+              borderColor: "grey",
+              "& .MuiDataGrid-cell:hover": {
+                color: "white",
+              },
+              marginBottom: "30px",
+              "& .MuiTablePagination-root": {
+                fontSize: "16px",
+                color: "white",
+              },
+              marginRight: "auto",
+              marginLeft: "auto",
+              // "& .css-jowncd-MuiDataGrid-root .MuiDataGrid-withBorderColor": {
+              //   color: "white",
+              // },
+            }}
+            pagination
+            pageSizeOptions={[5, 10, 25]}
+          />
+        </Grid>
       </Grid>
+      <Footer />
     </>
   );
 };

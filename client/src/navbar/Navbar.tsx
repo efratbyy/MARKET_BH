@@ -2,12 +2,16 @@ import * as React from "react";
 import DesktopNavbar from "./DesktopNavbar";
 import MobileNavbar from "./MobileNavbar";
 
-function Navbar() {
+type Props = {
+  showSearchBar?: boolean;
+};
+
+const Navbar: React.FC<Props> = ({ showSearchBar = true }) => {
   return (
     <>
-      <DesktopNavbar />
-      <MobileNavbar />
+      <DesktopNavbar showSearchBar={showSearchBar} />
+      <MobileNavbar showSearchBar={showSearchBar} />
     </>
   );
-}
+};
 export default Navbar;

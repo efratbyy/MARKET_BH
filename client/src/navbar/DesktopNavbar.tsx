@@ -15,7 +15,11 @@ import SearchBar from "../search_filter/SearchBar";
 import { Grid } from "@mui/material";
 import { useUser } from "../providers/UserProvider";
 
-const DesktopNavbar = () => {
+type Props = {
+  showSearchBar?: boolean;
+};
+
+const DesktopNavbar: React.FC<Props> = ({ showSearchBar = true }) => {
   const navigate = useNavigate();
   const { user, setUser, setToken } = useUser();
 
@@ -90,7 +94,7 @@ const DesktopNavbar = () => {
             </Grid>
             {/* Search Bar */}
             <Grid item md={6}>
-              <SearchBar />
+              {showSearchBar && <SearchBar />}
             </Grid>
             {/* Avatar */}
             {user && (

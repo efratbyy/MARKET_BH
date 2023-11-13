@@ -122,13 +122,13 @@ const RegistrationForm: React.FC = () => {
 
   return (
     <>
-      <Navbar />
+      <Navbar showSearchBar={false} />
       <Grid
         sx={{
-          position: "relative",
+          position: "relative !important",
           backgroundColor: "#fff", // Set your desired background color
           zIndex: 1,
-          padding: 16,
+          padding: "16px !important",
           overflowY: "scroll",
           height: "100vh",
           backgroundAttachment: "fixed",
@@ -138,28 +138,12 @@ const RegistrationForm: React.FC = () => {
           backgroundRepeat: "no-repeat",
         }}
       >
-        <Grid
-          sx={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            zIndex: -1,
-            backgroundAttachment: "fixed",
-            backgroundImage: "url(/assets/images/register.png)", // Set your background image
-            backgroundPosition: "center",
-            backgroundSize: "cover",
-            backgroundRepeat: "no-repeat",
-            opacity: 0.3, // Adjust the opacity as needed
-          }}
-        ></Grid>
         <Container maxWidth="sm">
           <Typography
             variant="h4"
             align="center"
             gutterBottom
-            sx={{ color: "darkslategrey" }}
+            sx={{ color: "white" }}
           >
             הרשמה
           </Typography>
