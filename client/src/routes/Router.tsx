@@ -10,6 +10,7 @@ import AboutPage from "../components/AboutPage";
 import CheckoutPage from "../components/CheckoutPage";
 import PurchaseHistory from "../components/PurchaseHistory";
 import OrderConfirmation from "../components/OrderConfirmation";
+import PurchaseHistoryDetails from "../components/PurchaseHistoryDetails";
 
 const Router = () => {
   return (
@@ -22,6 +23,10 @@ const Router = () => {
       <Route path={ROUTES.CHECKOUT} element={<CheckoutPage />} />
       <Route path={ROUTES.ORDER_CONFIRMATION} element={<OrderConfirmation />} />
       <Route path={ROUTES.PURCHASE_HISTORY} element={<PurchaseHistory />} />
+      <Route
+        path={ROUTES.PURCHASE_HISTORY_DETAILS}
+        element={<PurchaseHistoryDetails />}
+      />
       <Route path="*" element={<ErrorPage />} />
     </Routes>
   );

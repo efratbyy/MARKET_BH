@@ -138,7 +138,26 @@ const purchaseHistory = async (req, res) => {
   }
 };
 
+const purchaseHistoryDetails = async (req, res) => {
+  try {
+    const user = req.user;
+    const { userId, orderNumber } = req.params;
+
+    if (user._id !== userId) throw new Error("Illegal action");
+
+    const userFromDB = await User.findById(userId);
+    if (!userFromDB) throw new Error("User not registered");
+    const matchOrder = userFromDB.purchaseHistory.find(
+      (purchase) => purchase.orderNumber == orderNumber
+    );
+    return res.send(matchOrder);
+  } catch (error) {
+    return handleError(res, 404, `Mongoose Error: ${error.message}`);
+  }
+};
+
 exports.register = register;
 exports.login = login;
 exports.checkout = checkout;
 exports.purchaseHistory = purchaseHistory;
+exports.purchaseHistoryDetails = purchaseHistoryDetails;

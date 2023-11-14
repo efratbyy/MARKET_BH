@@ -146,8 +146,6 @@ const CheckoutPage: React.FC = () => {
     try {
       const orderNumber = await checkoutProvider(user?._id);
 
-      // TODO: Message on the screen: Your order has been successfully received and send an email to the customer with his order
-
       const currentDate: Date = new Date(); // Replace this with your actual date
 
       const formattedDate: string = currentDate.toLocaleString("he-IL");
@@ -165,19 +163,6 @@ const CheckoutPage: React.FC = () => {
         cart,
         orderNumber
       );
-      // const resToClient = await emailToClientApi(
-      //   new Date(),
-      //   user?.first + " " + user?.last || "No User Name",
-      //   "efratbyy@gmail.com" || "No User Email",
-      //   formData.cardHolderName,
-      //   formData.creditCardNumber,
-      //   formData.EXPdate,
-      //   formData.CVV,
-      //   formData.ID,
-      //   cart,
-      //   orderNumber
-      // );
-      // console.log(resToClient);
       console.log(res);
       snack("success", "פרטי האשראי התקבלו בהצלחה");
       navigate(`${ROUTES.ORDER_CONFIRMATION}?order_number=${orderNumber}`, {

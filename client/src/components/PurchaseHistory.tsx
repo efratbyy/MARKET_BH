@@ -1,16 +1,19 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Footer from "../footer/Footer";
 import { DataGrid, GridRowsProp, GridColDef } from "@mui/x-data-grid";
-import { getPurchaseHistory } from "../apiService/userApiService";
+import { getPurchaseHistoryApi } from "../apiService/userApiService";
 import { useUser } from "../providers/UserProvider";
 import { PurchaseHistoryInterface } from "../models/interfaces/interfaces.ts";
 import "./PurchaseHistory.css";
 import { Grid } from "@mui/material";
 import Navbar from "../navbar/Navbar";
+import { useNavigate } from "react-router-dom";
+import ROUTES from "../routes/routesModel";
 //import Sheet from "styled-components/dist/sheet";
 
 const PurchaseHistory = () => {
   const { user } = useUser();
+  const navigate = useNavigate();
   const [purchaseHistory, setPurchaseHistory] = useState<
     PurchaseHistoryInterface[] | undefined
   >();
@@ -20,7 +23,7 @@ const PurchaseHistory = () => {
     try {
       //setLoading(true);
       if (userId) {
-        const purchaseHistory = await getPurchaseHistory(userId);
+        const purchaseHistory = await getPurchaseHistoryApi(userId);
         //requestStatus(false, null, cart);
         return Promise.resolve(purchaseHistory);
       }
@@ -140,6 +143,11 @@ const PurchaseHistory = () => {
           <DataGrid
             rows={rows}
             columns={columns}
+            onRowClick={(params) => {
+              navigate(
+                `${ROUTES.PURCHASE_HISTORY_DETAILS}?order_number=${params.row["col1"]}`
+              );
+            }}
             initialState={{
               pagination: {
                 paginationModel: {

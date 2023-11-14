@@ -46,11 +46,30 @@ export const checkoutApi = async (userId: string) => {
   }
 };
 
-export const getPurchaseHistory = async (userId: String) => {
+export const getPurchaseHistoryApi = async (userId: String) => {
   try {
     const token = localStorage.getItem("token_key");
     const { data } = await axios.get<PurchaseHistoryInterface[]>(
       `${apiUrl}/users/purchase-history/${userId}`,
+      {
+        headers: { "x-auth-token": token },
+      }
+    );
+    return Promise.resolve(data);
+  } catch (error) {
+    if (axios.isAxiosError(error)) return Promise.reject(error.message);
+    return Promise.reject("An unexpected error occurred!");
+  }
+};
+
+export const getPurchaseHistoryDetailsApi = async (
+  userId: String,
+  orderNumber: string
+) => {
+  try {
+    const token = localStorage.getItem("token_key");
+    const { data } = await axios.get<PurchaseHistoryInterface>(
+      `${apiUrl}/users/purchase-history-details/${userId}/${orderNumber}`,
       {
         headers: { "x-auth-token": token },
       }
