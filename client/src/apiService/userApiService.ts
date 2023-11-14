@@ -63,7 +63,7 @@ export const getPurchaseHistoryApi = async (userId: String) => {
 };
 
 export const getPurchaseHistoryDetailsApi = async (
-  userId: String,
+  userId: string,
   orderNumber: string
 ) => {
   try {

@@ -59,7 +59,7 @@ const ShoppingCartMobilePage = () => {
   }, [cart]);
   return (
     <>
-      <Navbar showSearchBar={false} showSideNavBar={false} />
+      <Navbar showSearchBar={false} showDataFilter={false} />
       <Grid
         container
         sx={{

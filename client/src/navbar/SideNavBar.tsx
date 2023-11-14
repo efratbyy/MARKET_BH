@@ -20,10 +20,10 @@ import Person2TwoToneIcon from "@mui/icons-material/Person2TwoTone";
 import DataFilter from "../search_filter/DataFilter";
 
 type Props = {
-  showSideNavBar?: boolean;
+  showDataFilter?: boolean;
 };
 
-const SideNavBar: React.FC<Props> = ({ showSideNavBar = true }) => {
+const SideNavBar: React.FC<Props> = ({ showDataFilter = true }) => {
   const [leftDrawerOpen, setLeftDrawerOpen] = React.useState(false);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
@@ -137,7 +137,7 @@ const SideNavBar: React.FC<Props> = ({ showSideNavBar = true }) => {
         </ListItem>
       </List>
       <Divider />
-      {showSideNavBar && <DataFilter />}
+      {showDataFilter && <DataFilter />}
     </Box>
   );
 

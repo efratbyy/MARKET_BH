@@ -24,12 +24,12 @@ import { useCartProvider } from "../providers/CartProvider";
 
 type Props = {
   showSearchBar?: boolean;
-  showSideNavBar?: boolean;
+  showDataFilter?: boolean;
 };
 
 const MobileNavbar: React.FC<Props> = ({
   showSearchBar = true,
-  showSideNavBar = true,
+  showDataFilter = true,
 }) => {
   const navigate = useNavigate();
   const { cart } = useCartProvider();
@@ -150,7 +150,7 @@ const MobileNavbar: React.FC<Props> = ({
               {/* Side NavBar */}
               {user && (
                 <Grid item xs={1}>
-                  <SideNavBar showSideNavBar={showSideNavBar} />
+                  <SideNavBar showDataFilter={showDataFilter} />
                 </Grid>
               )}
 
@@ -182,7 +182,6 @@ const MobileNavbar: React.FC<Props> = ({
                 <Grid item xs={1} sx={{ flexGrow: 0 }}>
                   <Tooltip title="Open settings">
                     <IconButton onClick={handleOpenUserMenu}>
-                      {/* //TODO: Change to their username first letter */}
                       <Avatar>{user.first.charAt(0).toUpperCase()}</Avatar>
                     </IconButton>
                   </Tooltip>

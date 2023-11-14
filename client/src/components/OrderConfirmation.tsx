@@ -21,7 +21,7 @@ const OrderConfirmation: React.FC = () => {
 
   return (
     <>
-      <Navbar showSearchBar={false} showSideNavBar={false} />
+      <Navbar showSearchBar={false} showDataFilter={false} />
       <Grid
         container
         sx={{

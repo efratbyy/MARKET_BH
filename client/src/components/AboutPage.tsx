@@ -6,7 +6,7 @@ import { Container, CssBaseline, Grid, Typography } from "@mui/material";
 const AboutPage = () => {
   return (
     <>
-      <Navbar showSearchBar={false} showSideNavBar={false} />
+      <Navbar showSearchBar={false} showDataFilter={false} />
       <CssBaseline />
       <Container
         sx={{
