@@ -23,7 +23,7 @@ type Props = {
   showSideNavBar?: boolean;
 };
 
-const SideNavBar: React.FC<Props> = ({ showSideNavBar }) => {
+const SideNavBar: React.FC<Props> = ({ showSideNavBar = true }) => {
   const [leftDrawerOpen, setLeftDrawerOpen] = React.useState(false);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null

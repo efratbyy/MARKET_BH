@@ -150,7 +150,7 @@ const MobileNavbar: React.FC<Props> = ({
               {/* Side NavBar */}
               {user && (
                 <Grid item xs={1}>
-                  <SideNavBar />
+                  <SideNavBar showSideNavBar={showSideNavBar} />
                 </Grid>
               )}
 
