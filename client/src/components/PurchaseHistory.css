@@ -4,7 +4,7 @@
 
 .custom-header {
   font-weight: bold;
-  font-size: large;
+  font-size: small;
 }
 
 .MuiDataGrid-columnHeaders {
@@ -17,8 +17,10 @@
 }
 
 .MuiDataGrid-root {
-  width: 90%;
+  /* width: 90%; */
   align-content: center;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .css-rtrcn9-MuiTablePagination-root {

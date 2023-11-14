@@ -35,30 +35,32 @@ const PurchaseHistory = () => {
       field: "id",
       headerName: "",
       headerAlign: "center",
+      width: 20,
       align: "center",
     },
     {
       field: "col1",
       headerName: "מספר הזמנה",
-      width: 150,
+      // width: 120,
       headerClassName: "custom-header",
     },
     {
       field: "col2",
       headerName: "תאריך הזמנה",
-      width: 150,
+      // width: 150,
       headerClassName: "custom-header",
     },
     {
       field: "col3",
       headerName: "מספר פריטים",
-      width: 150,
+      // width: 150,
+      width: 20,
       headerClassName: "custom-header",
     },
     {
       field: "col4",
       headerName: "סכום ההזמנה",
-      width: 150,
+      // width: 150,
       headerClassName: "custom-header",
     },
   ];
@@ -70,7 +72,15 @@ const PurchaseHistory = () => {
           setPurchaseHistory(data);
 
           //
-          let initRows: any[] = [];
+          let initRows: any[] = [
+            // {
+            //   id: "",
+            //   col1: "הזמנה",
+            //   col2: "תאריך",
+            //   col3: "מס פריטים",
+            //   col4: "סכום",
+            // },
+          ];
           let inc = 1;
           data?.forEach((purchase) => {
             let totalCost = 0;
@@ -121,7 +131,12 @@ const PurchaseHistory = () => {
         >
           היסטוריית הזמנות
         </Grid>
-        <Grid>
+        <Grid
+          container
+          xs={10}
+          lg={6}
+          sx={{ marginRight: "auto", marginLeft: "auto" }}
+        >
           <DataGrid
             rows={rows}
             columns={columns}
