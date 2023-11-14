@@ -77,7 +77,7 @@ const ShoppingCartMobilePage = () => {
               top: 0,
               left: 0,
               width: "100%",
-              backgroundColor: "rgba(0, 0, 0, 0.5)", // Background color for text
+              backgroundColor: "rgba(0, 0, 0, 0.5)",
               padding: "10px",
             }}
           >
@@ -118,7 +118,7 @@ const ShoppingCartMobilePage = () => {
                     variant="contained"
                     sx={{
                       width: "100%",
-                      boxShadow: 0, // Set the desired width to make it smaller
+                      boxShadow: 0,
                     }}
                   >
                     <Button
@@ -127,10 +127,10 @@ const ShoppingCartMobilePage = () => {
                         minWidth: "0px !important",
                         width: "50px",
                         "&:hover": {
-                          backgroundColor: "#333", // Change color on hover
+                          backgroundColor: "#333",
                         },
                         "&:active": {
-                          backgroundColor: "#333", // Change color on press
+                          backgroundColor: "#333",
                         },
                       }}
                       onClick={() =>
@@ -156,10 +156,10 @@ const ShoppingCartMobilePage = () => {
                         minWidth: "0px !important",
                         width: "50px",
                         "&:hover": {
-                          backgroundColor: "#333", // Change color on hover
+                          backgroundColor: "#333",
                         },
                         "&:active": {
-                          backgroundColor: "#333", // Change color on press
+                          backgroundColor: "#333",
                         },
                       }}
                       onClick={() =>
@@ -222,10 +222,10 @@ const ShoppingCartMobilePage = () => {
                   xs={2}
                   md={2}
                   sx={{
-                    textAlign: "center", // Center horizontally
+                    textAlign: "center",
                     display: "flex",
-                    alignItems: "center", // Center vertically
-                    justifyContent: "center", // Center horizontally
+                    alignItems: "center",
+                    justifyContent: "center",
                   }}
                 >
                   ₪{item.price.toFixed(2)}
@@ -235,10 +235,10 @@ const ShoppingCartMobilePage = () => {
                   xs={2}
                   md={2}
                   sx={{
-                    textAlign: "center", // Center horizontally
+                    textAlign: "center",
                     display: "flex",
-                    alignItems: "center", // Center vertically
-                    justifyContent: "center", // Center horizontally
+                    alignItems: "center",
+                    justifyContent: "center",
                   }}
                 >
                   <Button
@@ -263,14 +263,13 @@ const ShoppingCartMobilePage = () => {
         sx={{
           display: "flex",
           flexDirection: "column",
-          // minHeight: "100vh",
         }}
       >
         <Grid
           item
           xs={12}
           sx={{
-            marginTop: "auto", // Push the button to the bottom
+            marginTop: "auto",
           }}
         >
           {cart && cart?.length !== 0 && (
@@ -287,10 +286,10 @@ const ShoppingCartMobilePage = () => {
                   width: "100%",
                   marginBottom: "30px",
                   "&:hover": {
-                    backgroundColor: "#654321", // Change color on hover
+                    backgroundColor: "#654321",
                   },
                   "&:active": {
-                    backgroundColor: "#654321", // Change color on press
+                    backgroundColor: "#654321",
                   },
                 }}
               >
