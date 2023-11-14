@@ -4,13 +4,20 @@ import MobileNavbar from "./MobileNavbar";
 
 type Props = {
   showSearchBar?: boolean;
+  showSideNavBar?: boolean;
 };
 
-const Navbar: React.FC<Props> = ({ showSearchBar = true }) => {
+const Navbar: React.FC<Props> = ({
+  showSearchBar = true,
+  showSideNavBar = true,
+}) => {
   return (
     <>
       <DesktopNavbar showSearchBar={showSearchBar} />
-      <MobileNavbar showSearchBar={showSearchBar} />
+      <MobileNavbar
+        showSideNavBar={showSideNavBar}
+        showSearchBar={showSearchBar}
+      />
     </>
   );
 };

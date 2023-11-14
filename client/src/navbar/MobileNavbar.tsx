@@ -24,12 +24,16 @@ import { useCartProvider } from "../providers/CartProvider";
 
 type Props = {
   showSearchBar?: boolean;
+  showSideNavBar?: boolean;
 };
 
-const MobileNavbar: React.FC<Props> = ({ showSearchBar = true }) => {
+const MobileNavbar: React.FC<Props> = ({
+  showSearchBar = true,
+  showSideNavBar = true,
+}) => {
   const navigate = useNavigate();
   const { cart } = useCartProvider();
-  const { user } = useUser();
+  const { user, setUser, setToken } = useUser();
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -53,7 +57,9 @@ const MobileNavbar: React.FC<Props> = ({ showSearchBar = true }) => {
   };
 
   const handleLogout = () => {
-    removeUser();
+    removeUser(); // remove from localStorage
+    setUser(null);
+    setToken(null);
     handleCloseUserMenu();
   };
 
@@ -177,7 +183,7 @@ const MobileNavbar: React.FC<Props> = ({ showSearchBar = true }) => {
                   <Tooltip title="Open settings">
                     <IconButton onClick={handleOpenUserMenu}>
                       {/* //TODO: Change to their username first letter */}
-                      <Avatar>H</Avatar>
+                      <Avatar>{user.first.charAt(0).toUpperCase()}</Avatar>
                     </IconButton>
                   </Tooltip>
                   <Menu

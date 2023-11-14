@@ -197,7 +197,7 @@ const CheckoutPage: React.FC = () => {
 
   return (
     <>
-      <Navbar showSearchBar={false}/>
+      <Navbar showSearchBar={false} showSideNavBar={false} />
       <Grid
         container
         justifyContent={"center"}

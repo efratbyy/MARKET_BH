@@ -19,10 +19,18 @@ import { useUser } from "../providers/UserProvider";
 import Person2TwoToneIcon from "@mui/icons-material/Person2TwoTone";
 import DataFilter from "../search_filter/DataFilter";
 
-export default function SideNavBar() {
+type Props = {
+  showSideNavBar?: boolean;
+};
+
+const SideNavBar: React.FC<Props> = ({ showSideNavBar }) => {
   const [leftDrawerOpen, setLeftDrawerOpen] = React.useState(false);
+  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
+    null
+  );
+
   const navigate = useNavigate();
-  const { user } = useUser();
+  const { user, setToken, setUser } = useUser();
 
   const toggleLeftDrawer =
     (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -37,8 +45,15 @@ export default function SideNavBar() {
       setLeftDrawerOpen(open);
     };
 
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+
   const handleLogout = () => {
-    removeUser();
+    removeUser(); // remove from localStorage
+    setUser(null);
+    setToken(null);
+    handleCloseUserMenu();
   };
 
   const list = () => (
@@ -122,7 +137,7 @@ export default function SideNavBar() {
         </ListItem>
       </List>
       <Divider />
-      <DataFilter></DataFilter>
+      {showSideNavBar && <DataFilter />}
     </Box>
   );
 
@@ -138,4 +153,6 @@ export default function SideNavBar() {
       </Drawer>
     </div>
   );
-}
+};
+
+export default SideNavBar;

@@ -104,7 +104,7 @@ const PurchaseHistory = () => {
 
   return (
     <>
-      <Navbar showSearchBar={false} />
+      <Navbar showSearchBar={false} showSideNavBar={false} />
       <Grid
         sx={{
           backgroundImage:
