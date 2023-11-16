@@ -13,6 +13,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  makeStyles,
 } from "@mui/material";
 
 const PurchaseHistoryDetails = () => {
@@ -76,35 +77,44 @@ const PurchaseHistoryDetails = () => {
   }, [purchaseHistory?.order]);
 
   const headerCellStyle = {
-    backgroundColor: "#4CAF50",
-    color: "white",
+    backgroundColor: "#5b9822",
+    color: "black",
     textAlign: "center",
     padding: "8px",
+    border: "1px solid black !important", // Add black border to regular cells
+    orderRadius: "2px",
   };
 
   const cellStyle = {
-    border: "1px solid #dddddd",
     textAlign: "center",
     padding: "8px",
+    border: "1px solid black !important", // Add black border to regular cells
+    orderRadius: "2px",
   };
 
   return (
     <>
       <Navbar showSearchBar={false} showDataFilter={false} />
 
-      <Grid
-        container
-        sx={
-          {
-            //backgroundColor: "rgba(255, 255, 255, 0.7)",
-            // backgroundImage: `url("assets/images/order-details.png")`,
-            // backgroundSize: "cover",
-            // backgroundRepeat: "no-repeat",
-            // backgroundPosition: "center",
-            // height: "100vh",
-          }
-        }
-      >
+      <Grid container>
+        <Grid
+          sx={{
+            opacity: 0.2,
+            backgroundImage: `url("assets/images/order-details.png")`,
+            backgroundSize: "cover",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "center",
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100%",
+            overflowY: "scroll",
+
+            height: "93.5%",
+            zIndex: -1,
+            backgroundAttachment: "fixed",
+          }}
+        />
         <Grid
           item
           xs={12}
@@ -122,7 +132,13 @@ const PurchaseHistoryDetails = () => {
         <Grid
           item
           xs={12}
-          sx={{ fontSize: "25px", color: "blue", padding: "10px" }}
+          sx={{
+            fontSize: "25px",
+            color: "blue",
+            padding: "10px",
+            zIndex: 1,
+            position: "relative",
+          }}
         >
           סכום ההזמנה: ₪{totalAmountInOrder.toFixed(2)}
         </Grid>
@@ -134,13 +150,17 @@ const PurchaseHistoryDetails = () => {
           sx={{ marginRight: "auto", marginLeft: "auto" }}
         >
           <TableContainer
+            //component={Paper}
             sx={{
               alignItems: "center",
               display: "flex",
+              border: "1px solid black", // Add black border
+              borderRadius: "2px", // Add border radius
+              overflow: "hidden", // Hide overflow if border radius is applied
             }}
           >
             <Table>
-              <TableHead>
+              <TableHead sx={{ height: "60px" }}>
                 <TableRow>
                   <TableCell align="center" sx={headerCellStyle}>
                     הערות
@@ -166,8 +186,13 @@ const PurchaseHistoryDetails = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {purchaseHistory?.order?.map((item) => (
-                  <TableRow key={item.barcode}>
+                {purchaseHistory?.order?.map((item, index) => (
+                  <TableRow
+                    key={item.barcode}
+                    sx={{
+                      backgroundColor: index % 2 === 0 ? "#c4df9b" : "#d7ebbf",
+                    }}
+                  >
                     <TableCell align="center" sx={cellStyle}>
                       {item.note}
                     </TableCell>
@@ -183,9 +208,14 @@ const PurchaseHistoryDetails = () => {
                     <TableCell align="center" sx={cellStyle}>
                       {item.amount}
                     </TableCell>
-                    <TableCell align="center">
+                    <TableCell
+                      align="center"
+                      sx={{ border: "1px solid black", borderRadius: "10px" }}
+                    >
                       <img
-                        style={{ width: "40px" }}
+                        style={{
+                          width: "40px",
+                        }}
                         src={item.image.url}
                         alt={item.image.alt}
                       />
@@ -197,7 +227,7 @@ const PurchaseHistoryDetails = () => {
                 ))}
               </TableBody>
             </Table>
-          </TableContainer>
+          </TableContainer>{" "}
         </Grid>
       </Grid>
 
