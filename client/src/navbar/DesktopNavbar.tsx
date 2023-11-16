@@ -98,7 +98,14 @@ const DesktopNavbar: React.FC<Props> = ({ showSearchBar = true }) => {
             </Grid>
             {/* Avatar */}
             {user && (
-              <Grid item md={1} sx={{ flexGrow: 0 }}>
+              <Grid
+                item
+                display={"flex"}
+                justifyContent={"end"}
+                paddingLeft={"1%"}
+                md={1}
+                sx={{ flexGrow: 0 }}
+              >
                 <Tooltip title="Open settings">
                   <IconButton onClick={handleOpenUserMenu}>
                     <Avatar>{user.first.charAt(0).toUpperCase()}</Avatar>

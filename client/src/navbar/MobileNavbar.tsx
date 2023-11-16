@@ -155,7 +155,7 @@ const MobileNavbar: React.FC<Props> = ({
               )}
 
               {/* Title */}
-              <Grid item xs={10}>
+              <Grid item xs={showSearchBar ? 9 : 8}>
                 <Typography
                   variant="h6"
                   noWrap
@@ -177,9 +177,40 @@ const MobileNavbar: React.FC<Props> = ({
                 </Typography>
               </Grid>
 
+              {/* Cart Icon */}
+              {user && !showSearchBar && (
+                <Grid
+                  item
+                  display={"flex"}
+                  justifyContent={"center"}
+                  alignContent={"center"}
+                  alignItems={"center"}
+                  xs={2}
+                >
+                  <IconButton
+                    onClick={() => navigate(ROUTES.SHOPPING_CART)}
+                    aria-label="cart"
+                  >
+                    <StyledBadge
+                      badgeContent={totalItemsInCart}
+                      color="default"
+                    >
+                      <ShoppingCartIcon
+                        sx={{ color: "#282828", fontSize: 40 }}
+                      />
+                    </StyledBadge>
+                  </IconButton>
+                </Grid>
+              )}
               {/* Avatar */}
               {user && (
-                <Grid item xs={1} sx={{ flexGrow: 0 }}>
+                <Grid
+                  item
+                  display={"flex"}
+                  justifyContent={"end"}
+                  xs={showSearchBar ? 2 : 1}
+                  sx={{ flexGrow: 0 }}
+                >
                   <Tooltip title="Open settings">
                     <IconButton onClick={handleOpenUserMenu}>
                       <Avatar>{user.first.charAt(0).toUpperCase()}</Avatar>
@@ -248,7 +279,7 @@ const MobileNavbar: React.FC<Props> = ({
               )}
 
               {/* Cart Icon */}
-              {user && (
+              {user && showSearchBar && (
                 <Grid item xs={2}>
                   <IconButton
                     onClick={() => navigate(ROUTES.SHOPPING_CART)}
