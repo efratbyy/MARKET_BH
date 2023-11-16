@@ -29,12 +29,13 @@ export const UserProvider: React.FC<Props> = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (user == null) {
+    if (user === null) {
       const userFromLocalStorage = getUser();
       setUser(userFromLocalStorage);
       setIsLoading(false);
     }
-  }, [user]);
+  }, []);
+
   const value = useMemo(() => {
     return { user, setUser, token, setToken, isLoading };
   }, [user, token, isLoading]);

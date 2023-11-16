@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../navbar/Navbar";
-import ShoppingCart from "./ShoppingCart";
 import Footer from "../footer/Footer";
 import {
   Box,

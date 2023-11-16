@@ -24,6 +24,8 @@ const PurchaseHistory = () => {
       //setLoading(true);
       if (userId) {
         const purchaseHistory = await getPurchaseHistoryApi(userId);
+        console.log(purchaseHistory);
+
         //requestStatus(false, null, cart);
         return Promise.resolve(purchaseHistory);
       }
@@ -42,28 +44,24 @@ const PurchaseHistory = () => {
       align: "center",
     },
     {
-      field: "col1",
+      field: "col4",
       headerName: "מספר הזמנה",
-      // width: 120,
-      headerClassName: "custom-header",
-    },
-    {
-      field: "col2",
-      headerName: "תאריך הזמנה",
-      // width: 150,
       headerClassName: "custom-header",
     },
     {
       field: "col3",
+      headerName: "תאריך הזמנה",
+      headerClassName: "custom-header",
+    },
+    {
+      field: "col2",
       headerName: "מספר פריטים",
-      // width: 150,
       width: 20,
       headerClassName: "custom-header",
     },
     {
-      field: "col4",
+      field: "col1",
       headerName: "סכום ההזמנה",
-      // width: 150,
       headerClassName: "custom-header",
     },
   ];
@@ -75,15 +73,7 @@ const PurchaseHistory = () => {
           setPurchaseHistory(data);
 
           //
-          let initRows: any[] = [
-            // {
-            //   id: "",
-            //   col1: "הזמנה",
-            //   col2: "תאריך",
-            //   col3: "מס פריטים",
-            //   col4: "סכום",
-            // },
-          ];
+          let initRows: any[] = [];
           let inc = 1;
           data?.forEach((purchase) => {
             let totalCost = 0;
@@ -95,15 +85,15 @@ const PurchaseHistory = () => {
 
             initRows.push({
               id: inc++,
-              col1: purchase.orderNumber,
-              col2: new Date(purchase.orderDate).toLocaleDateString("en-IL", {
+              col4: purchase.orderNumber,
+              col3: new Date(purchase.orderDate).toLocaleDateString("en-IL", {
                 day: "2-digit",
                 month: "2-digit",
                 year: "2-digit",
                 timeZone: "Asia/Jerusalem",
               }),
-              col3: totalItems,
-              col4: totalCost.toFixed(2),
+              col2: totalItems,
+              col1: totalCost.toFixed(2),
             });
           });
 
@@ -117,7 +107,7 @@ const PurchaseHistory = () => {
 
   return (
     <>
-      <Navbar showSearchBar={false} showSideNavBar={false} />
+      <Navbar showSearchBar={false} showDataFilter={false} />
       <Grid
         sx={{
           backgroundImage:
@@ -136,6 +126,7 @@ const PurchaseHistory = () => {
         </Grid>
         <Grid
           container
+          item
           xs={10}
           lg={6}
           sx={{ marginRight: "auto", marginLeft: "auto" }}
@@ -145,7 +136,7 @@ const PurchaseHistory = () => {
             columns={columns}
             onRowClick={(params) => {
               navigate(
-                `${ROUTES.PURCHASE_HISTORY_DETAILS}?order_number=${params.row["col1"]}`
+                `${ROUTES.PURCHASE_HISTORY_DETAILS}?order_number=${params.row["col4"]}`
               );
             }}
             initialState={{
@@ -157,7 +148,6 @@ const PurchaseHistory = () => {
             }}
             sx={{
               height: "85vh",
-              // m: 2,
               boxShadow: 2,
               border: 5,
               borderColor: "grey",
@@ -171,9 +161,6 @@ const PurchaseHistory = () => {
               },
               marginRight: "auto",
               marginLeft: "auto",
-              // "& .css-jowncd-MuiDataGrid-root .MuiDataGrid-withBorderColor": {
-              //   color: "white",
-              // },
             }}
             pagination
             pageSizeOptions={[5, 10, 25]}
