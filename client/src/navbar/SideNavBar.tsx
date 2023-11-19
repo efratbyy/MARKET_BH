@@ -54,6 +54,7 @@ const SideNavBar: React.FC<Props> = ({ showDataFilter = true }) => {
     setUser(null);
     setToken(null);
     handleCloseUserMenu();
+    navigate(ROUTES.ROOT);
   };
 
   const list = () => (

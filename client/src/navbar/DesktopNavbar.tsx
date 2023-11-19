@@ -51,6 +51,7 @@ const DesktopNavbar: React.FC<Props> = ({ showSearchBar = true }) => {
     setUser(null);
     setToken(null);
     handleCloseUserMenu();
+    navigate(ROUTES.ROOT);
   };
 
   return (

@@ -61,6 +61,7 @@ const MobileNavbar: React.FC<Props> = ({
     setUser(null);
     setToken(null);
     handleCloseUserMenu();
+    navigate(ROUTES.ROOT);
   };
 
   const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
