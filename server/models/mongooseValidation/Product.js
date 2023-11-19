@@ -27,12 +27,8 @@ const schema = new mongoose.Schema({
     lowercase: true,
     required: true,
   },
-  category: {
-    type: String,
-    trim: true,
-    minLength: 2,
-    maxLength: 256,
-    lowercase: true,
+  categoryCode: {
+    type: Array,
     required: true,
   },
   price: {
