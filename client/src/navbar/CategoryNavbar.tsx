@@ -3,28 +3,16 @@ import Box from "@mui/material/Box";
 import List from "@mui/joy/List";
 import ListDivider from "@mui/joy/ListDivider";
 import ListItem from "@mui/joy/ListItem";
-
-import Popover from "@mui/material/Popover";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-
 import { BigCategoryInterface } from "../models/interfaces/interfaces.ts";
 import { getCategoriesApi } from "../apiService/categoriesApi";
-import { Grid } from "@mui/material";
+import CategoryNavbarPopover from "./CategoryNavbarPopover";
 
 const CategoryNavbar: React.FC = () => {
   const [categories, setCategories] = useState<BigCategoryInterface[]>();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [currentCategory, setCurrentCategory] =
+    useState<BigCategoryInterface | null>(null);
 
-  const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handlePopoverClose = () => {
-    setAnchorEl(null);
-  };
-
-  const open = Boolean(anchorEl);
   const handleGetCategories = useCallback(async () => {
     try {
       //setLoading(true);
@@ -34,7 +22,7 @@ const CategoryNavbar: React.FC = () => {
     } catch (error) {
       //if (typeof error === "string") requestStatus(false, error, null);
     }
-  }, [categories]);
+  }, []);
 
   useEffect(() => {
     handleGetCategories()
@@ -45,6 +33,21 @@ const CategoryNavbar: React.FC = () => {
         console.log(error);
       });
   }, []);
+
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+    setCurrentCategory(null);
+  };
+
+  const handlePopoverOpen = (
+    event: React.MouseEvent<HTMLElement>,
+    category: BigCategoryInterface
+  ) => {
+    setAnchorEl(event.currentTarget);
+    setCurrentCategory(category);
+  };
+
+  const open = Boolean(anchorEl);
 
   return (
     <Box
@@ -57,7 +60,7 @@ const CategoryNavbar: React.FC = () => {
           <React.Fragment key={category?.code}>
             <ListItem
               sx={{
-                width: (99 / categories.length).toString() + "%",
+                width: `${99 / categories.length}%`,
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
@@ -72,27 +75,23 @@ const CategoryNavbar: React.FC = () => {
                 marginBottom: "10px",
               }}
               role="none"
-              onClick={handlePopoverOpen}
+              onClick={(e) => handlePopoverOpen(e, category)}
             >
               <img
                 src={category?.image?.url}
                 alt={category?.image?.alt}
                 width={"32px"}
                 height={"24px"}
-                // style={{ marginBottom: "3px" }}
               />
               <ListItem
+                key={category?.code}
                 role="menuitem"
-                // component="a"
-                // href="#horizontal-list"
                 sx={{
                   fontSize: "0.8rem",
                   fontWeight: 700,
-                  // marginBottom: "auto",
                   padding: 0,
                   textAlign: "center",
-                  // bottom: 0,
-                }} // Adjust the font size as needed
+                }}
               >
                 {category.title}
               </ListItem>
@@ -103,36 +102,12 @@ const CategoryNavbar: React.FC = () => {
             )}
 
             {/* Popover for each category */}
-            <Popover
+            <CategoryNavbarPopover
               open={open}
               anchorEl={anchorEl}
               onClose={handlePopoverClose}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-            >
-              <Grid onClick={handlePopoverClose}>
-                {/* Add your popover content here, for example: */}
-                <Typography>
-                  <a href="#">Item 1</a>
-                  <br />
-                  <a href="#">Item 2</a>
-                  {/* Add more items as needed */}
-                  <Button
-                    onClick={() => {
-                      console.log("hey");
-                    }}
-                  >
-                    text
-                  </Button>
-                </Typography>
-              </Grid>
-            </Popover>
+              category={currentCategory}
+            />
           </React.Fragment>
         ))}
       </List>
