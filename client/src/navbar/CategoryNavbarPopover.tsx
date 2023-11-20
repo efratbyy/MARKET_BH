@@ -5,6 +5,7 @@ import { Divider, Grid } from "@mui/material";
 import {
   BigCategoryInterface,
   MiddleCategoryInterface,
+  SmallCategoryInterface,
 } from "../models/interfaces/interfaces.ts";
 import { ListDivider } from "@mui/joy";
 
@@ -38,27 +39,40 @@ const CategoryNavbarPopover: React.FC<Props> = ({
       >
         <Grid container>
           <Grid item xs={12}>
-            <Typography>
-              <a href="#">{category?.title}</a>
-            </Typography>
+            <Typography>{category?.title}</Typography>
           </Grid>
-          <Grid container item xs={12}>
+
+          <Grid container item>
             {(category?.data?.length || 0) > 0 &&
               category?.data.map(
-                (smcategory: MiddleCategoryInterface, index: number) => (
+                (mdCategory: MiddleCategoryInterface, index: number) => (
                   <>
-                    {console.log(smcategory?.data?.length, index)}
                     <Grid
                       item
-                      key={smcategory?.code}
+                      container
+                      key={mdCategory?.code}
                       xs={11.5 / (category.data.length || 1)}
                       justifyContent={"center"}
                       justifyItems={"center"}
                       textAlign={"center"}
                     >
-                      {smcategory.title}
+                      {mdCategory.title}
+
+                      <Grid container item xs={12}>
+                        {(category?.data?.length || 0) > 0 &&
+                          mdCategory?.data?.map(
+                            (
+                              smCategory: SmallCategoryInterface,
+                              index: number
+                            ) => (
+                              <Grid item xs={12}>
+                                {smCategory.title}
+                              </Grid>
+                            )
+                          )}
+                      </Grid>
                     </Grid>
-                    {index !== category.data.length - 1 && (
+                    {category.data.length - 1 !== index && (
                       <ListDivider sx={{ margin: 0, padding: 0 }} />
                     )}
                   </>
