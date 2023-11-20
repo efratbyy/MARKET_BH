@@ -4,7 +4,6 @@ const Image = require("./Image");
 
 const MiddleCategory = new mongoose.Schema({
   image: Image,
-
   code: {
     type: String,
     required: true,
@@ -15,7 +14,5 @@ const MiddleCategory = new mongoose.Schema({
   },
   data: [SmallCategory],
 });
-
-// const MiddleCategory = mongoose.model("middleCategory", schema);
 
 module.exports = MiddleCategory;

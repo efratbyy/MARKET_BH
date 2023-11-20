@@ -4,7 +4,6 @@ const Image = require("./Image");
 
 const schema = new mongoose.Schema({
   image: Image,
-
   code: {
     type: String,
     required: true,

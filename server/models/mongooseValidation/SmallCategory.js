@@ -11,6 +11,4 @@ const SmallCategory = new mongoose.Schema({
   },
 });
 
-// const SmallCategory = mongoose.model("smallCategory", schema);
-
 module.exports = SmallCategory;

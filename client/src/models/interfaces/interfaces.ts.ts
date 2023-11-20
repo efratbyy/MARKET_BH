@@ -63,3 +63,27 @@ export interface PurchaseHistoryInterface {
   orderNumber: number;
   order: [CartProductInterface];
 }
+
+export interface SmallCategoryInterface {
+  code: string;
+  title: string;
+}
+
+export interface MiddleCategoryInterface {
+  code: string;
+  title: string;
+  data: [SmallCategoryInterface];
+  image: {
+    url: string;
+    alt: string;
+  };
+}
+export interface BigCategoryInterface {
+  code: string;
+  title: string;
+  data: [MiddleCategoryInterface];
+  image: {
+    url: string;
+    alt: string;
+  };
+}
