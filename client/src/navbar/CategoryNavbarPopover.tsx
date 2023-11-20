@@ -38,15 +38,15 @@ const CategoryNavbarPopover: React.FC<Props> = ({
         }}
       >
         <Grid container>
-          <Grid item xs={12}>
+          <Grid item key={category?.code} xs={12}>
             <Typography>{category?.title}</Typography>
           </Grid>
 
-          <Grid container item>
+          <Grid container item key={category?.code + "sd"}>
             {(category?.data?.length || 0) > 0 &&
               category?.data.map(
                 (mdCategory: MiddleCategoryInterface, index: number) => (
-                  <>
+                  <React.Fragment key={mdCategory?.code}>
                     <Grid
                       item
                       container
@@ -58,14 +58,23 @@ const CategoryNavbarPopover: React.FC<Props> = ({
                     >
                       {mdCategory.title}
 
-                      <Grid container item xs={12}>
+                      <Grid
+                        container
+                        item
+                        key={mdCategory?.code + "mm"}
+                        xs={12}
+                      >
                         {(category?.data?.length || 0) > 0 &&
                           mdCategory?.data?.map(
                             (
                               smCategory: SmallCategoryInterface,
-                              index: number
+                              smIndex: number
                             ) => (
-                              <Grid item xs={12}>
+                              <Grid
+                                item
+                                xs={12}
+                                key={smCategory?.code + smIndex}
+                              >
                                 {smCategory.title}
                               </Grid>
                             )
@@ -75,7 +84,7 @@ const CategoryNavbarPopover: React.FC<Props> = ({
                     {category.data.length - 1 !== index && (
                       <ListDivider sx={{ margin: 0, padding: 0 }} />
                     )}
-                  </>
+                  </React.Fragment>
                 )
               )}
           </Grid>
