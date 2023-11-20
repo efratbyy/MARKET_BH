@@ -68,8 +68,6 @@ const Products: React.FC<Props> = () => {
           );
         }
 
-        console.log(stickers);
-
         // Filter by sticker
         if (stickers !== "") {
           const stickersArray = stickers.split(", ");
