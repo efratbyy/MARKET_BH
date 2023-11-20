@@ -4,12 +4,27 @@ import List from "@mui/joy/List";
 import ListDivider from "@mui/joy/ListDivider";
 import ListItem from "@mui/joy/ListItem";
 
+import Popover from "@mui/material/Popover";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+
 import { BigCategoryInterface } from "../models/interfaces/interfaces.ts";
 import { getCategoriesApi } from "../apiService/categoriesApi";
+import { Grid } from "@mui/material";
 
 const CategoryNavbar: React.FC = () => {
   const [categories, setCategories] = useState<BigCategoryInterface[]>();
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
+  const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
   const handleGetCategories = useCallback(async () => {
     try {
       //setLoading(true);
@@ -25,7 +40,6 @@ const CategoryNavbar: React.FC = () => {
     handleGetCategories()
       .then((data) => {
         setCategories(data);
-        console.log(data);
       })
       .catch((error) => {
         console.log(error);
@@ -40,11 +54,10 @@ const CategoryNavbar: React.FC = () => {
     >
       <List role="menubar" orientation="horizontal">
         {categories?.map((category: BigCategoryInterface, index: number) => (
-          <>
+          <React.Fragment key={category?.code}>
             <ListItem
-              key={category?.code}
               sx={{
-                width: 100 / categories.length / 113,
+                width: (99 / categories.length).toString() + "%",
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
@@ -59,6 +72,7 @@ const CategoryNavbar: React.FC = () => {
                 marginBottom: "10px",
               }}
               role="none"
+              onClick={handlePopoverOpen}
             >
               <img
                 src={category?.image?.url}
@@ -68,7 +82,6 @@ const CategoryNavbar: React.FC = () => {
                 // style={{ marginBottom: "3px" }}
               />
               <ListItem
-                key={category?.code}
                 role="menuitem"
                 // component="a"
                 // href="#horizontal-list"
@@ -85,8 +98,42 @@ const CategoryNavbar: React.FC = () => {
               </ListItem>
             </ListItem>
 
-            {index !== categories.length - 1 && <ListDivider />}
-          </>
+            {index !== categories.length - 1 && (
+              <ListDivider sx={{ padding: 0, margin: 0 }} />
+            )}
+
+            {/* Popover for each category */}
+            <Popover
+              open={open}
+              anchorEl={anchorEl}
+              onClose={handlePopoverClose}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "left",
+              }}
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "left",
+              }}
+            >
+              <Grid onClick={handlePopoverClose}>
+                {/* Add your popover content here, for example: */}
+                <Typography>
+                  <a href="#">Item 1</a>
+                  <br />
+                  <a href="#">Item 2</a>
+                  {/* Add more items as needed */}
+                  <Button
+                    onClick={() => {
+                      console.log("hey");
+                    }}
+                  >
+                    text
+                  </Button>
+                </Typography>
+              </Grid>
+            </Popover>
+          </React.Fragment>
         ))}
       </List>
     </Box>
