@@ -13,7 +13,6 @@ export interface ProductInterface {
   title: string;
   brand: string;
   barcode: string;
-  category: string;
   amount: number;
   price: number;
   image: {
@@ -35,6 +34,7 @@ export interface ProductInterface {
   ingredients: string;
   content: string;
   manufacturingCountry: string;
+  categoryCode: [string];
 }
 
 export interface CartProductInterface {

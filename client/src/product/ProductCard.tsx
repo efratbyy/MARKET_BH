@@ -28,7 +28,7 @@ type Props = {
 };
 
 const ProductCard: React.FC<Props> = ({ product }) => {
-  const { title, barcode, brand, category, image, price, details } = product;
+  const { title, barcode, brand, image, price, details } = product;
   const { user } = useUser();
   const snack = useSnack();
   const [totalAmount, setTotalAmount] = useState(0);

@@ -26,7 +26,7 @@ const DataFilter = () => {
   const [searchParams, setSearch] = useSearchParams();
   const [brands, setBrands] = useState<string[] | undefined>([]);
   const [selectedBrands, setSelectedBrands] = useState<string[] | undefined>(
-    []
+    searchParams.get("brand")?.split(", ")
   ); // Array to hold selected brand IDs
 
   const [stickers, setStickers] = useState<string[] | undefined>([
@@ -38,32 +38,18 @@ const DataFilter = () => {
   ]);
   const [selectedStickers, setSelectedStickers] = useState<
     string[] | undefined
-  >([]); // Array to hold selected brand IDs
+  >(searchParams.get("sticker")?.split(", "));
 
   const { handleGetProducts } = useProducts();
 
   const handleSortAsc = () => {
-    const query = searchParams.get("q");
-    const brand = searchParams.get("brand");
-    const sticker = searchParams.get("sticker");
-    setSearch({
-      sort: "Asc",
-      q: query || "",
-      brand: brand || "",
-      sticker: sticker || "",
-    });
+    searchParams.set("sort", "Asc");
+    setSearch(searchParams);
   };
 
   const handleSortDesc = () => {
-    const query = searchParams.get("q");
-    const brand = searchParams.get("brand");
-    const sticker = searchParams.get("sticker");
-    setSearch({
-      sort: "Desc",
-      q: query || "",
-      brand: brand || "",
-      sticker: sticker || "",
-    });
+    searchParams.set("sort", "Desc");
+    setSearch(searchParams);
   };
 
   const toggleBrand = (brand: string) => {
@@ -99,29 +85,15 @@ const DataFilter = () => {
 
   useEffect(() => {
     const joinedString = selectedBrands?.join(", ");
-    const query = searchParams.get("q");
-    const sort = searchParams.get("sort");
-    const sticker = searchParams.get("sticker");
-    setSearch({
-      sort: sort || "",
-      q: query || "",
-      brand: joinedString || "",
-      sticker: sticker || "",
-    });
+    searchParams.set("brand", joinedString || "");
+    setSearch(searchParams);
   }, [selectedBrands]);
 
   useEffect(() => {
     const joinedString = selectedStickers?.join(", ");
-    const query = searchParams.get("q");
-    const sort = searchParams.get("sort");
-    const brand = searchParams.get("brand");
 
-    setSearch({
-      sort: sort || "",
-      q: query || "",
-      brand: brand || "",
-      sticker: joinedString || "",
-    });
+    searchParams.set("sticker", joinedString || "");
+    setSearch(searchParams);
   }, [selectedStickers]);
 
   return (

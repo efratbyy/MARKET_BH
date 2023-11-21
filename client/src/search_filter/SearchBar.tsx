@@ -13,14 +13,21 @@ const SearchBar = () => {
   const [searchParams, setSearch] = useSearchParams();
 
   const handleChange = ({ target }: any) => {
-    const sort = searchParams.get("sort");
-    const brand = searchParams.get("brand");
-    const sticker = searchParams.get("sticker");
+    // const sort = searchParams.get("sort");
+    // const brand = searchParams.get("brand");
+    // const sticker = searchParams.get("sticker");
+    // setSearch({
+    //   q: target.value,
+    //   sort: sort || "",
+    //   brand: brand || "",
+    //   sticker: sticker || "",
+    // });
+
+    searchParams.set("q", target.value);
+    setSearch(searchParams);
+
     setSearch({
       q: target.value,
-      sort: sort || "",
-      brand: brand || "",
-      sticker: sticker || "",
     });
   };
 

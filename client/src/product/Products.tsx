@@ -15,6 +15,7 @@ const Products: React.FC<Props> = () => {
   const [sort, setSort] = useState<string>("");
   const [brands, setBrands] = useState<string>("");
   const [stickers, setStickers] = useState<string>("");
+  const [categoryCode, setCategoryCode] = useState<string>("");
 
   useEffect(() => {
     const query = searchParams.get("q");
@@ -53,6 +54,15 @@ const Products: React.FC<Props> = () => {
   }, [searchParams]);
 
   useEffect(() => {
+    const categoryCodeParam = searchParams.get("category_code");
+    if (categoryCodeParam != null) {
+      setCategoryCode(categoryCodeParam);
+    } else {
+      setCategoryCode("");
+    }
+  }, [searchParams]);
+
+  useEffect(() => {
     handleGetProducts()
       .then((products) => {
         // Filter by q
@@ -62,9 +72,10 @@ const Products: React.FC<Props> = () => {
 
         // Filter by brand
         if (brands !== "") {
+          // If brands searchParams is empty, no need to filter
           const brandsArray = brands.split(", ");
-          filteredProducts = filteredProducts?.filter((x) =>
-            brandsArray.includes(x.brand)
+          filteredProducts = filteredProducts?.filter((product) =>
+            brandsArray.includes(product.brand)
           );
         }
 
@@ -78,6 +89,7 @@ const Products: React.FC<Props> = () => {
           let greenMarkProducts: ProductInterface[] | undefined = [];
           let supervisedProducts: ProductInterface[] | undefined = [];
 
+          // Convert search param text to the product's field true/false
           if (stickersArray.includes("סוכר"))
             sugarProducts = filteredProducts?.filter(
               (x) => x.details.isSugar === true
@@ -113,7 +125,23 @@ const Products: React.FC<Props> = () => {
             supervisedProducts || []
           );
 
+          // Set is type that cannot contains duplicates
           filteredProducts = Array.from(new Set(mergedArray));
+        }
+
+        // Filter by category
+        if (categoryCode !== "") {
+          console.log(filteredProducts);
+          console.log(
+            filteredProducts?.filter((product) =>
+              product.categoryCode.some((code) => code.startsWith(categoryCode))
+            )
+          );
+
+          // If category searchParams is empty, no need to filter
+          filteredProducts = filteredProducts?.filter((product) =>
+            product.categoryCode.some((code) => code.startsWith(categoryCode))
+          );
         }
 
         // sort the products by default
@@ -126,7 +154,7 @@ const Products: React.FC<Props> = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, [handleGetProducts, query, sort, brands, stickers]);
+  }, [handleGetProducts, query, sort, brands, stickers, categoryCode]);
 
   return (
     <Grid

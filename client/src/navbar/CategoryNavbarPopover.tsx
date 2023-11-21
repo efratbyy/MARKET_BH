@@ -1,13 +1,14 @@
 import React from "react";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
-import { Divider, Grid } from "@mui/material";
+import { Button, Divider, Grid } from "@mui/material";
 import {
   BigCategoryInterface,
   MiddleCategoryInterface,
   SmallCategoryInterface,
 } from "../models/interfaces/interfaces.ts";
 import { ListDivider } from "@mui/joy";
+import { useSearchParams } from "react-router-dom";
 
 type Props = {
   open: boolean;
@@ -22,6 +23,14 @@ const CategoryNavbarPopover: React.FC<Props> = ({
   onClose,
   category,
 }) => {
+  const [searchParams, setSearch] = useSearchParams();
+
+  const handleCategoryClick = (categoryCode: string) => {
+    setSearch({
+      category_code: categoryCode,
+    });
+  };
+
   return (
     <>
       <Popover
@@ -56,7 +65,13 @@ const CategoryNavbarPopover: React.FC<Props> = ({
                       justifyItems={"center"}
                       textAlign={"center"}
                     >
-                      {mdCategory.title}
+                      <Button
+                        onClick={() => {
+                          handleCategoryClick(mdCategory.code);
+                        }}
+                      >
+                        {mdCategory.title}
+                      </Button>
 
                       <Grid
                         container
