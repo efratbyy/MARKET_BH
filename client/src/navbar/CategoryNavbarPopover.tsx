@@ -90,7 +90,13 @@ const CategoryNavbarPopover: React.FC<Props> = ({
                                 xs={12}
                                 key={smCategory?.code + smIndex}
                               >
-                                {smCategory.title}
+                                <Button
+                                  onClick={() =>
+                                    handleCategoryClick(smCategory.code)
+                                  }
+                                >
+                                  {smCategory.title}
+                                </Button>
                               </Grid>
                             )
                           )}
