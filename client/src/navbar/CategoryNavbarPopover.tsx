@@ -45,7 +45,7 @@ const CategoryNavbarPopover: React.FC<Props> = ({
           <Grid container item key={category?.code + "sd"}>
             {(category?.data?.length || 0) > 0 &&
               category?.data.map(
-                (mdCategory: MiddleCategoryInterface, index: number) => (
+                (mdCategory: MiddleCategoryInterface, mdIndex: number) => (
                   <React.Fragment key={mdCategory?.code}>
                     <Grid
                       item
@@ -81,7 +81,7 @@ const CategoryNavbarPopover: React.FC<Props> = ({
                           )}
                       </Grid>
                     </Grid>
-                    {category.data.length - 1 !== index && (
+                    {category.data.length - 1 !== mdIndex && (
                       <ListDivider sx={{ margin: 0, padding: 0 }} />
                     )}
                   </React.Fragment>
