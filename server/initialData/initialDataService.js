@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const DB_Category = require("./models/mongooseValidation/BigCategory"); // Adjust the path a
+const DB_Category = require("../models/mongooseValidation/BigCategory"); // Adjust the path a
 const fs = require("fs");
 
 // Recursive way for update any _id filed in any level for match MongoDB _id field (ObjectId)
@@ -66,4 +66,7 @@ const InitCategoriesData = async (categoriesJsonFilePath) => {
   }
 };
 
+const InitUsersData = async (usersJsonFilePath) => {};
+
 exports.InitCategoriesData = InitCategoriesData;
+exports.InitUsersData = InitUsersData;

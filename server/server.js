@@ -5,7 +5,7 @@ const config = require("config"); // (DEVELOPMENT/PRODUCTION) מאפשר לעב�
 const router = require("./router/router");
 const cors = require("./middlewares/cors");
 // const morganLogger = require("");
-const { InitCategoriesData } = require("./initialDataService");
+const { InitCategoriesData } = require("./initialData/initialDataService");
 
 // app.use(morganLogger);
 app.use(cors);
