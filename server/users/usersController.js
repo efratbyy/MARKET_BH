@@ -77,16 +77,26 @@ const login = async (req, res) => {
         const token = jwt.sign({ _id, isAdmin, email, first, last }, JWT_KEY);
         res.send(token);
       } else {
-        throw new Error("Authentication Error: User is still Blocked!");
+        const currentTime = new Date();
+
+        // target => release time
+        const target = new Date(userInDB.blockedTime);
+        target.setDate(target.getDate() + 1); // adding 24 hours to blocked time to get release time
+
+        const leftTime = target - currentTime;
+        const seconds = Math.floor((leftTime / 1000) % 60);
+        const minutes = Math.floor((leftTime / (1000 * 60)) % 60);
+        const hours = Math.floor((leftTime / (1000 * 60 * 60)) % 24);
+        throw new Error(
+          ` עקב ריבוי ניסיונות כושלים חשבונך נחסם, ניתן לנסות שנית בעוד:  ${hours}:${minutes}:${String(
+            seconds
+          ).padStart(2, "0")}`
+        );
       }
     }
   } catch (error) {
     const isAuthError = error.message.includes("Authentication Error");
-    return handleError(
-      res,
-      isAuthError ? 403 : 500,
-      `Mongoose Error: ${error.message}`
-    );
+    return handleError(res, isAuthError ? 403 : 500, `שגיאה: ${error.message}`);
   }
 };
 
