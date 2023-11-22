@@ -5,6 +5,7 @@ const config = require("config"); // (DEVELOPMENT/PRODUCTION) מאפשר לעב�
 const router = require("./router/router");
 const cors = require("./middlewares/cors");
 // const morganLogger = require("");
+const { InitCategoriesData } = require("./initialDataService");
 
 // app.use(morganLogger);
 app.use(cors);
@@ -18,4 +19,6 @@ const PORT = config.get("PORT") || 9000;
 app.listen(PORT, () => {
   console.log(chalk.blackBright(`Listening on: http://localhost: ${PORT}`));
   require("./mongoDB/connectToMongodb");
+
+  InitCategoriesData("./initialData/Market_BH.categories.json");
 });
