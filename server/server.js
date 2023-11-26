@@ -8,6 +8,7 @@ const cors = require("./middlewares/cors");
 const {
   InitCategoriesData,
   InitUsersData,
+  InitProductsData,
 } = require("./initialData/initialDataService");
 
 // app.use(morganLogger);
@@ -26,4 +27,6 @@ app.listen(PORT, () => {
   InitCategoriesData("./initialData/Market_BH.categories.json");
 
   InitUsersData("./initialData/Market_BH.users.json");
+
+  InitProductsData("./initialData/Market_BH.products.json");
 });

@@ -1,0 +1,321 @@
+[{
+  "_id": {
+    "$oid": "65087f8050b72bd54923776a"
+  },
+  "title": "שוקו טרה בבקבוק",
+  "brand": "טרה",
+  "barcode": "123456789",
+  "price": 8.9,
+  "image": {
+    "url": "https://www.rami-levy.co.il/_ipx/w_366,f_webp/https://img.rami-levy.co.il/product/7290102398560/small.jpg",
+    "alt": "שוקו טרה"
+  },
+  "details": {
+    "weight": 1000,
+    "weightUnit": "100 מ״ל",
+    "weightTopDisplay": 1,
+    "weightUnitTopDisplay": "ליטר",
+    "divideBy": 100,
+    "isSodium": false,
+    "isSugar": false,
+    "isSaturatedFat": false,
+    "categoryCode": "",
+    "isGreenMark": false,
+    "isSupervised": false
+  },
+  "ingredients": "חלב מפוסטר (77%), מים, רכז חלבוני חלב (8.8%), קקאו, סידן (קלציום קרבונט), חומרי טעם וריח, מייצבים (קרגינן, ג'לן גאם), מלח, ממתיק טבעי מצמח הסטיביה (סטיביול גליקוזיד), ויטמין D.\n",
+  "content": "1 ליטר",
+  "manufacturingCountry": "ישראל",
+  "categoryCode": [
+    "15_2_2"
+  ]
+},
+{
+  "_id": {
+    "$oid": "65087f8050b72bd54923776b"
+  },
+  "title": "קפה טורקי עלית 125 גר׳",
+  "brand": "עלית",
+  "barcode": "987654321",
+  "price": 10.3,
+  "image": {
+    "url": "https://www.rami-levy.co.il/_ipx/w_366,f_webp/https://img.rami-levy.co.il/product/7290106525382/small.jpg",
+    "alt": "קפה טורקי עלית"
+  },
+  "details": {
+    "weight": 125,
+    "weightUnit": "100 גר׳",
+    "weightTopDisplay": 150,
+    "weightUnitTopDisplay": "גרם",
+    "divideBy": 100,
+    "isSodium": false,
+    "isSugar": false,
+    "isSaturatedFat": true,
+    "isGreenMark": false,
+    "isSupervised": false,
+    "categoryCode": ""
+  },
+  "ingredients": "",
+  "content": "125 גר׳",
+  "manufacturingCountry": "ישראל",
+  "categoryCode": [
+    "6_2_3"
+  ]
+},
+{
+  "_id": {
+    "$oid": "65087f8050b72bd54923776c"
+  },
+  "title": "לילי אקסקלוסיב קומפורט וורוד 32 יח׳",
+  "brand": "לילי",
+  "barcode": "234567890",
+  "price": 44.9,
+  "image": {
+    "url": "https://www.rami-levy.co.il/_ipx/w_245,f_webp/https://img.rami-levy.co.il/product/7290111346828/small.jpg",
+    "alt": "לילי אקסקלוסיב קומפורט וורוד"
+  },
+  "details": {
+    "weight": 32,
+    "weightUnit": "יחידה",
+    "weightTopDisplay": 32,
+    "weightUnitTopDisplay": "גלילים",
+    "divideBy": 1,
+    "isSodium": false,
+    "isSugar": false,
+    "isSaturatedFat": false,
+    "isGreenMark": false,
+    "isSupervised": false,
+    "categoryCode": ""
+  },
+  "ingredients": "",
+  "content": "",
+  "manufacturingCountry": "",
+  "categoryCode": [
+    "16_3_1",
+    "2_2_1"
+  ]
+},
+{
+  "_id": {
+    "$oid": "65087f8050b72bd54923776d"
+  },
+  "title": "פתיתים אפויים אורז אסם",
+  "brand": "אסם",
+  "barcode": "345678901",
+  "price": 7.9,
+  "image": {
+    "url": "https://www.rami-levy.co.il/_ipx/w_366,f_webp/https://img.rami-levy.co.il/product/7290000060903/small.jpg",
+    "alt": "פתיתים אפויים אורז אסם"
+  },
+  "details": {
+    "weight": 500,
+    "weightUnit": "100 גר׳",
+    "weightTopDisplay": 500,
+    "weightUnitTopDisplay": "גרם",
+    "isSodium": false,
+    "isSugar": false,
+    "divideBy": 100,
+    "isSaturatedFat": false,
+    "isGreenMark": false,
+    "isSupervised": false,
+    "categoryCode": ""
+  },
+  "ingredients": "",
+  "content": "",
+  "manufacturingCountry": "",
+  "categoryCode": [
+    "9_3_4"
+  ]
+},
+{
+  "_id": {
+    "$oid": "65087f8050b72bd54923776e"
+  },
+  "title": "אטריות ביצים",
+  "brand": "מזרח ומערב",
+  "barcode": "456789012",
+  "price": 7.8,
+  "image": {
+    "url": "https://www.rami-levy.co.il/_ipx/w_366,f_webp/https://img.rami-levy.co.il/product/7290016523447/small.jpg",
+    "alt": "אטריות ביצים"
+  },
+  "details": {
+    "weight": 300,
+    "weightUnit": "100 גר׳",
+    "weightTopDisplay": 300,
+    "weightUnitTopDisplay": "גרם",
+    "isSodium": false,
+    "isSugar": false,
+    "divideBy": 100,
+    "isSaturatedFat": false,
+    "isGreenMark": false,
+    "isSupervised": false,
+    "categoryCode": ""
+  },
+  "ingredients": "",
+  "content": "",
+  "manufacturingCountry": "",
+  "categoryCode": [
+    "9_3_3"
+  ]
+},
+{
+  "_id": {
+    "$oid": "65087f8050b72bd54923776f"
+  },
+  "title": "תפוצ׳יפס טבעי 50 גר׳",
+  "brand": "עלית",
+  "barcode": "567890123",
+  "price": 2.9,
+  "image": {
+    "url": "https://www.rami-levy.co.il/_ipx/w_366,f_webp/https://img.rami-levy.co.il/product/7290000178707/small.jpg",
+    "alt": "תפוצ׳יפס טבעי 50 גר׳"
+  },
+  "details": {
+    "weight": 200,
+    "weightUnit": "100 גר׳",
+    "weightTopDisplay": 200,
+    "weightUnitTopDisplay": "גרם",
+    "isSodium": true,
+    "isSugar": false,
+    "divideBy": 100,
+    "isSaturatedFat": false,
+    "isGreenMark": false,
+    "isSupervised": false,
+    "categoryCode": ""
+  },
+  "ingredients": "",
+  "content": "",
+  "manufacturingCountry": "",
+  "categoryCode": [
+    "3_1_2"
+  ]
+},
+{
+  "_id": {
+    "$oid": "65087f8050b72bd549237770"
+  },
+  "title": "בשר טחון טרי",
+  "brand": "אדום אדום",
+  "barcode": "678901234",
+  "price": 49.9,
+  "image": {
+    "url": "https://www.rami-levy.co.il/_ipx/w_245,f_webp/https://img.rami-levy.co.il/product/1004746/390754/medium.jpg",
+    "alt": "בשר טחון טרי"
+  },
+  "details": {
+    "weight": 1,
+    "weightUnit": "ק״ג",
+    "weightTopDisplay": 0,
+    "weightUnitTopDisplay": "ק״ג",
+    "isSodium": false,
+    "isSugar": false,
+    "divideBy": 1,
+    "isSaturatedFat": false,
+    "isGreenMark": false,
+    "isSupervised": false,
+    "categoryCode": ""
+  },
+  "ingredients": "",
+  "content": "",
+  "manufacturingCountry": "",
+  "categoryCode": [
+    "12_3_1"
+  ]
+},
+{
+  "_id": {
+    "$oid": "65087f8050b72bd549237771"
+  },
+  "title": "ענבים ירוקים",
+  "brand": "פרי גליל",
+  "barcode": "789012345",
+  "price": 31.3,
+  "image": {
+    "url": "https://www.rami-levy.co.il/_ipx/w_366,f_webp/https://img.rami-levy.co.il/product/185/65/medium.jpg",
+    "alt": "ענבים ירוקים"
+  },
+  "details": {
+    "weight": 1,
+    "weightUnit": "ק״ג",
+    "weightTopDisplay": 0,
+    "weightUnitTopDisplay": "ק״ג",
+    "isSodium": false,
+    "isSugar": false,
+    "divideBy": 1,
+    "isSaturatedFat": false,
+    "isGreenMark": false,
+    "isSupervised": false,
+    "categoryCode": ""
+  },
+  "ingredients": "",
+  "content": "",
+  "manufacturingCountry": "",
+  "categoryCode": [
+    "14_1_1"
+  ]
+},
+{
+  "_id": {
+    "$oid": "65087f8050b72bd549237772"
+  },
+  "title": "פלפל אדום",
+  "brand": "כרמלים",
+  "barcode": "890123456",
+  "price": 8.9,
+  "image": {
+    "url": "https://www.rami-levy.co.il/_ipx/w_366,f_webp/https://img.rami-levy.co.il/product/104/6/medium.jpg",
+    "alt": "פלפל אדום"
+  },
+  "details": {
+    "weight": 1,
+    "weightUnit": "ק״ג",
+    "weightTopDisplay": 0,
+    "weightUnitTopDisplay": "ק״ג",
+    "divideBy": 1,
+    "isSodium": false,
+    "isSugar": false,
+    "isSaturatedFat": false,
+    "isGreenMark": false,
+    "isSupervised": false,
+    "categoryCode": ""
+  },
+  "ingredients": "",
+  "content": "",
+  "manufacturingCountry": "",
+  "categoryCode": [
+    "14_2_1"
+  ]
+},
+{
+  "_id": {
+    "$oid": "65087f8050b72bd549237773"
+  },
+  "title": "לחם אחיד פרוס",
+  "brand": "אנג׳ל",
+  "barcode": "901234567",
+  "price": 9.96,
+  "image": {
+    "url": "https://www.rami-levy.co.il/_ipx/w_366,f_webp/https://img.rami-levy.co.il/product/7290018500361/small.jpg",
+    "alt": "לחם אחיד פרוס"
+  },
+  "details": {
+    "weight": 900,
+    "weightUnit": "גר׳",
+    "weightTopDisplay": 900,
+    "weightUnitTopDisplay": "גרם",
+    "isSodium": false,
+    "isSugar": false,
+    "divideBy": 100,
+    "isSaturatedFat": false,
+    "isGreenMark": false,
+    "isSupervised": false,
+    "categoryCode": ""
+  },
+  "ingredients": "",
+  "content": "",
+  "manufacturingCountry": "",
+  "categoryCode": [
+    "13_1_1"
+  ]
+}]
