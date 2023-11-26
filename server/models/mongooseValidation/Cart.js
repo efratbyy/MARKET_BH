@@ -46,7 +46,7 @@ const CartProduct = new mongoose.Schema({
   note: {
     type: String,
     trim: false,
-    maxLength: 15,
+    maxLength: 25,
     lowercase: true,
   },
 });

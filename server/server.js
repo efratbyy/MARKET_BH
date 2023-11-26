@@ -5,7 +5,10 @@ const config = require("config"); // (DEVELOPMENT/PRODUCTION) מאפשר לעב�
 const router = require("./router/router");
 const cors = require("./middlewares/cors");
 // const morganLogger = require("");
-const { InitCategoriesData } = require("./initialData/initialDataService");
+const {
+  InitCategoriesData,
+  InitUsersData,
+} = require("./initialData/initialDataService");
 
 // app.use(morganLogger);
 app.use(cors);
@@ -21,4 +24,6 @@ app.listen(PORT, () => {
   require("./mongoDB/connectToMongodb");
 
   InitCategoriesData("./initialData/Market_BH.categories.json");
+
+  InitUsersData("./initialData/Market_BH.users.json");
 });

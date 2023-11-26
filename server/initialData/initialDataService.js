@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const DB_Category = require("../models/mongooseValidation/BigCategory"); // Adjust the path a
+const DB_Users = require("../models/mongooseValidation/User");
 const fs = require("fs");
 
 // Recursive way for update any _id filed in any level for match MongoDB _id field (ObjectId)
@@ -18,33 +19,27 @@ const convertToObjectId = (data) => {
   return data;
 };
 
+function convertToDateObjects(usersData) {
+  return usersData.map((user) => {
+    // Convert date strings to Date objects
+    user.createdAt = new Date(user.createdAt["$date"]);
+    user.blockedTime = new Date(user.blockedTime["$date"]);
+    if (user.purchaseHistory && Array.isArray(user.purchaseHistory)) {
+      user.purchaseHistory = user.purchaseHistory.map((pHistory) => {
+        if (pHistory.orderDate && pHistory.orderDate["$date"]) {
+          pHistory.orderDate = new Date(pHistory.orderDate["$date"]);
+        }
+        return pHistory;
+      });
+    }
+    return user;
+  });
+}
+
 const InitCategoriesData = async (categoriesJsonFilePath) => {
   const jsonData = fs.readFileSync(categoriesJsonFilePath, "utf-8");
 
   const categoriesData = JSON.parse(jsonData); // convert txt file to json type object
-
-  // const ObjectId = mongoose.Types.ObjectId; // Convert json _id field type to match MongoDB _id field type (ObjectId)
-  // // First level: _id + image
-  // const newData = categoriesData.map((bigCategory) => {
-  //   if (bigCategory._id && bigCategory._id.$oid) {
-  //     bigCategory._id = new ObjectId(bigCategory._id.$oid);
-  //     bigCategory.image._id = new ObjectId(bigCategory.image._id.$oid);
-
-  //     // Second level: _id + image
-  //     bigCategory.data = bigCategory.data.map((mdCategory) => {
-  //       mdCategory._id = new ObjectId(mdCategory._id.$oid);
-  //       mdCategory.image._id = new ObjectId(mdCategory.image._id.$oid);
-
-  //       // Third level: _id
-  //       mdCategory.data = mdCategory.data.map((smCategory) => {
-  //         smCategory._id = new ObjectId(smCategory._id.$oid);
-  //         return smCategory;
-  //       });
-  //       return mdCategory;
-  //     });
-  //   }
-  //   return bigCategory;
-  // });
 
   const newData = convertToObjectId(categoriesData);
 
@@ -60,13 +55,38 @@ const InitCategoriesData = async (categoriesJsonFilePath) => {
 
       if (!existingDocument) await DB_Category.create(document);
     }
+    console.log("categories Collection loaded successfully !");
   } else {
     // Collection is not empty, handle accordingly
     console.log("categories Collection is not empty. Skipping insertion.");
   }
 };
 
-const InitUsersData = async (usersJsonFilePath) => {};
+const InitUsersData = async (usersJsonFilePath) => {
+  const jsonData = fs.readFileSync(usersJsonFilePath, "utf-8");
+
+  const usersData = JSON.parse(jsonData); // convert txt file to json type object
+
+  const newData_date = convertToDateObjects(usersData);
+  const newData = convertToObjectId(newData_date);
+
+  const count = await DB_Users.countDocuments({}).exec();
+
+  if (count === 0) {
+    // Collection is empty or doesn't exist, you can insert documents
+    for (const document of newData) {
+      const existingDocument = await DB_Users.findOne({
+        email: document.email,
+      });
+
+      if (!existingDocument) await DB_Users.create(document);
+    }
+    console.log("users Collection loaded successfully !");
+  } else {
+    // Collection is not empty, handle accordingly
+    console.log("users Collection is not empty. Skipping insertion.");
+  }
+};
 
 exports.InitCategoriesData = InitCategoriesData;
 exports.InitUsersData = InitUsersData;
