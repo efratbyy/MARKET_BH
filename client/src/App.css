@@ -17,3 +17,6 @@ body {
 .MuiInputBase-input {
   font-family: "Fredoka", sans-serif !important; /* Use the font in your styles */
 }
+.MuiButtonBase-root {
+  font-family: "Fredoka", sans-serif !important; /* Use the font in your styles */
+}

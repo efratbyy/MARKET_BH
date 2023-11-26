@@ -1,7 +1,7 @@
 import React from "react";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
-import { Button, Divider, Grid } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import {
   BigCategoryInterface,
   MiddleCategoryInterface,
@@ -47,68 +47,92 @@ const CategoryNavbarPopover: React.FC<Props> = ({
         }}
       >
         <Grid container>
-          <Grid item key={category?.code} xs={12}>
-            <Typography>{category?.title}</Typography>
+          <Grid item key={category?.code} xs={12} sx={{ width: "40px" }}>
+            <Typography
+              sx={{
+                fontSize: "40px",
+                padding: "15px",
+                color: "#5b9822",
+              }}
+            >
+              {category?.title}
+            </Typography>
           </Grid>
 
-          <Grid container item key={category?.code + "sd"}>
-            {(category?.data?.length || 0) > 0 &&
-              category?.data.map(
-                (mdCategory: MiddleCategoryInterface, mdIndex: number) => (
-                  <React.Fragment key={mdCategory?.code}>
-                    <Grid
-                      item
-                      container
-                      key={mdCategory?.code}
-                      xs={11.5 / (category.data.length || 1)}
-                      justifyContent={"center"}
-                      justifyItems={"center"}
-                      textAlign={"center"}
+          {(category?.data?.length || 0) > 0 &&
+            category?.data.map(
+              (mdCategory: MiddleCategoryInterface, mdIndex: number) => (
+                <React.Fragment key={mdCategory?.code}>
+                  <Grid
+                    item
+                    key={mdCategory?.code}
+                    sx={{
+                      paddingX: "15px",
+                      paddingBottom: "20px",
+                    }}
+                  >
+                    <Button
+                      sx={{
+                        color: "#5b9822",
+                        fontSize: "17px",
+                        justifyContent: "right !important",
+                        minWidth: 0,
+                        paddingTop: "0px",
+                      }}
+                      onClick={() => {
+                        handleCategoryClick(mdCategory.code);
+                      }}
                     >
-                      <Button
-                        onClick={() => {
-                          handleCategoryClick(mdCategory.code);
-                        }}
-                      >
-                        {mdCategory.title}
-                      </Button>
+                      {mdCategory.title}
+                    </Button>
 
-                      <Grid
-                        container
-                        item
-                        key={mdCategory?.code + "mm"}
-                        xs={12}
-                      >
-                        {(category?.data?.length || 0) > 0 &&
-                          mdCategory?.data?.map(
-                            (
-                              smCategory: SmallCategoryInterface,
-                              smIndex: number
-                            ) => (
-                              <Grid
-                                item
-                                xs={12}
-                                key={smCategory?.code + smIndex}
+                    <Grid item key={mdCategory?.code + "mm"}>
+                      {(category?.data?.length || 0) > 0 &&
+                        mdCategory?.data?.map(
+                          (
+                            smCategory: SmallCategoryInterface,
+                            smIndex: number
+                          ) => (
+                            <Grid
+                              item
+                              key={smCategory?.code + smIndex}
+                              sx={{
+                                display: "flex",
+                                flexWrap: "wrap",
+                                padding: 0,
+                              }}
+                            >
+                              <Button
+                                sx={{
+                                  paddingY: "4px",
+                                  margin: 0,
+                                  lineHeight: "0.8",
+                                  color: "#555",
+                                  fontWeight: 400,
+                                  justifyContent: "right !important",
+                                }}
+                                onClick={() =>
+                                  handleCategoryClick(smCategory.code)
+                                }
                               >
-                                <Button
-                                  onClick={() =>
-                                    handleCategoryClick(smCategory.code)
-                                  }
-                                >
-                                  {smCategory.title}
-                                </Button>
-                              </Grid>
-                            )
-                          )}
-                      </Grid>
+                                {smCategory.title}
+                              </Button>
+                            </Grid>
+                          )
+                        )}
                     </Grid>
-                    {category.data.length - 1 !== mdIndex && (
-                      <ListDivider sx={{ margin: 0, padding: 0 }} />
-                    )}
-                  </React.Fragment>
-                )
-              )}
-          </Grid>
+                  </Grid>
+                  {category.data.length - 1 !== mdIndex && (
+                    <ListDivider
+                      sx={{
+                        margin: 0,
+                        padding: 0,
+                      }}
+                    />
+                  )}
+                </React.Fragment>
+              )
+            )}
         </Grid>
       </Popover>
     </>
