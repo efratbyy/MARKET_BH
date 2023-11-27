@@ -10,14 +10,15 @@ import { Avatar, Grid } from "@mui/material";
 import HomeTwoToneIcon from "@mui/icons-material/HomeTwoTone";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import FormatListBulletedTwoToneIcon from "@mui/icons-material/FormatListBulletedTwoTone";
+import CategoriesBottomNavBar from "./CategoriesBottomNavBar";
 
 const MobileFooter = () => {
   const navigate = useNavigate();
-  const [isClicked, setIsClicked] = useState(false);
+  // const [isClicked, setIsClicked] = useState(false);
 
-  const handleClick = () => {
-    setIsClicked(!isClicked);
-  };
+  // const handleClick = () => {
+  //   setIsClicked(!isClicked);
+  // };
 
   return (
     <>
@@ -53,7 +54,7 @@ const MobileFooter = () => {
               icon={<InfoTwoToneIcon />}
             />
 
-            <BottomNavigationAction
+            {/* <BottomNavigationAction
               // onClick={() => navigate(ROUTES.ROOT)}
               onClick={handleClick}
               label="מוצרים"
@@ -71,7 +72,9 @@ const MobileFooter = () => {
                   <FormatListBulletedTwoToneIcon />
                 </Avatar>
               }
-            />
+            /> */}
+
+            <CategoriesBottomNavBar />
 
             <BottomNavigationAction
               onClick={() =>
