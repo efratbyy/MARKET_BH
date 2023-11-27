@@ -7,8 +7,8 @@ import { Grid } from "@mui/material";
 import Footer from "../footer/Footer";
 import { useUser } from "../providers/UserProvider";
 import CategoryNavbar from "../navbar/CategoryNavbar";
-import Example from "../navbar/Example";
 import DataFilter from "../search_filter/DataFilter";
+import DesktopFooter from "../footer/DesktopFooter";
 
 const HomePage = () => {
   const { user } = useUser();
@@ -16,7 +16,6 @@ const HomePage = () => {
   return (
     <>
       <Navbar />
-      {/* <Example /> */}
       <CategoryNavbar />
       <Grid
         container
@@ -24,7 +23,7 @@ const HomePage = () => {
           background: `url("/assets/images/vegetables.png")`, // Replace with your image path
           backgroundSize: "cover",
           backgroundPosition: "center",
-          minHeight: "400px", //
+          minHeight: "300px", //
         }}
       ></Grid>
       <Grid container sx={{ marginBottom: "27px" }}>
