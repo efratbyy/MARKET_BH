@@ -53,7 +53,11 @@ const CategoryNavbar: React.FC = () => {
     <Box
       component="nav"
       aria-label="My site"
-      sx={{ flexGrow: 1, maxWidth: "100%" }}
+      sx={{
+        flexGrow: 1,
+        maxWidth: "100%",
+        display: { xs: "none", lg: "block" },
+      }}
     >
       <List role="menubar" orientation="horizontal">
         {categories?.map((category: BigCategoryInterface, index: number) => (
