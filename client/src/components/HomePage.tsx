@@ -1,16 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../navbar/Navbar";
 import Products from "../product/Products";
 import ShoppingCart from "../cart/ShoppingCart";
 import "./HomePage.css";
-import { Grid } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import Footer from "../footer/Footer";
 import { useUser } from "../providers/UserProvider";
 import CategoryNavbar from "../navbar/CategoryNavbar";
 import DataFilter from "../search_filter/DataFilter";
 import DesktopFooter from "../footer/DesktopFooter";
+import { useSearchParams } from "react-router-dom";
+import CloseIcon from "@mui/icons-material/Close";
 
 const HomePage = () => {
+  const [searchParams, setSearch] = useSearchParams();
+  const [q, setQ] = useState("");
+
+  useEffect(() => {
+    setQ(searchParams.get("q") || "");
+  }, [searchParams, q]);
+
   const { user } = useUser();
 
   return (
@@ -31,6 +40,46 @@ const HomePage = () => {
           <DataFilter />
         </Grid>
         <Grid item xs={12} md={7}>
+          <Grid xs={12} display={"flex"}>
+            {/* filter reset */}
+            <Button
+              style={{
+                backgroundColor: "orange",
+                color: "black",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                margin: "7px",
+                borderRadius: "10px",
+              }}
+              onClick={() => setSearch("")}
+            >
+              <CloseIcon fontSize="small" />
+              אפס סינון
+            </Button>
+
+            {/* filter reset */}
+            {q !== "" && (
+              <Button
+                style={{
+                  backgroundColor: "orange",
+                  color: "black",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  margin: "7px",
+                  borderRadius: "10px",
+                }}
+                onClick={() => {
+                  searchParams.set("q", "");
+                  setSearch(searchParams);
+                }}
+              >
+                <CloseIcon fontSize="small" />
+                {q}
+              </Button>
+            )}
+          </Grid>
           <Products />
         </Grid>
         <Grid item sx={{ display: { xs: "none", md: "inline-flex" } }} md={3}>

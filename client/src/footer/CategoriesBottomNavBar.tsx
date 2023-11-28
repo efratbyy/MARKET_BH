@@ -1,23 +1,20 @@
 import React, { useCallback, useEffect, useState } from "react";
-import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
-import Button from "@mui/material/Button";
 import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
+
 import { Avatar, BottomNavigationAction, IconButton } from "@mui/material";
 import FormatListBulletedTwoToneIcon from "@mui/icons-material/FormatListBulletedTwoTone";
-import CloseIcon from "@mui/icons-material/Close";
 import { BigCategoryInterface } from "../models/interfaces/interfaces.ts";
 import { getCategoriesApi } from "../apiService/categoriesApi";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { useSearchParams } from "react-router-dom";
+import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 
 const CategoriesBottomNavBar: React.FC = () => {
   const [bottomDrawerOpen, setBottomDrawerOpen] = useState(false);
@@ -271,11 +268,8 @@ const CategoriesBottomNavBar: React.FC = () => {
           onClick={toggleBottomDrawer(false)}
           sx={{ position: "absolute", top: 10, left: 10 }}
         >
-          <CloseIcon />
+          <HighlightOffIcon fontSize="large" />
         </IconButton>
-        {/* {bigCategoriesList()} */}
-        {/* {middleCategoriesList("7")} */}
-        {/* {smallCategoriesList("15_2")} */}
         {renderCategories()}
       </Drawer>
     </div>
