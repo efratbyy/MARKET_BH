@@ -17,6 +17,7 @@ import { BigCategoryInterface } from "../models/interfaces/interfaces.ts";
 import { getCategoriesApi } from "../apiService/categoriesApi";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import { useSearchParams } from "react-router-dom";
 
 const CategoriesBottomNavBar: React.FC = () => {
   const [bottomDrawerOpen, setBottomDrawerOpen] = useState(false);
@@ -24,9 +25,13 @@ const CategoriesBottomNavBar: React.FC = () => {
   const [isClicked, setIsClicked] = useState(false);
   const [categories, setCategories] = useState<BigCategoryInterface[]>();
   const [currentCategory, setCurrentCategory] = useState<string>("");
+  const [searchParams, setSearch] = useSearchParams();
 
-  const handleClick = () => {
-    setIsClicked(!isClicked);
+  const handleSmallCategoryClick = (categoryCode: string) => {
+    setSearch({
+      category_code: categoryCode,
+    });
+    setBottomDrawerOpen(false);
   };
 
   const handleGetCategories = useCallback(async () => {
@@ -200,7 +205,7 @@ const CategoriesBottomNavBar: React.FC = () => {
             <>
               <ListItem
                 disablePadding
-                // onClick={() => setCurrentCategory(smCategory.code)}
+                onClick={() => handleSmallCategoryClick(smCategory.code)}
               >
                 <ListItemButton sx={{ textAlign: "right", paddingRight: 0 }}>
                   <ListItemIcon sx={{ paddingRight: "10px" }}></ListItemIcon>
