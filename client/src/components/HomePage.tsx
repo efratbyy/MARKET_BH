@@ -15,10 +15,12 @@ import CloseIcon from "@mui/icons-material/Close";
 const HomePage = () => {
   const [searchParams, setSearch] = useSearchParams();
   const [q, setQ] = useState("");
+  const [category_code, setCategory_code] = useState("");
 
   useEffect(() => {
     setQ(searchParams.get("q") || "");
-  }, [searchParams, q]);
+    setCategory_code(searchParams.get("category_code") || "");
+  }, [searchParams, q, category_code]);
 
   const { user } = useUser();
 
@@ -58,7 +60,7 @@ const HomePage = () => {
               אפס סינון
             </Button>
 
-            {/* filter reset */}
+            {/* q filter reset */}
             {q !== "" && (
               <Button
                 style={{
@@ -77,6 +79,28 @@ const HomePage = () => {
               >
                 <CloseIcon fontSize="small" />
                 {q}
+              </Button>
+            )}
+
+            {/* categories filter reset */}
+            {category_code !== "" && (
+              <Button
+                style={{
+                  backgroundColor: "orange",
+                  color: "black",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  margin: "7px",
+                  borderRadius: "10px",
+                }}
+                onClick={() => {
+                  searchParams.set("category_code", "");
+                  setSearch(searchParams);
+                }}
+              >
+                <CloseIcon fontSize="small" />
+                {/* {getTranslatedCategoryCode()} */}
               </Button>
             )}
           </Grid>
