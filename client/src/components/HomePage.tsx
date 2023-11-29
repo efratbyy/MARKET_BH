@@ -3,7 +3,7 @@ import Navbar from "../navbar/Navbar";
 import Products from "../product/Products";
 import ShoppingCart from "../cart/ShoppingCart";
 import "./HomePage.css";
-import { Button, Grid } from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
 import Footer from "../footer/Footer";
 import { useUser } from "../providers/UserProvider";
 import CategoryNavbar from "../navbar/CategoryNavbar";
@@ -12,12 +12,15 @@ import DesktopFooter from "../footer/DesktopFooter";
 import { useSearchParams } from "react-router-dom";
 import CloseIcon from "@mui/icons-material/Close";
 import { getTranslatedCategoryCodeApi } from "../apiService/categoriesApi";
+import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
+import AppsIcon from "@mui/icons-material/Apps";
 
 const HomePage = () => {
   const [searchParams, setSearch] = useSearchParams();
   const [q, setQ] = useState("");
   const [category_code, setCategory_code] = useState("");
   const [translated_category_code, setTranslated_category_code] = useState("");
+  const [productListShow, setProductListShow] = useState(false);
 
   useEffect(() => {
     setQ(searchParams.get("q") || "");
@@ -65,7 +68,11 @@ const HomePage = () => {
           <DataFilter />
         </Grid>
         <Grid item xs={12} md={7}>
-          <Grid xs={12} display={"flex"}>
+          <Grid
+            xs={12}
+            display={"flex"}
+            sx={{ justifyContent: "space-between", marginBottom: "5px" }}
+          >
             {/* filter reset */}
             <Button
               style={{
@@ -83,6 +90,71 @@ const HomePage = () => {
               אפס סינון
             </Button>
 
+            {/* products display options */}
+            <Grid
+              container
+              direction={"row-reverse"}
+              xs={3}
+              sx={{
+                display: { xs: "none", lg: "flex" },
+                justifyItems: "center",
+                alignItems: "center",
+              }}
+            >
+              <Grid
+                display={"flex"}
+                sx={{
+                  border: "1px solid #e0e4e7",
+                  borderRadius: "5px",
+                  marginTop: "5px",
+                  marginLeft: "5px",
+                }}
+              >
+                <Button
+                  style={{
+                    color: "black",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginTop: "7px",
+                    marginRight: "7px",
+                    marginBottom: "7px",
+                    minHeight: "30px",
+                    minWidth: "40px",
+                  }}
+                  // onClick={() => setSearch("")}
+                >
+                  <AppsIcon />
+                </Button>
+
+                <Button
+                  style={{
+                    backgroundColor: "#0b6bb6",
+                    color: "black",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginTop: "7px",
+                    marginLeft: "7px",
+                    marginBottom: "7px",
+                    minHeight: "30px",
+                    minWidth: "40px",
+                  }}
+                  // onClick={() => setSearch("")}
+                >
+                  <FormatListBulletedIcon fontSize="small" />
+                </Button>
+              </Grid>
+              <Typography
+                sx={{
+                  margin: "10px",
+                }}
+              >
+                {" "}
+                תצוגה:
+              </Typography>
+            </Grid>
+
             {/* q filter reset */}
             {q !== "" && (
               <Button
@@ -92,7 +164,7 @@ const HomePage = () => {
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  margin: "7px",
+                  marginTop: "7px",
                   borderRadius: "10px",
                 }}
                 onClick={() => {
