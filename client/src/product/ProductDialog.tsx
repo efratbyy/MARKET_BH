@@ -66,7 +66,7 @@ const ProductDialog: FC<Props> = ({
           sx={{ fontSize: "170%", color: "black" }}
           id="alert-dialog-description"
         >
-          ₪{price}
+          ₪{price.toFixed(2)}
         </DialogContentText>
         <CardMedia
           component="img"
