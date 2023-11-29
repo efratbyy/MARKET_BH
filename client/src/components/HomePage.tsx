@@ -112,6 +112,9 @@ const HomePage = () => {
               >
                 <Button
                   style={{
+                    backgroundColor:
+                      productListShow === true ? "transparent" : "#0b6bb6",
+
                     color: "black",
                     display: "flex",
                     alignItems: "center",
@@ -122,14 +125,15 @@ const HomePage = () => {
                     minHeight: "30px",
                     minWidth: "40px",
                   }}
-                  // onClick={() => setSearch("")}
+                  onClick={() => setProductListShow(false)}
                 >
                   <AppsIcon />
                 </Button>
 
                 <Button
                   style={{
-                    backgroundColor: "#0b6bb6",
+                    backgroundColor:
+                      productListShow === true ? "#0b6bb6" : "transparent",
                     color: "black",
                     display: "flex",
                     alignItems: "center",
@@ -140,7 +144,7 @@ const HomePage = () => {
                     minHeight: "30px",
                     minWidth: "40px",
                   }}
-                  // onClick={() => setSearch("")}
+                  onClick={() => setProductListShow(true)}
                 >
                   <FormatListBulletedIcon fontSize="small" />
                 </Button>
@@ -199,7 +203,7 @@ const HomePage = () => {
               </Button>
             )}
           </Grid>
-          <Products />
+          <Products productListShow={productListShow} />
         </Grid>
         <Grid item sx={{ display: { xs: "none", md: "inline-flex" } }} md={3}>
           {user && <ShoppingCart />}

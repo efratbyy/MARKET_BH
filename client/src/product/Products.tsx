@@ -5,9 +5,9 @@ import ProductCard from "./ProductCard";
 import useProducts from "./useProducts";
 import { useSearchParams } from "react-router-dom";
 
-type Props = {};
+type Props = { productListShow: boolean };
 
-const Products: React.FC<Props> = () => {
+const Products: React.FC<Props> = ({ productListShow = false }) => {
   const { handleGetProducts } = useProducts();
   const [products, setProducts] = useState<ProductInterface[] | undefined>([]);
   const [query, setQuery] = useState<string>("");
@@ -157,27 +157,66 @@ const Products: React.FC<Props> = () => {
   }, [handleGetProducts, query, sort, brands, stickers, categoryCode]);
 
   return (
-    <Grid
-      container
-      sx={{
-        "--Grid-borderWidth": "0.5px",
-        borderTop: "var(--Grid-borderWidth) 0px solid",
-        borderLeft: "var(--Grid-borderWidth) solid",
-        borderColor: "rgba(211, 211, 211, 0.05)",
-        "& > div": {
-          borderRight: "var(--Grid-borderWidth) solid",
-          borderBottom: "var(--Grid-borderWidth) solid",
-          borderColor: "rgba(211, 211, 211, 0.05)",
-        },
-      }}
-    >
-      <Typography title="Products Page" />
-      {products?.map((product: ProductInterface) => (
-        <Grid item key={product.barcode} xs={6} sm={6} md={4} lg={3}>
-          <ProductCard product={product} />
+    <>
+      {!productListShow && (
+        <Grid
+          container
+          sx={{
+            "--Grid-borderWidth": "0.5px",
+            borderTop: "var(--Grid-borderWidth) 0px solid",
+            borderLeft: "var(--Grid-borderWidth) solid",
+            borderColor: "rgba(211, 211, 211, 0.05)",
+            "& > div": {
+              borderRight: "var(--Grid-borderWidth) solid",
+              borderBottom: "var(--Grid-borderWidth) solid",
+              borderColor: "rgba(211, 211, 211, 0.05)",
+            },
+          }}
+        >
+          <Typography title="Products Page" />
+          {products?.map((product: ProductInterface) => (
+            <Grid item key={product.barcode} xs={6} sm={6} md={4} lg={3}>
+              <ProductCard product={product} />
+            </Grid>
+          ))}
         </Grid>
-      ))}
-    </Grid>
+      )}
+
+      {productListShow && (
+        <Grid
+          container
+          sx={{
+            "--Grid-borderWidth": "0.5px",
+            borderTop: "var(--Grid-borderWidth) 0px solid",
+            borderLeft: "var(--Grid-borderWidth) solid",
+            borderColor: "rgba(211, 211, 211, 0.05)",
+            "& > div": {
+              borderRight: "var(--Grid-borderWidth) solid",
+              borderBottom: "var(--Grid-borderWidth) solid",
+              borderColor: "rgba(211, 211, 211, 0.05)",
+            },
+          }}
+        >
+          <Typography title="Products Page" />
+          {products?.map((product: ProductInterface) => (
+            <Grid
+              item
+              key={product.barcode}
+              xs={12} // Adjust the grid to take the full width
+              // sm={6}
+              // md={4}
+              // lg={3}
+              sx={{
+                display: "flex", // Use flex display for horizontal layout
+                flexDirection: "row", // Set the direction to row
+              }}
+            >
+              <ProductCard product={product} />
+            </Grid>
+          ))}
+        </Grid>
+      )}
+    </>
   );
 };
 
