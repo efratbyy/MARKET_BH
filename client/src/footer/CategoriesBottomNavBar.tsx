@@ -28,6 +28,7 @@ const CategoriesBottomNavBar: React.FC = () => {
     setSearch({
       category_code: categoryCode,
     });
+    setCurrentCategory("");
     setBottomDrawerOpen(false);
   };
 

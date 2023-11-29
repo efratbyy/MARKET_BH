@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Navbar from "../navbar/Navbar";
 import Products from "../product/Products";
 import ShoppingCart from "../cart/ShoppingCart";
@@ -11,11 +11,13 @@ import DataFilter from "../search_filter/DataFilter";
 import DesktopFooter from "../footer/DesktopFooter";
 import { useSearchParams } from "react-router-dom";
 import CloseIcon from "@mui/icons-material/Close";
+import { getTranslatedCategoryCodeApi } from "../apiService/categoriesApi";
 
 const HomePage = () => {
   const [searchParams, setSearch] = useSearchParams();
   const [q, setQ] = useState("");
   const [category_code, setCategory_code] = useState("");
+  const [translated_category_code, setTranslated_category_code] = useState("");
 
   useEffect(() => {
     setQ(searchParams.get("q") || "");
@@ -23,6 +25,27 @@ const HomePage = () => {
   }, [searchParams, q, category_code]);
 
   const { user } = useUser();
+
+  const handleGetTranslatedCategory = useCallback(async () => {
+    try {
+      //setLoading(true);
+      if (category_code) {
+        const translatedCategory = await getTranslatedCategoryCodeApi(
+          category_code
+        );
+        console.log("hey");
+        //requestStatus(false, null, cart);
+        setTranslated_category_code(translatedCategory);
+      }
+      return undefined;
+    } catch (error) {
+      //if (typeof error === "string") requestStatus(false, error, null);
+    }
+  }, [category_code, translated_category_code]);
+
+  useEffect(() => {
+    handleGetTranslatedCategory();
+  }, [category_code, translated_category_code]);
 
   return (
     <>
@@ -100,7 +123,7 @@ const HomePage = () => {
                 }}
               >
                 <CloseIcon fontSize="small" />
-                {/* {getTranslatedCategoryCode()} */}
+                {translated_category_code}
               </Button>
             )}
           </Grid>
