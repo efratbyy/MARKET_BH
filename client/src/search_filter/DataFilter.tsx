@@ -71,6 +71,7 @@ const DataFilter = () => {
       setSelectedStickers([...(selectedStickers ?? []), sticker]);
     }
   };
+
   useEffect(() => {
     handleGetProducts()
       .then((products) => {
@@ -88,6 +89,16 @@ const DataFilter = () => {
     searchParams.set("brand", joinedString || "");
     setSearch(searchParams);
   }, [selectedBrands]);
+
+  useEffect(() => {
+    if (!searchParams.get("brand") || searchParams.get("brand") === "") {
+      setSelectedBrands([]);
+    }
+
+    if (!searchParams.get("sticker") || searchParams.get("sticker") === "") {
+      setSelectedStickers([]);
+    }
+  }, [searchParams, setSearch]);
 
   useEffect(() => {
     const joinedString = selectedStickers?.join(", ");
@@ -173,7 +184,9 @@ const DataFilter = () => {
                     margin: "7px",
                     borderRadius: "10px",
                   }}
-                  onClick={() => setSearch("")}
+                  onClick={() => {
+                    setSearch("");
+                  }}
                 >
                   אפס
                 </Button>
