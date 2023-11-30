@@ -177,70 +177,72 @@ const DesktopListProductCard: React.FC<Props> = ({ product }) => {
                     : ""}
                 </Typography>
               </Grid>
-              <Grid xs={12} textAlign={"center"}>
-                {/* Add and Remove from cart */}
-                <ButtonGroup
-                  orientation="horizontal"
-                  variant="contained"
-                  sx={{
-                    boxShadow: 0, // Set the desired width to make it smaller
-                  }}
-                >
-                  <Button
-                    onClick={() => updateCartProvider(user!._id, barcode, 1)}
-                    // onClick={() => handleAddToCart(user?._id, barcode, 1)}
-
+              {user && (
+                <Grid xs={12} textAlign={"center"}>
+                  {/* Add and Remove from cart */}
+                  <ButtonGroup
+                    orientation="horizontal"
+                    variant="contained"
                     sx={{
-                      borderRadius: "0px",
-                      backgroundColor: "#5b9822",
-                      minWidth: "0px !important",
-                      width: "32px",
-                      "&:hover": {
-                        backgroundColor: "#333", // Change color on hover
-                      },
-                      "&:active": {
-                        backgroundColor: "#333", // Change color on press
-                      },
+                      boxShadow: 0, // Set the desired width to make it smaller
                     }}
                   >
-                    <AddIcon sx={{ fontSize: "large" }} />
-                  </Button>
+                    <Button
+                      onClick={() => updateCartProvider(user!._id, barcode, 1)}
+                      // onClick={() => handleAddToCart(user?._id, barcode, 1)}
 
-                  <Button
-                    disabled
-                    sx={{
-                      minWidth: "0px !important",
-                      width: "32px",
-                      borderRadius: "0px",
-                    }}
-                  >
-                    <Typography variant="body1">
-                      {String(totalAmount)}
-                    </Typography>
-                  </Button>
+                      sx={{
+                        borderRadius: "0px",
+                        backgroundColor: "#5b9822",
+                        minWidth: "0px !important",
+                        width: "32px",
+                        "&:hover": {
+                          backgroundColor: "#333", // Change color on hover
+                        },
+                        "&:active": {
+                          backgroundColor: "#333", // Change color on press
+                        },
+                      }}
+                    >
+                      <AddIcon sx={{ fontSize: "large" }} />
+                    </Button>
 
-                  <Button
-                    onClick={() => updateCartProvider(user!._id, barcode, -1)}
-                    // onClick={() =>
-                    //   handleRemoveFromCart(user?._id, barcode, 1)
-                    // }
-                    sx={{
-                      borderRadius: "0px",
-                      backgroundColor: "#5b9822",
-                      minWidth: "0px !important",
-                      width: "32px",
-                      "&:hover": {
-                        backgroundColor: "#333", // Change color on hover
-                      },
-                      "&:active": {
-                        backgroundColor: "#333", // Change color on press
-                      },
-                    }}
-                  >
-                    <RemoveIcon sx={{ fontSize: "large" }} />
-                  </Button>
-                </ButtonGroup>
-              </Grid>
+                    <Button
+                      disabled
+                      sx={{
+                        minWidth: "0px !important",
+                        width: "32px",
+                        borderRadius: "0px",
+                      }}
+                    >
+                      <Typography variant="body1">
+                        {String(totalAmount)}
+                      </Typography>
+                    </Button>
+
+                    <Button
+                      onClick={() => updateCartProvider(user!._id, barcode, -1)}
+                      // onClick={() =>
+                      //   handleRemoveFromCart(user?._id, barcode, 1)
+                      // }
+                      sx={{
+                        borderRadius: "0px",
+                        backgroundColor: "#5b9822",
+                        minWidth: "0px !important",
+                        width: "32px",
+                        "&:hover": {
+                          backgroundColor: "#333", // Change color on hover
+                        },
+                        "&:active": {
+                          backgroundColor: "#333", // Change color on press
+                        },
+                      }}
+                    >
+                      <RemoveIcon sx={{ fontSize: "large" }} />
+                    </Button>
+                  </ButtonGroup>
+                </Grid>
+              )}
             </Grid>
             <Divider orientation="vertical" flexItem />
           </Grid>
