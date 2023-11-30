@@ -1,8 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import {
-  CartProductInterface,
-  ProductInterface,
-} from "../models/interfaces/interfaces.ts.js";
+import { ProductInterface } from "../models/interfaces/interfaces.ts.js";
 import {
   ButtonGroup,
   Card,
@@ -13,15 +10,11 @@ import {
   Typography,
 } from "@mui/material";
 import Button from "@mui/material/Button";
-import Divider from "@mui/material/Divider";
-import { useSnack } from "../providers/SnackbarProvider";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import ProductDialog from "./ProductDialog";
 import { useUser } from "../providers/UserProvider";
-import { log } from "console";
 import { useCartProvider } from "../providers/CartProvider";
-import { get } from "http";
 
 type Props = {
   product: ProductInterface;
@@ -30,7 +23,6 @@ type Props = {
 const ProductCard: React.FC<Props> = ({ product }) => {
   const { title, barcode, brand, image, price, details } = product;
   const { user } = useUser();
-  const snack = useSnack();
   const [totalAmount, setTotalAmount] = useState(0);
   const [isDialogOpen, setDialog] = useState(false);
   const { cart, updateCartProvider } = useCartProvider();

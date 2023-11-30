@@ -4,6 +4,7 @@ import { Grid, Typography } from "@mui/material";
 import ProductCard from "./ProductCard";
 import useProducts from "./useProducts";
 import { useSearchParams } from "react-router-dom";
+import DesktopListProductCard from "./DesktopListProductCard";
 
 type Props = { productListShow: boolean };
 
@@ -199,19 +200,8 @@ const Products: React.FC<Props> = ({ productListShow = false }) => {
         >
           <Typography title="Products Page" />
           {products?.map((product: ProductInterface) => (
-            <Grid
-              item
-              key={product.barcode}
-              xs={12} // Adjust the grid to take the full width
-              // sm={6}
-              // md={4}
-              // lg={3}
-              sx={{
-                display: "flex", // Use flex display for horizontal layout
-                flexDirection: "row", // Set the direction to row
-              }}
-            >
-              <ProductCard product={product} />
+            <Grid item key={product.barcode} xs={12}>
+              <DesktopListProductCard product={product} />
             </Grid>
           ))}
         </Grid>

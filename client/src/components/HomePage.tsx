@@ -14,6 +14,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { getTranslatedCategoryCodeApi } from "../apiService/categoriesApi";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import AppsIcon from "@mui/icons-material/Apps";
+import DesktopListProductCard from "../product/DesktopListProductCard";
 
 const HomePage = () => {
   const [searchParams, setSearch] = useSearchParams();

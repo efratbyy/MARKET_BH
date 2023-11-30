@@ -6,8 +6,8 @@ const SvgSupervisedProducts = () => {
       <svg
         xmlns="http://www.w3.org/2000/svg"
         id="b"
-        width="1030"
-        height="1030"
+        width="78.133"
+        height="78.133"
         viewBox="0 0 1030 1030"
       >
         <g id="c">
