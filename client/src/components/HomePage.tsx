@@ -67,7 +67,7 @@ const HomePage = () => {
         <Grid item sx={{ display: { xs: "none", md: "block" } }} md={2}>
           <DataFilter />
         </Grid>
-        <Grid item xs={12} md={7}>
+        <Grid item xs={12} md={user ? 7 : 9.5}>
           <Grid
             xs={12}
             display={"flex"}
@@ -205,9 +205,11 @@ const HomePage = () => {
           </Grid>
           <Products productListShow={productListShow} />
         </Grid>
-        <Grid item sx={{ display: { xs: "none", md: "inline-flex" } }} md={3}>
-          {user && <ShoppingCart />}
-        </Grid>
+        {user && (
+          <Grid item sx={{ display: { xs: "none", md: "inline-flex" } }} md={3}>
+            {user && <ShoppingCart />}
+          </Grid>
+        )}
       </Grid>
       <Footer />
     </>
