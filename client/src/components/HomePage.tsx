@@ -64,16 +64,18 @@ const HomePage = () => {
         }}
       ></Grid>
       <Grid container sx={{ marginBottom: "27px" }}>
+        {/* Data Filter */}
         <Grid item sx={{ display: { xs: "none", md: "block" } }} md={2}>
           <DataFilter />
         </Grid>
+
         <Grid item xs={12} md={user ? 7 : 9.5}>
           <Grid
             xs={12}
             display={"flex"}
             sx={{ justifyContent: "space-between", marginBottom: "5px" }}
           >
-            <Grid container>
+            <Grid container xs={6}>
               {/* filter reset */}
               <Button
                 style={{
