@@ -67,8 +67,9 @@ const Products: React.FC<Props> = ({ productListShow = false }) => {
     handleGetProducts()
       .then((products) => {
         // Filter by q
-        let filteredProducts = products?.filter((product) =>
-          product.title.includes(query)
+        let filteredProducts = products?.filter(
+          (product) =>
+            product.title.includes(query) || product.barcode.includes(query)
         );
 
         // Filter by brand
