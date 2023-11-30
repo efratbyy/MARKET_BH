@@ -37,7 +37,6 @@ const HomePage = () => {
         const translatedCategory = await getTranslatedCategoryCodeApi(
           category_code
         );
-        console.log("hey");
         //requestStatus(false, null, cart);
         setTranslated_category_code(translatedCategory);
       }
@@ -74,22 +73,66 @@ const HomePage = () => {
             display={"flex"}
             sx={{ justifyContent: "space-between", marginBottom: "5px" }}
           >
-            {/* filter reset */}
-            <Button
-              style={{
-                backgroundColor: "orange",
-                color: "black",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                margin: "7px",
-                borderRadius: "10px",
-              }}
-              onClick={() => setSearch("")}
-            >
-              <CloseIcon fontSize="small" />
-              אפס סינון
-            </Button>
+            <Grid container>
+              {/* filter reset */}
+              <Button
+                style={{
+                  backgroundColor: "orange",
+                  color: "black",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  margin: "7px",
+                  borderRadius: "10px",
+                }}
+                onClick={() => setSearch("")}
+              >
+                <CloseIcon fontSize="small" />
+                אפס סינון
+              </Button>
+              {/* q filter reset */}
+              {q !== "" && (
+                <Button
+                  style={{
+                    backgroundColor: "orange",
+                    color: "black",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    margin: "7px",
+                    borderRadius: "10px",
+                  }}
+                  onClick={() => {
+                    searchParams.set("q", "");
+                    setSearch(searchParams);
+                  }}
+                >
+                  <CloseIcon fontSize="small" />
+                  {q}
+                </Button>
+              )}
+              {/* categories filter reset */}
+              {category_code !== "" && (
+                <Button
+                  style={{
+                    backgroundColor: "orange",
+                    color: "black",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    margin: "7px",
+                    borderRadius: "10px",
+                  }}
+                  onClick={() => {
+                    searchParams.set("category_code", "");
+                    setSearch(searchParams);
+                  }}
+                >
+                  <CloseIcon fontSize="small" />
+                  {translated_category_code}
+                </Button>
+              )}
+            </Grid>
 
             {/* products display options */}
             <Grid
@@ -159,50 +202,6 @@ const HomePage = () => {
                 תצוגה:
               </Typography>
             </Grid>
-
-            {/* q filter reset */}
-            {q !== "" && (
-              <Button
-                style={{
-                  backgroundColor: "orange",
-                  color: "black",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  marginTop: "7px",
-                  borderRadius: "10px",
-                }}
-                onClick={() => {
-                  searchParams.set("q", "");
-                  setSearch(searchParams);
-                }}
-              >
-                <CloseIcon fontSize="small" />
-                {q}
-              </Button>
-            )}
-
-            {/* categories filter reset */}
-            {category_code !== "" && (
-              <Button
-                style={{
-                  backgroundColor: "orange",
-                  color: "black",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  margin: "7px",
-                  borderRadius: "10px",
-                }}
-                onClick={() => {
-                  searchParams.set("category_code", "");
-                  setSearch(searchParams);
-                }}
-              >
-                <CloseIcon fontSize="small" />
-                {translated_category_code}
-              </Button>
-            )}
           </Grid>
           <Products productListShow={productListShow} />
         </Grid>
