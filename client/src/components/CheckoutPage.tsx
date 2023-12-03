@@ -199,7 +199,6 @@ const CheckoutPage: React.FC = () => {
       ></Grid>
 
       <Grid
-        container
         spacing={3}
         direction="column"
         // alignItems="center"
