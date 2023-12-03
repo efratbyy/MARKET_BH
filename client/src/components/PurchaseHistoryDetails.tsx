@@ -13,8 +13,8 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  makeStyles,
 } from "@mui/material";
+import PurchaseHistoryDetailsBreadCrumb from "./PurchesHistoryDetailsBreadCrumb";
 
 const PurchaseHistoryDetails = () => {
   const { user } = useUser();
@@ -95,7 +95,7 @@ const PurchaseHistoryDetails = () => {
   return (
     <>
       <Navbar showSearchBar={false} showDataFilter={false} />
-
+      <PurchaseHistoryDetailsBreadCrumb orderNumber={orderNumber || ""} />
       <Grid
         sx={{
           opacity: 0.2,
