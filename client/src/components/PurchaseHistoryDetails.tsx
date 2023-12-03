@@ -96,25 +96,39 @@ const PurchaseHistoryDetails = () => {
     <>
       <Navbar showSearchBar={false} showDataFilter={false} />
 
-      <Grid container>
-        <Grid
-          sx={{
-            opacity: 0.2,
-            backgroundImage: `url("assets/images/order-details.png")`,
-            backgroundSize: "cover",
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "center",
-            position: "fixed",
-            top: 0,
-            left: 0,
-            width: "100%",
-            overflowY: "scroll",
-
-            height: "93.5%",
-            zIndex: -1,
-            backgroundAttachment: "fixed",
-          }}
-        />
+      <Grid
+        sx={{
+          opacity: 0.2,
+          backgroundImage: `url("assets/images/order-details.png")`,
+          backgroundSize: "cover",
+          // backgroundRepeat: "no-repeat",
+          backgroundPosition: "center",
+          position: "fixed",
+          minHeight: "100vh",
+          // top: 0,
+          // left: 0,
+          width: "100%",
+          // overflowY: "scroll",
+          bottom: 0,
+          // height: "93.5%",
+          zIndex: -1,
+          backgroundAttachment: "fixed",
+        }}
+      />
+      <Grid
+        container
+        spacing={3}
+        direction="column"
+        // alignItems="center"
+        justifyContent="center"
+        sx={{
+          position: "relative",
+          minHeight: "100vh",
+          paddingX: "10%",
+          width: "100%",
+          height: "30%",
+        }}
+      >
         <Grid
           item
           xs={12}
@@ -147,7 +161,7 @@ const PurchaseHistoryDetails = () => {
           item
           lg={6}
           xs={10}
-          sx={{ marginRight: "auto", marginLeft: "auto" }}
+          // sx={{ marginRight: "auto", marginLeft: "auto" }}
         >
           <TableContainer
             //component={Paper}
@@ -230,7 +244,6 @@ const PurchaseHistoryDetails = () => {
           </TableContainer>{" "}
         </Grid>
       </Grid>
-
       <Footer />
     </>
   );

@@ -25,7 +25,9 @@ const DesktopFooter = () => {
       <Grid
         container
         sx={{
-          display: "flex",
+          display: "relative",
+          bottom: 0,
+          width: "100%",
           flexDirection: "column",
           //minHeight: "30px",
         }}
