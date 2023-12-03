@@ -184,42 +184,36 @@ const CheckoutPage: React.FC = () => {
   return (
     <>
       <Navbar showSearchBar={false} showDataFilter={false} />
-      <CheckoutPageBreadCrumb />
+
+      <Grid
+        sx={{
+          backgroundImage: "url(/assets/images/creditCard.png)", // Set your background image
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          position: "fixed",
+          width: "100%",
+          zIndex: -1,
+          minHeight: "100vh",
+          opacity: 0.3,
+        }}
+      ></Grid>
+
       <Grid
         container
-        justifyContent={"center"}
-        justifyItems={"center"}
+        spacing={3}
+        direction="column"
+        // alignItems="center"
+        justifyContent="center"
         sx={{
           position: "relative",
-          zIndex: 1,
-          textAlign: "center",
-          justifyItems: "center",
-          padding: "0px",
-          overflowY: "scroll",
-          backgroundAttachment: "fixed",
-          backgroundPosition: "center",
-          backgroundSize: "cover",
-          backgroundRepeat: "no-repeat",
-          marginTop: "150px",
+          minHeight: "70vh",
+          // paddingRight: "15%",
+          width: "100%",
+          height: "30%",
         }}
       >
-        <Grid
-          sx={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "93.5%",
-            zIndex: -1,
-            backgroundAttachment: "fixed",
-            backgroundImage: "url(/assets/images/creditCard.png)", // Set your background image
-            backgroundPosition: "center top",
-            backgroundSize: "cover",
-            backgroundRepeat: "no-repeat",
-            opacity: 0.3, // Adjust the opacity as needed
-            pointerEvents: "none", // Add this line to make the overlay non-interactable
-          }}
-        ></Grid>
+        <CheckoutPageBreadCrumb />
+
         <Grid item xs={12}>
           <Typography
             variant="h4"
@@ -230,7 +224,8 @@ const CheckoutPage: React.FC = () => {
             דף תשלום
           </Typography>
         </Grid>
-        <Grid item xs={10} md={8} lg={6}>
+
+        <Grid item sx={{ marginRight: "20%", marginLeft: "20%" }}>
           <form onSubmit={handleSubmit}>
             <TextField
               type="text"
@@ -334,17 +329,19 @@ const CheckoutPage: React.FC = () => {
             </Button>
           </form>
         </Grid>
+
         <Grid
           item
           xs={12}
           sx={{
-            margin: "20px",
+            marginRight: "20%",
             fontSize: "30px",
           }}
         >
           סה״כ לתשלום: {totalPriceInCart.toFixed(2)}₪
         </Grid>
       </Grid>
+
       <Footer />
     </>
   );
