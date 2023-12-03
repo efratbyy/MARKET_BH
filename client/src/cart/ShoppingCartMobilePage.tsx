@@ -21,6 +21,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 import { useUser } from "../providers/UserProvider";
 import DesktopCartNavbar from "../navbar/DesktopCartNavbar";
+import ShoppingCartBreadCrumb from "./ShoppingCartBreadCrumb";
 
 const ShoppingCartMobilePage = () => {
   const { cart, updateCartProvider, updateCartNoteProvider } =
@@ -92,6 +93,7 @@ const ShoppingCartMobilePage = () => {
           <DesktopCartNavbar backgroundColor={"none"} />
         </Grid>
       </Grid>
+      <ShoppingCartBreadCrumb />
       {/* <ShoppingCart /> */}
       <Box sx={{ height: "60%" }}>
         {cart
@@ -292,13 +294,12 @@ const ShoppingCartMobilePage = () => {
                   },
                 }}
               >
-                <Typography>לקופה ({totalItemsInCart})</Typography>
+                <Typography>לתשלום ({totalItemsInCart})</Typography>
               </Button>
             </Paper>
           )}
         </Grid>
       </Grid>
-
       <Footer />
     </>
   );

@@ -5,11 +5,7 @@ import Link from "@mui/material/Link";
 import Stack from "@mui/material/Stack";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 
-type Props = {
-  orderNumber: string;
-};
-
-const PurchaseHistoryDetailsBreadCrumb: React.FC<Props> = ({ orderNumber }) => {
+const ShoppingCartBreadCrumb = () => {
   const breadcrumbs = [
     <Typography key="3" color="text.primary">
       <Link underline="hover" key="1" color="inherit" href="/">
@@ -17,19 +13,7 @@ const PurchaseHistoryDetailsBreadCrumb: React.FC<Props> = ({ orderNumber }) => {
       </Link>
     </Typography>,
 
-    <Link underline="hover" key="1" color="inherit" href="/purchase_history">
-      היסטוריית הזמנות
-    </Link>,
-
-    <Link
-      underline="hover"
-      key="2"
-      color="inherit"
-      href="/"
-      //   onClick={() => {}}
-    >
-      הזמנה מספר {orderNumber}
-    </Link>,
+    <Typography>קופה</Typography>,
   ];
 
   return (
@@ -44,4 +28,4 @@ const PurchaseHistoryDetailsBreadCrumb: React.FC<Props> = ({ orderNumber }) => {
   );
 };
 
-export default PurchaseHistoryDetailsBreadCrumb;
+export default ShoppingCartBreadCrumb;

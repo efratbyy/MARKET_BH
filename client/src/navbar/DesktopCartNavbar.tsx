@@ -89,7 +89,7 @@ const DesktopCartNavbar: React.FC<Props> = ({ backgroundColor }) => {
                 // padding: "30px",
               }}
             >
-              <Typography>לקופה ({totalItemsInCart})</Typography>
+              <Typography>לתשלום ({totalItemsInCart})</Typography>
             </Button>
           )}
         </Grid>

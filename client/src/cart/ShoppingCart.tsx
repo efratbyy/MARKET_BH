@@ -229,7 +229,7 @@ const ShoppingCart = () => {
                     },
                   }}
                 >
-                  <Typography>לקופה ({totalItemsInCart})</Typography>
+                  <Typography>לתשלום ({totalItemsInCart})</Typography>
                 </Button>
               </Paper>
             )}

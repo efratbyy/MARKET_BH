@@ -21,6 +21,7 @@ import {
 } from "../apiService/emailApiService";
 import { useUser } from "../providers/UserProvider";
 import { useCartProvider } from "../providers/CartProvider";
+import CheckoutPageBreadCrumb from "./CheckoutPageBreadCrumb";
 
 const CheckoutPage: React.FC = () => {
   const snack = useSnack();
@@ -183,6 +184,7 @@ const CheckoutPage: React.FC = () => {
   return (
     <>
       <Navbar showSearchBar={false} showDataFilter={false} />
+      <CheckoutPageBreadCrumb />
       <Grid
         container
         justifyContent={"center"}
