@@ -118,6 +118,7 @@ const Login = () => {
             error={Boolean(errors.email)}
             helperText={errors.email}
             sx={{
+              backgroundColor: "#999966",
               width: "300px",
               "& .MuiOutlinedInput-root": {
                 "& fieldset": {
@@ -141,6 +142,7 @@ const Login = () => {
             error={Boolean(errors.password)}
             helperText={errors.password}
             sx={{
+              backgroundColor: "#999966",
               width: "300px",
               "& .MuiOutlinedInput-root": {
                 "& fieldset": {
@@ -164,7 +166,11 @@ const Login = () => {
           />
         </Grid>
         <Grid item>
-          <Button variant="contained" color="success" onClick={handleLogin}>
+          <Button
+            variant="contained"
+            sx={{ backgroundColor: "#5b9822" }}
+            onClick={handleLogin}
+          >
             התחבר
           </Button>
         </Grid>

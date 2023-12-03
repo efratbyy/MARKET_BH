@@ -91,8 +91,10 @@ const DesktopListProductCard: React.FC<Props> = ({ product }) => {
           <Grid container sx={{ fontSize: "90%" }}>
             <Divider orientation="vertical" flexItem />
 
+            {/* Left inner Card */}
             {/* Product Image */}
             <Grid
+              container
               item
               xs={3}
               sx={{
@@ -111,16 +113,36 @@ const DesktopListProductCard: React.FC<Props> = ({ product }) => {
                   height: "auto",
                 }}
               />
+              {/* Product Stickers */}
+              <Grid>
+                {details.isSodium === true && <SvgSodium />}
+                {details.isSugar === true && <SvgSugar />}
+                {details.isSaturatedFat === true && <SvgSaturatedFat />}
+                {details.isSupervised === true && <SvgSupervisedProducts />}
+              </Grid>
             </Grid>
 
-            <Grid item xs={4.95}>
+            <Grid sx={{ padding: "15px" }} item xs={4.95}>
               <Grid container xs={12} justifyContent={"space-between"}>
-                <Grid xs={5}>{title}</Grid>
+                {/* Product Name */}
+                <Grid sx={{ fontSize: "17px" }} xs={5}>
+                  {title}
+                </Grid>
 
-                <Grid xs={5} sx={{ textAlign: "left", paddingLeft: "10%" }}>
+                {/* Product Brand */}
+                <Grid
+                  xs={5}
+                  sx={{
+                    fontSize: "17px",
+                    textAlign: "left",
+                    paddingLeft: "10%",
+                    paddingBottom: "20px",
+                  }}
+                >
                   {brand}
                 </Grid>
               </Grid>
+              {/* Product Amount */}
               <Grid xs={12}>
                 <Typography
                   variant="body2"
@@ -134,36 +156,57 @@ const DesktopListProductCard: React.FC<Props> = ({ product }) => {
                     : ""}
                 </Typography>
               </Grid>
-              <Grid xs={12}> ברקוד: {barcode} </Grid>{" "}
-              <Grid xs={12}> רכיבים: {ingredients} </Grid>
-              <Grid xs={12}> תכולה: {content} </Grid>
-              <Grid xs={12}> ארץ ייצור: {manufacturingCountry} </Grid>
-              <Grid sx={{ margin: "20px" }}>
-                {details.isSodium === true && <SvgSodium />}
-                {details.isSugar === true && <SvgSugar />}
-                {details.isSaturatedFat === true && <SvgSaturatedFat />}
-                {details.isSupervised === true && <SvgSupervisedProducts />}
-              </Grid>{" "}
+              {/* Product Barcode, Ingredients, Content, ManufacturingCountry */}
+              <Grid xs={12}>
+                <Typography variant="body1">
+                  <span style={{ fontWeight: "bold" }}>ברקוד:</span> {barcode}
+                </Typography>
+              </Grid>
+              <Grid xs={12}>
+                <Typography variant="body1">
+                  <span style={{ fontWeight: "bold" }}>רכיבים:</span>{" "}
+                  {ingredients}
+                </Typography>
+              </Grid>
+              <Grid xs={12}>
+                <Typography>
+                  <span style={{ fontWeight: "bold" }}>תכולה:</span> {content}
+                </Typography>
+              </Grid>
+              <Grid xs={12}>
+                <Typography variant="body1">
+                  <span style={{ fontWeight: "bold" }}>ארץ ייצור:</span>{" "}
+                  {manufacturingCountry}
+                </Typography>
+              </Grid>
             </Grid>
             <Divider orientation="vertical" flexItem />
 
             {/* Left inner Card */}
-            {/* Price, Price per, And handle Cart */}
+            {/* Price, Price per... and Add/Remove from Cart */}
             <Grid
               container
               xs={4}
               justifyContent={"space-between"}
               alignItems={"center"}
             >
-              <Grid xs={12}> </Grid>
-              <Grid xs={12} sx={{ paddingRight: "10%" }}>
-                ₪{price.toFixed(2)}{" "}
+              {/* <Grid xs={12}> </Grid> */}
+
+              {/* Product Price */}
+              <Grid
+                xs={12}
+                sx={{
+                  paddingRight: "10%",
+                  fontSize: "17px",
+                  fontWeight: "bold",
+                }}
+              >
+                ₪{price.toFixed(2)}
                 <Typography
                   variant="body2"
                   color="textSecondary"
                   sx={{
                     marginTop: "auto",
-
                     fontWeight: "lighter",
                   }}
                 >
@@ -177,6 +220,7 @@ const DesktopListProductCard: React.FC<Props> = ({ product }) => {
                     : ""}
                 </Typography>
               </Grid>
+
               {user && (
                 <Grid xs={12} textAlign={"center"}>
                   {/* Add and Remove from cart */}
@@ -184,23 +228,25 @@ const DesktopListProductCard: React.FC<Props> = ({ product }) => {
                     orientation="horizontal"
                     variant="contained"
                     sx={{
-                      boxShadow: 0, // Set the desired width to make it smaller
+                      boxShadow: 0,
                     }}
                   >
                     <Button
                       onClick={() => updateCartProvider(user!._id, barcode, 1)}
-                      // onClick={() => handleAddToCart(user?._id, barcode, 1)}
-
                       sx={{
-                        borderRadius: "0px",
+                        borderTopRightRadius: "10px !important",
+                        borderBottomRightRadius: "10px !important",
+                        borderTopLeftRadius: "0px",
+                        borderBottomLeftRadius: "0px",
                         backgroundColor: "#5b9822",
                         minWidth: "0px !important",
-                        width: "32px",
+                        width: "50px",
+                        height: "50px",
                         "&:hover": {
-                          backgroundColor: "#333", // Change color on hover
+                          backgroundColor: "#333",
                         },
                         "&:active": {
-                          backgroundColor: "#333", // Change color on press
+                          backgroundColor: "#333",
                         },
                       }}
                     >
@@ -211,7 +257,8 @@ const DesktopListProductCard: React.FC<Props> = ({ product }) => {
                       disabled
                       sx={{
                         minWidth: "0px !important",
-                        width: "32px",
+                        width: "50px",
+                        height: "50px",
                         borderRadius: "0px",
                       }}
                     >
@@ -222,19 +269,20 @@ const DesktopListProductCard: React.FC<Props> = ({ product }) => {
 
                     <Button
                       onClick={() => updateCartProvider(user!._id, barcode, -1)}
-                      // onClick={() =>
-                      //   handleRemoveFromCart(user?._id, barcode, 1)
-                      // }
                       sx={{
-                        borderRadius: "0px",
+                        borderTopRightRadius: "0px",
+                        borderBottomRightRadius: "0px",
+                        borderTopLeftRadius: "10px !important",
+                        borderBottomLeftRadius: "10px !important",
                         backgroundColor: "#5b9822",
                         minWidth: "0px !important",
-                        width: "32px",
+                        width: "50px",
+                        height: "50px",
                         "&:hover": {
-                          backgroundColor: "#333", // Change color on hover
+                          backgroundColor: "#333",
                         },
                         "&:active": {
-                          backgroundColor: "#333", // Change color on press
+                          backgroundColor: "#333",
                         },
                       }}
                     >

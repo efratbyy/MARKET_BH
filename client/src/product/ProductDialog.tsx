@@ -115,23 +115,25 @@ const ProductDialog: FC<Props> = ({
           {details.isSupervised === true && <SvgSupervisedProducts />}
         </Grid>
       </DialogContent>
-      <DialogActions>
-        <RemoveIcon
-          onClick={() => handleRemoveFromCart(user!._id, barcode, 1)}
-          sx={{
-            color: totalAmount > 0 ? "#800080" : "gray",
-            marginRight: "10%",
-            fontSize: "40px",
-          }}
-        />
-        <Typography variant="h4" sx={{ color: "black" }}>
-          {String(totalAmount)}
-        </Typography>
-        <AddIcon
-          onClick={() => handleAddToCart(user!._id, barcode, 1)}
-          sx={{ color: "#800080", marginLeft: "10%", fontSize: "40px" }}
-        />
-      </DialogActions>
+      {user && (
+        <DialogActions>
+          <RemoveIcon
+            onClick={() => handleRemoveFromCart(user!._id, barcode, 1)}
+            sx={{
+              color: totalAmount > 0 ? "#800080" : "gray",
+              marginRight: "10%",
+              fontSize: "40px",
+            }}
+          />
+          <Typography variant="h4" sx={{ color: "black" }}>
+            {String(totalAmount)}
+          </Typography>
+          <AddIcon
+            onClick={() => handleAddToCart(user!._id, barcode, 1)}
+            sx={{ color: "#800080", marginLeft: "10%", fontSize: "40px" }}
+          />
+        </DialogActions>
+      )}
     </Dialog>
   );
 };

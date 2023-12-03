@@ -87,7 +87,9 @@ const HomePage = () => {
                   margin: "7px",
                   borderRadius: "10px",
                 }}
-                onClick={() => setSearch("")}
+                onClick={() => {
+                  setSearch("");
+                }}
               >
                 <CloseIcon fontSize="small" />
                 אפס סינון

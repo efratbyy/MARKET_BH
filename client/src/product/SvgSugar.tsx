@@ -7,8 +7,8 @@ const SvgSugar = () => {
       role="img"
       aria-label="סימון סוכר בכמות גבוהה"
       xmlns="http://www.w3.org/2000/svg"
-      width="78.133"
-      height="78.133"
+      width="55.133"
+      height="55.133"
       viewBox="0 0 83.51 83.51"
     >
       <path
