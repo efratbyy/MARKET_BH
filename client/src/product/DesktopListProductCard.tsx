@@ -39,9 +39,9 @@ const DesktopListProductCard: React.FC<Props> = ({ product }) => {
     image,
     price,
     details,
-    content,
-    ingredients,
-    manufacturingCountry,
+    // content,
+    // ingredients,
+    // manufacturingCountry,
   } = product;
   const { user } = useUser();
   const [totalAmount, setTotalAmount] = useState(0);
@@ -165,18 +165,19 @@ const DesktopListProductCard: React.FC<Props> = ({ product }) => {
               <Grid xs={12}>
                 <Typography variant="body1">
                   <span style={{ fontWeight: "bold" }}>רכיבים:</span>{" "}
-                  {ingredients}
+                  {details.ingredients}
                 </Typography>
               </Grid>
               <Grid xs={12}>
                 <Typography>
-                  <span style={{ fontWeight: "bold" }}>תכולה:</span> {content}
+                  <span style={{ fontWeight: "bold" }}>תכולה:</span>{" "}
+                  {details.content}
                 </Typography>
               </Grid>
               <Grid xs={12}>
                 <Typography variant="body1">
                   <span style={{ fontWeight: "bold" }}>ארץ ייצור:</span>{" "}
-                  {manufacturingCountry}
+                  {details.manufacturingCountry}
                 </Typography>
               </Grid>
             </Grid>

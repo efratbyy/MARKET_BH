@@ -43,9 +43,9 @@ const ProductDialog: FC<Props> = ({
     image,
     price,
     details,
-    ingredients,
-    content,
-    manufacturingCountry,
+    // ingredients,
+    // content,
+    // manufacturingCountry,
   } = product;
 
   return (
@@ -92,21 +92,21 @@ const ProductDialog: FC<Props> = ({
           sx={{ fontSize: "17px" }}
         >
           <span style={{ fontWeight: "bold", color: "black" }}>רכיבים</span>:{" "}
-          {ingredients}
+          {details.ingredients}
         </DialogContentText>
         <DialogContentText
           id="alert-dialog-description"
           sx={{ fontSize: "17px" }}
         >
           <span style={{ fontWeight: "bold", color: "black" }}>תכולה</span>:{" "}
-          {content}
+          {details.content}
         </DialogContentText>
         <DialogContentText
           id="alert-dialog-description"
           sx={{ fontSize: "17px" }}
         >
           <span style={{ fontWeight: "bold", color: "black" }}>ארץ ייצור</span>:{" "}
-          {manufacturingCountry}
+          {details.manufacturingCountry}
         </DialogContentText>
         <Grid sx={{ margin: "20px" }}>
           {details.isSodium === true && <SvgSodium />}

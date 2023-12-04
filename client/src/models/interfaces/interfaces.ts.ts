@@ -13,7 +13,7 @@ export interface ProductInterface {
   title: string;
   brand: string;
   barcode: string;
-  amount: number;
+  // amount: number;
   price: number;
   image: {
     url: string;
@@ -30,10 +30,11 @@ export interface ProductInterface {
     isSaturatedFat: boolean;
     isGreenMark: boolean;
     isSupervised: boolean;
+    ingredients: string;
+    content: string;
+    manufacturingCountry: string;
   };
-  ingredients: string;
-  content: string;
-  manufacturingCountry: string;
+
   categoryCode: [string];
 }
 

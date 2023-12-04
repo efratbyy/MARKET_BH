@@ -38,30 +38,6 @@ const schema = new mongoose.Schema({
   },
   image: Image,
   details: productDetails,
-  ingredients: {
-    type: String,
-    // trim: true,
-    // minLength: 2,
-    // maxLength: 256,
-    // lowercase: true,
-    // required: true,
-  },
-  content: {
-    type: String,
-    // trim: true,
-    // minLength: 2,
-    // maxLength: 256,
-    // lowercase: true,
-    // required: true,
-  },
-  manufacturingCountry: {
-    type: String,
-    // trim: true,
-    // minLength: 2,
-    // maxLength: 256,
-    // lowercase: true,
-    // required: true,
-  },
 });
 
 const Product = mongoose.model("product", schema);

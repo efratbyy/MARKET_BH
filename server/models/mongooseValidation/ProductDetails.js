@@ -32,6 +32,9 @@ const productDetails = new mongoose.Schema({
   isSupervised: {
     type: Boolean,
   },
+  manufacturingCountry: { type: String },
+  ingredients: { type: String },
+  content: { type: String },
 });
 
 module.exports = productDetails;
