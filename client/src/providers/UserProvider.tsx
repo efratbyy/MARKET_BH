@@ -34,7 +34,7 @@ export const UserProvider: React.FC<Props> = ({ children }) => {
       setUser(userFromLocalStorage);
       setIsLoading(false);
     }
-  }, []);
+  }, [user]);
 
   const value = useMemo(() => {
     return { user, setUser, token, setToken, isLoading };

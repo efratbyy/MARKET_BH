@@ -22,13 +22,12 @@ const HomePage = () => {
   const [category_code, setCategory_code] = useState("");
   const [translated_category_code, setTranslated_category_code] = useState("");
   const [productListShow, setProductListShow] = useState(false);
+  const { user } = useUser();
 
   useEffect(() => {
     setQ(searchParams.get("q") || "");
     setCategory_code(searchParams.get("category_code") || "");
   }, [searchParams, q, category_code]);
-
-  const { user } = useUser();
 
   const handleGetTranslatedCategory = useCallback(async () => {
     try {
