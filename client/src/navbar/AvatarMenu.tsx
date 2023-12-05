@@ -62,6 +62,11 @@ const AvatarMenu = () => {
             <MenuItem onClick={() => navigate(`${ROUTES.PURCHASE_HISTORY}`)}>
               <Typography textAlign="center">הסטורית הזמנות</Typography>
             </MenuItem>
+            {user && user.isAdmin && (
+              <MenuItem onClick={() => navigate(`${ROUTES.ADD_PRODUCT}`)}>
+                <Typography textAlign="center">הוספת מוצר חדש</Typography>
+              </MenuItem>
+            )}
 
             <MenuItem onClick={handleLogout}>
               <Typography textAlign="center">התנתקות</Typography>
