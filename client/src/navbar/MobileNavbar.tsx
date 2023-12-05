@@ -21,6 +21,7 @@ import Badge, { BadgeProps } from "@mui/material/Badge";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { styled } from "@mui/material/styles";
 import { useCartProvider } from "../providers/CartProvider";
+import AvatarMenu from "./AvatarMenu";
 
 type Props = {
   showSearchBar?: boolean;
@@ -212,37 +213,7 @@ const MobileNavbar: React.FC<Props> = ({
                   xs={showSearchBar ? 2 : 1}
                   sx={{ flexGrow: 0 }}
                 >
-                  <Tooltip title="Open settings">
-                    <IconButton onClick={handleOpenUserMenu}>
-                      <Avatar>{user.first.charAt(0).toUpperCase()}</Avatar>
-                    </IconButton>
-                  </Tooltip>
-                  <Menu
-                    sx={{ mt: "45px" }}
-                    id="menu-appbar"
-                    anchorEl={anchorElUser}
-                    anchorOrigin={{
-                      vertical: "top",
-                      horizontal: "left",
-                    }}
-                    keepMounted
-                    transformOrigin={{
-                      vertical: "top",
-                      horizontal: "left",
-                    }}
-                    open={Boolean(anchorElUser)}
-                    onClose={handleCloseUserMenu}
-                  >
-                    <MenuItem onClick={handleLogout}>
-                      <Typography textAlign="center">האזור האישי</Typography>
-                    </MenuItem>
-                    <MenuItem onClick={handleLogout}>
-                      <Typography textAlign="center">הסטורית הזמנות</Typography>
-                    </MenuItem>
-                    <MenuItem onClick={handleLogout}>
-                      <Typography textAlign="center">התנתקות</Typography>
-                    </MenuItem>
-                  </Menu>
+                  <AvatarMenu />
                 </Grid>
               )}
 
