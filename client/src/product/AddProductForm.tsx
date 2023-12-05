@@ -25,6 +25,7 @@ import { useUser } from "../providers/UserProvider";
 import { addProductApi } from "../apiService/productApiService";
 import productSchema from "../models/joiValidation/productJoiValidation";
 import { getUser, saveUserToken } from "../services/LocalStorageService";
+import { error } from "console";
 
 const AddProductForm: React.FC = () => {
   const snack = useSnack();
@@ -51,31 +52,37 @@ const AddProductForm: React.FC = () => {
       manufacturingCountry: "",
     },
   });
+  const [allFieldsValid, setAllFieldsValid] = useState<Boolean>(false);
 
   const navigate = useNavigate();
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const { user } = useUser();
 
-  const allFieldsValid =
-    Object.keys(errors).length === 0 &&
-    Object.values(formData)
-      .map((value) => (typeof value === "string" ? value.trim() !== "" : true))
-      .every(Boolean) &&
-    Object.values(formData.details)
-      .map((value) => (typeof value === "string" ? value.trim() !== "" : true))
-      .every(Boolean) &&
-    Object.values(formData.categoryCode)
-      .map((value) => (typeof value === "string" ? value.trim() !== "" : true))
-      .every(Boolean);
-
   useEffect(() => {
     validateForm(formData);
+    setAllFieldsValid(
+      Object.keys(errors).length === 0 &&
+        Object.values(formData)
+          .map((value) =>
+            typeof value === "string" ? value.trim() !== "" : true
+          )
+          .every(Boolean) &&
+        Object.values(formData.details)
+          .map((value) =>
+            typeof value === "string" ? value.trim() !== "" : true
+          )
+          .every(Boolean) &&
+        Object.values(formData.categoryCode)
+          .map((value) =>
+            typeof value === "string" ? value.trim() !== "" : true
+          )
+          .every(Boolean)
+    );
   }, [formData]);
 
   const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-
-    console.log("name", name, "value", value);
+    // console.log(formData.categoryCode);
     // Handle nested fields (details and image)
     if (name.startsWith("details.")) {
       setFormData((prevData) => ({
@@ -241,10 +248,41 @@ const AddProductForm: React.FC = () => {
                 color="success"
                 fullWidth
                 margin="normal"
-                value={formData.categoryCode}
-                onChange={handleChange}
+                // value={formData.categoryCode}
+                // onChange={handleChange}
+                value={
+                  formData.categoryCode.length > 0
+                    ? formData.categoryCode[0]
+                    : ""
+                }
+                onChange={(e) => {
+                  setFormData((prevData) => ({
+                    ...prevData,
+                    categoryCode: [e.target.value], // Put the text value as the first item in the array
+                  }));
+                  console.log(errors);
+                  console.log(
+                    // Object.keys(errors).length === 0 &&
+                    Object.values(formData)
+                      .map((value) =>
+                        typeof value === "string" ? value.trim() !== "" : true
+                      )
+                      .every(Boolean) &&
+                      Object.values(formData.details)
+                        .map((value) =>
+                          typeof value === "string" ? value.trim() !== "" : true
+                        )
+                        .every(Boolean) &&
+                      Object.values(formData.categoryCode)
+                        .map((value) =>
+                          typeof value === "string" ? value.trim() !== "" : true
+                        )
+                        .every(Boolean)
+                  );
+                }}
                 error={Boolean(errors.categoryCode)}
                 helperText={errors.categoryCode}
+                InputLabelProps={{ shrink: false }}
                 sx={{
                   "& .MuiOutlinedInput-root": {
                     "& fieldset": {
@@ -320,8 +358,8 @@ const AddProductForm: React.FC = () => {
                 margin="normal"
                 value={formData.details.ingredients}
                 onChange={handleChange}
-                error={Boolean(errors.details_ingredients)}
-                helperText={errors.details_ingredients}
+                error={Boolean(errors.details)}
+                helperText={errors.details}
                 sx={{
                   "& .MuiOutlinedInput-root": {
                     "& fieldset": {
@@ -343,8 +381,8 @@ const AddProductForm: React.FC = () => {
                     : ""
                 }
                 onChange={handleChange}
-                error={Boolean(errors.details_weightTopDisplay)}
-                helperText={errors.details_weightTopDisplay}
+                error={Boolean(errors.details)}
+                helperText={errors.details}
                 sx={{
                   "& .MuiOutlinedInput-root": {
                     "& fieldset": {
@@ -362,8 +400,8 @@ const AddProductForm: React.FC = () => {
                 margin="normal"
                 value={formData.details.weightUnitTopDisplay}
                 onChange={handleChange}
-                error={Boolean(errors.details_weightUnitTopDisplay)}
-                helperText={errors.details_weightUnitTopDisplay}
+                error={Boolean(errors.details)}
+                helperText={errors.details}
                 sx={{
                   "& .MuiOutlinedInput-root": {
                     "& fieldset": {
@@ -383,8 +421,8 @@ const AddProductForm: React.FC = () => {
                   formData.details.weight !== 0 ? formData.details.weight : ""
                 }
                 onChange={handleChange}
-                error={Boolean(errors.details_weight)}
-                helperText={errors.details_weight}
+                error={Boolean(errors.details)}
+                helperText={errors.details}
                 sx={{
                   "& .MuiOutlinedInput-root": {
                     "& fieldset": {
@@ -402,8 +440,8 @@ const AddProductForm: React.FC = () => {
                 margin="normal"
                 value={formData.details.weightUnit}
                 onChange={handleChange}
-                error={Boolean(errors.details_weightUnit)}
-                helperText={errors.details_weightUnit}
+                error={Boolean(errors.details)}
+                helperText={errors.details}
                 sx={{
                   "& .MuiOutlinedInput-root": {
                     "& fieldset": {
@@ -421,8 +459,8 @@ const AddProductForm: React.FC = () => {
                 margin="normal"
                 value={formData.details.divideBy}
                 onChange={handleChange}
-                error={Boolean(errors.details_divideBy)}
-                helperText={errors.details_divideBy}
+                error={Boolean(errors.details)}
+                helperText={errors.details}
                 sx={{
                   "& .MuiOutlinedInput-root": {
                     "& fieldset": {
@@ -440,8 +478,8 @@ const AddProductForm: React.FC = () => {
                 margin="normal"
                 value={formData.details.content}
                 onChange={handleChange}
-                error={Boolean(errors.details_content)}
-                helperText={errors.details_content}
+                error={Boolean(errors.details)}
+                helperText={errors.details}
                 sx={{
                   "& .MuiOutlinedInput-root": {
                     "& fieldset": {
@@ -459,8 +497,8 @@ const AddProductForm: React.FC = () => {
                 margin="normal"
                 value={formData.details.manufacturingCountry}
                 onChange={handleChange}
-                error={Boolean(errors.details_manufacturingCountry)}
-                helperText={errors.details_manufacturingCountry}
+                error={Boolean(errors.details)}
+                helperText={errors.details}
                 sx={{
                   "& .MuiOutlinedInput-root": {
                     "& fieldset": {
