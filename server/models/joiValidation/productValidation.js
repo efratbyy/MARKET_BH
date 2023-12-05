@@ -5,7 +5,7 @@ const productJoiValidation = (product) => {
     title: Joi.string().min(2).max(256).required(),
     brand: Joi.string().min(2).max(256).required(),
     barcode: Joi.string().min(2).max(256).required(),
-    categoryCode: Joi.string().min(1).max(256).required(),
+    categoryCode: Joi.array().min(1).max(256).required(),
     price: Joi.number().min(2).max(256).required(),
     image: {
       url: Joi.string().min(2).max(256),

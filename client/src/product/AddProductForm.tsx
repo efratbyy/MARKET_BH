@@ -25,35 +25,35 @@ import { useUser } from "../providers/UserProvider";
 import { addProductApi } from "../apiService/productApiService";
 import productSchema from "../models/joiValidation/productJoiValidation";
 import { getUser, saveUserToken } from "../services/LocalStorageService";
-import { error } from "console";
+import { ProductClientType } from "../types/productTypes.js";
+import convertToDbType from "../helpers/convertToDbType";
 
 const AddProductForm: React.FC = () => {
   const snack = useSnack();
-  const [formData, setFormData] = useState<ProductInterface>({
+  const [formData, setFormData] = useState<ProductClientType>({
     title: "",
     brand: "",
     barcode: "",
     categoryCode: [""],
     price: 0,
-    image: { url: "", alt: "" },
-    details: {
-      ingredients: "",
-      weightTopDisplay: 0,
-      weightUnitTopDisplay: "",
-      weight: 0,
-      weightUnit: "",
-      divideBy: 100,
-      isSodium: false,
-      isSugar: false,
-      isSaturatedFat: false,
-      isGreenMark: false,
-      isSupervised: false,
-      content: "",
-      manufacturingCountry: "",
-    },
+    imageUrl: "",
+    imageAlt: "",
+    ingredients: "",
+    weightTopDisplay: 0,
+    weightUnitTopDisplay: "",
+    weight: 0,
+    weightUnit: "",
+    divideBy: 100,
+    isSodium: false,
+    isSugar: false,
+    isSaturatedFat: false,
+    isGreenMark: false,
+    isSupervised: false,
+    content: "",
+    manufacturingCountry: "",
   });
-  const [allFieldsValid, setAllFieldsValid] = useState<Boolean>(false);
 
+  const [allFieldsValid, setAllFieldsValid] = useState<Boolean>(false);
   const navigate = useNavigate();
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const { user } = useUser();
@@ -66,50 +66,22 @@ const AddProductForm: React.FC = () => {
           .map((value) =>
             typeof value === "string" ? value.trim() !== "" : true
           )
-          .every(Boolean) &&
-        Object.values(formData.details)
-          .map((value) =>
-            typeof value === "string" ? value.trim() !== "" : true
-          )
-          .every(Boolean) &&
-        Object.values(formData.categoryCode)
-          .map((value) =>
-            typeof value === "string" ? value.trim() !== "" : true
-          )
           .every(Boolean)
     );
   }, [formData]);
 
   const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    // console.log(formData.categoryCode);
-    // Handle nested fields (details and image)
-    if (name.startsWith("details.")) {
-      setFormData((prevData) => ({
-        ...prevData,
-        details: {
-          ...prevData.details,
-          [name.replace("details.", "")]: value,
-        },
-      }));
-    } else if (name.startsWith("image.")) {
-      setFormData((prevData) => ({
-        ...prevData,
-        image: {
-          ...prevData.image,
-          [name.replace("image.", "")]: value,
-        },
-      }));
-    } else {
-      // Handle other fields
-      setFormData((prevData) => ({
-        ...prevData,
-        [name]: value,
-      }));
-    }
+
+    console.log(name, value);
+    // Handle other fields
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   }, []);
 
-  const validateForm = (formData: ProductInterface) => {
+  const validateForm = (formData: ProductClientType) => {
     const validationResult = Joi.object(productSchema).validate(formData, {
       abortEarly: false, // indicates that all validation errors should be collected rather than stopping at the first error
     });
@@ -142,7 +114,8 @@ const AddProductForm: React.FC = () => {
     setErrors({});
 
     try {
-      const productRes = await addProductApi(formData);
+      const productToDB = convertToDbType(formData);
+      const productRes = await addProductApi(productToDB);
 
       snack("success", "מוצר חדש נוצר בהצלחה");
       navigate(`${ROUTES.ROOT}`, { replace: true });
@@ -260,25 +233,6 @@ const AddProductForm: React.FC = () => {
                     ...prevData,
                     categoryCode: [e.target.value], // Put the text value as the first item in the array
                   }));
-                  console.log(errors);
-                  console.log(
-                    // Object.keys(errors).length === 0 &&
-                    Object.values(formData)
-                      .map((value) =>
-                        typeof value === "string" ? value.trim() !== "" : true
-                      )
-                      .every(Boolean) &&
-                      Object.values(formData.details)
-                        .map((value) =>
-                          typeof value === "string" ? value.trim() !== "" : true
-                        )
-                        .every(Boolean) &&
-                      Object.values(formData.categoryCode)
-                        .map((value) =>
-                          typeof value === "string" ? value.trim() !== "" : true
-                        )
-                        .every(Boolean)
-                  );
                 }}
                 error={Boolean(errors.categoryCode)}
                 helperText={errors.categoryCode}
@@ -313,12 +267,12 @@ const AddProductForm: React.FC = () => {
               />
               <TextField
                 type="string"
-                name="image.url"
+                name="imageUrl"
                 label="לינק תמונה"
                 color="success"
                 fullWidth
                 margin="normal"
-                value={formData.image.url}
+                value={formData.imageUrl}
                 onChange={handleChange}
                 error={Boolean(errors.imageUrl)}
                 helperText={errors.imageUrl}
@@ -332,12 +286,12 @@ const AddProductForm: React.FC = () => {
               />
               <TextField
                 type="string"
-                name="image.alt"
+                name="imageAlt"
                 label="תיאור תמונה"
                 color="success"
                 fullWidth
                 margin="normal"
-                value={formData.image.alt}
+                value={formData.imageAlt}
                 onChange={handleChange}
                 error={Boolean(errors.imageAlt)}
                 helperText={errors.imageAlt}
@@ -351,15 +305,15 @@ const AddProductForm: React.FC = () => {
               />
               <TextField
                 type="text"
-                name="details.ingredients"
+                name="ingredients"
                 label="רכיבים"
                 color="success"
                 fullWidth
                 margin="normal"
-                value={formData.details.ingredients}
+                value={formData.ingredients}
                 onChange={handleChange}
-                error={Boolean(errors.details)}
-                helperText={errors.details}
+                error={Boolean(errors.ingredients)}
+                helperText={errors.ingredients}
                 sx={{
                   "& .MuiOutlinedInput-root": {
                     "& fieldset": {
@@ -370,19 +324,19 @@ const AddProductForm: React.FC = () => {
               />
               <TextField
                 type="number"
-                name="details.weightTopDisplay"
+                name="weightTopDisplay"
                 label="משקל עליון להצגה"
                 color="success"
                 fullWidth
                 margin="normal"
                 value={
-                  formData.details.weightTopDisplay !== 0
-                    ? formData.details.weightTopDisplay
+                  formData.weightTopDisplay !== 0
+                    ? formData.weightTopDisplay
                     : ""
                 }
                 onChange={handleChange}
-                error={Boolean(errors.details)}
-                helperText={errors.details}
+                error={Boolean(errors.weightTopDisplay)}
+                helperText={errors.weightTopDisplay}
                 sx={{
                   "& .MuiOutlinedInput-root": {
                     "& fieldset": {
@@ -393,15 +347,15 @@ const AddProductForm: React.FC = () => {
               />
               <TextField
                 type="text"
-                name="details.weightUnitTopDisplay"
+                name="weightUnitTopDisplay"
                 label="יחידת משקל עליון להצגה"
                 color="success"
                 fullWidth
                 margin="normal"
-                value={formData.details.weightUnitTopDisplay}
+                value={formData.weightUnitTopDisplay}
                 onChange={handleChange}
-                error={Boolean(errors.details)}
-                helperText={errors.details}
+                error={Boolean(errors.weightUnitTopDisplay)}
+                helperText={errors.weightUnitTopDisplay}
                 sx={{
                   "& .MuiOutlinedInput-root": {
                     "& fieldset": {
@@ -412,17 +366,15 @@ const AddProductForm: React.FC = () => {
               />
               <TextField
                 type="number"
-                name="details.weight"
+                name="weight"
                 label="משקל"
                 color="success"
                 fullWidth
                 margin="normal"
-                value={
-                  formData.details.weight !== 0 ? formData.details.weight : ""
-                }
+                value={formData.weight !== 0 ? formData.weight : ""}
                 onChange={handleChange}
-                error={Boolean(errors.details)}
-                helperText={errors.details}
+                error={Boolean(errors.weight)}
+                helperText={errors.weight}
                 sx={{
                   "& .MuiOutlinedInput-root": {
                     "& fieldset": {
@@ -433,15 +385,15 @@ const AddProductForm: React.FC = () => {
               />
               <TextField
                 type="text"
-                name="details.weightUnit"
+                name="weightUnit"
                 label="יחידת משקל"
                 color="success"
                 fullWidth
                 margin="normal"
-                value={formData.details.weightUnit}
+                value={formData.weightUnit}
                 onChange={handleChange}
-                error={Boolean(errors.details)}
-                helperText={errors.details}
+                error={Boolean(errors.weightUnit)}
+                helperText={errors.weightUnit}
                 sx={{
                   "& .MuiOutlinedInput-root": {
                     "& fieldset": {
@@ -452,15 +404,15 @@ const AddProductForm: React.FC = () => {
               />
               <TextField
                 type="number"
-                name="details.divideBy"
+                name="divideBy"
                 label="לחלק ב:"
                 color="success"
                 fullWidth
                 margin="normal"
-                value={formData.details.divideBy}
+                value={formData.divideBy}
                 onChange={handleChange}
-                error={Boolean(errors.details)}
-                helperText={errors.details}
+                error={Boolean(errors.divideBy)}
+                helperText={errors.divideBy}
                 sx={{
                   "& .MuiOutlinedInput-root": {
                     "& fieldset": {
@@ -471,15 +423,15 @@ const AddProductForm: React.FC = () => {
               />
               <TextField
                 type="text"
-                name="details.content"
+                name="content"
                 label="תכולה"
                 color="success"
                 fullWidth
                 margin="normal"
-                value={formData.details.content}
+                value={formData.content}
                 onChange={handleChange}
-                error={Boolean(errors.details)}
-                helperText={errors.details}
+                error={Boolean(errors.content)}
+                helperText={errors.content}
                 sx={{
                   "& .MuiOutlinedInput-root": {
                     "& fieldset": {
@@ -490,15 +442,15 @@ const AddProductForm: React.FC = () => {
               />
               <TextField
                 type="text"
-                name="details.manufacturingCountry"
+                name="manufacturingCountry"
                 label="ארץ ייצור"
                 color="success"
                 fullWidth
                 margin="normal"
-                value={formData.details.manufacturingCountry}
+                value={formData.manufacturingCountry}
                 onChange={handleChange}
-                error={Boolean(errors.details)}
-                helperText={errors.details}
+                error={Boolean(errors.manufacturingCountry)}
+                helperText={errors.manufacturingCountry}
                 sx={{
                   "& .MuiOutlinedInput-root": {
                     "& fieldset": {
@@ -509,18 +461,15 @@ const AddProductForm: React.FC = () => {
               />
               <Grid item>
                 <FormControlLabel
-                  name="details.isSodium"
+                  name="isSodium"
                   control={
                     <Checkbox
-                      checked={formData.details.isSodium}
+                      checked={formData.isSodium}
                       color="primary"
                       onChange={(e) => {
                         setFormData((prevData) => ({
                           ...prevData,
-                          details: {
-                            ...prevData.details,
-                            isSodium: !prevData.details.isSodium,
-                          },
+                          isSodium: !prevData.isSodium,
                         }));
                       }}
                     />
@@ -531,18 +480,15 @@ const AddProductForm: React.FC = () => {
 
               <Grid item>
                 <FormControlLabel
-                  name="details.isSugar"
+                  name="isSugar"
                   control={
                     <Checkbox
-                      checked={formData.details.isSugar}
+                      checked={formData.isSugar}
                       color="primary"
                       onChange={(e) => {
                         setFormData((prevData) => ({
                           ...prevData,
-                          details: {
-                            ...prevData.details,
-                            isSugar: !prevData.details.isSugar,
-                          },
+                          isSugar: !prevData.isSugar,
                         }));
                       }}
                     />
@@ -552,18 +498,15 @@ const AddProductForm: React.FC = () => {
               </Grid>
               <Grid item>
                 <FormControlLabel
-                  name="details.isSaturatedFat"
+                  name="isSaturatedFat"
                   control={
                     <Checkbox
-                      checked={formData.details.isSaturatedFat}
+                      checked={formData.isSaturatedFat}
                       color="primary"
                       onChange={(e) => {
                         setFormData((prevData) => ({
                           ...prevData,
-                          details: {
-                            ...prevData.details,
-                            isSaturatedFat: !prevData.details.isSaturatedFat,
-                          },
+                          isSaturatedFat: !prevData.isSaturatedFat,
                         }));
                       }}
                     />
@@ -573,18 +516,15 @@ const AddProductForm: React.FC = () => {
               </Grid>
               <Grid item>
                 <FormControlLabel
-                  name="details.isGreenMark"
+                  name="isGreenMark"
                   control={
                     <Checkbox
-                      checked={formData.details.isGreenMark}
+                      checked={formData.isGreenMark}
                       color="primary"
                       onChange={(e) => {
                         setFormData((prevData) => ({
                           ...prevData,
-                          details: {
-                            ...prevData.details,
-                            isGreenMark: !prevData.details.isGreenMark,
-                          },
+                          isGreenMark: !prevData.isGreenMark,
                         }));
                       }}
                     />
@@ -594,18 +534,15 @@ const AddProductForm: React.FC = () => {
               </Grid>
               <Grid item>
                 <FormControlLabel
-                  name="details.isSupervised"
+                  name="isSupervised"
                   control={
                     <Checkbox
-                      checked={formData.details.isSupervised}
+                      checked={formData.isSupervised}
                       color="primary"
                       onChange={(e) => {
                         setFormData((prevData) => ({
                           ...prevData,
-                          details: {
-                            ...prevData.details,
-                            isSupervised: !prevData.details.isSupervised,
-                          },
+                          isSupervised: !prevData.isSupervised,
                         }));
                       }}
                     />

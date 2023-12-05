@@ -1,5 +1,6 @@
 const productJoiValidation = require("../models/joiValidation/productValidation");
 const Product = require("../models/mongooseValidation/Product");
+const { handleError } = require("../utils/handleErrors");
 
 const getProducts = async (req, res) => {
   try {
