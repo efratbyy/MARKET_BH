@@ -9,7 +9,7 @@ const productSchema = {
   imageUrl: Joi.string().min(2).max(256),
   imageAlt: Joi.string().min(2).max(256),
   ingredients: Joi.string().min(2).max(256),
-  weightTopDisplay: Joi.number().min(1).max(256).required(),
+  weightTopDisplay: Joi.number().min(1).required(),
   weightUnitTopDisplay: Joi.string().min(2).max(256).required(),
   weight: Joi.number(),
   weightUnit: Joi.string().min(2).max(256).required(),

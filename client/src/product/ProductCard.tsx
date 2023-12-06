@@ -139,7 +139,9 @@ const ProductCard: React.FC<Props> = ({ product }) => {
             ? "₪" +
               (price / (details?.weight / details.divideBy)).toFixed(2) +
               " ל " +
-              details?.weightUnit
+              details?.divideBy +
+              " " +
+              details.weightUnit
             : ""}
         </Typography>
       </CardContent>
