@@ -13,6 +13,7 @@ import SvgSugar from "./SvgSugar";
 import SvgSodium from "./SvgSodium";
 import SvgSaturatedFat from "./SvgSaturatedFat";
 import SvgSupervisedProducts from "./SvgSupervisedProducts";
+import GreenMark from "./GreenMark";
 
 type Props = {
   isDialogOpen: boolean;
@@ -113,6 +114,7 @@ const ProductDialog: FC<Props> = ({
           {details.isSugar === true && <SvgSugar />}
           {details.isSaturatedFat === true && <SvgSaturatedFat />}
           {details.isSupervised === true && <SvgSupervisedProducts />}
+          {details.isGreenMark === true && <GreenMark />}
         </Grid>
       </DialogContent>
       {user && (

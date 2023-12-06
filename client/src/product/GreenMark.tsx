@@ -5,8 +5,8 @@ const GreenMark = () => {
     <img
       src="/assets/images/green_mark.png"
       alt="Green mark"
-      width="80px"
-      height="80px"
+      width="55.133"
+      height="55.133"
     />
   );
 };

@@ -26,6 +26,9 @@ import SvgSodium from "./SvgSodium";
 import SvgSugar from "./SvgSugar";
 import SvgSaturatedFat from "./SvgSaturatedFat";
 import SvgSupervisedProducts from "./SvgSupervisedProducts";
+import GreenMark from "./GreenMark";
+import ModeEditTwoToneIcon from "@mui/icons-material/ModeEditTwoTone";
+import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 
 type Props = {
   product: ProductInterface;
@@ -96,7 +99,7 @@ const DesktopListProductCard: React.FC<Props> = ({ product }) => {
             <Grid
               container
               item
-              xs={3}
+              xs={2}
               sx={{
                 textAlign: "center", // Center horizontally
                 display: "flex",
@@ -109,8 +112,8 @@ const DesktopListProductCard: React.FC<Props> = ({ product }) => {
                 alt={title}
                 style={{
                   maxWidth: "100%",
-                  width: "85%",
-                  height: "auto",
+                  width: "200px",
+                  height: "180px",
                 }}
               />
               {/* Product Stickers */}
@@ -119,10 +122,11 @@ const DesktopListProductCard: React.FC<Props> = ({ product }) => {
                 {details.isSugar === true && <SvgSugar />}
                 {details.isSaturatedFat === true && <SvgSaturatedFat />}
                 {details.isSupervised === true && <SvgSupervisedProducts />}
+                {details.isGreenMark === true && <GreenMark />}
               </Grid>
             </Grid>
 
-            <Grid sx={{ padding: "15px" }} item xs={4.95}>
+            <Grid sx={{ padding: "15px" }} item xs={5.95}>
               <Grid container xs={12} justifyContent={"space-between"}>
                 {/* Product Name */}
                 <Grid sx={{ fontSize: "17px" }} xs={5}>
@@ -222,12 +226,41 @@ const DesktopListProductCard: React.FC<Props> = ({ product }) => {
                 </Typography>
               </Grid>
 
+              {user && user.isAdmin && (
+                <Grid
+                  container
+                  justifyContent="space-between"
+                  sx={{
+                    marginTop: "auto",
+                  }}
+                >
+                  <Button
+                    sx={{ color: "rgba(0, 0, 0, 0.87)", padding: 0, margin: 0 }}
+                    onClick={() => {
+                      navigate(ROUTES.EDIT_PRODUCT + `?barcode=${barcode}`);
+                    }}
+                  >
+                    <ModeEditTwoToneIcon />
+                  </Button>
+
+                  <Button
+                    sx={{ color: "rgba(0, 0, 0, 0.87)", padding: 0, margin: 0 }}
+                    onClick={() => {
+                      console.log("g");
+                    }}
+                  >
+                    <DeleteTwoToneIcon />
+                  </Button>
+                </Grid>
+              )}
+
               {user && (
-                <Grid xs={12} textAlign={"center"}>
+                <Grid xs={12} margin={"10px"} textAlign={"center"}>
                   {/* Add and Remove from cart */}
                   <ButtonGroup
                     orientation="horizontal"
                     variant="contained"
+                    fullWidth
                     sx={{
                       boxShadow: 0,
                     }}
@@ -241,7 +274,7 @@ const DesktopListProductCard: React.FC<Props> = ({ product }) => {
                         borderBottomLeftRadius: "0px",
                         backgroundColor: "#5b9822",
                         minWidth: "0px !important",
-                        width: "50px",
+                        // width: "50px",
                         height: "50px",
                         "&:hover": {
                           backgroundColor: "#333",
@@ -258,7 +291,7 @@ const DesktopListProductCard: React.FC<Props> = ({ product }) => {
                       disabled
                       sx={{
                         minWidth: "0px !important",
-                        width: "50px",
+                        // width: "50px",
                         height: "50px",
                         borderRadius: "0px",
                       }}
@@ -277,7 +310,7 @@ const DesktopListProductCard: React.FC<Props> = ({ product }) => {
                         borderBottomLeftRadius: "10px !important",
                         backgroundColor: "#5b9822",
                         minWidth: "0px !important",
-                        width: "50px",
+                        // width: "50px",
                         height: "50px",
                         "&:hover": {
                           backgroundColor: "#333",

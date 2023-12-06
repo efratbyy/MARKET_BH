@@ -15,6 +15,10 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import ProductDialog from "./ProductDialog";
 import { useUser } from "../providers/UserProvider";
 import { useCartProvider } from "../providers/CartProvider";
+import ModeEditTwoToneIcon from "@mui/icons-material/ModeEditTwoTone";
+import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
+import ROUTES from "../routes/routesModel";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
   product: ProductInterface;
@@ -26,6 +30,8 @@ const ProductCard: React.FC<Props> = ({ product }) => {
   const [totalAmount, setTotalAmount] = useState(0);
   const [isDialogOpen, setDialog] = useState(false);
   const { cart, updateCartProvider } = useCartProvider();
+  const navigate = useNavigate();
+
   const openDialog = () => {
     setDialog(true);
   };
@@ -71,7 +77,7 @@ const ProductCard: React.FC<Props> = ({ product }) => {
       square
     >
       <CardActionArea
-        sx={{ padding: "0%" }}
+        sx={{ padding: "0%", height: "150px" }}
         onClick={() => {
           openDialog();
         }}
@@ -93,7 +99,7 @@ const ProductCard: React.FC<Props> = ({ product }) => {
       </CardActionArea>
       <CardContent
         sx={{
-          height: "150px",
+          // height: "160px",
           marginBottom: "50px",
         }}
       >
@@ -116,11 +122,13 @@ const ProductCard: React.FC<Props> = ({ product }) => {
             marginTop: "auto",
             paddingRight: "10%",
             color: "textSecondary",
-            height: "50%",
+            height: "50px",
+            marginBottom: "20px",
           }}
         >
           {title}
         </Typography>
+
         <Typography
           sx={{
             marginTop: "auto",
@@ -133,7 +141,12 @@ const ProductCard: React.FC<Props> = ({ product }) => {
         <Typography
           variant="body2"
           color="textSecondary"
-          sx={{ marginTop: "auto", paddingRight: "10%", fontWeight: "lighter" }}
+          sx={{
+            marginTop: "auto",
+            paddingRight: "10%",
+            fontWeight: "lighter",
+            marginBottom: "15px",
+          }}
         >
           {details && details.weight
             ? "₪" +
@@ -144,6 +157,33 @@ const ProductCard: React.FC<Props> = ({ product }) => {
               details.weightUnit
             : ""}
         </Typography>
+        {user && user.isAdmin && (
+          <Grid
+            container
+            justifyContent="space-between"
+            sx={{
+              marginTop: "auto",
+            }}
+          >
+            <Button
+              sx={{ color: "rgba(0, 0, 0, 0.87)", padding: 0, margin: 0 }}
+              onClick={() => {
+                navigate(ROUTES.EDIT_PRODUCT + `?barcode=${barcode}`);
+              }}
+            >
+              <ModeEditTwoToneIcon />
+            </Button>
+
+            <Button
+              sx={{ color: "rgba(0, 0, 0, 0.87)", padding: 0, margin: 0 }}
+              onClick={() => {
+                console.log("g");
+              }}
+            >
+              <DeleteTwoToneIcon />
+            </Button>
+          </Grid>
+        )}
       </CardContent>
 
       {user && (
@@ -163,7 +203,7 @@ const ProductCard: React.FC<Props> = ({ product }) => {
             variant="contained"
             sx={{
               width: "90%", // Set the desired width to make it smaller
-              height: "5.5vh",
+              // height: "5.5vh",
             }}
           >
             <Button
