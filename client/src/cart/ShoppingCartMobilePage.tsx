@@ -57,6 +57,7 @@ const ShoppingCartMobilePage = () => {
       );
     }
   }, [cart]);
+
   return (
     <>
       <Navbar showSearchBar={false} showDataFilter={false} />

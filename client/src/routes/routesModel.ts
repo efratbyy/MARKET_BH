@@ -10,6 +10,7 @@ const ROUTES = {
   PURCHASE_HISTORY: "/purchase_history",
   PURCHASE_HISTORY_DETAILS: "/purchase_history_details",
   ADD_PRODUCT: "/add_product",
+  EDIT_PRODUCT: "/edit_product",
 };
 
 export default ROUTES;
