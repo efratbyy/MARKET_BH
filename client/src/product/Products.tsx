@@ -7,6 +7,7 @@ import { useSearchParams } from "react-router-dom";
 import DesktopListProductCard from "./DesktopListProductCard";
 import { deleteProductApi } from "../apiService/productApiService";
 import { useSnack } from "../providers/SnackbarProvider";
+import MobileListProductCard from "./MobileListProductCard";
 
 type Props = { productListShow: boolean };
 
@@ -231,12 +232,21 @@ const Products: React.FC<Props> = ({ productListShow = false }) => {
         >
           <Typography title="Products Page" />
           {products?.map((product: ProductInterface) => (
-            <Grid item key={product.barcode} xs={12}>
-              <DesktopListProductCard
-                product={product}
-                deleteProduct={handleDeleteProduct}
-              />
-            </Grid>
+            <React.Fragment key={product.barcode}>
+              <Grid item xs={12} sx={{ display: { xs: "none", md: "flex" } }}>
+                <DesktopListProductCard
+                  product={product}
+                  deleteProduct={handleDeleteProduct}
+                />
+              </Grid>
+
+              <Grid item xs={12} sx={{ display: { md: "none" } }}>
+                <MobileListProductCard
+                  product={product}
+                  deleteProduct={handleDeleteProduct}
+                />
+              </Grid>
+            </React.Fragment>
           ))}
         </Grid>
       )}

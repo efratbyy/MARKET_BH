@@ -143,9 +143,10 @@ const HomePage = () => {
               container
               item
               direction={"row-reverse"}
-              xs={3}
+              xs={5}
+              md={3}
               sx={{
-                display: { xs: "none", lg: "flex" },
+                // display: { xs: "none", lg: "flex" },
                 justifyItems: "center",
                 alignItems: "center",
               }}

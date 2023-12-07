@@ -1,13 +1,21 @@
 import React from "react";
 
-const SvgSupervisedProducts = () => {
+type Props = {
+  width?: string;
+  height?: string;
+};
+
+const SvgSupervisedProducts: React.FC<Props> = ({
+  width = "55.133",
+  height = "55.133",
+}) => {
   return (
     <>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         id="b"
-        width="55.133"
-        height="55.133"
+        width={width}
+        height={height}
         viewBox="0 0 1030 1030"
       >
         <g id="c">

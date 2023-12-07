@@ -1,12 +1,20 @@
 import React from "react";
 
-const GreenMark = () => {
+type Props = {
+  width?: string;
+  height?: string;
+};
+
+const GreenMark: React.FC<Props> = ({
+  width = "55.133",
+  height = "55.133",
+}) => {
   return (
     <img
       src="/assets/images/green_mark.png"
       alt="Green mark"
-      width="55.133"
-      height="55.133"
+      width={width}
+      height={height}
     />
   );
 };

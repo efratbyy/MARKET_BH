@@ -1,6 +1,14 @@
 import React from "react";
 
-const SvgSaturatedFat = () => {
+type Props = {
+  width?: string;
+  height?: string;
+};
+
+const SvgSaturatedFat: React.FC<Props> = ({
+  width = "55.133",
+  height = "55.133",
+}) => {
   return (
     <svg
       data-v-5a2cdfca=""
@@ -8,8 +16,8 @@ const SvgSaturatedFat = () => {
       aria-label="סימון שומן רווי בכמות גבוהה"
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
-      width="55.133"
-      height="55.133"
+      width={width}
+      height={height}
       viewBox="0 0 78.133 78.133"
     >
       <defs data-v-5a2cdfca="">

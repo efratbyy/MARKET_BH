@@ -1,14 +1,22 @@
 import React from "react";
 
-const SvgSodium = () => {
+type Props = {
+  width?: string;
+  height?: string;
+};
+
+const SvgSodium: React.FC<Props> = ({
+  width = "55.133",
+  height = "55.133",
+}) => {
   return (
     <svg
       data-v-5a2cdfca=""
       role="img"
       aria-label="סימון נתרן בכמות גבוהה"
       xmlns="http://www.w3.org/2000/svg"
-      width="55.133"
-      height="55.133"
+      width={width}
+      height={height}
       viewBox="0 0 83.51 83.51"
     >
       <path
