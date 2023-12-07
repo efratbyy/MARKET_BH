@@ -75,7 +75,7 @@ const CategoriesBottomNavBar: React.FC = () => {
       <>
         <List sx={{ marginTop: "50px" }}>
           {categories?.map((category) => (
-            <>
+            <React.Fragment key={category.code}>
               <ListItem
                 disablePadding
                 onClick={() => setCurrentCategory(category.code)}
@@ -97,7 +97,7 @@ const CategoriesBottomNavBar: React.FC = () => {
                 </ListItemButton>
               </ListItem>
               <Divider />
-            </>
+            </React.Fragment>
           ))}
         </List>
       </>
@@ -134,7 +134,7 @@ const CategoriesBottomNavBar: React.FC = () => {
           </ListItem>
           <Divider />
           {bigCategory?.data.map((mdCategory) => (
-            <>
+            <React.Fragment key={mdCategory.code}>
               <ListItem
                 disablePadding
                 onClick={() => setCurrentCategory(mdCategory.code)}
@@ -153,7 +153,7 @@ const CategoriesBottomNavBar: React.FC = () => {
                 </ListItemButton>
               </ListItem>
               <Divider />
-            </>
+            </React.Fragment>
           ))}
         </List>
       </>
@@ -200,7 +200,7 @@ const CategoriesBottomNavBar: React.FC = () => {
           </ListItem>
           <Divider />
           {mdCategory?.data.map((smCategory) => (
-            <>
+            <React.Fragment key={smCategory.code}>
               <ListItem
                 disablePadding
                 onClick={() => handleSmallCategoryClick(smCategory.code)}
@@ -212,7 +212,7 @@ const CategoriesBottomNavBar: React.FC = () => {
                 </ListItemButton>
               </ListItem>
               <Divider />
-            </>
+            </React.Fragment>
           ))}
         </List>
       </>

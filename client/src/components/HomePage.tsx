@@ -75,7 +75,7 @@ const HomePage = () => {
             display={"flex"}
             sx={{ justifyContent: "space-between", marginBottom: "5px" }}
           >
-            <Grid container xs={6}>
+            <Grid container item xs={6}>
               {/* filter reset */}
               <Button
                 style={{
@@ -141,6 +141,7 @@ const HomePage = () => {
             {/* products display options */}
             <Grid
               container
+              item
               direction={"row-reverse"}
               xs={3}
               sx={{
