@@ -15,8 +15,7 @@ import {
   Checkbox,
 } from "@mui/material";
 import Joi from "joi";
-import { ProductInterface } from "../models/interfaces/interfaces.ts";
-import { Navigate, useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import ROUTES from "../routes/routesModel";
 import Navbar from "../navbar/Navbar";
 import { useSnack } from "../providers/SnackbarProvider";
@@ -28,7 +27,6 @@ import {
   getProductByBarcodeApi,
 } from "../apiService/productApiService";
 import productSchema from "../models/joiValidation/productJoiValidation";
-import { getUser, saveUserToken } from "../services/LocalStorageService";
 import { ProductClientType } from "../types/productTypes.js";
 import convertToDbType from "../helpers/convertToDbType";
 import convertToClientType from "../helpers/convertToClientType";
@@ -64,12 +62,12 @@ const EditProductForm: React.FC = () => {
   const { user } = useUser();
   const snack = useSnack();
 
-  console.log("h");
-
   const handleGetProduct = useCallback(async () => {
     try {
       const barcode = searchParams.get("barcode");
       const productFromDB = await getProductByBarcodeApi(barcode || "");
+      console.log(productFromDB);
+
       return Promise.resolve(productFromDB);
     } catch (error) {
       console.log(error);
@@ -78,7 +76,6 @@ const EditProductForm: React.FC = () => {
 
   useEffect(() => {
     handleGetProduct().then((data) => {
-      if (data) console.log(convertToClientType(data));
       if (data) setFormData(convertToClientType(data));
     });
   }, []);

@@ -18,17 +18,24 @@ import { useCartProvider } from "../providers/CartProvider";
 import ModeEditTwoToneIcon from "@mui/icons-material/ModeEditTwoTone";
 import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 import ROUTES from "../routes/routesModel";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import {
+  deleteProductApi,
+  getProductByBarcodeApi,
+} from "../apiService/productApiService";
+import { useSnack } from "../providers/SnackbarProvider";
 
 type Props = {
   product: ProductInterface;
+  deleteProduct: (barcode: string) => void;
 };
 
-const ProductCard: React.FC<Props> = ({ product }) => {
-  const { title, barcode, brand, image, price, details } = product;
-  const { user } = useUser();
+const ProductCard: React.FC<Props> = ({ product, deleteProduct }) => {
   const [totalAmount, setTotalAmount] = useState(0);
   const [isDialogOpen, setDialog] = useState(false);
+
+  const { title, barcode, brand, image, price, details } = product;
+  const { user } = useUser();
   const { cart, updateCartProvider } = useCartProvider();
   const navigate = useNavigate();
 
@@ -177,7 +184,7 @@ const ProductCard: React.FC<Props> = ({ product }) => {
             <Button
               sx={{ color: "rgba(0, 0, 0, 0.87)", padding: 0, margin: 0 }}
               onClick={() => {
-                console.log("g");
+                deleteProduct(barcode);
               }}
             >
               <DeleteTwoToneIcon />

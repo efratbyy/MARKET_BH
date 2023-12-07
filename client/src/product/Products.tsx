@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { ProductInterface } from "../models/interfaces/interfaces.ts";
 import { Grid, Typography } from "@mui/material";
 import ProductCard from "./ProductCard";
 import useProducts from "./useProducts";
 import { useSearchParams } from "react-router-dom";
 import DesktopListProductCard from "./DesktopListProductCard";
+import { deleteProductApi } from "../apiService/productApiService";
+import { useSnack } from "../providers/SnackbarProvider";
 
 type Props = { productListShow: boolean };
 
@@ -17,6 +19,20 @@ const Products: React.FC<Props> = ({ productListShow = false }) => {
   const [brands, setBrands] = useState<string>("");
   const [stickers, setStickers] = useState<string>("");
   const [categoryCode, setCategoryCode] = useState<string>("");
+  const snack = useSnack();
+  const [deleteTrigger, setDeleteTrigger] = useState<boolean>(true);
+
+  const handleDeleteProduct = useCallback(async (barcode: string) => {
+    try {
+      const deletedProduct = await deleteProductApi(barcode);
+      if (deletedProduct) {
+        snack("success", "The product has been successfully deleted");
+        setDeleteTrigger((prev) => !prev);
+      } else snack("error", "Could not delete this product, try later");
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
 
   useEffect(() => {
     const query = searchParams.get("q");
@@ -152,11 +168,22 @@ const Products: React.FC<Props> = ({ productListShow = false }) => {
             ? filteredProducts?.sort((a, b) => a.price - b.price)
             : filteredProducts?.sort((a, b) => b.price - a.price);
         setProducts(sortedFilteredProducts);
+
+        console.log("products updates");
       })
       .catch((error) => {
         console.log(error);
       });
-  }, [handleGetProducts, query, sort, brands, stickers, categoryCode]);
+  }, [
+    handleGetProducts,
+    handleDeleteProduct,
+    deleteTrigger,
+    query,
+    sort,
+    brands,
+    stickers,
+    categoryCode,
+  ]);
 
   return (
     <>
@@ -178,7 +205,10 @@ const Products: React.FC<Props> = ({ productListShow = false }) => {
           <Typography title="Products Page" />
           {products?.map((product: ProductInterface) => (
             <Grid item key={product.barcode} xs={6} sm={6} md={4} lg={3}>
-              <ProductCard product={product} />
+              <ProductCard
+                product={product}
+                deleteProduct={handleDeleteProduct}
+              />
             </Grid>
           ))}
         </Grid>

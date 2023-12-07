@@ -54,10 +54,12 @@ const editProduct = async (req, res) => {
     const user = req.user;
     const productToUpdate = req.body;
     const { error } = productJoiValidation(productToUpdate);
+
     if (!user.isAdmin)
       throw new Error(
         "You must be an admin type user in order to edit products"
       );
+
     if (error)
       return handleError(res, 400, `Joi Error: ${error.details[0].message}`);
 
@@ -77,7 +79,32 @@ const editProduct = async (req, res) => {
   }
 };
 
+const deleteProduct = async (req, res) => {
+  try {
+    const user = req.user;
+    const { barcode } = req.query;
+
+    if (!user.isAdmin)
+      throw new Error(
+        "You must be an admin type user in order to delete products"
+      );
+
+    console.log("barocde", barcode);
+    const deletedProduct = await Product.findOneAndDelete({ barcode: barcode });
+
+    if (!deletedProduct)
+      throw new Error(
+        "A product with this barcode cannot be found in the database"
+      );
+
+    res.status(201).send(deletedProduct);
+  } catch (error) {
+    return handleError(res, 404, `Mongoose Error: ${error.message}`);
+  }
+};
+
 exports.getProducts = getProducts;
 exports.getProductByBarcode = getProductByBarcode;
 exports.addProduct = addProduct;
 exports.editProduct = editProduct;
+exports.deleteProduct = deleteProduct;

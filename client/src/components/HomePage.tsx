@@ -70,6 +70,7 @@ const HomePage = () => {
 
         <Grid item xs={12} md={user ? 7 : 9.5}>
           <Grid
+            item
             xs={12}
             display={"flex"}
             sx={{ justifyContent: "space-between", marginBottom: "5px" }}
