@@ -18,12 +18,7 @@ import { useCartProvider } from "../providers/CartProvider";
 import ModeEditTwoToneIcon from "@mui/icons-material/ModeEditTwoTone";
 import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 import ROUTES from "../routes/routesModel";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import {
-  deleteProductApi,
-  getProductByBarcodeApi,
-} from "../apiService/productApiService";
-import { useSnack } from "../providers/SnackbarProvider";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
   product: ProductInterface;

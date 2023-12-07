@@ -232,7 +232,10 @@ const Products: React.FC<Props> = ({ productListShow = false }) => {
           <Typography title="Products Page" />
           {products?.map((product: ProductInterface) => (
             <Grid item key={product.barcode} xs={12}>
-              <DesktopListProductCard product={product} />
+              <DesktopListProductCard
+                product={product}
+                deleteProduct={handleDeleteProduct}
+              />
             </Grid>
           ))}
         </Grid>

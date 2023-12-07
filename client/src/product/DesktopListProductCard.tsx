@@ -32,9 +32,13 @@ import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 
 type Props = {
   product: ProductInterface;
+  deleteProduct: (barcode: string) => void;
 };
 
-const DesktopListProductCard: React.FC<Props> = ({ product }) => {
+const DesktopListProductCard: React.FC<Props> = ({
+  product,
+  deleteProduct,
+}) => {
   const {
     title,
     barcode,
@@ -116,34 +120,13 @@ const DesktopListProductCard: React.FC<Props> = ({ product }) => {
                   height: "180px",
                 }}
               />
-              {/* Product Stickers */}
-              <Grid>
-                {details.isSodium === true && <SvgSodium />}
-                {details.isSugar === true && <SvgSugar />}
-                {details.isSaturatedFat === true && <SvgSaturatedFat />}
-                {details.isSupervised === true && <SvgSupervisedProducts />}
-                {details.isGreenMark === true && <GreenMark />}
-              </Grid>
             </Grid>
 
-            <Grid sx={{ padding: "15px" }} item xs={5.95}>
+            <Grid sx={{ padding: "15px" }} item xs={3.95}>
               <Grid container xs={12} justifyContent={"space-between"}>
                 {/* Product Name */}
                 <Grid sx={{ fontSize: "17px" }} xs={5}>
                   {title}
-                </Grid>
-
-                {/* Product Brand */}
-                <Grid
-                  xs={5}
-                  sx={{
-                    fontSize: "17px",
-                    textAlign: "left",
-                    paddingLeft: "10%",
-                    paddingBottom: "20px",
-                  }}
-                >
-                  {brand}
                 </Grid>
               </Grid>
               {/* Product Amount */}
@@ -185,8 +168,28 @@ const DesktopListProductCard: React.FC<Props> = ({ product }) => {
                 </Typography>
               </Grid>
             </Grid>
-            <Divider orientation="vertical" flexItem />
 
+            {/* Product Stickers */}
+            <Grid item xs={2} sx={{ textAlign: "center" }}>
+              {/* Product Brand */}
+              <Grid
+                xs={12}
+                sx={{
+                  fontSize: "17px",
+                  textAlign: "center",
+                  paddingLeft: "10%",
+                  paddingBottom: "20px",
+                }}
+              >
+                {brand}
+              </Grid>
+              {details.isSodium === true && <SvgSodium />}
+              {details.isSugar === true && <SvgSugar />}
+              {details.isSaturatedFat === true && <SvgSaturatedFat />}
+              {details.isSupervised === true && <SvgSupervisedProducts />}
+              {details.isGreenMark === true && <GreenMark />}
+            </Grid>
+            <Divider orientation="vertical" flexItem />
             {/* Left inner Card */}
             {/* Price, Price per... and Add/Remove from Cart */}
             <Grid
@@ -246,7 +249,7 @@ const DesktopListProductCard: React.FC<Props> = ({ product }) => {
                   <Button
                     sx={{ color: "rgba(0, 0, 0, 0.87)", padding: 0, margin: 0 }}
                     onClick={() => {
-                      console.log("g");
+                      deleteProduct(barcode);
                     }}
                   >
                     <DeleteTwoToneIcon />
