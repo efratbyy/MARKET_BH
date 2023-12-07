@@ -582,6 +582,16 @@ const EditProductForm: React.FC = () => {
               >
                 עדכן מוצר
               </Button>
+              <Button
+                variant="contained"
+                color="error"
+                sx={{ margin: "10px" }}
+                onClick={() => {
+                  navigate(ROUTES.ROOT);
+                }}
+              >
+                ביטול
+              </Button>
             </form>
           </Container>
         </Grid>

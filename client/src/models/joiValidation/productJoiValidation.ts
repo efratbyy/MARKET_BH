@@ -3,9 +3,17 @@ import Joi from "joi";
 const productSchema = {
   title: Joi.string().min(2).max(256).required(),
   brand: Joi.string().min(2).max(256).required(),
-  barcode: Joi.string().min(2).max(256).required(),
-  categoryCode: Joi.array().min(1).max(256).required(),
-  price: Joi.number().min(2).max(256).required(),
+  barcode: Joi.string()
+    .pattern(/^[0-9]+$/, "must only contain numeric characters")
+    .min(2)
+    .max(256)
+    .required(),
+  categoryCode: Joi.array()
+    .items(Joi.string().regex(/^[0-9_]+$/))
+    .min(1)
+    .max(256)
+    .required(),
+  price: Joi.number().min(2).required(),
   imageUrl: Joi.string().min(2).max(256),
   imageAlt: Joi.string().min(2).max(256),
   ingredients: Joi.string().min(2).max(256),
