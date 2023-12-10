@@ -55,7 +55,7 @@ const AvatarMenu = () => {
             open={Boolean(anchorElUser)}
             onClose={handleCloseUserMenu}
           >
-            <MenuItem onClick={() => navigate(`${ROUTES.ROOT}`)}>
+            <MenuItem onClick={() => navigate(`${ROUTES.EDIT_USER}`)}>
               <Typography textAlign="center">האזור האישי</Typography>
             </MenuItem>
 

@@ -80,3 +80,48 @@ export const getPurchaseHistoryDetailsApi = async (
     return Promise.reject("An unexpected error occurred!");
   }
 };
+
+export const editUserApi = async (
+  EditUserServerType: UserInterface,
+  newPassword: string
+) => {
+  try {
+    const userToServer = { ...EditUserServerType, newPassword: newPassword }; // Include newPassword in the object
+    const token = localStorage.getItem("token_key");
+    const { data } = await axios.put<UserInterface>(
+      `${apiUrl}/users/edit-user`,
+      userToServer,
+      { headers: { "x-auth-token": token } }
+    );
+    return Promise.resolve(data);
+  } catch (error) {
+    if (axios.isAxiosError(error)) return Promise.reject(error.message);
+    return Promise.reject("An unexpected error occurred!");
+  }
+};
+
+// export const getUsersApi = async () => {
+//   try {
+//     const { data } = await axios.get<UserInterface[]>(`${apiUrl}/users`);
+//     console.log(data);
+
+//     return Promise.resolve(data);
+//   } catch (error) {
+//     if (axios.isAxiosError(error)) return Promise.reject(error.message);
+//     return Promise.reject("An unexpected error occurred!");
+//   }
+// };
+
+export const getUserByIdApi = async (userId: string) => {
+  try {
+    const token = localStorage.getItem("token_key");
+    const { data } = await axios.get<UserInterface>(
+      `${apiUrl}/users/${userId}`,
+      { headers: { "x-auth-token": token } }
+    );
+    return Promise.resolve(data);
+  } catch (error) {
+    if (axios.isAxiosError(error)) return Promise.reject(error.message);
+    return Promise.reject("An unexpected error occurred!");
+  }
+};

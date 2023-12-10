@@ -166,8 +166,103 @@ const purchaseHistoryDetails = async (req, res) => {
   }
 };
 
+const editUser = async (req, res) => {
+  try {
+    const userToUpdate = req.body;
+    const { _id } = req.user;
+    const { error } = registerJoiValidation(userToUpdate, {
+      stripUnknown: true,
+      allowUnknown: true,
+    });
+
+    if (error)
+      return handleError(res, 400, `Joi Error: ${error.details[0].message}`);
+
+    const existingUser = await User.findById(_id);
+    if (!existingUser) {
+      return handleError(res, 404, `User not found`);
+    }
+    console.log("a");
+    const existingUserEmail =
+      existingUser.email != userToUpdate.email &&
+      (await User.findOne({ email: userToUpdate.email }));
+    if (existingUserEmail) {
+      return handleError(res, 404, `Email address already exist`);
+    }
+    // Create an object with only the fields present in userToUpdate
+    const updatedFields = {
+      first: userToUpdate.first,
+      last: userToUpdate.last,
+      phone: userToUpdate.phone,
+      email: userToUpdate.email,
+      city: userToUpdate.city,
+      street: userToUpdate.street,
+      houseNumber: userToUpdate.houseNumber,
+      password: bcrypt.hashSync(
+        userToUpdate.newPassword !== ""
+          ? userToUpdate.newPassword
+          : userToUpdate.password,
+        10
+      ),
+    };
+
+    const updatedUser = await User.findByIdAndUpdate(_id, updatedFields, {
+      new: true,
+    });
+
+    if (!updatedUser) throw new Error("User update failed !");
+
+    res.status(201).send(updatedUser);
+  } catch (error) {
+    return handleError(res, 404, `Mongoose Error: ${error.message}`);
+  }
+};
+
+const getUserById = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const { _id, isAdmin } = req.user;
+
+    if (_id !== userId) return handleError(res, 403, "UnAuthorized Access");
+
+    const userFromDB = await User.findById(userId).select(
+      "-__v -_id -createdAt -isGoogleSignup -isBlocked -isAdmin -loginFailedCounter -blockedTime -cart -purchaseHistory"
+    );
+
+    if (!userFromDB)
+      throw new Error("Could not find this user in the database");
+
+    userFromDB.password = "";
+    return res.status(200).json(userFromDB);
+  } catch (error) {
+    return handleError(res, 404, `Mongoose Error: ${error.message}`);
+  }
+};
+
+const getUsers = async (req, res) => {
+  try {
+    const user = req.user;
+    console.log(user);
+    if (!user.isAdmin)
+      return handleError(
+        res,
+        403,
+        "Authorization Error: You must be an admin user to see all users in the database"
+      );
+
+    const usersFromDB = await User.find();
+    console.log(usersFromDB);
+    return res.send(usersFromDB);
+  } catch (error) {
+    return handleError(res, 404, `Mongoose Error: ${error.message}`);
+  }
+};
+
 exports.register = register;
 exports.login = login;
 exports.checkout = checkout;
 exports.purchaseHistory = purchaseHistory;
 exports.purchaseHistoryDetails = purchaseHistoryDetails;
+exports.editUser = editUser;
+exports.getUserById = getUserById;
+exports.getUsers = getUsers;

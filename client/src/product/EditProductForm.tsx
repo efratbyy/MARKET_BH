@@ -22,7 +22,6 @@ import { useSnack } from "../providers/SnackbarProvider";
 import Footer from "../footer/Footer";
 import { useUser } from "../providers/UserProvider";
 import {
-  addProductApi,
   editProductApi,
   getProductByBarcodeApi,
 } from "../apiService/productApiService";
@@ -31,7 +30,11 @@ import { ProductClientType } from "../types/productTypes.js";
 import convertToDbType from "../helpers/convertToDbType";
 import convertToClientType from "../helpers/convertToClientType";
 
-const EditProductForm: React.FC = () => {
+const EditProductForm = () => {
+  const navigate = useNavigate();
+  const snack = useSnack();
+  const { user } = useUser();
+
   const [searchParams] = useSearchParams();
   const [allFieldsValid, setAllFieldsValid] = useState<Boolean>(false);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
@@ -57,10 +60,6 @@ const EditProductForm: React.FC = () => {
     content: "",
     manufacturingCountry: "",
   });
-
-  const navigate = useNavigate();
-  const { user } = useUser();
-  const snack = useSnack();
 
   const handleGetProduct = useCallback(async () => {
     try {
@@ -94,7 +93,6 @@ const EditProductForm: React.FC = () => {
 
   const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-
     console.log(name, value);
     // Handle other fields
     setFormData((prevData) => ({
@@ -139,7 +137,7 @@ const EditProductForm: React.FC = () => {
       const productToDB = convertToDbType(formData);
       const productRes = await editProductApi(productToDB);
 
-      snack("success", "המוצר עודכן בהצלחה");
+      snack("success", "המוצר עודכן בהצלחה!");
       navigate(`${ROUTES.ROOT}`, { replace: true });
     } catch (error) {
       snack("error", error);

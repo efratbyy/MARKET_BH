@@ -71,6 +71,12 @@ const CategoryNavbarPopover: React.FC<Props> = ({
                       paddingBottom: "20px",
                     }}
                   >
+                    <img
+                      src={mdCategory?.image.url}
+                      alt={mdCategory?.image?.alt}
+                      width={"27px"}
+                      height={"19px"}
+                    />
                     <Button
                       sx={{
                         color: "#5b9822",

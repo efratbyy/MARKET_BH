@@ -13,6 +13,7 @@ import OrderConfirmation from "../components/OrderConfirmation";
 import PurchaseHistoryDetails from "../components/PurchaseHistoryDetails";
 import AddProductForm from "../product/AddProductForm";
 import EditProductForm from "../product/EditProductForm";
+import EditUserForm from "../users/EditUserForm";
 
 const Router = () => {
   return (
@@ -27,6 +28,7 @@ const Router = () => {
       <Route path={ROUTES.PURCHASE_HISTORY} element={<PurchaseHistory />} />
       <Route path={ROUTES.ADD_PRODUCT} element={<AddProductForm />} />
       <Route path={ROUTES.EDIT_PRODUCT} element={<EditProductForm />} />
+      <Route path={ROUTES.EDIT_USER} element={<EditUserForm />} />
       <Route
         path={ROUTES.PURCHASE_HISTORY_DETAILS}
         element={<PurchaseHistoryDetails />}

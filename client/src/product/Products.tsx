@@ -150,12 +150,11 @@ const Products: React.FC<Props> = ({ productListShow = false }) => {
 
         // Filter by category
         if (categoryCode !== "") {
-          console.log(filteredProducts);
-          console.log(
-            filteredProducts?.filter((product) =>
-              product.categoryCode.some((code) => code.startsWith(categoryCode))
-            )
-          );
+          // console.log(
+          //   filteredProducts?.filter((product) =>
+          //     product.categoryCode.some((code) => code.startsWith(categoryCode))
+          //   )
+          // );
 
           // If category searchParams is empty, no need to filter
           filteredProducts = filteredProducts?.filter((product) =>
@@ -169,8 +168,6 @@ const Products: React.FC<Props> = ({ productListShow = false }) => {
             ? filteredProducts?.sort((a, b) => a.price - b.price)
             : filteredProducts?.sort((a, b) => b.price - a.price);
         setProducts(sortedFilteredProducts);
-
-        console.log("products updates");
       })
       .catch((error) => {
         console.log(error);

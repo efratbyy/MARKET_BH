@@ -6,6 +6,9 @@ const {
   checkout,
   purchaseHistory,
   purchaseHistoryDetails,
+  editUser,
+  getUserById,
+  getUsers,
 } = require("../users/usersController");
 const auth = require("../authProviders/authService");
 
@@ -18,5 +21,8 @@ router.get(
   auth,
   purchaseHistoryDetails
 );
+router.put("/edit-user", auth, editUser);
+router.get("/", auth, getUsers);
+router.get("/:userId", auth, getUserById);
 
 module.exports = router;

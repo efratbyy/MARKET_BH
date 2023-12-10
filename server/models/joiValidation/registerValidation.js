@@ -43,7 +43,7 @@ const registerJoiValidation = (user) => {
     // loginFailedCounter: Joi.number().required(),
     // blockedTime: Joi.date().required(),
   });
-  return schema.validate(user);
+  return schema.validate(user, { stripUnknown: true, allowUnknown: true });
 };
 
 module.exports = registerJoiValidation;
