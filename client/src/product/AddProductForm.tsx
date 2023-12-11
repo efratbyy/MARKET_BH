@@ -24,7 +24,7 @@ import Footer from "../footer/Footer";
 import { useUser } from "../providers/UserProvider";
 import { addProductApi } from "../apiService/productApiService";
 import productSchema from "../models/joiValidation/productJoiValidation";
-import { getUser, saveUserToken } from "../services/LocalStorageService";
+
 import { ProductClientType } from "../types/productTypes.js";
 import convertToDbType from "../helpers/convertToDbType";
 
@@ -117,7 +117,7 @@ const AddProductForm: React.FC = () => {
       const productToDB = convertToDbType(formData);
       const productRes = await addProductApi(productToDB);
 
-      snack("success", "מוצר חדש נוצר בהצלחה");
+      snack("success", "מוצר חדש נוצר בהצלחה!");
       navigate(`${ROUTES.ROOT}`, { replace: true });
     } catch (error) {
       snack("error", error);

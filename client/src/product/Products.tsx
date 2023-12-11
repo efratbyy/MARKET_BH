@@ -27,9 +27,9 @@ const Products: React.FC<Props> = ({ productListShow = false }) => {
     try {
       const deletedProduct = await deleteProductApi(barcode);
       if (deletedProduct) {
-        snack("success", "The product has been successfully deleted");
+        snack("success", "המוצר נמחק בהצלחה!");
         setDeleteTrigger((prev) => !prev);
-      } else snack("error", "Could not delete this product, try later");
+      } else snack("error", "לא ניתן למחוק את המוצר, נסה שוב מאוחר יותר!");
     } catch (error) {
       console.log(error);
     }

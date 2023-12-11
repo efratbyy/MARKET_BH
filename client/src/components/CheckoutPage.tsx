@@ -165,7 +165,7 @@ const CheckoutPage: React.FC = () => {
         orderNumber
       );
       console.log(res);
-      snack("success", "פרטי האשראי התקבלו בהצלחה");
+      snack("success", "פרטי האשראי התקבלו בהצלחה!");
       navigate(`${ROUTES.ORDER_CONFIRMATION}?order_number=${orderNumber}`, {
         replace: true,
       });

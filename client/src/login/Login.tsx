@@ -2,7 +2,10 @@ import React, { useEffect, useState } from "react";
 import { LoginType } from "../types/userTypes";
 import { loginApi } from "../apiService/userApiService";
 import ROUTES from "../routes/routesModel";
-import { getUser, saveUserToken } from "../services/LocalStorageService";
+import {
+  getUserFromLocalStorage,
+  saveUserToken,
+} from "../services/LocalStorageService";
 import {
   Button,
   Grid,
@@ -40,7 +43,7 @@ const Login = () => {
       const token = await loginApi(user);
       saveUserToken(token); // Save token to local storage
       setToken(token); // update state of the token (UserProvider)
-      const decryptedUser = getUser();
+      const decryptedUser = getUserFromLocalStorage();
       setUser(decryptedUser); // update state of the user (UserProvider)
       navigate(`${ROUTES.ROOT}`);
     } catch (error) {

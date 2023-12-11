@@ -6,7 +6,10 @@ import React, {
   SetStateAction,
   ReactNode,
 } from "react";
-import { getToken, getUser } from "../services/LocalStorageService";
+import {
+  getToken,
+  getUserFromLocalStorage,
+} from "../services/LocalStorageService";
 import { TokenType } from "../types/userTypes";
 
 type ContextArgs = {
@@ -30,7 +33,7 @@ export const UserProvider: React.FC<Props> = ({ children }) => {
 
   useEffect(() => {
     if (user === null) {
-      const userFromLocalStorage = getUser();
+      const userFromLocalStorage = getUserFromLocalStorage();
       setUser(userFromLocalStorage);
       setIsLoading(false);
     }

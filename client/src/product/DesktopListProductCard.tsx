@@ -1,20 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
-import {
-  CartProductInterface,
-  ProductInterface,
-} from "../models/interfaces/interfaces.ts";
-import {
-  Box,
-  ButtonGroup,
-  Card,
-  CardContent,
-  CardMedia,
-  Divider,
-  Grid,
-  Input,
-  Paper,
-  Typography,
-} from "@mui/material";
+import { ProductInterface } from "../models/interfaces/interfaces.ts";
+import { Box, ButtonGroup, Divider, Grid, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
@@ -39,21 +25,12 @@ const DesktopListProductCard: React.FC<Props> = ({
   product,
   deleteProduct,
 }) => {
-  const {
-    title,
-    barcode,
-    brand,
-    image,
-    price,
-    details,
-    // content,
-    // ingredients,
-    // manufacturingCountry,
-  } = product;
+  const { title, barcode, brand, image, price, details } = product;
   const { user } = useUser();
   const [totalAmount, setTotalAmount] = useState(0);
   const [isDialogOpen, setDialog] = useState(false);
   const { cart, updateCartProvider } = useCartProvider();
+
   const openDialog = () => {
     setDialog(true);
   };

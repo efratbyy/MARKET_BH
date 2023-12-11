@@ -198,6 +198,7 @@ const ProductCard: React.FC<Props> = ({ product, deleteProduct }) => {
             pb: "3%",
             position: "absolute",
             bottom: 0,
+            boxShadow: "none !important",
           }}
         >
           <ButtonGroup
@@ -206,11 +207,16 @@ const ProductCard: React.FC<Props> = ({ product, deleteProduct }) => {
             sx={{
               width: "90%", // Set the desired width to make it smaller
               // height: "5.5vh",
+              boxShadow: "none !important",
             }}
           >
             <Button
               onClick={() => handleAddToCart(user?._id, barcode, 1)}
               sx={{
+                borderTopRightRadius: "10px !important",
+                borderBottomRightRadius: "10px !important",
+                borderTopLeftRadius: "0px",
+                borderBottomLeftRadius: "0px",
                 borderRadius: "0px",
                 width: "40%",
                 backgroundColor: "#5b9822",
@@ -232,6 +238,10 @@ const ProductCard: React.FC<Props> = ({ product, deleteProduct }) => {
             <Button
               onClick={() => handleRemoveFromCart(user?._id, barcode, 1)}
               sx={{
+                borderTopRightRadius: "0px",
+                borderBottomRightRadius: "0px",
+                borderTopLeftRadius: "10px !important",
+                borderBottomLeftRadius: "10px !important",
                 borderRadius: "0px",
                 width: "40%",
                 backgroundColor: "#5b9822",
