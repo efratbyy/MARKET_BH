@@ -168,6 +168,25 @@ const Login = () => {
             }}
           />
         </Grid>
+
+        <Grid item xs={12}>
+          <Button
+            variant="text"
+            onClick={() => navigate(ROUTES.FORGOT_PASSWORD)}
+          >
+            <Typography
+              sx={{
+                color: "cornsilk",
+                textDecoration: "underline",
+                fontSize: 17,
+              }}
+              variant="body2"
+            >
+              שכחת סיסמה?
+            </Typography>
+          </Button>
+        </Grid>
+
         <Grid item>
           <Button
             variant="contained"
@@ -175,6 +194,21 @@ const Login = () => {
             onClick={handleLogin}
           >
             התחבר
+          </Button>
+        </Grid>
+
+        <Grid item xs={12}>
+          <Button variant="text" onClick={() => navigate(ROUTES.REGISTER)}>
+            <Typography
+              sx={{
+                color: "cornsilk",
+                textDecoration: "underline",
+                fontSize: 17,
+              }}
+              variant="body2"
+            >
+              אין לך חשבון? הרשם{" "}
+            </Typography>
           </Button>
         </Grid>
       </Grid>
