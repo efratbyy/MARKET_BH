@@ -4,7 +4,7 @@ import { TokenType } from "../types/userTypes";
 
 const TOKEN = "token_key";
 
-export const getUser = () => {
+export const getUserFromLocalStorage = () => {
   const token = localStorage.getItem(TOKEN);
   if (!token) return null;
   try {

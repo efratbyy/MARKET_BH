@@ -24,7 +24,10 @@ import ROUTES from "../routes/routesModel";
 import Navbar from "../navbar/Navbar";
 import { useSnack } from "../providers/SnackbarProvider";
 import Footer from "../footer/Footer";
-import { getUser, saveUserToken } from "../services/LocalStorageService";
+import {
+  getUserFromLocalStorage,
+  saveUserToken,
+} from "../services/LocalStorageService";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useUser } from "../providers/UserProvider";
 
@@ -110,10 +113,10 @@ const RegistrationForm: React.FC = () => {
 
       saveUserToken(token); // Save token to local storage
       setToken(token); // update state of the token (UserProvider)
-      const decryptedUser = getUser();
+      const decryptedUser = getUserFromLocalStorage();
       setUser(decryptedUser); // update state of the user (UserProvider)
 
-      snack("success", "משתמש חדש נוצר בהצלחה");
+      snack("success", "משתמש חדש נוצר בהצלחה!");
       navigate(`${ROUTES.ROOT}`, { replace: true });
     } catch (error) {
       snack("error", error);

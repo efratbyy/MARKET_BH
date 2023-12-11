@@ -1,4 +1,4 @@
-const registerJoiValidation = require("../models/joiValidation/registerValidation");
+const registerJoiValidationSchema = require("../models/joiValidation/registerValidation");
 const { handleError } = require("../utils/handleErrors");
 const User = require("../models/mongooseValidation/User");
 const bcrypt = require("bcryptjs");
@@ -12,7 +12,9 @@ const register = async (req, res) => {
   try {
     const user = req.body;
     const { email } = user;
-    const { error } = registerJoiValidation(user);
+    // return schema
+
+    const { error } = registerJoiValidationSchema.validate(user, {});
 
     if (error)
       return handleError(res, 400, `Joi Error: ${error.details[0].message}`);
@@ -170,26 +172,32 @@ const editUser = async (req, res) => {
   try {
     const userToUpdate = req.body;
     const { _id } = req.user;
-    const { error } = registerJoiValidation(userToUpdate, {
-      stripUnknown: true,
-      allowUnknown: true,
+    const { error } = registerJoiValidationSchema.validate(userToUpdate, {
+      stripUnknown: true, // if the request body contains extra fields that are not specified in the Joi schema, those fields will be stripped from the userToUpdate object before validation
+      allowUnknown: true, // This allows additional keys that are not defined in the schema to be present in the object without triggering a validation error.
     });
 
     if (error)
       return handleError(res, 400, `Joi Error: ${error.details[0].message}`);
 
+    // Check if this user exist in the DB
     const existingUser = await User.findById(_id);
     if (!existingUser) {
       return handleError(res, 404, `User not found`);
     }
-    console.log("a");
-    const existingUserEmail =
-      existingUser.email != userToUpdate.email &&
+
+    const existingUserEmail = // If the user wants to update his email, then it is checked that such an email does not already exist in the database
+      existingUser.email !== userToUpdate.email &&
       (await User.findOne({ email: userToUpdate.email }));
     if (existingUserEmail) {
       return handleError(res, 404, `Email address already exist`);
     }
-    // Create an object with only the fields present in userToUpdate
+
+    // Check if the userToUpdate password is match to the existing one in the DB
+    if (bcrypt.hashSync(userToUpdate.password) !== existingUser.password)
+      return handleError(res, 403, `Incorrect current password`);
+
+    // Create an object with only the fields present in userToUpdate. These fields are directly copied from the userToUpdate object
     const updatedFields = {
       first: userToUpdate.first,
       last: userToUpdate.last,
@@ -199,13 +207,17 @@ const editUser = async (req, res) => {
       street: userToUpdate.street,
       houseNumber: userToUpdate.houseNumber,
       password: bcrypt.hashSync(
-        userToUpdate.newPassword !== ""
-          ? userToUpdate.newPassword
-          : userToUpdate.password,
+        // Decodes the user's password
+        userToUpdate.newPassword !== "" // checks if userToUpdate.newPassword is not an empty strin
+          ? userToUpdate.newPassword // if true - will use the newPassword
+          : userToUpdate.password, // if false - will use the password
         10
       ),
     };
 
+    // _id - The key by which we will search for the user
+    // updatedFields - This containing the fields and their updated values for update
+    // new: true - returns the updated document
     const updatedUser = await User.findByIdAndUpdate(_id, updatedFields, {
       new: true,
     });

@@ -82,15 +82,15 @@ export const getPurchaseHistoryDetailsApi = async (
 };
 
 export const editUserApi = async (
-  EditUserServerType: UserInterface,
+  userToEdit: UserInterface,
   newPassword: string
 ) => {
   try {
-    const userToServer = { ...EditUserServerType, newPassword: newPassword }; // Include newPassword in the object
+    const userToServer = { ...userToEdit, newPassword: newPassword }; // Include newPassword in the object
     const token = localStorage.getItem("token_key");
     const { data } = await axios.put<UserInterface>(
       `${apiUrl}/users/edit-user`,
-      userToServer,
+      userToServer, // contains the updated information about the user
       { headers: { "x-auth-token": token } }
     );
     return Promise.resolve(data);

@@ -25,19 +25,19 @@ import { useSnack } from "../providers/SnackbarProvider";
 import Footer from "../footer/Footer";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useUser } from "../providers/UserProvider";
-import { getUser } from "../services/LocalStorageService";
-import { error } from "console";
+import { getUserFromLocalStorage } from "../services/LocalStorageService";
 
 const EditUserForm = () => {
   const navigate = useNavigate();
   const snack = useSnack();
   const { user } = useUser();
-  // console.log(user?._id);
 
   const [allFieldsValid, setAllFieldsValid] = useState<Boolean>(false);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [showPassword, setShowPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
+  const [newPassword, setNewPassword] = useState<string>("");
+  const [newPasswordError, setNewPasswordError] = useState<string>("");
   const [formData, setFormData] = useState<UserInterface>({
     first: "",
     last: "",
@@ -48,12 +48,12 @@ const EditUserForm = () => {
     street: "",
     houseNumber: 0,
   });
-  const [newPassword, setNewPassword] = useState<string>("");
-  const [newPasswordError, setNewPasswordError] = useState<string>("");
 
   const handleGetUser = useCallback(async () => {
     try {
-      const userFromDB = await getUserByIdApi(getUser()?._id || "");
+      const userFromDB = await getUserByIdApi(
+        getUserFromLocalStorage()?._id || ""
+      );
       return Promise.resolve(userFromDB);
     } catch (error) {
       console.log(error);
@@ -109,16 +109,18 @@ const EditUserForm = () => {
     });
 
     const newErrors: { [key: string]: string } = {}; // Define the type for newErrors
+
     if (validationResult.error) {
       validationResult.error.details.forEach((error: any) => {
-        if (error.context.value) newErrors[error.path[0]] = error.message;
+        if (error.context.value) newErrors[error.path[0]] = error.message; // If a specific field has error value it adds the error message to the newErrors object using the field name as the key and the error message as the value
       });
     }
     setErrors(newErrors);
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+    e.preventDefault(); // This line prevents the default form submission behavior, which typically involves navigating to a new page or triggering a full page reload. By calling preventDefault(), the developer can take control over the form submission process and handle it programmatically.
+
     // Validate the form data
     // const validationResult = Joi.object(registerSchema).validate(formData, {
     //   abortEarly: false,
@@ -135,24 +137,26 @@ const EditUserForm = () => {
     // setErrors({});
 
     try {
-      //TODO: Check if there are new passpowrd
       const userRes = await editUserApi(formData, newPassword);
 
       snack("success", "המשתמש עודכן בהצלחה!");
-      navigate(`${ROUTES.ROOT}`, { replace: true });
+      navigate(`${ROUTES.ROOT}`, { replace: true }); // { replace: true } - This means that if the user goes back in their browser, they won't revisit the form page
     } catch (error) {
       snack("error", error);
     }
   };
+
   useEffect(() => {
     setAllFieldsValid(
-      (newPassword === "" || (newPassword !== "" && newPasswordError === "")) &&
-        Object.keys(errors).length === 0 &&
-        Object.values(formData)
+      // update the state variable allFieldsValid based on the following conditions:
+
+      (newPassword === "" || (newPassword !== "" && newPasswordError === "")) && // - Checks if the newPassword is an empty string or if it's not empty and there are no errors
+        Object.keys(errors).length === 0 && // Checks if there are no validation errors
+        Object.values(formData) //Checks if all values in formData are non-empty strings.
           .map((value) =>
             typeof value === "string" ? value.trim() !== "" : true
           )
-          .every(Boolean)
+          .every(Boolean) // Checks if all mapped values are true
     );
   }, [formData, errors, newPassword]);
 
