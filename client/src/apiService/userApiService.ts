@@ -125,3 +125,15 @@ export const getUserByIdApi = async (userId: string) => {
     return Promise.reject("An unexpected error occurred!");
   }
 };
+
+export const createResetPasswordKeyApi = async (userEmail: string) => {
+  try {
+    const { data } = await axios.patch<string>(
+      `${apiUrl}/users/forgot_password/${userEmail}`
+    );
+    return Promise.resolve(data);
+  } catch (error) {
+    if (axios.isAxiosError(error)) return Promise.reject(error.message);
+    return Promise.reject("An unexpected error occurred!");
+  }
+};

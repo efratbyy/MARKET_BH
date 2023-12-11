@@ -14,6 +14,7 @@ import PurchaseHistoryDetails from "../components/PurchaseHistoryDetails";
 import AddProductForm from "../product/AddProductForm";
 import EditProductForm from "../product/EditProductForm";
 import EditUserForm from "../users/EditUserForm";
+import ForgotPassword from "../login/ForgotPassword";
 
 const Router = () => {
   return (
@@ -33,6 +34,7 @@ const Router = () => {
         path={ROUTES.PURCHASE_HISTORY_DETAILS}
         element={<PurchaseHistoryDetails />}
       />
+      <Route path={ROUTES.FORGOT_PASSWORD} element={<ForgotPassword />} />
       <Route path="*" element={<ErrorPage />} />
     </Routes>
   );

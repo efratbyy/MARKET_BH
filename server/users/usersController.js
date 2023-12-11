@@ -6,6 +6,7 @@ const config = require("config");
 const jwt = require("jsonwebtoken");
 const Purchase = require("../models/mongooseValidation/Purchase");
 const generateOrderNumber = require("../helpers/generateOrderNumber");
+const generateUniqueRandomKey = require("../helpers/generateRandomKey");
 const JWT_KEY = config.get("JWT_KEY");
 
 const register = async (req, res) => {
@@ -270,6 +271,39 @@ const getUsers = async (req, res) => {
   }
 };
 
+const createResetPasswordKey = async (req, res) => {
+  try {
+    const { userEmail } = req.params;
+
+    // Check if this user exist in the DB
+    const existingUser = await User.findOne({ email: userEmail });
+    if (!existingUser) {
+      return handleError(res, 404, `User not found`);
+    }
+
+    const uniqueRandomKey = await generateUniqueRandomKey();
+    existingUser.forgotPasswordKey = uniqueRandomKey;
+    existingUser.forgotPasswordKeyCreatedTime = new Date();
+
+    // _id - The key by which we will search for the user
+    // updatedFields - This containing the fields and their updated values for update
+    // new: true - returns the updated document
+    const updatedUser = await User.findOneAndUpdate(
+      existingUser._id,
+      existingUser,
+      {
+        new: true,
+      }
+    );
+
+    if (!updatedUser) throw new Error("User update failed !");
+
+    res.status(201).send(uniqueRandomKey);
+  } catch (error) {
+    return handleError(res, 404, `Mongoose Error: ${error.message}`);
+  }
+};
+
 exports.register = register;
 exports.login = login;
 exports.checkout = checkout;
@@ -278,3 +312,4 @@ exports.purchaseHistoryDetails = purchaseHistoryDetails;
 exports.editUser = editUser;
 exports.getUserById = getUserById;
 exports.getUsers = getUsers;
+exports.createResetPasswordKey = createResetPasswordKey;

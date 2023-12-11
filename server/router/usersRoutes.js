@@ -9,6 +9,7 @@ const {
   editUser,
   getUserById,
   getUsers,
+  createResetPasswordKey,
 } = require("../users/usersController");
 const auth = require("../authProviders/authService");
 
@@ -24,5 +25,6 @@ router.get(
 router.put("/edit-user", auth, editUser);
 router.get("/", auth, getUsers);
 router.get("/:userId", auth, getUserById);
+router.patch("/forgot_password/:userEmail", createResetPasswordKey);
 
 module.exports = router;

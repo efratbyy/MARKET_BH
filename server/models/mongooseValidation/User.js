@@ -88,6 +88,10 @@ const schema = new mongoose.Schema({
   },
   cart: [CartProduct],
   purchaseHistory: [Purchase],
+  forgotPasswordKey: { type: String, minLength: 20, maxLength: 256 },
+  forgotPasswordKeyCreatedTime: {
+    type: Date,
+  },
 });
 
 const User = mongoose.model("user", schema);

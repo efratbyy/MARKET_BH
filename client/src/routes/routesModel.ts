@@ -12,6 +12,7 @@ const ROUTES = {
   ADD_PRODUCT: "/add_product",
   EDIT_PRODUCT: "/edit_product",
   EDIT_USER: "/edit_user",
+  FORGOT_PASSWORD: "/forgot_password",
 };
 
 export default ROUTES;
