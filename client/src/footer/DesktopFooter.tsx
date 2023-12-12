@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import BottomNavigation from "@mui/material/BottomNavigation";
 import Paper from "@mui/material/Paper";
 import { useNavigate } from "react-router-dom";
 import ROUTES from "../routes/routesModel";
@@ -16,9 +15,9 @@ const DesktopFooter = () => {
   const navigate = useNavigate();
   const [isClicked, setIsClicked] = useState(false);
 
-  const handleClick = () => {
-    setIsClicked(!isClicked);
-  };
+  // const handleClick = () => {
+  //   setIsClicked(!isClicked);
+  // };
 
   return (
     <>
@@ -32,7 +31,7 @@ const DesktopFooter = () => {
           //minHeight: "30px",
         }}
       >
-        <Paper elevation={3}>
+        <Paper elevation={3} sx={{ backgroundColor: "darkkhaki" }}>
           <Grid container>
             {/* <BottomNavigation> */}
             <Grid
@@ -183,8 +182,15 @@ const DesktopFooter = () => {
             {/* </BottomNavigation> */}
           </Grid>
 
-          <Grid item xs={12}>
-            @
+          <Grid
+            item
+            xs={12}
+            sx={{
+              fontSize: "20px",
+              textAlign: "center",
+            }}
+          >
+            @ 2023 אפרת בן יוסף | כל הזכויות שמורות
           </Grid>
         </Paper>
       </Grid>
