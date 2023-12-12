@@ -1,43 +1,21 @@
-import React, {
-  useState,
-  ChangeEvent,
-  FormEvent,
-  useCallback,
-  useEffect,
-} from "react";
-import {
-  TextField,
-  Button,
-  Container,
-  Typography,
-  Grid,
-  InputAdornment,
-  IconButton,
-} from "@mui/material";
+import React, { useState, ChangeEvent, FormEvent, useCallback } from "react";
+import { TextField, Button, Typography, Grid } from "@mui/material";
 import Joi from "joi";
-import registerSchema from "../models/joiValidation/registerJoiValidation";
-import { UserInterface } from "../models/interfaces/interfaces.ts";
-import {
-  createResetPasswordKeyApi,
-  editUserApi,
-  getUserByIdApi,
-} from "../apiService/userApiService";
+import { createResetPasswordKeyApi } from "../apiService/userApiService";
 import { useNavigate } from "react-router-dom";
 import ROUTES from "../routes/routesModel";
 import Navbar from "../navbar/Navbar";
 import { useSnack } from "../providers/SnackbarProvider";
 import Footer from "../footer/Footer";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useUser } from "../providers/UserProvider";
-import { getUserFromLocalStorage } from "../services/LocalStorageService";
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
   const snack = useSnack();
   const { user } = useUser();
 
-  const [email, setEmail] = useState<string>("");
-  const [emailError, setEmailError] = useState<string>("");
+  const [userEmail, setUserEmail] = useState<string>("");
+  const [userEmailError, setUserEmailError] = useState<string>("");
 
   //   const handleResestPassword = useCallback(async () => {
   //     try {
@@ -53,25 +31,24 @@ const ForgotPassword = () => {
   const handleChangeEmail = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
 
-    // validate email
+    // validate userEmail
     const validationResult = Joi.string()
       .pattern(/^([a-zA-Z0-9_\-.]+)@([a-zA-Z0-9_\-.]+)\.([a-zA-Z]{2,5})$/)
       .message('user "mail" must be a valid mail')
       .required()
       .validate(value);
 
-    // Handle other fields
-    setEmail(value);
+    setUserEmail(value);
 
     if (validationResult.error) {
-      setEmailError(validationResult.error.details[0].message);
-    } else setEmailError("");
+      setUserEmailError(validationResult.error.details[0].message);
+    } else setUserEmailError("");
   }, []);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const key = await createResetPasswordKeyApi(email);
+      const key = await createResetPasswordKeyApi(userEmail);
 
       // TODO: send email to user API
 
@@ -126,16 +103,16 @@ const ForgotPassword = () => {
               label="מייל"
               color="success"
               margin="normal"
-              value={email}
+              value={userEmail}
               onChange={handleChangeEmail}
-              error={Boolean(emailError)}
-              helperText={emailError}
+              error={Boolean(userEmailError)}
+              helperText={userEmailError}
               sx={{
                 justifyItems: "center",
                 justifyContent: "center",
                 "& .MuiOutlinedInput-root": {
                   "& fieldset": {
-                    borderColor: "rgba(0, 0, 0, 1)", // Change border color to fully opaque
+                    borderColor: "rgba(0, 0, 0, 1)",
                   },
                 },
               }}
@@ -147,7 +124,7 @@ const ForgotPassword = () => {
               type="submit"
               variant="contained"
               color="success"
-              disabled={emailError !== "" || email === ""}
+              disabled={userEmailError !== "" || userEmail === ""}
               sx={{ margin: "10px" }}
             >
               עדכון

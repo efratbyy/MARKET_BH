@@ -94,6 +94,7 @@ const HomePage = () => {
                 <CloseIcon fontSize="small" />
                 אפס סינון
               </Button>
+
               {/* q filter reset */}
               {q !== "" && (
                 <Button
@@ -144,7 +145,7 @@ const HomePage = () => {
               item
               direction={"row-reverse"}
               xs={5}
-              md={3}
+              md={6}
               sx={{
                 // display: { xs: "none", lg: "flex" },
                 justifyItems: "center",
