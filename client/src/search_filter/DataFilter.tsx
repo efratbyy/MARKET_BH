@@ -126,7 +126,10 @@ const DataFilter = () => {
         }
       >
         <ListItemButton onClick={() => setOpenSort(!openSort)}>
-          <ListItemText primary="מיון מוצרים" sx={{ textAlign: "start" }} />
+          <ListItemText
+            primary="מיון מוצרים"
+            sx={{ textAlign: "start", color: "orange" }}
+          />
           {openSort ? <ExpandLess /> : <ExpandMore />}
         </ListItemButton>
         <Collapse in={openSort} timeout="auto" unmountOnExit>
@@ -196,7 +199,10 @@ const DataFilter = () => {
         }
       >
         <ListItemButton onClick={() => setOpenBrands(!openBrands)}>
-          <ListItemText primary="מותג" sx={{ textAlign: "start" }} />
+          <ListItemText
+            primary="מותג"
+            sx={{ textAlign: "start", color: "orange" }}
+          />
           {openBrands ? <ExpandLess /> : <ExpandMore />}
         </ListItemButton>
 
@@ -234,7 +240,10 @@ const DataFilter = () => {
         <ListItemButton
           onClick={() => setOpenMarkingSticker(!openMarkingSticker)}
         >
-          <ListItemText primary="מדבקות סימון" sx={{ textAlign: "start" }} />
+          <ListItemText
+            primary="מדבקות סימון"
+            sx={{ textAlign: "start", color: "orange" }}
+          />
           {openMarkingSticker ? <ExpandLess /> : <ExpandMore />}
         </ListItemButton>
 
