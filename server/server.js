@@ -4,14 +4,15 @@ const chalk = require("chalk");
 const config = require("config"); // (DEVELOPMENT/PRODUCTION) מאפשר לעבור לסביבות עבודה שונות
 const router = require("./router/router");
 const cors = require("./middlewares/cors");
-// const morganLogger = require("");
+const morganLogger = require("./loggers/morganLogger");
+
 const {
   InitCategoriesData,
   InitUsersData,
   InitProductsData,
 } = require("./initialData/initialDataService");
 
-// app.use(morganLogger);
+app.use(morganLogger);
 app.use(cors);
 app.use(express.json());
 app.use(router);
