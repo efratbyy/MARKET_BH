@@ -10,6 +10,8 @@ const {
   getUserById,
   getUsers,
   createResetPasswordKey,
+  getUserByForgotPasswordKey,
+  updatePassword,
 } = require("../users/usersController");
 const auth = require("../authProviders/authService");
 
@@ -26,5 +28,10 @@ router.put("/edit-user", auth, editUser);
 router.get("/", auth, getUsers);
 router.get("/:userId", auth, getUserById);
 router.patch("/forgot_password/:userEmail", createResetPasswordKey);
+router.get(
+  "/get_user_by_forgot_password_key/:forgotPasswordKey",
+  getUserByForgotPasswordKey
+);
+router.patch("/update_password", updatePassword);
 
 module.exports = router;

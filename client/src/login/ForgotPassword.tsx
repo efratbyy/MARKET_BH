@@ -127,7 +127,7 @@ const ForgotPassword = () => {
               disabled={userEmailError !== "" || userEmail === ""}
               sx={{ margin: "10px" }}
             >
-              עדכון
+              שלח מייל
             </Button>
 
             <Button

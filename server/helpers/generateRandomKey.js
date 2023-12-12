@@ -3,7 +3,7 @@ const { handleBadRequest } = require("../utils/handleErrors");
 
 const generateRandomKey = () => {
   const characters =
-    "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+";
+    "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@";
   const length = 50;
   let orderNumber = "";
 

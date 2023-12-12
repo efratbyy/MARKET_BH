@@ -304,6 +304,60 @@ const createResetPasswordKey = async (req, res) => {
   }
 };
 
+const getUserByForgotPasswordKey = async (req, res) => {
+  try {
+    const { forgotPasswordKey } = req.params;
+
+    const userFromDB = await User.findOne({
+      forgotPasswordKey: forgotPasswordKey,
+    });
+
+    if (!userFromDB)
+      throw new Error("Could not find this user in the database");
+
+    return res.status(200).json(userFromDB);
+  } catch (error) {
+    return handleError(res, 404, `Mongoose Error: ${error.message}`);
+  }
+};
+
+const updatePassword = async (req, res) => {
+  try {
+    const { forgotPasswordKey, newPassword } = req.body;
+
+    const userFromDB = await User.findOne({
+      forgotPasswordKey: forgotPasswordKey,
+    });
+
+    if (!userFromDB)
+      throw new Error("Could not find this user in the database");
+
+    const oneHourBefore = new Date(new Date().getTime() - 1 * 60 * 60 * 1000); // Current time -1 hour
+    if (userFromDB.forgotPasswordKeyCreatedTime < oneHourBefore) {
+      throw new Error("Link expired!");
+    }
+
+    console.log(newPassword);
+    console.log(req.body);
+
+    // encrypt user password
+    userFromDB.password = bcrypt.hashSync(newPassword, 10);
+    userFromDB.forgotPasswordKey = "";
+
+    const updatedUser = await User.findOneAndUpdate(
+      { forgotPasswordKey: forgotPasswordKey },
+      userFromDB,
+      {
+        new: true,
+      }
+    );
+
+    return res.status(200).json(userFromDB);
+  } catch (error) {
+    return handleError(res, 404, `Mongoose Error: ${error.message}`);
+  }
+};
+
 exports.register = register;
 exports.login = login;
 exports.checkout = checkout;
@@ -313,3 +367,5 @@ exports.editUser = editUser;
 exports.getUserById = getUserById;
 exports.getUsers = getUsers;
 exports.createResetPasswordKey = createResetPasswordKey;
+exports.getUserByForgotPasswordKey = getUserByForgotPasswordKey;
+exports.updatePassword = updatePassword;

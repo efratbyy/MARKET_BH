@@ -15,6 +15,7 @@ import AddProductForm from "../product/AddProductForm";
 import EditProductForm from "../product/EditProductForm";
 import EditUserForm from "../users/EditUserForm";
 import ForgotPassword from "../login/ForgotPassword";
+import CreateNewPassword from "../login/CreateNewPassword";
 
 const Router = () => {
   return (
@@ -33,6 +34,10 @@ const Router = () => {
       <Route
         path={ROUTES.PURCHASE_HISTORY_DETAILS}
         element={<PurchaseHistoryDetails />}
+      />
+      <Route
+        path={`${ROUTES.CREATE_NEW_PASSWORD}/:resetPasswordToken`}
+        element={<CreateNewPassword />}
       />
       <Route path={ROUTES.FORGOT_PASSWORD} element={<ForgotPassword />} />
       <Route path="*" element={<ErrorPage />} />

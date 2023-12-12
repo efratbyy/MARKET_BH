@@ -137,3 +137,37 @@ export const createResetPasswordKeyApi = async (userEmail: string) => {
     return Promise.reject("An unexpected error occurred!");
   }
 };
+
+export const getUserByForgotPasswordKeyApi = async (
+  forgotPasswordKey: string
+) => {
+  try {
+    const { data } = await axios.get<UserInterface>(
+      `${apiUrl}/users/get_user_by_forgot_password_key/${forgotPasswordKey}`
+    );
+    return Promise.resolve(data);
+  } catch (error) {
+    if (axios.isAxiosError(error)) return Promise.reject(error.message);
+    return Promise.reject("An unexpected error occurred!");
+  }
+};
+
+export const updatePasswordApi = async (
+  forgotPasswordKey: string,
+  newPassword: string
+) => {
+  try {
+    const dataToServer = {
+      forgotPasswordKey: forgotPasswordKey,
+      newPassword: newPassword,
+    };
+    const { data } = await axios.patch<UserInterface>(
+      `${apiUrl}/users/update_password`,
+      dataToServer
+    );
+    return Promise.resolve(data);
+  } catch (error) {
+    if (axios.isAxiosError(error)) return Promise.reject(error.message);
+    return Promise.reject("An unexpected error occurred!");
+  }
+};
