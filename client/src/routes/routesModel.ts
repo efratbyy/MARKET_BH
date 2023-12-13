@@ -14,6 +14,7 @@ const ROUTES = {
   EDIT_USER: "/edit_user",
   FORGOT_PASSWORD: "/forgot_password",
   CREATE_NEW_PASSWORD: "/create_new_password",
+  GENERAL_MESSAGE: "/general_message",
 };
 
 export default ROUTES;

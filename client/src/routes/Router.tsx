@@ -16,6 +16,7 @@ import EditProductForm from "../product/EditProductForm";
 import EditUserForm from "../users/EditUserForm";
 import ForgotPassword from "../login/ForgotPassword";
 import CreateNewPassword from "../login/CreateNewPassword";
+import GeneralMessage from "../components/GeneralMessage";
 
 const Router = () => {
   return (
@@ -40,6 +41,7 @@ const Router = () => {
         element={<CreateNewPassword />}
       />
       <Route path={ROUTES.FORGOT_PASSWORD} element={<ForgotPassword />} />
+      <Route path={ROUTES.GENERAL_MESSAGE} element={<GeneralMessage />} />
       <Route path="*" element={<ErrorPage />} />
     </Routes>
   );

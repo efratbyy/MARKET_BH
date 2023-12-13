@@ -7,27 +7,14 @@ import ROUTES from "../routes/routesModel";
 import Navbar from "../navbar/Navbar";
 import { useSnack } from "../providers/SnackbarProvider";
 import Footer from "../footer/Footer";
-import { useUser } from "../providers/UserProvider";
 import { emailResetPasswordApi } from "../apiService/emailApiService";
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
   const snack = useSnack();
-  const { user } = useUser();
 
   const [userEmail, setUserEmail] = useState<string>("");
   const [userEmailError, setUserEmailError] = useState<string>("");
-
-  //   const handleResestPassword = useCallback(async () => {
-  //     try {
-  //     //   const userFromDB = await getUserByIdApi(
-  //     //     getUserFromLocalStorage()?._id || ""
-  //       );
-  //     //   return Promise.resolve(userFromDB);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   }, []);
 
   const handleChangeEmail = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
@@ -58,7 +45,6 @@ const ForgotPassword = () => {
         : new Date();
 
       expireDate?.setHours(expireDate?.getHours() + 1);
-      // TODO: send email to user API
       await emailResetPasswordApi(
         updatedUser.first,
         updatedUser.email,
@@ -77,10 +63,14 @@ const ForgotPassword = () => {
         updatedUser.forgotPasswordKey ? updatedUser.forgotPasswordKey : ""
       );
 
-      //TODO: GENERIC COMPONENT FOR MESSAGESS
-
-      snack("success", "נשלח מייל לאיפוס הסיסמה");
-      navigate(`${ROUTES.ROOT}`, { replace: true }); // { replace: true } - This means that if the user goes back in their browser, they won't revisit the form page
+      navigate(`${ROUTES.GENERAL_MESSAGE}`, {
+        replace: true,
+        state: {
+          // Pass your props here
+          text: "מייל נשלח בהצלחה!",
+          // Add more props as needed
+        },
+      }); // { replace: true } - This means that if the user goes back in their browser, they won't revisit the form page
     } catch (error) {
       snack("error", error);
     }
