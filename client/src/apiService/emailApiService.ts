@@ -102,3 +102,32 @@ export const emailPaymentDetailsApi = async (
     return Promise.reject("An unexpected error occurred!");
   }
 };
+
+export const emailResetPasswordApi = async (
+  // gets it from the component that will call the fanction
+  userName: string,
+  userEmail: string,
+  timeToExpire: string,
+  resetPasswordToken: string
+) => {
+  try {
+    const { data } = await axios.post<string>(`${apiUrl}/api/v1.0/email/send`, {
+      service_id: "service_biwkfjt",
+      template_id: "template_haol70p",
+      user_id: "mQ1xbiPBiYd0g3bMK",
+      template_params: {
+        user_name: userName,
+        reset_password_link: `http://localhost:3000/create_new_password/${resetPasswordToken}`,
+        user_email: userEmail,
+        time_to_expire: timeToExpire,
+        reply_to: "efratbyy@gmail.com",
+      },
+    });
+    return Promise.resolve(data);
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.log(error);
+    }
+    return Promise.reject("An unexpected error occurred!");
+  }
+};

@@ -298,7 +298,7 @@ const createResetPasswordKey = async (req, res) => {
 
     if (!updatedUser) throw new Error("User update failed !");
 
-    res.status(201).send(uniqueRandomKey);
+    res.status(201).send(updatedUser);
   } catch (error) {
     return handleError(res, 404, `Mongoose Error: ${error.message}`);
   }

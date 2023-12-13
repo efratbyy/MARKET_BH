@@ -8,6 +8,7 @@ import Navbar from "../navbar/Navbar";
 import { useSnack } from "../providers/SnackbarProvider";
 import Footer from "../footer/Footer";
 import { useUser } from "../providers/UserProvider";
+import { emailResetPasswordApi } from "../apiService/emailApiService";
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
@@ -48,9 +49,33 @@ const ForgotPassword = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const key = await createResetPasswordKeyApi(userEmail);
+      console.log("hi");
+      const updatedUser = await createResetPasswordKeyApi(userEmail);
 
+      console.log(updatedUser);
+      const expireDate = updatedUser.forgotPasswordKeyCreatedTime
+        ? new Date(updatedUser.forgotPasswordKeyCreatedTime)
+        : new Date();
+
+      expireDate?.setHours(expireDate?.getHours() + 1);
       // TODO: send email to user API
+      await emailResetPasswordApi(
+        updatedUser.first,
+        updatedUser.email,
+        expireDate
+          ? new Intl.DateTimeFormat("en-GB", {
+              timeZone: "Asia/Jerusalem",
+              year: "numeric",
+              month: "2-digit",
+              day: "2-digit",
+              hour: "2-digit",
+              minute: "2-digit",
+              second: "2-digit",
+              hour12: false, // Use 24-hour format
+            }).format(expireDate)
+          : "",
+        updatedUser.forgotPasswordKey ? updatedUser.forgotPasswordKey : ""
+      );
 
       //TODO: GENERIC COMPONENT FOR MESSAGESS
 

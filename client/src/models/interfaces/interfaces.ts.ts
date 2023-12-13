@@ -7,6 +7,8 @@ export interface UserInterface {
   city: string;
   street: string;
   houseNumber: number;
+  forgotPasswordKey?: string;
+  forgotPasswordKeyCreatedTime?: Date;
 }
 
 export interface ProductInterface {

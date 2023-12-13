@@ -128,7 +128,7 @@ export const getUserByIdApi = async (userId: string) => {
 
 export const createResetPasswordKeyApi = async (userEmail: string) => {
   try {
-    const { data } = await axios.patch<string>(
+    const { data } = await axios.patch<UserInterface>(
       `${apiUrl}/users/forgot_password/${userEmail}`
     );
     return Promise.resolve(data);
