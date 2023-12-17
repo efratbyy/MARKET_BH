@@ -13,10 +13,12 @@ import {
   Grid,
   FormControlLabel,
   Checkbox,
+  Select,
+  MenuItem,
+  SelectChangeEvent,
 } from "@mui/material";
 import Joi from "joi";
-import { ProductInterface } from "../models/interfaces/interfaces.ts";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ROUTES from "../routes/routesModel";
 import Navbar from "../navbar/Navbar";
 import { useSnack } from "../providers/SnackbarProvider";
@@ -27,6 +29,7 @@ import productSchema from "../models/joiValidation/productJoiValidation";
 
 import { ProductClientType } from "../types/productTypes.js";
 import convertToDbType from "../helpers/convertToDbType";
+import InfoIcon from "./InfoIcon";
 
 const AddProductForm: React.FC = () => {
   const snack = useSnack();
@@ -42,7 +45,7 @@ const AddProductForm: React.FC = () => {
     weightTopDisplay: 0,
     weightUnitTopDisplay: "",
     weight: 0,
-    weightUnit: "",
+    weightUnit: "גרם",
     divideBy: 100,
     isSodium: false,
     isSugar: false,
@@ -70,7 +73,7 @@ const AddProductForm: React.FC = () => {
     );
   }, [formData]);
 
-  const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = useCallback((e: any) => {
     const { name, value } = e.target;
 
     console.log(name, value);
@@ -131,12 +134,14 @@ const AddProductForm: React.FC = () => {
     user.isAdmin && (
       <>
         <Navbar showSearchBar={false} />
+
         <Grid
           sx={{
             position: "relative !important",
             backgroundColor: "#fff", // Set your desired background color
             zIndex: 1,
             padding: "16px !important",
+
             overflowY: "scroll",
             height: "100vh",
             backgroundAttachment: "fixed",
@@ -245,7 +250,6 @@ const AddProductForm: React.FC = () => {
                   },
                 }}
               />
-
               <TextField
                 type="number"
                 name="price"
@@ -364,63 +368,140 @@ const AddProductForm: React.FC = () => {
                   },
                 }}
               />
-              <TextField
-                type="number"
-                name="weight"
-                label="משקל"
-                color="success"
-                fullWidth
-                margin="normal"
-                value={formData.weight !== 0 ? formData.weight : ""}
-                onChange={handleChange}
-                error={Boolean(errors.weight)}
-                helperText={errors.weight}
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    "& fieldset": {
-                      borderColor: "rgba(0, 0, 0, 1)",
-                    },
-                  },
-                }}
-              />
-              <TextField
-                type="text"
-                name="weightUnit"
-                label="יחידת משקל"
-                color="success"
-                fullWidth
-                margin="normal"
-                value={formData.weightUnit}
-                onChange={handleChange}
-                error={Boolean(errors.weightUnit)}
-                helperText={errors.weightUnit}
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    "& fieldset": {
-                      borderColor: "rgba(0, 0, 0, 1)",
-                    },
-                  },
-                }}
-              />
-              <TextField
-                type="number"
-                name="divideBy"
-                label="לחלק ב:"
-                color="success"
-                fullWidth
-                margin="normal"
-                value={formData.divideBy}
-                onChange={handleChange}
-                error={Boolean(errors.divideBy)}
-                helperText={errors.divideBy}
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    "& fieldset": {
-                      borderColor: "rgba(0, 0, 0, 1)",
-                    },
-                  },
-                }}
-              />
+              {/* <Grid container>
+                <Grid container xs={1} alignItems={"center"}>
+                  <InfoIcon text="משקל לחישוב" />
+                </Grid>
+                <Grid item xs={11}>
+                  <TextField
+                    type="text"
+                    name="weightUnit"
+                    label="יחידת משקל"
+                    color="success"
+                    fullWidth
+                    margin="normal"
+                    value={formData.weightUnit}
+                    onChange={handleChange}
+                    error={Boolean(errors.weightUnit)}
+                    helperText={errors.weightUnit}
+                    sx={{
+                      "& .MuiOutlinedInput-root": {
+                        "& fieldset": {
+                          borderColor: "rgba(0, 0, 0, 1)",
+                        },
+                      },
+                    }}
+                  />
+                </Grid>
+              </Grid> */}
+              <Grid container spacing={2}>
+                <Grid item xs={1} container alignItems="center">
+                  <InfoIcon text="אנא בחר את יחידת המשקל לחישוב" />
+                </Grid>
+                <Grid item xs={11}>
+                  <Select
+                    name="weightUnit"
+                    // label="יחידת משקל"
+                    color="success"
+                    fullWidth
+                    value={formData.weightUnit}
+                    onChange={handleChange}
+                    error={Boolean(errors.weightUnit)}
+                    sx={{
+                      "& .MuiOutlinedInput-root": {
+                        "& fieldset": {
+                          borderColor: "rgba(0, 0, 0, 1)",
+                        },
+                      },
+                    }}
+                  >
+                    <MenuItem value="גרם">גרם</MenuItem>
+                    <MenuItem value="מ״ל">מ״ל</MenuItem>
+                    <MenuItem value="יחידה">יחידה</MenuItem>
+                  </Select>
+                </Grid>
+              </Grid>
+              <Grid container>
+                <Grid container xs={1} alignItems={"center"}>
+                  <InfoIcon text="אנא בחר את משקל המוצר לפי יחידת המשקל שבחרת בשדה הקודם" />
+                </Grid>
+                <Grid item xs={11}>
+                  <TextField
+                    type="number"
+                    name="weight"
+                    label="משקל"
+                    color="success"
+                    fullWidth
+                    margin="normal"
+                    value={formData.weight !== 0 ? formData.weight : ""}
+                    onChange={handleChange}
+                    error={Boolean(errors.weight)}
+                    helperText={errors.weight}
+                    sx={{
+                      "& .MuiOutlinedInput-root": {
+                        "& fieldset": {
+                          borderColor: "rgba(0, 0, 0, 1)",
+                        },
+                      },
+                    }}
+                  />
+                </Grid>
+              </Grid>
+
+              {/* <Grid container>
+                <Grid container xs={1} alignItems={"center"}>
+                  <InfoIcon text="משקל לחישוב" />
+                </Grid>
+                <Grid item xs={11}>
+                  <TextField
+                    type="number"
+                    name="divideBy"
+                    label="לחלק ב:"
+                    color="success"
+                    fullWidth
+                    margin="normal"
+                    value={formData.divideBy}
+                    onChange={handleChange}
+                    error={Boolean(errors.divideBy)}
+                    helperText={errors.divideBy}
+                    sx={{
+                      "& .MuiOutlinedInput-root": {
+                        "& fieldset": {
+                          borderColor: "rgba(0, 0, 0, 1)",
+                        },
+                      },
+                    }}
+                  />{" "}
+                </Grid>
+              </Grid> */}
+
+              <Grid container spacing={2}>
+                <Grid item xs={1} container alignItems="center">
+                  <InfoIcon text="עבור יחידה בחר 1. עבור מ״ל בחר 100. עבור גרם בחר 100." />
+                </Grid>
+                <Grid item xs={11}>
+                  <Select
+                    name="divideBy"
+                    // label="לחלק ב:"
+                    color="success"
+                    fullWidth
+                    value={formData.divideBy}
+                    onChange={handleChange}
+                    error={Boolean(errors.divideBy)}
+                    sx={{
+                      "& .MuiOutlinedInput-root": {
+                        "& fieldset": {
+                          borderColor: "rgba(0, 0, 0, 1)",
+                        },
+                      },
+                    }}
+                  >
+                    <MenuItem value={1}>1</MenuItem>
+                    <MenuItem value={100}>100</MenuItem>
+                  </Select>
+                </Grid>
+              </Grid>
+
               <TextField
                 type="text"
                 name="content"
@@ -477,7 +558,6 @@ const AddProductForm: React.FC = () => {
                   label="נתרן ברמה גבוהה"
                 />
               </Grid>
-
               <Grid item>
                 <FormControlLabel
                   name="isSugar"
@@ -550,7 +630,6 @@ const AddProductForm: React.FC = () => {
                   label="מוצר בפיקוח"
                 />
               </Grid>
-
               <Button
                 type="submit"
                 variant="contained"
