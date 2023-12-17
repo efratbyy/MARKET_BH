@@ -105,8 +105,8 @@ const CategoriesBottomNavBar: React.FC = () => {
   };
 
   const middleCategoriesList = (bigCategoryCode: string) => {
-    const bigCategory = categories?.find((category) =>
-      category.code.startsWith(bigCategoryCode)
+    const bigCategory = categories?.find(
+      (category) => category.code === bigCategoryCode
     );
 
     return (
@@ -163,8 +163,8 @@ const CategoriesBottomNavBar: React.FC = () => {
   const smallCategoriesList = (mdCategoryCode: string) => {
     const codesArr = mdCategoryCode.split("_");
 
-    const bigCategory = categories?.find((category) =>
-      category.code.startsWith(codesArr[0])
+    const bigCategory = categories?.find(
+      (category) => category.code === codesArr[0]
     );
 
     const mdCategory = bigCategory?.data.find((mdCategory) =>
