@@ -64,6 +64,8 @@ const login = async (req, res) => {
     } else if (!userInDB.isBlocked) {
       // במידה ולא חסום והכניס מייל וסיסמא נכונים אז יוכנס למערכת
       const { _id, isAdmin, email, first, last } = userInDB;
+      userInDB.loginFailedCounter = 0;
+      await User.findByIdAndUpdate(userInDB.id, userInDB);
       const token = jwt.sign({ _id, isAdmin, email, first, last }, JWT_KEY);
       res.send(token);
     } else {
