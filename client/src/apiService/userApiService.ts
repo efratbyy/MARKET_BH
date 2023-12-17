@@ -100,17 +100,20 @@ export const editUserApi = async (
   }
 };
 
-// export const getUsersApi = async () => {
-//   try {
-//     const { data } = await axios.get<UserInterface[]>(`${apiUrl}/users`);
-//     console.log(data);
+export const getUsersApi = async () => {
+  try {
+    const token = localStorage.getItem("token_key");
 
-//     return Promise.resolve(data);
-//   } catch (error) {
-//     if (axios.isAxiosError(error)) return Promise.reject(error.message);
-//     return Promise.reject("An unexpected error occurred!");
-//   }
-// };
+    const { data } = await axios.get<UserInterface[]>(`${apiUrl}/users`, {
+      headers: { "x-auth-token": token },
+    });
+
+    return Promise.resolve(data);
+  } catch (error) {
+    if (axios.isAxiosError(error)) return Promise.reject(error.message);
+    return Promise.reject("An unexpected error occurred!");
+  }
+};
 
 export const getUserByIdApi = async (userId: string) => {
   try {

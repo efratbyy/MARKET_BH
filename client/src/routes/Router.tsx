@@ -17,6 +17,7 @@ import EditUserForm from "../users/EditUserForm";
 import ForgotPassword from "../login/ForgotPassword";
 import CreateNewPassword from "../login/CreateNewPassword";
 import GeneralMessage from "../components/GeneralMessage";
+import EditUsersCRM from "../users/EditUsersCRM";
 
 const Router = () => {
   return (
@@ -42,6 +43,7 @@ const Router = () => {
       />
       <Route path={ROUTES.FORGOT_PASSWORD} element={<ForgotPassword />} />
       <Route path={ROUTES.GENERAL_MESSAGE} element={<GeneralMessage />} />
+      <Route path={ROUTES.USERS_CRM} element={<EditUsersCRM />} />
       <Route path="*" element={<ErrorPage />} />
     </Routes>
   );

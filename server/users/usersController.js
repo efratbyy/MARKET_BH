@@ -257,7 +257,7 @@ const getUserById = async (req, res) => {
 const getUsers = async (req, res) => {
   try {
     const user = req.user;
-    console.log(user);
+
     if (!user.isAdmin)
       return handleError(
         res,
@@ -266,7 +266,6 @@ const getUsers = async (req, res) => {
       );
 
     const usersFromDB = await User.find();
-    console.log(usersFromDB);
     return res.send(usersFromDB);
   } catch (error) {
     return handleError(res, 404, `Mongoose Error: ${error.message}`);
