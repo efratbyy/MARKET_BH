@@ -16,6 +16,10 @@ const ROUTES = {
   CREATE_NEW_PASSWORD: "/create_new_password",
   GENERAL_MESSAGE: "/general_message",
   USERS_CRM: "/users_CRM",
+  ADD_USER: "/add_user",
+  TERMS_OF_SERVICE: "/terms_of_service",
+  PRIVACY_POLICY: "/privacy_policy",
+  ACCESSIBILITY_STATEMENT: "/accessibility_statement",
 };
 
 export default ROUTES;
