@@ -174,3 +174,49 @@ export const updatePasswordApi = async (
     return Promise.reject("An unexpected error occurred!");
   }
 };
+
+export const createNewUserApi = async (user: LoginType) => {
+  try {
+    const { data } = await axios.post<string>(
+      `${apiUrl}/users/create_user`,
+      user
+    );
+    return Promise.resolve(data);
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      return Promise.reject(error.response?.data);
+    }
+    return Promise.reject("An unexpected error occurred!");
+  }
+};
+
+export const deleteUserApi = async (userEmail: string) => {
+  try {
+    const token = localStorage.getItem("token_key");
+    const { data } = await axios.delete<UserInterface>(
+      `${apiUrl}/users/delete_user`,
+      {
+        headers: { "x-auth-token": token },
+        params: { userEmail },
+      }
+    );
+    return Promise.resolve(data);
+  } catch (error) {
+    if (axios.isAxiosError(error)) return Promise.reject(error.message);
+    return Promise.reject("An unexpected error occurred!");
+  }
+};
+
+export const getUserByEmailApi = async (userEmail: string) => {
+  try {
+    const token = localStorage.getItem("token_key");
+    const { data } = await axios.get<UserInterface>(
+      `${apiUrl}/users/get_user/${userEmail}`,
+      { headers: { "x-auth-token": token } }
+    );
+    return Promise.resolve(data);
+  } catch (error) {
+    if (axios.isAxiosError(error)) return Promise.reject(error.message);
+    return Promise.reject("An unexpected error occurred!");
+  }
+};

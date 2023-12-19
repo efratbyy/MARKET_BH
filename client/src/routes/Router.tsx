@@ -18,6 +18,10 @@ import ForgotPassword from "../login/ForgotPassword";
 import CreateNewPassword from "../login/CreateNewPassword";
 import GeneralMessage from "../components/GeneralMessage";
 import EditUsersCRM from "../users/EditUsersCRM";
+import AddUser from "../users/CreateNewUser";
+import TermsOfServicePage from "../components/TermsOfServicePage";
+import PrivacyPolicyPage from "../components/PrivacyPolicyPage";
+import AccessibilityStatementPage from "../components/AccessibilityStatementPage";
 
 const Router = () => {
   return (
@@ -32,7 +36,7 @@ const Router = () => {
       <Route path={ROUTES.PURCHASE_HISTORY} element={<PurchaseHistory />} />
       <Route path={ROUTES.ADD_PRODUCT} element={<AddProductForm />} />
       <Route path={ROUTES.EDIT_PRODUCT} element={<EditProductForm />} />
-      <Route path={ROUTES.EDIT_USER} element={<EditUserForm />} />
+      <Route path={`${ROUTES.EDIT_USER}`} element={<EditUserForm />} />
       <Route
         path={ROUTES.PURCHASE_HISTORY_DETAILS}
         element={<PurchaseHistoryDetails />}
@@ -44,6 +48,13 @@ const Router = () => {
       <Route path={ROUTES.FORGOT_PASSWORD} element={<ForgotPassword />} />
       <Route path={ROUTES.GENERAL_MESSAGE} element={<GeneralMessage />} />
       <Route path={ROUTES.USERS_CRM} element={<EditUsersCRM />} />
+      <Route path={ROUTES.ADD_USER} element={<AddUser />} />
+      <Route path={ROUTES.TERMS_OF_SERVICE} element={<TermsOfServicePage />} />
+      <Route path={ROUTES.PRIVACY_POLICY} element={<PrivacyPolicyPage />} />
+      <Route
+        path={ROUTES.ACCESSIBILITY_STATEMENT}
+        element={<AccessibilityStatementPage />}
+      />
       <Route path="*" element={<ErrorPage />} />
     </Routes>
   );

@@ -201,12 +201,10 @@ const CheckoutPage: React.FC = () => {
       <Grid
         spacing={3}
         direction="column"
-        // alignItems="center"
         justifyContent="center"
         sx={{
           position: "relative",
           minHeight: "70vh",
-          // paddingRight: "15%",
           width: "100%",
           height: "30%",
         }}

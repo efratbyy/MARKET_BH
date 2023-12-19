@@ -17,8 +17,12 @@ import {
 import Joi from "joi";
 import registerSchema from "../models/joiValidation/registerJoiValidation";
 import { UserInterface } from "../models/interfaces/interfaces.ts";
-import { editUserApi, getUserByIdApi } from "../apiService/userApiService";
-import { useNavigate } from "react-router-dom";
+import {
+  editUserApi,
+  getUserByEmailApi,
+  getUserByIdApi,
+} from "../apiService/userApiService";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import ROUTES from "../routes/routesModel";
 import Navbar from "../navbar/Navbar";
 import { useSnack } from "../providers/SnackbarProvider";
@@ -26,11 +30,17 @@ import Footer from "../footer/Footer";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useUser } from "../providers/UserProvider";
 import { getUserFromLocalStorage } from "../services/LocalStorageService";
+import { error } from "console";
 
 const EditUserForm = () => {
   const navigate = useNavigate();
   const snack = useSnack();
   const { user } = useUser();
+
+  // Inject prop from navigate from other component
+  const location = useLocation();
+  const { state } = location;
+  const { userEmail } = state || {};
 
   const [allFieldsValid, setAllFieldsValid] = useState<Boolean>(false);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
@@ -51,9 +61,11 @@ const EditUserForm = () => {
 
   const handleGetUser = useCallback(async () => {
     try {
-      const userFromDB = await getUserByIdApi(
-        getUserFromLocalStorage()?._id || ""
-      );
+      let userFromDB = undefined;
+      if (!userEmail)
+        userFromDB = await getUserByIdApi(getUserFromLocalStorage()?._id || "");
+      else userFromDB = await getUserByEmailApi(userEmail);
+
       return Promise.resolve(userFromDB);
     } catch (error) {
       console.log(error);
@@ -104,15 +116,14 @@ const EditUserForm = () => {
 
   const validateForm = (formData: UserInterface) => {
     const validationResult = Joi.object(registerSchema).validate(formData, {
-      // abortEarly: false, // indicates that all validation errors should be collected rather than stopping at the first error
-      // allowUnknown: true, // ignore another fields which is not in the schema (extra fields)
+      allowUnknown: true,
     });
-
+    console.log("validationResult", validationResult);
     const newErrors: { [key: string]: string } = {}; // Define the type for newErrors
 
     if (validationResult.error) {
       validationResult.error.details.forEach((error: any) => {
-        if (error.context.value) newErrors[error.path[0]] = error.message; // If a specific field has error value it adds the error message to the newErrors object using the field name as the key and the error message as the value
+        newErrors[error.path[0]] = error.message; // If a specific field has error value it adds the error message to the newErrors object using the field name as the key and the error message as the value
       });
     }
     setErrors(newErrors);
@@ -121,42 +132,25 @@ const EditUserForm = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // This line prevents the default form submission behavior, which typically involves navigating to a new page or triggering a full page reload. By calling preventDefault(), the developer can take control over the form submission process and handle it programmatically.
 
-    // Validate the form data
-    // const validationResult = Joi.object(registerSchema).validate(formData, {
-    //   abortEarly: false,
-    // });
-    // if (validationResult.error) {
-    //   const newErrors: { [key: string]: string } = {}; // Define the type for newErrors
-    //   validationResult.error.details.forEach((error: any) => {
-    //     newErrors[error.path[0]] = error.message;
-    //   });
-    //   setErrors(newErrors);
-    //   return;
-    // }
-    // // Clear any previous errors
-    // setErrors({});
-
     try {
-      const userRes = await editUserApi(formData, newPassword);
-
-      snack("success", "המשתמש עודכן בהצלחה!");
-      navigate(`${ROUTES.ROOT}`, { replace: true }); // { replace: true } - This means that if the user goes back in their browser, they won't revisit the form page
+      const updatedUser = await editUserApi(formData, newPassword);
+      if (updatedUser) {
+        snack("success", "המשתמש עודכן בהצלחה!");
+        navigate(`${ROUTES.ROOT}`, { replace: true }); // { replace: true } - This means that if the user goes back in their browser, they won't revisit the form page
+      } else snack("error", "חלה תקלה בעדכון המשתמש!");
     } catch (error) {
       snack("error", error);
     }
   };
 
   useEffect(() => {
+    console.log("errors", errors);
+    console.log("newPasswordError", newPasswordError);
     setAllFieldsValid(
       // update the state variable allFieldsValid based on the following conditions:
 
       (newPassword === "" || (newPassword !== "" && newPasswordError === "")) && // - Checks if the newPassword is an empty string or if it's not empty and there are no errors
-        Object.keys(errors).length === 0 && // Checks if there are no validation errors
-        Object.values(formData) //Checks if all values in formData are non-empty strings.
-          .map((value) =>
-            typeof value === "string" ? value.trim() !== "" : true
-          )
-          .every(Boolean) // Checks if all mapped values are true
+        Object.keys(errors).length === 0
     );
   }, [formData, errors, newPassword]);
 
@@ -187,10 +181,11 @@ const EditUserForm = () => {
             overflowY: "scroll",
             height: "100vh",
             backgroundAttachment: "fixed",
-            backgroundImage: "url(/assets/images/register.png)", // Set your background image
+            backgroundImage: "url(/assets/images/edit_user.png)", // Set your background image
             backgroundPosition: "center",
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
+            //opacity: 0.3,
           }}
         >
           <Container maxWidth="sm">
@@ -280,70 +275,74 @@ const EditUserForm = () => {
                   },
                 }}
               />
-              <TextField
-                type={showPassword ? "text" : "password"}
-                name="password"
-                label="סיסמא נוכחית"
-                color="success"
-                fullWidth
-                margin="normal"
-                value={formData.password}
-                onChange={handleChange}
-                error={Boolean(errors.password)}
-                helperText={errors.password}
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    "& fieldset": {
-                      borderColor: "rgba(0, 0, 0, 1)", // Change border color to fully opaque
+              {!userEmail && (
+                <TextField
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  label="סיסמא נוכחית"
+                  color="success"
+                  fullWidth
+                  margin="normal"
+                  value={formData.password}
+                  onChange={handleChange}
+                  error={Boolean(errors.password)}
+                  helperText={errors.password}
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      "& fieldset": {
+                        borderColor: "rgba(0, 0, 0, 1)", // Change border color to fully opaque
+                      },
                     },
-                  },
-                }}
-                InputProps={{
-                  dir: "ltr",
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton
-                        onClick={handleTogglePasswordVisibility}
-                        edge="end"
-                      >
-                        {showPassword ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                }}
-              />
-              <TextField
-                type={showNewPassword ? "text" : "password"}
-                name="newPassword"
-                label="סיסמא חדשה"
-                color="success"
-                fullWidth
-                margin="normal"
-                value={newPassword}
-                onChange={handleChangeNewPassword}
-                error={Boolean(newPasswordError)}
-                helperText={newPasswordError}
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    "& fieldset": {
-                      borderColor: "rgba(0, 0, 0, 1)", // Change border color to fully opaque
+                  }}
+                  InputProps={{
+                    dir: "ltr",
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          onClick={handleTogglePasswordVisibility}
+                          edge="end"
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              )}
+              {!userEmail && (
+                <TextField
+                  type={showNewPassword ? "text" : "password"}
+                  name="newPassword"
+                  label="סיסמא חדשה"
+                  color="success"
+                  fullWidth
+                  margin="normal"
+                  value={newPassword}
+                  onChange={handleChangeNewPassword}
+                  error={Boolean(newPasswordError)}
+                  helperText={newPasswordError}
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      "& fieldset": {
+                        borderColor: "rgba(0, 0, 0, 1)", // Change border color to fully opaque
+                      },
                     },
-                  },
-                }}
-                InputProps={{
-                  dir: "ltr",
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton
-                        onClick={handleToggleNewPasswordVisibility}
-                        edge="end"
-                      >
-                        {showNewPassword ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                }}
-              />
+                  }}
+                  InputProps={{
+                    dir: "ltr",
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          onClick={handleToggleNewPasswordVisibility}
+                          edge="end"
+                        >
+                          {showNewPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              )}
               <TextField
                 type="text"
                 name="city"

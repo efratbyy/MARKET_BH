@@ -175,6 +175,7 @@ const editUser = async (req, res) => {
   try {
     const userToUpdate = req.body;
     const { _id } = req.user;
+
     const { error } = registerJoiValidationSchema.validate(userToUpdate, {
       stripUnknown: true, // if the request body contains extra fields that are not specified in the Joi schema, those fields will be stripped from the userToUpdate object before validation
       allowUnknown: true, // This allows additional keys that are not defined in the schema to be present in the object without triggering a validation error.
@@ -183,22 +184,49 @@ const editUser = async (req, res) => {
     if (error)
       return handleError(res, 400, `Joi Error: ${error.details[0].message}`);
 
-    // Check if this user exist in the DB
-    const existingUser = await User.findById(_id);
-    if (!existingUser) {
-      return handleError(res, 404, `User not found`);
+    // Check if the login user ( that actual connected) exist in the DB
+    const loginUser = await User.findById(_id);
+
+    // Not Authorized:
+    // 1. There is no login user
+    // 2. The login user try to update another user (compare by email) and he is not an Admin
+    if (
+      !loginUser ||
+      (loginUser &&
+        !loginUser.isAdmin &&
+        loginUser.email !== userToUpdate.email)
+    ) {
+      return handleError(res, 404, `UnAuth Access`);
     }
 
-    const existingUserEmail = // If the user wants to update his email, then it is checked that such an email does not already exist in the database
-      existingUser.email !== userToUpdate.email &&
-      (await User.findOne({ email: userToUpdate.email }));
-    if (existingUserEmail) {
-      return handleError(res, 404, `Email address already exist`);
+    // search for the user to update in the DB
+    const userToUpdateFromDB = await User.findOne({
+      email: userToUpdate.email,
+    });
+
+    // In case, the user to update email does not exist in the DB
+    if (!userToUpdateFromDB) {
+      return handleError(res, 404, `User To Update does not exist in the DB`);
     }
 
-    // Check if the userToUpdate password is match to the existing one in the DB
-    if (bcrypt.hashSync(userToUpdate.password) !== existingUser.password)
+    // If not admin, Check if the userToUpdate password is match to the existing one in the DB
+    // If admin, the new password is not relevant and the password will be the same as the one in the DB.
+    if (
+      (!loginUser.isAdmin &&
+        !bcrypt.compareSync(
+          userToUpdate.password,
+          userToUpdateFromDB.password
+        )) ||
+      (loginUser.isAdmin &&
+        loginUser.email === userToUpdate.email &&
+        !bcrypt.compareSync(userToUpdate.password, userToUpdateFromDB.password))
+    )
       return handleError(res, 403, `Incorrect current password`);
+
+    // If admin, copy the password of the edit user from the DB. (admin is not allowed to change users' passwords)
+    if (loginUser.isAdmin) {
+      userToUpdate.password = userToUpdateFromDB.password;
+    }
 
     // Create an object with only the fields present in userToUpdate. These fields are directly copied from the userToUpdate object
     const updatedFields = {
@@ -209,21 +237,32 @@ const editUser = async (req, res) => {
       city: userToUpdate.city,
       street: userToUpdate.street,
       houseNumber: userToUpdate.houseNumber,
-      password: bcrypt.hashSync(
-        // Decodes the user's password
-        userToUpdate.newPassword !== "" // checks if userToUpdate.newPassword is not an empty strin
-          ? userToUpdate.newPassword // if true - will use the newPassword
-          : userToUpdate.password, // if false - will use the password
-        10
-      ),
+      // 1. admin => copy the old password
+      // 2. not admin => if new password entered, then encrypt and update
+      // 3. not admin => if not new password entered, keep the current password
+      password: loginUser.isAdmin
+        ? userToUpdate.newPassword === ""
+          ? userToUpdateFromDB.password
+          : bcrypt.hashSync(userToUpdate.newPassword, 10)
+        : bcrypt.hashSync(
+            // Decodes the user's password
+            userToUpdate.newPassword !== "" // checks if userToUpdate.newPassword is not an empty strin
+              ? userToUpdate.newPassword // if true - will use the newPassword
+              : userToUpdate.password, // if false - will use the password
+            10
+          ),
     };
 
     // _id - The key by which we will search for the user
     // updatedFields - This containing the fields and their updated values for update
     // new: true - returns the updated document
-    const updatedUser = await User.findByIdAndUpdate(_id, updatedFields, {
-      new: true,
-    });
+    const updatedUser = await User.findOneAndUpdate(
+      { email: userToUpdate.email },
+      updatedFields,
+      {
+        new: true,
+      }
+    );
 
     if (!updatedUser) throw new Error("User update failed !");
 
@@ -236,7 +275,7 @@ const editUser = async (req, res) => {
 const getUserById = async (req, res) => {
   try {
     const { userId } = req.params;
-    const { _id, isAdmin } = req.user;
+    const { _id } = req.user;
 
     if (_id !== userId) return handleError(res, 403, "UnAuthorized Access");
 
@@ -359,6 +398,77 @@ const updatePassword = async (req, res) => {
   }
 };
 
+const createNewUser = async (req, res) => {
+  try {
+    const user = req.user;
+    const { email } = user;
+
+    if (!user.isAdmin)
+      return handleError(
+        res,
+        403,
+        "Authorization Error: You must be an admin user to create a new user!"
+      );
+
+    const { error } = registerJoiValidationSchema.validate(user, {});
+
+    if (error)
+      return handleError(res, 400, `Joi Error: ${error.details[0].message}`);
+
+    const isUserExistInDB = await User.findOne({ email });
+    if (isUserExistInDB) throw new Error("User already registered");
+    const newUser = new User(user); //  the user variable contains the data for the new user. If the user doesn't exist, it creates a new user according to Mongo's User model and saves it to the database.
+
+    // TODO: create a difault password
+    // encrypt user password
+    newUser.password = bcrypt.hashSync(newUser.password, 10);
+
+    const userFromDB = await newUser.save();
+    const { _id, isAdmin, first, last } = userFromDB;
+    const token = jwt.sign({ _id, isAdmin, email, first, last }, JWT_KEY);
+    res.status(201).send(token);
+  } catch (error) {
+    return handleError(res, 404, `Mongoose Error: ${error.message}`);
+  }
+};
+
+const deleteUser = async (req, res) => {
+  try {
+    const user = req.user;
+    const { userEmail } = req.query;
+
+    if (!user.isAdmin)
+      throw new Error(
+        "You must be an admin type user in order to delete a user!"
+      );
+
+    const deletedUser = await User.findOneAndDelete({ email: userEmail });
+
+    if (!deletedUser)
+      throw new Error("A user with this Id cannot be found in the database!");
+
+    res.status(201).send(deletedUser);
+  } catch (error) {
+    return handleError(res, 404, `Mongoose Error: ${error.message}`);
+  }
+};
+
+const getUserByEmail = async (req, res) => {
+  try {
+    const { userEmail } = req.params;
+    const { _id } = req.user;
+
+    const userFromDB = await User.findOne({ email: userEmail });
+
+    if (!userFromDB)
+      throw new Error("Could not find this user in the database");
+
+    return res.status(200).json(userFromDB);
+  } catch (error) {
+    return handleError(res, 404, `Mongoose Error: ${error.message}`);
+  }
+};
+
 exports.register = register;
 exports.login = login;
 exports.checkout = checkout;
@@ -370,3 +480,6 @@ exports.getUsers = getUsers;
 exports.createResetPasswordKey = createResetPasswordKey;
 exports.getUserByForgotPasswordKey = getUserByForgotPasswordKey;
 exports.updatePassword = updatePassword;
+exports.createNewUser = createNewUser;
+exports.deleteUser = deleteUser;
+exports.getUserByEmail = getUserByEmail;

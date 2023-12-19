@@ -12,6 +12,9 @@ const {
   createResetPasswordKey,
   getUserByForgotPasswordKey,
   updatePassword,
+  createNewUser,
+  deleteUser,
+  getUserByEmail,
 } = require("../users/usersController");
 const auth = require("../authProviders/authService");
 
@@ -33,5 +36,9 @@ router.get(
   getUserByForgotPasswordKey
 );
 router.patch("/update_password", updatePassword);
+router.post("/create_user", auth, createNewUser);
+router.delete("/delete_user", auth, deleteUser);
+router.get("/get_user/:userEmail", auth, getUserByEmail);
 
 module.exports = router;
+createNewUser;
