@@ -59,6 +59,7 @@ const EditProductForm = () => {
     isSupervised: false,
     content: "",
     manufacturingCountry: "",
+    inventory: 0,
   });
 
   const handleGetProduct = useCallback(async () => {
@@ -475,6 +476,26 @@ const EditProductForm = () => {
                   "& .MuiOutlinedInput-root": {
                     "& fieldset": {
                       borderColor: "rgba(0, 0, 0, 1)",
+                    },
+                  },
+                }}
+              />
+              <TextField
+                type="number"
+                name="inventory"
+                label="מלאי"
+                color="success"
+                fullWidth
+                margin="normal"
+                value={formData.inventory === 0 ? "" : formData.inventory}
+                onChange={handleChange}
+                error={Boolean(errors.inventory)}
+                helperText={errors.inventory}
+                variant="outlined"
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": {
+                      borderColor: "rgba(0, 0, 0, 1)", // Change border color to fully opaque
                     },
                   },
                 }}

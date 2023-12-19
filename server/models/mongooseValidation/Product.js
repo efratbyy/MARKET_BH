@@ -36,6 +36,10 @@ const schema = new mongoose.Schema({
     minLength: 1,
     required: true,
   },
+  inventory: {
+    type: Number,
+    required: true,
+  },
   image: Image,
   details: productDetails,
 });

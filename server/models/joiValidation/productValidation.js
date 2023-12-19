@@ -26,6 +26,7 @@ const productJoiValidation = (product) => {
       content: Joi.string().min(2).max(256),
       manufacturingCountry: Joi.string().min(2).max(256),
     },
+    inventory: Joi.number().required(),
   });
   return schema.validate(product);
 };

@@ -29,7 +29,7 @@ const ProductCard: React.FC<Props> = ({ product, deleteProduct }) => {
   const [totalAmount, setTotalAmount] = useState(0);
   const [isDialogOpen, setDialog] = useState(false);
 
-  const { title, barcode, brand, image, price, details } = product;
+  const { title, barcode, brand, image, price, details, inventory } = product;
   const { user } = useUser();
   const { cart, updateCartProvider } = useCartProvider();
   const navigate = useNavigate();
@@ -201,61 +201,64 @@ const ProductCard: React.FC<Props> = ({ product, deleteProduct }) => {
             boxShadow: "none !important",
           }}
         >
-          <ButtonGroup
-            orientation="horizontal"
-            variant="contained"
-            sx={{
-              width: "90%", // Set the desired width to make it smaller
-              // height: "5.5vh",
-              boxShadow: "none !important",
-            }}
-          >
-            <Button
-              onClick={() => handleAddToCart(user?._id, barcode, 1)}
+          {inventory !== 0 && (
+            <ButtonGroup
+              orientation="horizontal"
+              variant="contained"
               sx={{
-                borderTopRightRadius: "10px !important",
-                borderBottomRightRadius: "10px !important",
-                borderTopLeftRadius: "0px",
-                borderBottomLeftRadius: "0px",
-                borderRadius: "0px",
-                width: "40%",
-                backgroundColor: "#5b9822",
-                "&:hover": {
-                  backgroundColor: "#333", // Change color on hover
-                },
-                "&:active": {
-                  backgroundColor: "#333", // Change color on press
-                },
+                width: "90%", // Set the desired width to make it smaller
+                // height: "5.5vh",
+                boxShadow: "none !important",
               }}
             >
-              <AddIcon />
-            </Button>
+              <Button
+                onClick={() => handleAddToCart(user?._id, barcode, 1)}
+                sx={{
+                  borderTopRightRadius: "10px !important",
+                  borderBottomRightRadius: "10px !important",
+                  borderTopLeftRadius: "0px",
+                  borderBottomLeftRadius: "0px",
+                  borderRadius: "0px",
+                  width: "40%",
+                  backgroundColor: "#5b9822",
+                  "&:hover": {
+                    backgroundColor: "#333", // Change color on hover
+                  },
+                  "&:active": {
+                    backgroundColor: "#333", // Change color on press
+                  },
+                }}
+              >
+                <AddIcon />
+              </Button>
 
-            <Button sx={{ width: "40%" }} disabled>
-              <Typography variant="body1">{String(totalAmount)}</Typography>
-            </Button>
+              <Button sx={{ width: "40%" }} disabled>
+                <Typography variant="body1">{String(totalAmount)}</Typography>
+              </Button>
 
-            <Button
-              onClick={() => handleRemoveFromCart(user?._id, barcode, 1)}
-              sx={{
-                borderTopRightRadius: "0px",
-                borderBottomRightRadius: "0px",
-                borderTopLeftRadius: "10px !important",
-                borderBottomLeftRadius: "10px !important",
-                borderRadius: "0px",
-                width: "40%",
-                backgroundColor: "#5b9822",
-                "&:hover": {
-                  backgroundColor: "#333", // Change color on hover
-                },
-                "&:active": {
-                  backgroundColor: "#333", // Change color on press
-                },
-              }}
-            >
-              <RemoveIcon />
-            </Button>
-          </ButtonGroup>
+              <Button
+                onClick={() => handleRemoveFromCart(user?._id, barcode, 1)}
+                sx={{
+                  borderTopRightRadius: "0px",
+                  borderBottomRightRadius: "0px",
+                  borderTopLeftRadius: "10px !important",
+                  borderBottomLeftRadius: "10px !important",
+                  borderRadius: "0px",
+                  width: "40%",
+                  backgroundColor: "#5b9822",
+                  "&:hover": {
+                    backgroundColor: "#333", // Change color on hover
+                  },
+                  "&:active": {
+                    backgroundColor: "#333", // Change color on press
+                  },
+                }}
+              >
+                <RemoveIcon />
+              </Button>
+            </ButtonGroup>
+          )}
+          {inventory === 0 && <Grid>אזל המלאי</Grid>}
         </Grid>
       )}
 

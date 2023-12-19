@@ -147,7 +147,7 @@ const CheckoutPage: React.FC = () => {
     try {
       const orderNumber = await checkoutProvider(user?._id);
 
-      const currentDate: Date = new Date(); // Replace this with your actual date
+      const currentDate: Date = new Date();
 
       const formattedDate: string = currentDate.toLocaleString("he-IL");
       console.log(formattedDate);

@@ -7,6 +7,7 @@ const jwt = require("jsonwebtoken");
 const Purchase = require("../models/mongooseValidation/Purchase");
 const generateOrderNumber = require("../helpers/generateOrderNumber");
 const generateUniqueRandomKey = require("../helpers/generateRandomKey");
+const Product = require("../models/mongooseValidation/Product");
 const JWT_KEY = config.get("JWT_KEY");
 
 const register = async (req, res) => {
@@ -104,7 +105,18 @@ const login = async (req, res) => {
     return handleError(res, isAuthError ? 403 : 500, `שגיאה: ${error.message}`);
   }
 };
+const updateInventory = async (cart) => {
+  for (let productInCart of cart) {
+    const product = await Product.findOne({ barcode: productInCart.barcode });
 
+    product.inventory -= productInCart.amount;
+
+    console.log(product);
+    await Product.findByIdAndUpdate(product._id, product, {
+      new: true,
+    });
+  }
+};
 // Move cart to parches history
 const checkout = async (req, res) => {
   try {
@@ -114,6 +126,8 @@ const checkout = async (req, res) => {
     const userFromDB = await User.findById(userId);
     if (!userFromDB) throw new Error("User not registered");
 
+    // for each item in cart remove inventory of product
+    await updateInventory(userFromDB.cart);
     // insert cart to purchase history and clean cart
     userFromDB.purchaseHistory.push({
       orderNumber: await generateOrderNumber(),

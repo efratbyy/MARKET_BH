@@ -27,6 +27,7 @@ const convertToDbType = (product: ProductClientType): ProductInterface => {
       content: product.content,
       manufacturingCountry: product.manufacturingCountry,
     },
+    inventory: product.inventory,
   };
 };
 

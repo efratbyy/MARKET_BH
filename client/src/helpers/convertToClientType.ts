@@ -23,6 +23,7 @@ const convertToClientType = (product: ProductInterface): ProductClientType => {
     isSupervised: product.details.isSupervised,
     content: product.details.content,
     manufacturingCountry: product.details.manufacturingCountry,
+    inventory: product.inventory,
   };
 };
 

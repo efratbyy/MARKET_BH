@@ -19,4 +19,5 @@ export type ProductClientType = {
   isSupervised: boolean;
   content: string;
   manufacturingCountry: string;
+  inventory: number;
 };

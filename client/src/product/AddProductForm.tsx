@@ -54,6 +54,7 @@ const AddProductForm: React.FC = () => {
     isSupervised: false,
     content: "",
     manufacturingCountry: "",
+    inventory: 0,
   });
 
   const [allFieldsValid, setAllFieldsValid] = useState<Boolean>(false);
@@ -448,33 +449,6 @@ const AddProductForm: React.FC = () => {
                 </Grid>
               </Grid>
 
-              {/* <Grid container>
-                <Grid container xs={1} alignItems={"center"}>
-                  <InfoIcon text="משקל לחישוב" />
-                </Grid>
-                <Grid item xs={11}>
-                  <TextField
-                    type="number"
-                    name="divideBy"
-                    label="לחלק ב:"
-                    color="success"
-                    fullWidth
-                    margin="normal"
-                    value={formData.divideBy}
-                    onChange={handleChange}
-                    error={Boolean(errors.divideBy)}
-                    helperText={errors.divideBy}
-                    sx={{
-                      "& .MuiOutlinedInput-root": {
-                        "& fieldset": {
-                          borderColor: "rgba(0, 0, 0, 1)",
-                        },
-                      },
-                    }}
-                  />{" "}
-                </Grid>
-              </Grid> */}
-
               <Grid container spacing={2}>
                 <Grid item xs={1} container alignItems="center">
                   <InfoIcon text="עבור יחידה בחר 1. עבור מ״ל בחר 100. עבור גרם בחר 100." />
@@ -540,6 +514,28 @@ const AddProductForm: React.FC = () => {
                   },
                 }}
               />
+
+              <TextField
+                type="number"
+                name="inventory"
+                label="מלאי"
+                color="success"
+                fullWidth
+                margin="normal"
+                value={formData.inventory === 0 ? "" : formData.inventory}
+                onChange={handleChange}
+                error={Boolean(errors.inventory)}
+                helperText={errors.inventory}
+                variant="outlined"
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": {
+                      borderColor: "rgba(0, 0, 0, 1)", // Change border color to fully opaque
+                    },
+                  },
+                }}
+              />
+
               <Grid item>
                 <FormControlLabel
                   name="isSodium"

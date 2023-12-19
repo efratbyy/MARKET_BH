@@ -36,6 +36,7 @@ export interface ProductInterface {
     content: string;
     manufacturingCountry: string;
   };
+  inventory: number;
 
   categoryCode: [string];
 }
