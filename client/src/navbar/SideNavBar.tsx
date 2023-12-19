@@ -99,7 +99,7 @@ const SideNavBar: React.FC<Props> = ({ showDataFilter = true }) => {
         <ListItem
           // key={"Inbox"}
           disablePadding
-          onClick={() => navigate(`${ROUTES.ROOT}`)}
+          onClick={() => navigate(`${ROUTES.ACCESSIBILITY_STATEMENT}`)}
         >
           <ListItemButton>
             <ListItemIcon>
