@@ -230,11 +230,24 @@ const Products: React.FC<Props> = ({ productListShow = false }) => {
           <Typography title="Products Page" />
           {products?.map((product: ProductInterface) => (
             <React.Fragment key={product.barcode}>
-              <Grid item xs={12} sx={{ display: { xs: "none", md: "flex" } }}>
+              <Grid
+                container
+                xs={12}
+                sx={{
+                  display: { xs: "none", md: "flex" },
+                }}
+              >
                 <DesktopListProductCard
                   product={product}
                   deleteProduct={handleDeleteProduct}
                 />
+                <Grid
+                  item
+                  xs={11.9}
+                  sx={{ borderBottom: "1px solid rgba(0, 0, 0, 0.12)" }}
+                >
+                  {/* Horizontal Divider */}
+                </Grid>
               </Grid>
 
               <Grid item xs={12} sx={{ display: { md: "none" } }}>

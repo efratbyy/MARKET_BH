@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ProductInterface } from "../models/interfaces/interfaces.ts";
-import { Box, ButtonGroup, Divider, Grid, Typography } from "@mui/material";
+import { ButtonGroup, Divider, Grid, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
@@ -25,15 +25,15 @@ const DesktopListProductCard: React.FC<Props> = ({
   product,
   deleteProduct,
 }) => {
-  const { title, barcode, brand, image, price, details } = product;
+  const { title, barcode, brand, image, price, details, inventory } = product;
   const { user } = useUser();
   const [totalAmount, setTotalAmount] = useState(0);
   const [isDialogOpen, setDialog] = useState(false);
   const { cart, updateCartProvider } = useCartProvider();
 
-  const openDialog = () => {
-    setDialog(true);
-  };
+  // const openDialog = () => {
+  //   setDialog(true);
+  // };
 
   const navigate = useNavigate();
 
@@ -44,23 +44,23 @@ const DesktopListProductCard: React.FC<Props> = ({
     return findProductInCart?.amount || 0;
   };
 
-  const handleAddToCart = useCallback(
-    async (userId: string, barcode: string, amount: number) => {
-      updateCartProvider(userId, barcode, amount);
-      setTotalAmount(totalAmount + 1);
-    },
-    [totalAmount]
-  );
+  // const handleAddToCart = useCallback(
+  //   async (userId: string, barcode: string, amount: number) => {
+  //     updateCartProvider(userId, barcode, amount);
+  //     setTotalAmount(totalAmount + 1);
+  //   },
+  //   [totalAmount]
+  // );
 
-  const handleRemoveFromCart = useCallback(
-    async (userId: string, barcode: string, amount: number) => {
-      if (totalAmount > 0) {
-        updateCartProvider(userId, barcode, -1 * amount);
-        setTotalAmount(Number(totalAmount) - amount);
-      }
-    },
-    [totalAmount]
-  );
+  // const handleRemoveFromCart = useCallback(
+  //   async (userId: string, barcode: string, amount: number) => {
+  //     if (totalAmount > 0) {
+  //       updateCartProvider(userId, barcode, -1 * amount);
+  //       setTotalAmount(Number(totalAmount) - amount);
+  //     }
+  //   },
+  //   [totalAmount]
+  // );
 
   useEffect(() => {
     setTotalAmount(getAmountInCart(barcode));
@@ -68,250 +68,252 @@ const DesktopListProductCard: React.FC<Props> = ({
 
   return (
     <>
-      <Divider variant="middle" />
+      {/* <Divider variant="middle" /> */}
 
-      <Box>
-        <div key={barcode}>
-          <Grid container sx={{ fontSize: "90%" }}>
-            <Divider orientation="vertical" flexItem />
+      <Divider orientation="vertical" flexItem />
 
-            {/* Left inner Card */}
-            {/* Product Image */}
-            <Grid
-              container
-              item
-              xs={2}
-              sx={{
-                textAlign: "center", // Center horizontally
-                display: "flex",
-                alignItems: "center", // Center vertically
-                justifyContent: "center", // Center horizontally
+      {/* Left inner Card */}
+      {/* Product Image */}
+      <Grid
+        item
+        xs={2}
+        sx={{
+          textAlign: "center", // Center horizontally
+          display: "flex",
+          alignItems: "center", // Center vertically
+          justifyContent: "center", // Center horizontally
+        }}
+      >
+        <img
+          src={image.url}
+          alt={title}
+          style={{
+            maxWidth: "100%",
+            width: "200px",
+            height: "180px",
+          }}
+        />
+      </Grid>
+
+      <Grid item xs={3.9}>
+        {/* Product Name */}
+        <Grid
+          item
+          xs={12}
+          // justifyContent={"space-between"}
+          sx={{ fontSize: "17px" }}
+        >
+          {title}
+        </Grid>
+        {/* Product Amount */}
+        <Grid item xs={12}>
+          <Typography
+            variant="body2"
+            color="textSecondary"
+            sx={{ marginTop: "auto" }}
+          >
+            {details && details.weightTopDisplay !== 0
+              ? details.weightTopDisplay + " " + details.weightUnitTopDisplay
+              : ""}
+          </Typography>
+        </Grid>
+        {/* Product Barcode, Ingredients, Content, ManufacturingCountry */}
+        <Grid item xs={12}>
+          <Typography variant="body1">
+            <span style={{ fontWeight: "bold" }}>ברקוד:</span> {barcode}
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <Typography variant="body1">
+            <span style={{ fontWeight: "bold" }}>רכיבים:</span>{" "}
+            {details.ingredients}
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <Typography>
+            <span style={{ fontWeight: "bold" }}>תכולה:</span> {details.content}
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <Typography variant="body1">
+            <span style={{ fontWeight: "bold" }}>ארץ ייצור:</span>{" "}
+            {details.manufacturingCountry}
+          </Typography>
+        </Grid>
+      </Grid>
+
+      {/* Product Stickers */}
+      <Grid item xs={2} sx={{ textAlign: "center" }}>
+        {/* Product Brand */}
+        <Grid
+          xs={12}
+          sx={{
+            fontSize: "17px",
+            textAlign: "center",
+            paddingLeft: "10%",
+            paddingBottom: "20px",
+          }}
+        >
+          {brand}
+        </Grid>
+        {details.isSodium === true && <SvgSodium />}
+        {details.isSugar === true && <SvgSugar />}
+        {details.isSaturatedFat === true && <SvgSaturatedFat />}
+        {details.isSupervised === true && <SvgSupervisedProducts />}
+        {details.isGreenMark === true && <GreenMark />}
+      </Grid>
+      <Divider orientation="vertical" flexItem />
+      {/* Left inner Card */}
+      {/* Price, Price per... and Add/Remove from Cart */}
+      <Grid
+        container
+        xs={4}
+        justifyContent={"space-between"}
+        alignItems={"center"}
+      >
+        {/* Product Price */}
+        <Grid
+          xs={12}
+          sx={{
+            paddingRight: "10%",
+            fontSize: "17px",
+            fontWeight: "bold",
+          }}
+        >
+          ₪{price.toFixed(2)}
+          <Typography
+            variant="body2"
+            color="textSecondary"
+            sx={{
+              marginTop: "auto",
+              fontWeight: "lighter",
+            }}
+          >
+            {details && details.weight
+              ? "₪" +
+                (price / (details?.weight / details.divideBy)).toFixed(2) +
+                " ל " +
+                details?.weightUnit
+              : ""}
+          </Typography>
+        </Grid>
+
+        {user && user.isAdmin && (
+          <Grid
+            container
+            justifyContent="space-between"
+            sx={{
+              marginTop: "auto",
+            }}
+          >
+            <Button
+              sx={{ color: "rgba(0, 0, 0, 0.87)", padding: 0, margin: 0 }}
+              onClick={() => {
+                navigate(ROUTES.EDIT_PRODUCT + `?barcode=${barcode}`);
               }}
             >
-              <img
-                src={image.url}
-                alt={title}
-                style={{
-                  maxWidth: "100%",
-                  width: "200px",
-                  height: "180px",
-                }}
-              />
-            </Grid>
+              <ModeEditTwoToneIcon />
+            </Button>
 
-            <Grid sx={{ padding: "15px" }} item xs={3.95}>
-              <Grid container xs={12} justifyContent={"space-between"}>
-                {/* Product Name */}
-                <Grid sx={{ fontSize: "17px" }} xs={5}>
-                  {title}
-                </Grid>
-              </Grid>
-              {/* Product Amount */}
-              <Grid xs={12}>
-                <Typography
-                  variant="body2"
-                  color="textSecondary"
-                  sx={{ marginTop: "auto" }}
-                >
-                  {details && details.weightTopDisplay !== 0
-                    ? details.weightTopDisplay +
-                      " " +
-                      details.weightUnitTopDisplay
-                    : ""}
-                </Typography>
-              </Grid>
-              {/* Product Barcode, Ingredients, Content, ManufacturingCountry */}
-              <Grid xs={12}>
-                <Typography variant="body1">
-                  <span style={{ fontWeight: "bold" }}>ברקוד:</span> {barcode}
-                </Typography>
-              </Grid>
-              <Grid xs={12}>
-                <Typography variant="body1">
-                  <span style={{ fontWeight: "bold" }}>רכיבים:</span>{" "}
-                  {details.ingredients}
-                </Typography>
-              </Grid>
-              <Grid xs={12}>
-                <Typography>
-                  <span style={{ fontWeight: "bold" }}>תכולה:</span>{" "}
-                  {details.content}
-                </Typography>
-              </Grid>
-              <Grid xs={12}>
-                <Typography variant="body1">
-                  <span style={{ fontWeight: "bold" }}>ארץ ייצור:</span>{" "}
-                  {details.manufacturingCountry}
-                </Typography>
-              </Grid>
-            </Grid>
-
-            {/* Product Stickers */}
-            <Grid item xs={2} sx={{ textAlign: "center" }}>
-              {/* Product Brand */}
-              <Grid
-                xs={12}
-                sx={{
-                  fontSize: "17px",
-                  textAlign: "center",
-                  paddingLeft: "10%",
-                  paddingBottom: "20px",
-                }}
-              >
-                {brand}
-              </Grid>
-              {details.isSodium === true && <SvgSodium />}
-              {details.isSugar === true && <SvgSugar />}
-              {details.isSaturatedFat === true && <SvgSaturatedFat />}
-              {details.isSupervised === true && <SvgSupervisedProducts />}
-              {details.isGreenMark === true && <GreenMark />}
-            </Grid>
-            <Divider orientation="vertical" flexItem />
-            {/* Left inner Card */}
-            {/* Price, Price per... and Add/Remove from Cart */}
-            <Grid
-              container
-              xs={4}
-              justifyContent={"space-between"}
-              alignItems={"center"}
+            <Button
+              sx={{ color: "rgba(0, 0, 0, 0.87)", padding: 0, margin: 0 }}
+              onClick={() => {
+                deleteProduct(barcode);
+              }}
             >
-              {/* <Grid xs={12}> </Grid> */}
+              <DeleteTwoToneIcon />
+            </Button>
+          </Grid>
+        )}
 
-              {/* Product Price */}
-              <Grid
-                xs={12}
+        {user && inventory !== 0 && (
+          <Grid xs={12} margin={"10px"} textAlign={"center"}>
+            {/* Add and Remove from cart */}
+
+            <ButtonGroup
+              orientation="horizontal"
+              variant="contained"
+              fullWidth
+              sx={{
+                boxShadow: 0,
+              }}
+            >
+              <Button
+                onClick={() => updateCartProvider(user!._id, barcode, 1)}
                 sx={{
-                  paddingRight: "10%",
-                  fontSize: "17px",
-                  fontWeight: "bold",
+                  borderTopRightRadius: "10px !important",
+                  borderBottomRightRadius: "10px !important",
+                  borderTopLeftRadius: "0px",
+                  borderBottomLeftRadius: "0px",
+                  backgroundColor: "#5b9822",
+                  minWidth: "0px !important",
+                  // width: "50px",
+                  height: "50px",
+                  "&:hover": {
+                    backgroundColor: "#333",
+                  },
+                  "&:active": {
+                    backgroundColor: "#333",
+                  },
                 }}
               >
-                ₪{price.toFixed(2)}
-                <Typography
-                  variant="body2"
-                  color="textSecondary"
-                  sx={{
-                    marginTop: "auto",
-                    fontWeight: "lighter",
-                  }}
-                >
-                  {details && details.weight
-                    ? "₪" +
-                      (price / (details?.weight / details.divideBy)).toFixed(
-                        2
-                      ) +
-                      " ל " +
-                      details?.weightUnit
-                    : ""}
-                </Typography>
-              </Grid>
+                <AddIcon sx={{ fontSize: "large" }} />
+              </Button>
 
-              {user && user.isAdmin && (
-                <Grid
-                  container
-                  justifyContent="space-between"
-                  sx={{
-                    marginTop: "auto",
-                  }}
-                >
-                  <Button
-                    sx={{ color: "rgba(0, 0, 0, 0.87)", padding: 0, margin: 0 }}
-                    onClick={() => {
-                      navigate(ROUTES.EDIT_PRODUCT + `?barcode=${barcode}`);
-                    }}
-                  >
-                    <ModeEditTwoToneIcon />
-                  </Button>
+              <Button
+                disabled
+                sx={{
+                  minWidth: "0px !important",
+                  // width: "50px",
+                  height: "50px",
+                  borderRadius: "0px",
+                }}
+              >
+                <Typography variant="body1">{String(totalAmount)}</Typography>
+              </Button>
 
-                  <Button
-                    sx={{ color: "rgba(0, 0, 0, 0.87)", padding: 0, margin: 0 }}
-                    onClick={() => {
-                      deleteProduct(barcode);
-                    }}
-                  >
-                    <DeleteTwoToneIcon />
-                  </Button>
-                </Grid>
-              )}
-
-              {user && (
-                <Grid xs={12} margin={"10px"} textAlign={"center"}>
-                  {/* Add and Remove from cart */}
-                  <ButtonGroup
-                    orientation="horizontal"
-                    variant="contained"
-                    fullWidth
-                    sx={{
-                      boxShadow: 0,
-                    }}
-                  >
-                    <Button
-                      onClick={() => updateCartProvider(user!._id, barcode, 1)}
-                      sx={{
-                        borderTopRightRadius: "10px !important",
-                        borderBottomRightRadius: "10px !important",
-                        borderTopLeftRadius: "0px",
-                        borderBottomLeftRadius: "0px",
-                        backgroundColor: "#5b9822",
-                        minWidth: "0px !important",
-                        // width: "50px",
-                        height: "50px",
-                        "&:hover": {
-                          backgroundColor: "#333",
-                        },
-                        "&:active": {
-                          backgroundColor: "#333",
-                        },
-                      }}
-                    >
-                      <AddIcon sx={{ fontSize: "large" }} />
-                    </Button>
-
-                    <Button
-                      disabled
-                      sx={{
-                        minWidth: "0px !important",
-                        // width: "50px",
-                        height: "50px",
-                        borderRadius: "0px",
-                      }}
-                    >
-                      <Typography variant="body1">
-                        {String(totalAmount)}
-                      </Typography>
-                    </Button>
-
-                    <Button
-                      onClick={() => updateCartProvider(user!._id, barcode, -1)}
-                      sx={{
-                        borderTopRightRadius: "0px",
-                        borderBottomRightRadius: "0px",
-                        borderTopLeftRadius: "10px !important",
-                        borderBottomLeftRadius: "10px !important",
-                        backgroundColor: "#5b9822",
-                        minWidth: "0px !important",
-                        // width: "50px",
-                        height: "50px",
-                        "&:hover": {
-                          backgroundColor: "#333",
-                        },
-                        "&:active": {
-                          backgroundColor: "#333",
-                        },
-                      }}
-                    >
-                      <RemoveIcon sx={{ fontSize: "large" }} />
-                    </Button>
-                  </ButtonGroup>
-                </Grid>
-              )}
-            </Grid>
-            <Divider orientation="vertical" flexItem />
+              <Button
+                onClick={() => updateCartProvider(user!._id, barcode, -1)}
+                sx={{
+                  borderTopRightRadius: "0px",
+                  borderBottomRightRadius: "0px",
+                  borderTopLeftRadius: "10px !important",
+                  borderBottomLeftRadius: "10px !important",
+                  backgroundColor: "#5b9822",
+                  minWidth: "0px !important",
+                  // width: "50px",
+                  height: "50px",
+                  "&:hover": {
+                    backgroundColor: "#333",
+                  },
+                  "&:active": {
+                    backgroundColor: "#333",
+                  },
+                }}
+              >
+                <RemoveIcon sx={{ fontSize: "large" }} />
+              </Button>
+            </ButtonGroup>
           </Grid>
+        )}
+        {inventory === 0 && (
+          <Grid
+            xs={12}
+            margin={"10px"}
+            textAlign={"center"}
+            sx={{
+              color: "red",
+              paddingBottom: "7px",
+              fontSize: "20px",
+            }}
+          >
+            אזל המלאי!
+          </Grid>
+        )}
+      </Grid>
+      <Divider orientation="vertical" flexItem />
 
-          <Divider variant="middle" />
-        </div>
-      </Box>
+      {/* <Divider variant="middle" /> */}
     </>
   );
 };
