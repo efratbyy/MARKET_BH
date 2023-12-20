@@ -13,6 +13,8 @@ import {
   Grid,
   InputAdornment,
   IconButton,
+  FormControlLabel,
+  Checkbox,
 } from "@mui/material";
 import Joi from "joi";
 import registerSchema from "../models/joiValidation/registerJoiValidation";
@@ -400,6 +402,26 @@ const EditUserForm = () => {
                   },
                 }}
               />
+              {userEmail && (
+                <Grid item>
+                  <FormControlLabel
+                    name="isAdmin"
+                    control={
+                      <Checkbox
+                        checked={formData.isAdmin}
+                        color="primary"
+                        onChange={(e) => {
+                          setFormData((prevData) => ({
+                            ...prevData,
+                            isAdmin: !prevData.isAdmin,
+                          }));
+                        }}
+                      />
+                    }
+                    label="מנהל"
+                  />
+                </Grid>
+              )}
               <Button
                 type="submit"
                 variant="contained"

@@ -251,6 +251,7 @@ const editUser = async (req, res) => {
       city: userToUpdate.city,
       street: userToUpdate.street,
       houseNumber: userToUpdate.houseNumber,
+      isAdmin: userToUpdate.isAdmin,
       // 1. admin => copy the old password
       // 2. not admin => if new password entered, then encrypt and update
       // 3. not admin => if not new password entered, keep the current password
