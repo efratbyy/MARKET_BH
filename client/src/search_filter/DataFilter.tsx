@@ -8,13 +8,7 @@ import Collapse from "@mui/material/Collapse";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import { useSearchParams } from "react-router-dom";
-import {
-  Checkbox,
-  Divider,
-  FormControlLabel,
-  Grid,
-  ListItem,
-} from "@mui/material";
+import { Checkbox, Divider, FormControlLabel, Grid } from "@mui/material";
 import useProducts from "../product/useProducts";
 import { Button } from "@mui/base";
 import SvgSodium from "../product/SvgSodium";

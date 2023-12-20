@@ -42,6 +42,7 @@ const RegistrationForm: React.FC = () => {
     city: "",
     street: "",
     houseNumber: 0,
+    isAdmin: false,
   });
 
   const navigate = useNavigate();

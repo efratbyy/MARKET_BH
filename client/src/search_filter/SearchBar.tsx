@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import {
   FormControl,
@@ -13,9 +13,6 @@ const SearchBar = () => {
   const [searchParams, setSearch] = useSearchParams();
 
   const handleChange = ({ target }: any) => {
-    // searchParams.set("q", target.value);
-    // setSearch(searchParams);
-
     setSearch({
       q: target.value,
     });

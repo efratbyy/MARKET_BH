@@ -95,13 +95,11 @@ const ProductCard: React.FC<Props> = ({ product, deleteProduct }) => {
             objectFit: "fill",
             width: "40%",
             marginTop: 2,
-            // height: "15vh",
           }}
         />
       </CardActionArea>
       <CardContent
         sx={{
-          // height: "160px",
           marginBottom: "50px",
         }}
       >
@@ -258,7 +256,11 @@ const ProductCard: React.FC<Props> = ({ product, deleteProduct }) => {
               </Button>
             </ButtonGroup>
           )}
-          {inventory === 0 && <Grid>אזל המלאי</Grid>}
+          {inventory === 0 && (
+            <Grid sx={{ color: "red", paddingBottom: "7px", fontSize: "20px" }}>
+              אזל המלאי!
+            </Grid>
+          )}
         </Grid>
       )}
 

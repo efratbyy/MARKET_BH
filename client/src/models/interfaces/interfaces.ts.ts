@@ -9,6 +9,7 @@ export interface UserInterface {
   houseNumber: number;
   forgotPasswordKey?: string;
   forgotPasswordKeyCreatedTime?: Date;
+  isAdmin: boolean;
 }
 
 export interface ProductInterface {

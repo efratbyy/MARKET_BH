@@ -22,7 +22,7 @@ import {
   getUserByEmailApi,
   getUserByIdApi,
 } from "../apiService/userApiService";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import ROUTES from "../routes/routesModel";
 import Navbar from "../navbar/Navbar";
 import { useSnack } from "../providers/SnackbarProvider";
@@ -30,7 +30,6 @@ import Footer from "../footer/Footer";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useUser } from "../providers/UserProvider";
 import { getUserFromLocalStorage } from "../services/LocalStorageService";
-import { error } from "console";
 
 const EditUserForm = () => {
   const navigate = useNavigate();
@@ -57,6 +56,7 @@ const EditUserForm = () => {
     city: "",
     street: "",
     houseNumber: 0,
+    isAdmin: false,
   });
 
   const handleGetUser = useCallback(async () => {

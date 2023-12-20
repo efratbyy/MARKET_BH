@@ -67,8 +67,6 @@ const EditUsersCRM = () => {
     }
   }, [handleGetUsers, user, navigate, deleteTrigger]);
 
-  //   if (!user || !user.isAdmin) navigate(ROUTES.ROOT);
-
   return (
     user &&
     user.isAdmin && (
@@ -107,16 +105,14 @@ const EditUsersCRM = () => {
         <Grid
           sx={{
             display: { lg: "none" },
-
             textAlign: "center",
             fontSize: "50px",
-
             margin: "25%",
             // textDecoration: "underline",
             zIndex: 5,
           }}
         >
-          דף זה אינו נתמך במובייל / טאבלט
+          דף זה אינו נתמך במובייל / טאבלט!
         </Grid>
 
         <Grid
@@ -226,9 +222,8 @@ const EditUsersCRM = () => {
                     navigate(`${ROUTES.EDIT_USER}`, {
                       replace: true,
                       state: {
-                        // Pass your props here
+                        // Pass the props
                         userEmail: user.email,
-                        // Add more props as needed
                       },
                     })
                   }
@@ -236,6 +231,7 @@ const EditUsersCRM = () => {
                   <EditTwoToneIcon />
                 </Button>
               </Grid>
+
               <Grid xs={1} item sx={{ borderRight: "1px solid black" }}>
                 <Button
                   sx={{ color: "red" }}
