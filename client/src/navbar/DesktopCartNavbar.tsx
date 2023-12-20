@@ -85,8 +85,6 @@ const DesktopCartNavbar: React.FC<Props> = ({ backgroundColor }) => {
                 "&:active": {
                   backgroundColor: "#654321", // Change color on press
                 },
-                // maxHeight: "36px",
-                // padding: "30px",
               }}
             >
               <Typography>לתשלום ({totalItemsInCart})</Typography>

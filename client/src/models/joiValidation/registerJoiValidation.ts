@@ -23,6 +23,7 @@ const registerSchema = {
   city: Joi.string().min(2).max(256).required(),
   street: Joi.string().min(2).max(256).required(),
   houseNumber: Joi.number().min(1).required(),
+  isAdmin: Joi.boolean().required(),
 };
 
 export default registerSchema;

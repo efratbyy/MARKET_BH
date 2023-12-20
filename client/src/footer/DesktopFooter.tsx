@@ -29,10 +29,12 @@ const DesktopFooter = () => {
           bottom: 0,
           width: "100%",
           flexDirection: "column",
-          //minHeight: "30px",
         }}
       >
-        <Paper elevation={3} sx={{ backgroundColor: "darkkhaki" }}>
+        <Paper
+          elevation={3}
+          sx={{ backgroundColor: "darkkhaki", position: "relative" }}
+        >
           <Grid container justifyContent="space-between">
             {/* <BottomNavigation> */}
 
@@ -188,12 +190,10 @@ const DesktopFooter = () => {
             sx={{
               fontSize: "20px",
               textAlign: "center",
-              // left: "35%",
               bottom: 0,
-
               left: 0,
-              position: "fixed",
-              width: "100%", // Full width
+              position: "absolute",
+              width: "100%",
             }}
           >
             @ 2023 אפרת בן יוסף | כל הזכויות שמורות

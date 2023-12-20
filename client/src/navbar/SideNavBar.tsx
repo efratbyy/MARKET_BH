@@ -76,6 +76,7 @@ const SideNavBar: React.FC<Props> = ({ showDataFilter = true }) => {
               <Person2TwoToneIcon />
             </ListItemIcon>
             <ListItemText
+              sx={{ color: "olivedrab" }}
               primary={user?.first + " " + user?.last + " " + user?.email}
             />
           </ListItemButton>
@@ -106,6 +107,48 @@ const SideNavBar: React.FC<Props> = ({ showDataFilter = true }) => {
               <AccessibilityNewIcon />
             </ListItemIcon>
             <ListItemText primary={"הצהרת נגישות"} />
+          </ListItemButton>
+        </ListItem>
+        <Divider />
+
+        <ListItem
+          // key={"Inbox"}
+          disablePadding
+          onClick={() => navigate(`${ROUTES.PRIVACY_POLICY}`)}
+        >
+          <ListItemButton>
+            <ListItemIcon>
+              <AccessibilityNewIcon />
+            </ListItemIcon>
+            <ListItemText primary={"מדיניות פרטיות"} />
+          </ListItemButton>
+        </ListItem>
+        <Divider />
+
+        <ListItem
+          // key={"Inbox"}
+          disablePadding
+          onClick={() => navigate(`${ROUTES.TERMS_OF_SERVICE}`)}
+        >
+          <ListItemButton>
+            <ListItemIcon>
+              <AccessibilityNewIcon />
+            </ListItemIcon>
+            <ListItemText primary={"תנאי השימוש"} />
+          </ListItemButton>
+        </ListItem>
+        <Divider />
+
+        <ListItem
+          // key={"Inbox"}
+          disablePadding
+          onClick={() => navigate(`${ROUTES.ABOUT}`)}
+        >
+          <ListItemButton>
+            <ListItemIcon>
+              <AccessibilityNewIcon />
+            </ListItemIcon>
+            <ListItemText primary={"אודותינו"} />
           </ListItemButton>
         </ListItem>
         <Divider />

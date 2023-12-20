@@ -71,6 +71,12 @@ const AvatarMenu = () => {
                 <MenuItem onClick={() => navigate(`${ROUTES.USERS_CRM}`)}>
                   <Typography textAlign="center">עריכת משתמשים</Typography>
                 </MenuItem>
+
+                <MenuItem
+                  onClick={() => navigate(`${ROUTES.INVENTORY_MANAGEMENT}`)}
+                >
+                  <Typography textAlign="center">ניהול מלאי</Typography>
+                </MenuItem>
               </>
             )}
 
