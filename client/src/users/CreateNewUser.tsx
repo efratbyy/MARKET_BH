@@ -13,19 +13,23 @@ import {
   Grid,
   InputAdornment,
   IconButton,
+  FormControlLabel,
+  Checkbox,
 } from "@mui/material";
 import Joi from "joi";
 import registerSchema from "../models/joiValidation/registerJoiValidation";
 import { UserInterface } from "../models/interfaces/interfaces.ts";
 import { registrationApi } from "../apiService/userApiService";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import ROUTES from "../routes/routesModel";
 import Navbar from "../navbar/Navbar";
 import { useSnack } from "../providers/SnackbarProvider";
 import Footer from "../footer/Footer";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { useUser } from "../providers/UserProvider";
 
 const CreateNewUser: React.FC = () => {
+  const { user } = useUser();
   const snack = useSnack();
   const [formData, setFormData] = useState<UserInterface>({
     first: "",
@@ -105,6 +109,8 @@ const CreateNewUser: React.FC = () => {
       snack("error", error);
     }
   };
+
+  if (!user?.isAdmin) return <Navigate replace to={ROUTES.ROOT} />;
 
   return (
     <>
@@ -292,6 +298,25 @@ const CreateNewUser: React.FC = () => {
               },
             }}
           />
+
+          <Grid item>
+            <FormControlLabel
+              name="isAdmin"
+              control={
+                <Checkbox
+                  checked={formData.isAdmin}
+                  color="primary"
+                  onChange={(e) => {
+                    setFormData((prevData) => ({
+                      ...prevData,
+                      isAdmin: !prevData.isAdmin,
+                    }));
+                  }}
+                />
+              }
+              label="מנהל"
+            />
+          </Grid>
 
           <Button
             type="submit"

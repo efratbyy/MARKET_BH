@@ -8,13 +8,11 @@ import Footer from "../footer/Footer";
 import { useUser } from "../providers/UserProvider";
 import CategoryNavbar from "../navbar/CategoryNavbar";
 import DataFilter from "../search_filter/DataFilter";
-import DesktopFooter from "../footer/DesktopFooter";
 import { useSearchParams } from "react-router-dom";
 import CloseIcon from "@mui/icons-material/Close";
 import { getTranslatedCategoryCodeApi } from "../apiService/categoriesApi";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import AppsIcon from "@mui/icons-material/Apps";
-import DesktopListProductCard from "../product/DesktopListProductCard";
 
 const HomePage = () => {
   const [searchParams, setSearch] = useSearchParams();
