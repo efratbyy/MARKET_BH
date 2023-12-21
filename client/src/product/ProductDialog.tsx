@@ -44,6 +44,7 @@ const ProductDialog: FC<Props> = ({
     image,
     price,
     details,
+    inventory,
     // ingredients,
     // content,
     // manufacturingCountry,
@@ -117,7 +118,7 @@ const ProductDialog: FC<Props> = ({
           {details.isGreenMark === true && <GreenMark />}
         </Grid>
       </DialogContent>
-      {user && (
+      {user && inventory !== 0 && (
         <DialogActions>
           <RemoveIcon
             onClick={() => handleRemoveFromCart(user!._id, barcode, 1)}
@@ -135,6 +136,18 @@ const ProductDialog: FC<Props> = ({
             sx={{ color: "#800080", marginLeft: "10%", fontSize: "40px" }}
           />
         </DialogActions>
+      )}
+      {inventory === 0 && (
+        <Grid
+          sx={{
+            color: "red",
+            paddingBottom: "15px",
+            fontSize: "20px",
+            paddingRight: "15px",
+          }}
+        >
+          אזל המלאי!
+        </Grid>
       )}
     </Dialog>
   );

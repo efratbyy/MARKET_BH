@@ -1,6 +1,26 @@
-import React, { useEffect } from "react";
-import { CartProductInterface } from "../models/interfaces/interfaces.ts";
-import { Box, Divider, Grid, Input, Paper, Typography } from "@mui/material";
+import React, { useCallback, useEffect, useState } from "react";
+import {
+  CartProductInterface,
+  ProductInterface,
+} from "../models/interfaces/interfaces.ts";
+import {
+  Box,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Divider,
+  Grid,
+  Input,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  Typography,
+} from "@mui/material";
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import AddIcon from "@mui/icons-material/Add";
@@ -11,14 +31,22 @@ import { useUser } from "../providers/UserProvider";
 import DesktopCartNavbar from "../navbar/DesktopCartNavbar";
 import { useNavigate } from "react-router-dom";
 import ROUTES from "../routes/routesModel";
+import { getOutOfStockProductsApi } from "../apiService/cartApiService";
 
 const ShoppingCart = () => {
-  const [totalItemsInCart, setTotalItemsInCart] = React.useState<number>(0);
-
+  const [totalItemsInCart, setTotalItemsInCart] = useState<number>(0);
+  const [open, setOpen] = React.useState(false);
+  const [outOfStockProducts, setOutOfStockProducts] = useState<
+    ProductInterface[]
+  >([]);
   const { user } = useUser();
   const { cart, updateCartNoteProvider, updateCartProvider } =
     useCartProvider();
   const navigate = useNavigate();
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   // Function to handle changes in the input field
   const handleNoteChange = (
@@ -29,11 +57,32 @@ const ShoppingCart = () => {
       updateCartNoteProvider(user?._id, barcode, event.target.value.toString());
   };
 
+  const handleGetOutOfStockProducts = useCallback(async () => {
+    // TODO: check that all products in the cart are avaiavble in the inventory
+    try {
+      const outOfStockProductsRes = await getOutOfStockProductsApi(
+        user?._id || ""
+      );
+
+      if (outOfStockProductsRes.length > 0) {
+        setOutOfStockProducts(outOfStockProductsRes);
+      } else {
+        setOutOfStockProducts([]);
+      }
+      console.log(outOfStockProducts);
+    } catch (error) {
+      console.log(error);
+    }
+    // navigate(ROUTES.CHECKOUT);
+  }, []);
+
   useEffect(() => {
     if (cart) {
       setTotalItemsInCart(
         cart.reduce((number, item) => number + item.amount, 0)
       );
+
+      handleGetOutOfStockProducts();
     }
   }, [cart]);
 
@@ -212,7 +261,9 @@ const ShoppingCart = () => {
               <Paper sx={{ marginTop: "40px" }}>
                 <Button
                   onClick={() => {
-                    navigate(ROUTES.CHECKOUT);
+                    outOfStockProducts.length > 0
+                      ? setOpen(true)
+                      : navigate(ROUTES.CHECKOUT);
                   }}
                   variant="contained"
                   sx={{
@@ -236,6 +287,46 @@ const ShoppingCart = () => {
           </Box>
         </Grid>
       </Grid>
+
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          ישנם בעגלה מוצרים שאזלו במלאי. אנא הסר את המוצרים הבאים:
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            <Table sx={{ textAlign: "right" }}>
+              <TableHead>
+                <TableRow>
+                  <TableCell align="right">שם המוצר</TableCell>
+                  <TableCell align="right">כמות שיש להסיר</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {outOfStockProducts?.map((product: ProductInterface, index) => (
+                  <TableRow key={product.barcode}>
+                    <TableCell align="right">{product.title}</TableCell>
+                    <TableCell align="right">
+                      {(cart?.find(
+                        (cartProduct) => cartProduct.barcode === product.barcode
+                      )?.amount || 0) - product.inventory}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} autoFocus>
+            אישור
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 };

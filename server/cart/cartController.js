@@ -117,7 +117,32 @@ const getCart = async (req, res) => {
   }
 };
 
+const getOutOfStockProducts = async (req, res) => {
+  try {
+    const user = req.user;
+    const { userId } = req.params;
+
+    if (user._id !== userId) throw new Error("Illegal action");
+
+    const userFromDB = await User.findById(userId);
+    if (!userFromDB) throw new Error("User not registered");
+    let outOfStockProducts = [];
+
+    for (let productInCart of userFromDB.cart) {
+      const product = await Product.findOne({ barcode: productInCart.barcode });
+
+      if (product.inventory < productInCart.amount)
+        outOfStockProducts.push(product);
+    }
+
+    return res.send(outOfStockProducts);
+  } catch (error) {
+    return handleError(res, 404, `Mongoose Error: ${error.message}`);
+  }
+};
+
 exports.addToCart = addToCart;
 exports.removeFromCart = removeFromCart;
 exports.getCart = getCart;
 exports.addNote = addNote;
+exports.getOutOfStockProducts = getOutOfStockProducts;
