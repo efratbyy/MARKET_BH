@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const CartProduct = require("./Cart");
 const Purchase = require("./Purchase");
+const { required } = require("joi");
 
 const schema = new mongoose.Schema({
   first: {
@@ -88,9 +89,14 @@ const schema = new mongoose.Schema({
   },
   cart: [CartProduct],
   purchaseHistory: [Purchase],
-  forgotPasswordKey: { type: String, minLength: 20, maxLength: 256 },
+  forgotPasswordKey: {
+    type: String,
+    maxLength: 256,
+    required: false,
+  },
   forgotPasswordKeyCreatedTime: {
     type: Date,
+    required: false,
   },
 });
 
