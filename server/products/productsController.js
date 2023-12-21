@@ -107,19 +107,41 @@ const updateProductInventory = async (req, res) => {
   try {
     const user = req.user;
     const { newInventory, barcode } = req.params;
-    // const { error } = productJoiValidation(productToUpdate);
 
     if (!user.isAdmin)
       throw new Error(
         "You must be an admin type user in order to update product inventory!"
       );
 
-    // if (error)
-    //   return handleError(res, 400, `Joi Error: ${error.details[0].message}`);
-
     let updatedProduct = await Product.findOneAndUpdate(
       { barcode: barcode },
       { inventory: newInventory },
+      {
+        new: true,
+      }
+    );
+
+    if (!updatedProduct) throw new Error("Product update failed!");
+
+    res.status(201).send(updatedProduct);
+  } catch (error) {
+    return handleError(res, 404, `Mongoose Error: ${error.message}`);
+  }
+};
+
+const updateProductPrice = async (req, res) => {
+  try {
+    const user = req.user;
+    const { newPrice, barcode } = req.params;
+
+    if (!user.isAdmin)
+      throw new Error(
+        "You must be an admin type user in order to update product price!"
+      );
+
+    let updatedProduct = await Product.findOneAndUpdate(
+      { barcode: barcode },
+      { price: newPrice },
       {
         new: true,
       }
@@ -139,3 +161,4 @@ exports.addProduct = addProduct;
 exports.editProduct = editProduct;
 exports.deleteProduct = deleteProduct;
 exports.updateProductInventory = updateProductInventory;
+exports.updateProductPrice = updateProductPrice;

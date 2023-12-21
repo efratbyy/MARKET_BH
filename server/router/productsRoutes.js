@@ -8,6 +8,7 @@ const {
   getProductByBarcode,
   deleteProduct,
   updateProductInventory,
+  updateProductPrice,
 } = require("../products/productsController");
 
 router.get("/", getProducts);
@@ -20,5 +21,6 @@ router.patch(
   auth,
   updateProductInventory
 );
+router.patch("/update_price/:barcode/:newPrice", auth, updateProductPrice);
 
 module.exports = router;

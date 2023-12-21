@@ -31,6 +31,7 @@ import SearchBar from "../search_filter/SearchBar";
 import {
   deleteProductApi,
   updateProductInventoryApi,
+  updateProductPriceApi,
 } from "../apiService/productApiService";
 
 const InventoryManagement = () => {
@@ -44,12 +45,43 @@ const InventoryManagement = () => {
   const [editedInventory, setEditedInventory] = useState<{
     [barcode: string]: number;
   }>({});
+  const [editedPrice, setEditedPrice] = useState<{
+    [barcode: string]: number;
+  }>({});
 
   const { user } = useUser();
 
   const rowsPerPage = 10;
   const navigate = useNavigate();
   const snack = useSnack();
+
+  const handleUpdatePrice = useCallback(
+    async (barcode: string, newPrice: number) => {
+      try {
+        const updatedProduct = await updateProductPriceApi(barcode, newPrice);
+        if (updatedProduct) {
+          snack("success", "המחיר עודכן בהצלחה!");
+          setDeleteTrigger((prev) => !prev);
+        } else snack("error", "לא ניתן לעדכן את המחיר, נסה שוב מאוחר יותר!");
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    []
+  );
+
+  const handlePriceChange = (
+    event: ChangeEvent<HTMLInputElement>,
+    barcode: string
+  ) => {
+    setEditedPrice((prevPrice) => ({
+      ...prevPrice,
+      [barcode]: Number(event.target.value),
+    }));
+
+    handleUpdatePrice(barcode, Number(event.target.value));
+    console.log("barcode", barcode, "value", event.target.value);
+  };
 
   const handleUpdateInventory = useCallback(
     async (barcode: string, newInventory: number) => {
@@ -197,8 +229,18 @@ const InventoryManagement = () => {
                 >
                   <TableCell align="right">{product.title}</TableCell>
                   <TableCell align="right">{product.brand}</TableCell>
-                  <TableCell align="right">{product.price}</TableCell>
                   <TableCell align="right">
+                    {/* price input */}
+                    <TextField
+                      type="number" // Assuming 'inventory' is a numeric value
+                      value={editedPrice[product.barcode] || product.price}
+                      onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                        handlePriceChange(event, product.barcode)
+                      }
+                    />
+                  </TableCell>
+                  <TableCell align="right">
+                    {/* inventory input */}
                     <TextField
                       type="number" // Assuming 'inventory' is a numeric value
                       value={
