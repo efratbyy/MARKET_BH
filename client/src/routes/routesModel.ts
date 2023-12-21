@@ -20,6 +20,7 @@ const ROUTES = {
   TERMS_OF_SERVICE: "/terms_of_service",
   PRIVACY_POLICY: "/privacy_policy",
   ACCESSIBILITY_STATEMENT: "/accessibility_statement",
+  INVENTORY_MANAGEMENT: "/inventory_management",
 };
 
 export default ROUTES;

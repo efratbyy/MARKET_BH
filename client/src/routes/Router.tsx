@@ -22,6 +22,7 @@ import AddUser from "../users/CreateNewUser";
 import TermsOfServicePage from "../components/TermsOfServicePage";
 import PrivacyPolicyPage from "../components/PrivacyPolicyPage";
 import AccessibilityStatementPage from "../components/AccessibilityStatementPage";
+import InventoryManagement from "../Inventory/InventoryManagement";
 
 const Router = () => {
   return (
@@ -54,6 +55,10 @@ const Router = () => {
       <Route
         path={ROUTES.ACCESSIBILITY_STATEMENT}
         element={<AccessibilityStatementPage />}
+      />
+      <Route
+        path={ROUTES.INVENTORY_MANAGEMENT}
+        element={<InventoryManagement />}
       />
       <Route path="*" element={<ErrorPage />} />
     </Routes>

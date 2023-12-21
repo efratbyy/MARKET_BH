@@ -71,3 +71,21 @@ export const deleteProductApi = async (barcode: string) => {
     return Promise.reject("An unexpected error occurred!");
   }
 };
+
+export const updateProductInventoryApi = async (
+  barcode: string,
+  newInventory: number
+) => {
+  try {
+    const token = localStorage.getItem("token_key");
+    const { data } = await axios.patch<ProductInterface>(
+      `${apiUrl}/products/update_inventory/${barcode}/${newInventory}`,
+      null,
+      { headers: { "x-auth-token": token } }
+    );
+    return Promise.resolve(data);
+  } catch (error) {
+    if (axios.isAxiosError(error)) return Promise.reject(error.message);
+    return Promise.reject("An unexpected error occurred!");
+  }
+};
