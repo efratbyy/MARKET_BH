@@ -20,7 +20,7 @@ import useProducts from "../product/useProducts";
 import { ProductInterface } from "../models/interfaces/interfaces.ts";
 import Navbar from "../navbar/Navbar";
 import Footer from "../footer/Footer";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import EditTwoToneIcon from "@mui/icons-material/EditTwoTone";
 import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 import ROUTES from "../routes/routesModel";
@@ -48,6 +48,8 @@ const InventoryManagement = () => {
   const [editedPrice, setEditedPrice] = useState<{
     [barcode: string]: number;
   }>({});
+  const [searchParams, setSearch] = useSearchParams();
+  const [query, setQuery] = useState<string>("");
 
   const { user } = useUser();
 
@@ -69,6 +71,15 @@ const InventoryManagement = () => {
     },
     []
   );
+
+  useEffect(() => {
+    const query = searchParams.get("q");
+    if (query != null) {
+      setQuery(query);
+    } else {
+      setQuery("");
+    }
+  }, [searchParams]);
 
   const handlePriceChange = (
     event: ChangeEvent<HTMLInputElement>,
@@ -155,12 +166,20 @@ const InventoryManagement = () => {
   useEffect(() => {
     handleGetProducts()
       .then((products) => {
-        setProducts(products);
+        // TODO: filter
+        // Filter by q
+        let filteredProducts = products?.filter(
+          (product) =>
+            product.title.includes(query) ||
+            product.barcode.includes(query) ||
+            product.brand.includes(query)
+        );
+        setProducts(filteredProducts);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, [deleteTrigger]);
+  }, [deleteTrigger, query, handleGetProducts]);
 
   if (!user || !user.isAdmin) navigate(ROUTES.ROOT);
 
@@ -170,7 +189,7 @@ const InventoryManagement = () => {
       <>
         <Navbar showSearchBar={false} />
         <Grid sx={{ display: { xs: "none", md: "block" } }}>
-          {" "}
+          {/* seach bar */}
           <SearchBar />
         </Grid>
         <Grid sx={{ display: { xs: "none", md: "block" } }}>
