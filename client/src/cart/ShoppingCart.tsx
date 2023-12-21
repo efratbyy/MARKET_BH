@@ -58,7 +58,6 @@ const ShoppingCart = () => {
   };
 
   const handleGetOutOfStockProducts = useCallback(async () => {
-    // TODO: check that all products in the cart are avaiavble in the inventory
     try {
       const outOfStockProductsRes = await getOutOfStockProductsApi(
         user?._id || ""
@@ -73,7 +72,6 @@ const ShoppingCart = () => {
     } catch (error) {
       console.log(error);
     }
-    // navigate(ROUTES.CHECKOUT);
   }, []);
 
   useEffect(() => {

@@ -1,20 +1,6 @@
-import React, { useCallback, useEffect, useState } from "react";
-import {
-  CartProductInterface,
-  ProductInterface,
-} from "../models/interfaces/interfaces.ts";
-import {
-  Box,
-  ButtonGroup,
-  Card,
-  CardContent,
-  CardMedia,
-  Divider,
-  Grid,
-  Input,
-  Paper,
-  Typography,
-} from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { ProductInterface } from "../models/interfaces/interfaces.ts";
+import { Box, ButtonGroup, Divider, Grid, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
@@ -36,14 +22,15 @@ type Props = {
 };
 
 const MobileListProductCard: React.FC<Props> = ({ product, deleteProduct }) => {
-  const { title, barcode, brand, image, price, details } = product;
+  const { title, barcode, brand, image, price, details, inventory } = product;
   const { user } = useUser();
   const [totalAmount, setTotalAmount] = useState(0);
-  const [isDialogOpen, setDialog] = useState(false);
+  // const [isDialogOpen, setDialog] = useState(false);
   const { cart, updateCartProvider } = useCartProvider();
-  const openDialog = () => {
-    setDialog(true);
-  };
+
+  // const openDialog = () => {
+  //   setDialog(true);
+  // };
 
   const navigate = useNavigate();
 
@@ -54,23 +41,23 @@ const MobileListProductCard: React.FC<Props> = ({ product, deleteProduct }) => {
     return findProductInCart?.amount || 0;
   };
 
-  const handleAddToCart = useCallback(
-    async (userId: string, barcode: string, amount: number) => {
-      updateCartProvider(userId, barcode, amount);
-      setTotalAmount(totalAmount + 1);
-    },
-    [totalAmount]
-  );
+  // const handleAddToCart = useCallback(
+  //   async (userId: string, barcode: string, amount: number) => {
+  //     updateCartProvider(userId, barcode, amount);
+  //     setTotalAmount(totalAmount + 1);
+  //   },
+  //   [totalAmount]
+  // );
 
-  const handleRemoveFromCart = useCallback(
-    async (userId: string, barcode: string, amount: number) => {
-      if (totalAmount > 0) {
-        updateCartProvider(userId, barcode, -1 * amount);
-        setTotalAmount(Number(totalAmount) - amount);
-      }
-    },
-    [totalAmount]
-  );
+  // const handleRemoveFromCart = useCallback(
+  //   async (userId: string, barcode: string, amount: number) => {
+  //     if (totalAmount > 0) {
+  //       updateCartProvider(userId, barcode, -1 * amount);
+  //       setTotalAmount(Number(totalAmount) - amount);
+  //     }
+  //   },
+  //   [totalAmount]
+  // );
 
   useEffect(() => {
     setTotalAmount(getAmountInCart(barcode));
@@ -257,72 +244,89 @@ const MobileListProductCard: React.FC<Props> = ({ product, deleteProduct }) => {
                   textAlign={"center"}
                 >
                   {/* Add and Remove from cart */}
-                  <ButtonGroup
-                    orientation="horizontal"
-                    variant="contained"
-                    fullWidth
-                    sx={{
-                      boxShadow: 0,
-                    }}
-                  >
-                    <Button
-                      onClick={() => updateCartProvider(user!._id, barcode, 1)}
+                  {inventory !== 0 && (
+                    <ButtonGroup
+                      orientation="horizontal"
+                      variant="contained"
+                      fullWidth
                       sx={{
-                        borderTopRightRadius: "10px !important",
-                        borderBottomRightRadius: "10px !important",
-                        borderTopLeftRadius: "0px",
-                        borderBottomLeftRadius: "0px",
-                        backgroundColor: "#5b9822",
-                        minWidth: "0px !important",
-                        // width: "50px",
-                        height: "30px",
-                        "&:hover": {
-                          backgroundColor: "#333",
-                        },
-                        "&:active": {
-                          backgroundColor: "#333",
-                        },
+                        boxShadow: 0,
                       }}
                     >
-                      <AddIcon sx={{ fontSize: "large" }} />
-                    </Button>
+                      <Button
+                        onClick={() =>
+                          updateCartProvider(user!._id, barcode, 1)
+                        }
+                        sx={{
+                          borderTopRightRadius: "10px !important",
+                          borderBottomRightRadius: "10px !important",
+                          borderTopLeftRadius: "0px",
+                          borderBottomLeftRadius: "0px",
+                          backgroundColor: "#5b9822",
+                          minWidth: "0px !important",
+                          // width: "50px",
+                          height: "30px",
+                          "&:hover": {
+                            backgroundColor: "#333",
+                          },
+                          "&:active": {
+                            backgroundColor: "#333",
+                          },
+                        }}
+                      >
+                        <AddIcon sx={{ fontSize: "large" }} />
+                      </Button>
 
-                    <Button
-                      disabled
-                      sx={{
-                        minWidth: "0px !important",
-                        // width: "50px",
-                        height: "30px",
-                        borderRadius: "0px",
-                      }}
-                    >
-                      <Typography variant="body1">
-                        {String(totalAmount)}
-                      </Typography>
-                    </Button>
+                      <Button
+                        disabled
+                        sx={{
+                          minWidth: "0px !important",
+                          // width: "50px",
+                          height: "30px",
+                          borderRadius: "0px",
+                        }}
+                      >
+                        <Typography variant="body1">
+                          {String(totalAmount)}
+                        </Typography>
+                      </Button>
 
-                    <Button
-                      onClick={() => updateCartProvider(user!._id, barcode, -1)}
+                      <Button
+                        onClick={() =>
+                          updateCartProvider(user!._id, barcode, -1)
+                        }
+                        sx={{
+                          borderTopRightRadius: "0px",
+                          borderBottomRightRadius: "0px",
+                          borderTopLeftRadius: "10px !important",
+                          borderBottomLeftRadius: "10px !important",
+                          backgroundColor: "#5b9822",
+                          minWidth: "0px !important",
+                          // width: "50px",
+                          height: "30px",
+                          "&:hover": {
+                            backgroundColor: "#333",
+                          },
+                          "&:active": {
+                            backgroundColor: "#333",
+                          },
+                        }}
+                      >
+                        <RemoveIcon sx={{ fontSize: "large" }} />
+                      </Button>
+                    </ButtonGroup>
+                  )}
+                  {inventory === 0 && (
+                    <Grid
                       sx={{
-                        borderTopRightRadius: "0px",
-                        borderBottomRightRadius: "0px",
-                        borderTopLeftRadius: "10px !important",
-                        borderBottomLeftRadius: "10px !important",
-                        backgroundColor: "#5b9822",
-                        minWidth: "0px !important",
-                        // width: "50px",
-                        height: "30px",
-                        "&:hover": {
-                          backgroundColor: "#333",
-                        },
-                        "&:active": {
-                          backgroundColor: "#333",
-                        },
+                        color: "red",
+                        paddingBottom: "7px",
+                        fontSize: "20px",
                       }}
                     >
-                      <RemoveIcon sx={{ fontSize: "large" }} />
-                    </Button>
-                  </ButtonGroup>
+                      אזל המלאי!
+                    </Grid>
+                  )}
                 </Grid>
               )}
             </Grid>
