@@ -12,7 +12,6 @@ import MobileListProductCard from "./MobileListProductCard";
 type Props = { productListShow: boolean };
 
 const Products: React.FC<Props> = ({ productListShow = false }) => {
-  const { handleGetProducts } = useProducts();
   const [products, setProducts] = useState<ProductInterface[] | undefined>([]);
   const [query, setQuery] = useState<string>("");
   const [searchParams] = useSearchParams();
@@ -20,8 +19,10 @@ const Products: React.FC<Props> = ({ productListShow = false }) => {
   const [brands, setBrands] = useState<string>("");
   const [stickers, setStickers] = useState<string>("");
   const [categoryCode, setCategoryCode] = useState<string>("");
-  const snack = useSnack();
   const [deleteTrigger, setDeleteTrigger] = useState<boolean>(true);
+
+  const { handleGetProducts } = useProducts();
+  const snack = useSnack();
 
   const handleDeleteProduct = useCallback(async (barcode: string) => {
     try {
