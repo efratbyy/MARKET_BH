@@ -1,7 +1,17 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { deleteUserApi, getUsersApi } from "../apiService/userApiService";
 import { UserInterface } from "../models/interfaces/interfaces.ts";
-import { Button, CssBaseline, Fab, Grid } from "@mui/material";
+import {
+  Button,
+  CssBaseline,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Fab,
+  Grid,
+} from "@mui/material";
 import Navbar from "../navbar/Navbar";
 import Footer from "../footer/Footer";
 import { useNavigate } from "react-router-dom";
@@ -15,11 +25,22 @@ import { useSnack } from "../providers/SnackbarProvider";
 const EditUsersCRM = () => {
   const [users, setUsers] = useState<UserInterface[] | undefined>([]);
   const [deleteTrigger, setDeleteTrigger] = useState<boolean>(true);
+  const [userByEmailToDelete, setUserByEmailToDelete] = useState<string>("");
+  const [open, setOpen] = useState(false);
 
   const { user } = useUser();
 
   const navigate = useNavigate();
   const snack = useSnack();
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleClickOpen = (userEmail: string) => {
+    setUserByEmailToDelete(userEmail);
+    setOpen(true);
+  };
 
   const handleGetUsers = useCallback(async () => {
     try {
@@ -236,7 +257,7 @@ const EditUsersCRM = () => {
                 <Button
                   sx={{ color: "red" }}
                   onClick={() => {
-                    handleDeleteUser(user.email);
+                    handleClickOpen(user.email);
                   }}
                 >
                   <DeleteTwoToneIcon />
@@ -259,6 +280,33 @@ const EditUsersCRM = () => {
         >
           <AddIcon />
         </Fab>
+
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">מחיקת משתמש!</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              האם את/ה בטוח/ה שבצונך למחוק את המשתמש? משתמש שימחק ימחק לצמיתות!
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose}>ביטול</Button>
+            <Button
+              onClick={() => {
+                handleDeleteUser(userByEmailToDelete);
+                handleClose();
+              }}
+              autoFocus
+            >
+              אישור
+            </Button>
+          </DialogActions>
+        </Dialog>
+
         <Footer />
       </>
     )
