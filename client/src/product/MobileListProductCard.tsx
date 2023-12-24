@@ -18,13 +18,16 @@ import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 
 type Props = {
   product: ProductInterface;
-  deleteProduct: (barcode: string) => void;
+  setBarcodeAndOpenDialog: (barcode: string) => void;
 };
 
-const MobileListProductCard: React.FC<Props> = ({ product, deleteProduct }) => {
+const MobileListProductCard: React.FC<Props> = ({
+  product,
+  setBarcodeAndOpenDialog,
+}) => {
+  const [totalAmount, setTotalAmount] = useState(0);
   const { title, barcode, brand, image, price, details, inventory } = product;
   const { user } = useUser();
-  const [totalAmount, setTotalAmount] = useState(0);
   // const [isDialogOpen, setDialog] = useState(false);
   const { cart, updateCartProvider } = useCartProvider();
 
@@ -40,24 +43,6 @@ const MobileListProductCard: React.FC<Props> = ({ product, deleteProduct }) => {
     );
     return findProductInCart?.amount || 0;
   };
-
-  // const handleAddToCart = useCallback(
-  //   async (userId: string, barcode: string, amount: number) => {
-  //     updateCartProvider(userId, barcode, amount);
-  //     setTotalAmount(totalAmount + 1);
-  //   },
-  //   [totalAmount]
-  // );
-
-  // const handleRemoveFromCart = useCallback(
-  //   async (userId: string, barcode: string, amount: number) => {
-  //     if (totalAmount > 0) {
-  //       updateCartProvider(userId, barcode, -1 * amount);
-  //       setTotalAmount(Number(totalAmount) - amount);
-  //     }
-  //   },
-  //   [totalAmount]
-  // );
 
   useEffect(() => {
     setTotalAmount(getAmountInCart(barcode));
@@ -227,7 +212,7 @@ const MobileListProductCard: React.FC<Props> = ({ product, deleteProduct }) => {
                         margin: 0,
                       }}
                       onClick={() => {
-                        deleteProduct(barcode);
+                        setBarcodeAndOpenDialog(barcode);
                       }}
                     >
                       <DeleteTwoToneIcon />

@@ -1,6 +1,15 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { ProductInterface } from "../models/interfaces/interfaces.ts";
-import { Grid, Typography } from "@mui/material";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Grid,
+  Typography,
+} from "@mui/material";
 import ProductCard from "./ProductCard";
 import useProducts from "./useProducts";
 import { useSearchParams } from "react-router-dom";
@@ -20,21 +29,33 @@ const Products: React.FC<Props> = ({ productListShow = false }) => {
   const [stickers, setStickers] = useState<string>("");
   const [categoryCode, setCategoryCode] = useState<string>("");
   const [deleteTrigger, setDeleteTrigger] = useState<boolean>(true);
+  const [open, setOpen] = useState(false);
+  const [barcodeToDelete, setBarcodeToDelete] = useState<string>("");
 
   const { handleGetProducts } = useProducts();
   const snack = useSnack();
 
-  const handleDeleteProduct = useCallback(async (barcode: string) => {
+  const setBarcodeAndOpenDialog = (barcode: string) => {
+    setBarcodeToDelete(barcode);
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleDeleteProduct = useCallback(async () => {
     try {
-      const deletedProduct = await deleteProductApi(barcode);
+      const deletedProduct = await deleteProductApi(barcodeToDelete);
       if (deletedProduct) {
         snack("success", "המוצר נמחק בהצלחה!");
         setDeleteTrigger((prev) => !prev);
+        console.log("deleted");
       } else snack("error", "לא ניתן למחוק את המוצר, נסה שוב מאוחר יותר!");
     } catch (error) {
       console.log(error);
     }
-  }, []);
+  }, [barcodeToDelete]);
 
   useEffect(() => {
     const query = searchParams.get("q");
@@ -82,6 +103,7 @@ const Products: React.FC<Props> = ({ productListShow = false }) => {
   }, [searchParams]);
 
   useEffect(() => {
+    console.log(deleteTrigger);
     handleGetProducts()
       .then((products) => {
         // Filter by q
@@ -176,7 +198,10 @@ const Products: React.FC<Props> = ({ productListShow = false }) => {
   }, [
     handleGetProducts,
     handleDeleteProduct,
+    setDeleteTrigger,
     deleteTrigger,
+    barcodeToDelete,
+    setBarcodeToDelete,
     query,
     sort,
     brands,
@@ -206,13 +231,12 @@ const Products: React.FC<Props> = ({ productListShow = false }) => {
             <Grid item key={product.barcode} xs={6} sm={6} md={4} lg={3}>
               <ProductCard
                 product={product}
-                deleteProduct={handleDeleteProduct}
+                setBarcodeAndOpenDialog={setBarcodeAndOpenDialog}
               />
             </Grid>
           ))}
         </Grid>
       )}
-
       {productListShow && (
         <Grid
           container
@@ -240,7 +264,7 @@ const Products: React.FC<Props> = ({ productListShow = false }) => {
               >
                 <DesktopListProductCard
                   product={product}
-                  deleteProduct={handleDeleteProduct}
+                  setBarcodeAndOpenDialog={setBarcodeAndOpenDialog}
                 />
                 <Grid
                   item
@@ -254,13 +278,39 @@ const Products: React.FC<Props> = ({ productListShow = false }) => {
               <Grid item xs={12} sx={{ display: { md: "none" } }}>
                 <MobileListProductCard
                   product={product}
-                  deleteProduct={handleDeleteProduct}
+                  setBarcodeAndOpenDialog={setBarcodeAndOpenDialog}
                 />
               </Grid>
             </React.Fragment>
           ))}
         </Grid>
       )}
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">מחיקת משתמש!</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            האם הינך בטוח/ה כי בצונך למחוק משתמש זה? משתמש שימחק מהמערכת ימחק
+            לצמיתות!
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>ביטול</Button>
+          <Button
+            onClick={() => {
+              handleDeleteProduct();
+              handleClose();
+            }}
+            autoFocus
+          >
+            אישור
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 };

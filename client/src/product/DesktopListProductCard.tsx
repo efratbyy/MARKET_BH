@@ -13,27 +13,23 @@ import SvgSugar from "./SvgSugar";
 import SvgSaturatedFat from "./SvgSaturatedFat";
 import SvgSupervisedProducts from "./SvgSupervisedProducts";
 import GreenMark from "./GreenMark";
-import ModeEditTwoToneIcon from "@mui/icons-material/ModeEditTwoTone";
+import EditTwoToneIcon from "@mui/icons-material/EditTwoTone";
 import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 
 type Props = {
   product: ProductInterface;
-  deleteProduct: (barcode: string) => void;
+  setBarcodeAndOpenDialog: (barcode: string) => void;
 };
 
 const DesktopListProductCard: React.FC<Props> = ({
   product,
-  deleteProduct,
+  setBarcodeAndOpenDialog,
 }) => {
+  const [totalAmount, setTotalAmount] = useState(0);
+
+  const { cart, updateCartProvider } = useCartProvider();
   const { title, barcode, brand, image, price, details, inventory } = product;
   const { user } = useUser();
-  const [totalAmount, setTotalAmount] = useState(0);
-  const [isDialogOpen, setDialog] = useState(false);
-  const { cart, updateCartProvider } = useCartProvider();
-
-  // const openDialog = () => {
-  //   setDialog(true);
-  // };
 
   const navigate = useNavigate();
 
@@ -44,32 +40,12 @@ const DesktopListProductCard: React.FC<Props> = ({
     return findProductInCart?.amount || 0;
   };
 
-  // const handleAddToCart = useCallback(
-  //   async (userId: string, barcode: string, amount: number) => {
-  //     updateCartProvider(userId, barcode, amount);
-  //     setTotalAmount(totalAmount + 1);
-  //   },
-  //   [totalAmount]
-  // );
-
-  // const handleRemoveFromCart = useCallback(
-  //   async (userId: string, barcode: string, amount: number) => {
-  //     if (totalAmount > 0) {
-  //       updateCartProvider(userId, barcode, -1 * amount);
-  //       setTotalAmount(Number(totalAmount) - amount);
-  //     }
-  //   },
-  //   [totalAmount]
-  // );
-
   useEffect(() => {
     setTotalAmount(getAmountInCart(barcode));
   }, [cart]);
 
   return (
     <>
-      {/* <Divider variant="middle" /> */}
-
       <Divider orientation="vertical" flexItem />
 
       {/* Left inner Card */}
@@ -212,13 +188,13 @@ const DesktopListProductCard: React.FC<Props> = ({
                 navigate(ROUTES.EDIT_PRODUCT + `?barcode=${barcode}`);
               }}
             >
-              <ModeEditTwoToneIcon />
+              <EditTwoToneIcon />
             </Button>
 
             <Button
               sx={{ color: "rgba(0, 0, 0, 0.87)", padding: 0, margin: 0 }}
               onClick={() => {
-                deleteProduct(barcode);
+                setBarcodeAndOpenDialog(barcode);
               }}
             >
               <DeleteTwoToneIcon />
