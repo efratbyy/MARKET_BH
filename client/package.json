@@ -61,6 +61,7 @@
   },
   "devDependencies": {
     "@types/react-google-recaptcha": "^2.1.5",
+    "@types/react-is": "^18.2.4",
     "webpack": "^5.89.0"
   }
 }

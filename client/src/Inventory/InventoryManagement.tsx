@@ -63,7 +63,6 @@ const InventoryManagement = () => {
         const updatedProduct = await updateProductPriceApi(barcode, newPrice);
         if (updatedProduct) {
           snack("success", "המחיר עודכן בהצלחה!");
-          setDeleteTrigger((prev) => !prev);
         } else snack("error", "לא ניתן לעדכן את המחיר, נסה שוב מאוחר יותר!");
       } catch (error) {
         console.log(error);
@@ -103,7 +102,6 @@ const InventoryManagement = () => {
         );
         if (updatedProduct) {
           snack("success", "המלאי עודכן בהצלחה!");
-          setDeleteTrigger((prev) => !prev);
         } else snack("error", "לא ניתן לעדכן את המלאי, נסה שוב מאוחר יותר!");
       } catch (error) {
         console.log(error);
@@ -343,7 +341,7 @@ const InventoryManagement = () => {
           <DialogTitle id="alert-dialog-title">מחיקת מוצר!</DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
-              האם את/ה בטוח/ה שבצונך למחוק את המוצר? מוצר שימחק ימחק לצמיתות!
+              האם הינך בטוח/ה כי בצונך למחוק מוצר זה? מוצר שימחק ימחק לצמיתות!
             </DialogContentText>
           </DialogContent>
           <DialogActions>

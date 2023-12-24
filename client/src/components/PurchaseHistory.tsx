@@ -1,11 +1,11 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Footer from "../footer/Footer";
-import { DataGrid, GridRowsProp, GridColDef } from "@mui/x-data-grid";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { getPurchaseHistoryApi } from "../apiService/userApiService";
 import { useUser } from "../providers/UserProvider";
 import { PurchaseHistoryInterface } from "../models/interfaces/interfaces.ts";
 import "./PurchaseHistory.css";
-import { Grid } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import Navbar from "../navbar/Navbar";
 import { useNavigate } from "react-router-dom";
 import ROUTES from "../routes/routesModel";
@@ -56,7 +56,6 @@ const PurchaseHistory = () => {
     {
       field: "col2",
       headerName: "מספר פריטים",
-      width: 20,
       headerClassName: "custom-header",
     },
     {
@@ -111,61 +110,70 @@ const PurchaseHistory = () => {
       <Grid
         sx={{
           backgroundImage:
-            "https://cdn.pixabay.com/photo/2015/06/15/20/21/register-810546_1280.jpg",
+            'url( "https://cdn.pixabay.com/photo/2015/06/15/20/21/register-810546_1280.jpg")',
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          position: "fixed",
+          width: "100%",
+          zIndex: -1,
+          minHeight: "100vh",
+          opacity: 0.7,
+        }}
+      ></Grid>
+
+      <Typography
+        variant="h1"
+        sx={{
+          fontSize: "50px",
+          fontWeight: "bold",
+          marginBottom: 2,
+          color: "primary.main",
+          textAlign: "center",
         }}
       >
-        <Grid
-          sx={{
-            textAlign: "center",
-            fontSize: "60px",
-            textDecoration: "underline",
-            color: "white",
+        הסטוריית הזמנות
+      </Typography>
+      <Grid
+        container
+        item
+        xs={10}
+        lg={6}
+        sx={{ marginRight: "auto", marginLeft: "auto" }}
+      >
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          onRowClick={(params) => {
+            navigate(
+              `${ROUTES.PURCHASE_HISTORY_DETAILS}?order_number=${params.row["col4"]}`
+            );
           }}
-        >
-          היסטוריית הזמנות
-        </Grid>
-        <Grid
-          container
-          item
-          xs={10}
-          lg={6}
-          sx={{ marginRight: "auto", marginLeft: "auto" }}
-        >
-          <DataGrid
-            rows={rows}
-            columns={columns}
-            onRowClick={(params) => {
-              navigate(
-                `${ROUTES.PURCHASE_HISTORY_DETAILS}?order_number=${params.row["col4"]}`
-              );
-            }}
-            initialState={{
-              pagination: {
-                paginationModel: {
-                  pageSize: 10,
-                },
+          initialState={{
+            pagination: {
+              paginationModel: {
+                pageSize: 10,
               },
-            }}
-            sx={{
-              height: "85vh",
-              boxShadow: 2,
-              border: 5,
-              borderColor: "grey",
-              "& .MuiDataGrid-cell:hover": {
-                color: "white",
-              },
-              marginBottom: "30px",
-              "& .MuiTablePagination-root": {
-                fontSize: "16px",
-                color: "white",
-              },
-              marginRight: "auto",
-              marginLeft: "auto",
-            }}
-            pagination
-            pageSizeOptions={[5, 10, 25]}
-          />
-        </Grid>
+            },
+          }}
+          sx={{
+            height: "85vh",
+            boxShadow: 2,
+            border: 5,
+            borderColor: "grey",
+            "& .MuiDataGrid-cell:hover": {
+              color: "white",
+            },
+            marginBottom: "30px",
+            "& .MuiTablePagination-root": {
+              fontSize: "16px",
+              color: "white",
+            },
+            marginRight: "auto",
+            marginLeft: "auto",
+          }}
+          pagination
+          pageSizeOptions={[5, 10, 25]}
+        />
       </Grid>
       <Footer />
     </>

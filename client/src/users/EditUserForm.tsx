@@ -176,18 +176,18 @@ const EditUserForm = () => {
         <Navbar showSearchBar={false} />
         <Grid
           sx={{
+            backgroundImage: "url(/assets/images/edit_user.png)",
             position: "relative !important",
-            backgroundColor: "#fff", // Set your desired background color
+            backgroundColor: "#fff",
             zIndex: 1,
             padding: "16px !important",
+
             overflowY: "scroll",
             height: "100vh",
             backgroundAttachment: "fixed",
-            backgroundImage: "url(/assets/images/edit_user.png)", // Set your background image
             backgroundPosition: "center",
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
-            //opacity: 0.3,
           }}
         >
           <Container maxWidth="sm">

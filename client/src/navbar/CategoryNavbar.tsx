@@ -56,7 +56,7 @@ const CategoryNavbar: React.FC = () => {
       sx={{
         flexGrow: 1,
         maxWidth: "100%",
-        display: { xs: "none", lg: "block" },
+        display: { xs: "none", md: "block" },
       }}
     >
       <List role="menubar" orientation="horizontal">
@@ -95,6 +95,7 @@ const CategoryNavbar: React.FC = () => {
                   fontWeight: 700,
                   padding: 0,
                   textAlign: "center",
+                  display: { xs: "none", lg: "block" },
                 }}
               >
                 {category.title}

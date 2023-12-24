@@ -45,6 +45,7 @@ const DesktopFooter = () => {
               sx={{
                 paddingRight: "50px",
                 display: "block",
+                paddingBottom: "20px",
               }}
             >
               <Grid xs={12} sx={{ paddingTop: "20px" }}>
@@ -86,7 +87,7 @@ const DesktopFooter = () => {
             </Grid>
 
             {/* Second Colum */}
-            <Grid xs={3} item>
+            <Grid xs={3} item sx={{ paddingBottom: "20px" }}>
               <Grid xs={12} sx={{ paddingTop: "20px" }}>
                 <Button
                   onClick={() => {
@@ -128,7 +129,7 @@ const DesktopFooter = () => {
             </Grid>
 
             {/* Third Colum */}
-            <Grid xs={1.5} item>
+            <Grid xs={1.5} item sx={{ paddingBottom: "20px" }}>
               <Grid item xs={12} sx={{ paddingTop: "20px" }}>
                 <Button
                   sx={{ color: "#555" }}
@@ -158,7 +159,7 @@ const DesktopFooter = () => {
             </Grid>
 
             {/* Forth Colum */}
-            <Grid xs={2} item>
+            <Grid xs={2} item sx={{ paddingBottom: "20px" }}>
               <Grid item xs={12} sx={{ paddingTop: "20px" }}>
                 <Button
                   sx={{ color: "#555" }}

@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  ChangeEvent,
-  FormEvent,
-  useCallback,
-  useEffect,
-} from "react";
+import React, { useState, FormEvent, useCallback, useEffect } from "react";
 import {
   TextField,
   Button,
@@ -15,7 +9,6 @@ import {
   Checkbox,
   Select,
   MenuItem,
-  SelectChangeEvent,
 } from "@mui/material";
 import Joi from "joi";
 import { useNavigate } from "react-router-dom";
@@ -139,14 +132,14 @@ const AddProductForm: React.FC = () => {
         <Grid
           sx={{
             position: "relative !important",
-            backgroundColor: "#fff", // Set your desired background color
+            backgroundColor: "#fff",
             zIndex: 1,
             padding: "16px !important",
 
             overflowY: "scroll",
             height: "100vh",
             backgroundAttachment: "fixed",
-            backgroundImage: "url(/assets/images/register.png)", // Set your background image
+            backgroundImage: "url(/assets/images/register.png)",
             backgroundPosition: "center",
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
@@ -177,7 +170,7 @@ const AddProductForm: React.FC = () => {
                 sx={{
                   "& .MuiOutlinedInput-root": {
                     "& fieldset": {
-                      borderColor: "rgba(0, 0, 0, 1)", // Change border color to fully opaque
+                      borderColor: "rgba(0, 0, 0, 1)",
                     },
                   },
                 }}
@@ -227,8 +220,6 @@ const AddProductForm: React.FC = () => {
                 color="success"
                 fullWidth
                 margin="normal"
-                // value={formData.categoryCode}
-                // onChange={handleChange}
                 value={
                   formData.categoryCode.length > 0
                     ? formData.categoryCode[0]
@@ -265,7 +256,7 @@ const AddProductForm: React.FC = () => {
                 sx={{
                   "& .MuiOutlinedInput-root": {
                     "& fieldset": {
-                      borderColor: "rgba(0, 0, 0, 1)", // Change border color to fully opaque
+                      borderColor: "rgba(0, 0, 0, 1)",
                     },
                   },
                 }}
@@ -284,7 +275,7 @@ const AddProductForm: React.FC = () => {
                 sx={{
                   "& .MuiOutlinedInput-root": {
                     "& fieldset": {
-                      borderColor: "rgba(0, 0, 0, 1)", // Change border color to fully opaque
+                      borderColor: "rgba(0, 0, 0, 1)",
                     },
                   },
                 }}
@@ -303,7 +294,7 @@ const AddProductForm: React.FC = () => {
                 sx={{
                   "& .MuiOutlinedInput-root": {
                     "& fieldset": {
-                      borderColor: "rgba(0, 0, 0, 1)", // Change border color to fully opaque
+                      borderColor: "rgba(0, 0, 0, 1)",
                     },
                   },
                 }}
@@ -369,32 +360,6 @@ const AddProductForm: React.FC = () => {
                   },
                 }}
               />
-              {/* <Grid container>
-                <Grid container xs={1} alignItems={"center"}>
-                  <InfoIcon text="משקל לחישוב" />
-                </Grid>
-                <Grid item xs={11}>
-                  <TextField
-                    type="text"
-                    name="weightUnit"
-                    label="יחידת משקל"
-                    color="success"
-                    fullWidth
-                    margin="normal"
-                    value={formData.weightUnit}
-                    onChange={handleChange}
-                    error={Boolean(errors.weightUnit)}
-                    helperText={errors.weightUnit}
-                    sx={{
-                      "& .MuiOutlinedInput-root": {
-                        "& fieldset": {
-                          borderColor: "rgba(0, 0, 0, 1)",
-                        },
-                      },
-                    }}
-                  />
-                </Grid>
-              </Grid> */}
               <Grid container spacing={2}>
                 <Grid item xs={1} container alignItems="center">
                   <InfoIcon text="אנא בחר את יחידת המשקל לחישוב" />
@@ -402,7 +367,6 @@ const AddProductForm: React.FC = () => {
                 <Grid item xs={11}>
                   <Select
                     name="weightUnit"
-                    // label="יחידת משקל"
                     color="success"
                     fullWidth
                     value={formData.weightUnit}
@@ -456,7 +420,6 @@ const AddProductForm: React.FC = () => {
                 <Grid item xs={11}>
                   <Select
                     name="divideBy"
-                    // label="לחלק ב:"
                     color="success"
                     fullWidth
                     value={formData.divideBy}
@@ -530,7 +493,7 @@ const AddProductForm: React.FC = () => {
                 sx={{
                   "& .MuiOutlinedInput-root": {
                     "& fieldset": {
-                      borderColor: "rgba(0, 0, 0, 1)", // Change border color to fully opaque
+                      borderColor: "rgba(0, 0, 0, 1)",
                     },
                   },
                 }}
@@ -634,6 +597,16 @@ const AddProductForm: React.FC = () => {
                 sx={{ margin: "10px" }}
               >
                 הוסף מוצר
+              </Button>
+              <Button
+                variant="contained"
+                color="error"
+                sx={{ margin: "10px" }}
+                onClick={() => {
+                  navigate(ROUTES.ROOT);
+                }}
+              >
+                ביטול
               </Button>
             </form>
           </Container>

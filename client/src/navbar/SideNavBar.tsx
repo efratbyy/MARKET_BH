@@ -86,20 +86,6 @@ const SideNavBar: React.FC<Props> = ({ showDataFilter = true }) => {
         <ListItem
           // key={"Inbox"}
           disablePadding
-          onClick={() => navigate(`${ROUTES.PURCHASE_HISTORY}`)}
-        >
-          <ListItemButton>
-            <ListItemIcon>
-              <HistoryIcon />
-            </ListItemIcon>
-            <ListItemText primary={"היסטוריית הזמנות"} />
-          </ListItemButton>
-        </ListItem>
-        <Divider />
-
-        <ListItem
-          // key={"Inbox"}
-          disablePadding
           onClick={() => navigate(`${ROUTES.ACCESSIBILITY_STATEMENT}`)}
         >
           <ListItemButton>

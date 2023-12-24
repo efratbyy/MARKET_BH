@@ -60,7 +60,7 @@ const AvatarMenu = () => {
             </MenuItem>
 
             <MenuItem onClick={() => navigate(`${ROUTES.PURCHASE_HISTORY}`)}>
-              <Typography textAlign="center">הסטורית הזמנות</Typography>
+              <Typography textAlign="center">הסטוריית הזמנות</Typography>
             </MenuItem>
             {user && user.isAdmin && (
               <>

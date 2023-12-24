@@ -290,7 +290,8 @@ const EditUsersCRM = () => {
           <DialogTitle id="alert-dialog-title">מחיקת משתמש!</DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
-              האם את/ה בטוח/ה שבצונך למחוק את המשתמש? משתמש שימחק ימחק לצמיתות!
+              האם הינך בטוח/ה כי בצונך למחוק משתמש זה? משתמש שימחק מהמערכת ימחק
+              לצמיתות!
             </DialogContentText>
           </DialogContent>
           <DialogActions>

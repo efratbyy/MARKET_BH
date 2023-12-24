@@ -147,7 +147,7 @@ const CreateNewUser: React.FC = () => {
             sx={{
               "& .MuiOutlinedInput-root": {
                 "& fieldset": {
-                  borderColor: "rgba(0, 0, 0, 1)", // Change border color to fully opaque
+                  borderColor: "rgba(0, 0, 0, 1)",
                 },
               },
             }}
@@ -166,7 +166,7 @@ const CreateNewUser: React.FC = () => {
             sx={{
               "& .MuiOutlinedInput-root": {
                 "& fieldset": {
-                  borderColor: "rgba(0, 0, 0, 1)", // Change border color to fully opaque
+                  borderColor: "rgba(0, 0, 0, 1)",
                 },
               },
             }}
@@ -185,7 +185,7 @@ const CreateNewUser: React.FC = () => {
             sx={{
               "& .MuiOutlinedInput-root": {
                 "& fieldset": {
-                  borderColor: "rgba(0, 0, 0, 1)", // Change border color to fully opaque
+                  borderColor: "rgba(0, 0, 0, 1)",
                 },
               },
             }}
@@ -204,7 +204,7 @@ const CreateNewUser: React.FC = () => {
             sx={{
               "& .MuiOutlinedInput-root": {
                 "& fieldset": {
-                  borderColor: "rgba(0, 0, 0, 1)", // Change border color to fully opaque
+                  borderColor: "rgba(0, 0, 0, 1)",
                 },
               },
             }}
@@ -223,7 +223,7 @@ const CreateNewUser: React.FC = () => {
             sx={{
               "& .MuiOutlinedInput-root": {
                 "& fieldset": {
-                  borderColor: "rgba(0, 0, 0, 1)", // Change border color to fully opaque
+                  borderColor: "rgba(0, 0, 0, 1)",
                 },
               },
             }}
@@ -255,7 +255,7 @@ const CreateNewUser: React.FC = () => {
             sx={{
               "& .MuiOutlinedInput-root": {
                 "& fieldset": {
-                  borderColor: "rgba(0, 0, 0, 1)", // Change border color to fully opaque
+                  borderColor: "rgba(0, 0, 0, 1)",
                 },
               },
             }}
@@ -274,7 +274,7 @@ const CreateNewUser: React.FC = () => {
             sx={{
               "& .MuiOutlinedInput-root": {
                 "& fieldset": {
-                  borderColor: "rgba(0, 0, 0, 1)", // Change border color to fully opaque
+                  borderColor: "rgba(0, 0, 0, 1)",
                 },
               },
             }}
@@ -293,7 +293,7 @@ const CreateNewUser: React.FC = () => {
             sx={{
               "& .MuiOutlinedInput-root": {
                 "& fieldset": {
-                  borderColor: "rgba(0, 0, 0, 1)", // Change border color to fully opaque
+                  borderColor: "rgba(0, 0, 0, 1)",
                 },
               },
             }}
