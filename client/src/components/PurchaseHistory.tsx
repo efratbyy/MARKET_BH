@@ -106,7 +106,6 @@ const PurchaseHistory = () => {
 
   return (
     <>
-      <Navbar showSearchBar={false} showDataFilter={false} />
       <Grid
         sx={{
           backgroundImage:
@@ -120,7 +119,7 @@ const PurchaseHistory = () => {
           opacity: 0.7,
         }}
       ></Grid>
-
+      <Navbar showSearchBar={false} showDataFilter={false} />
       <Typography
         variant="h1"
         sx={{

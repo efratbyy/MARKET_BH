@@ -183,8 +183,6 @@ const CheckoutPage: React.FC = () => {
 
   return (
     <>
-      <Navbar showSearchBar={false} showDataFilter={false} />
-
       <Grid
         sx={{
           backgroundImage: "url(/assets/images/creditCard.png)", // Set your background image
@@ -197,6 +195,7 @@ const CheckoutPage: React.FC = () => {
           opacity: 0.3,
         }}
       ></Grid>
+      <Navbar showSearchBar={false} showDataFilter={false} />
 
       <Grid
         spacing={3}

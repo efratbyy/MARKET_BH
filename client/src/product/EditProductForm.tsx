@@ -155,13 +155,13 @@ const EditProductForm = () => {
         <Grid
           sx={{
             position: "relative !important",
-            backgroundColor: "#fff", // Set your desired background color
+            backgroundColor: "#fff",
             zIndex: 1,
             padding: "16px !important",
             overflowY: "scroll",
             height: "100vh",
             backgroundAttachment: "fixed",
-            backgroundImage: "url(/assets/images/register.png)", // Set your background image
+            backgroundImage: "url(/assets/images/register.png)",
             backgroundPosition: "center",
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",

@@ -6,7 +6,7 @@ import { Typography, Container, Link, Grid } from "@mui/material";
 const TermsOfServicePage = () => {
   return (
     <>
-      <Navbar showSearchBar={false} />
+     
       <Grid
         sx={{
           backgroundImage: "url(/assets/images/terms_of_service.png)", // Set your background image
@@ -19,6 +19,7 @@ const TermsOfServicePage = () => {
           opacity: 0.7,
         }}
       ></Grid>
+       <Navbar showSearchBar={false} />
       <Container maxWidth="md">
         <Typography variant="h4">תנאי שימוש</Typography>
         <Typography>

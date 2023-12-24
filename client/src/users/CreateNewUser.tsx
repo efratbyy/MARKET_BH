@@ -114,7 +114,7 @@ const CreateNewUser: React.FC = () => {
 
   return (
     <>
-      <Navbar showSearchBar={false} />
+      
       <Grid
         sx={{
           backgroundImage: "url(/assets/images/create_new_user.png)",
@@ -127,6 +127,7 @@ const CreateNewUser: React.FC = () => {
           opacity: 0.3,
         }}
       ></Grid>
+      <Navbar showSearchBar={false} />
       <Container maxWidth="sm">
         <Typography variant="h4" align="center" gutterBottom>
           הוספת משתמש חדש

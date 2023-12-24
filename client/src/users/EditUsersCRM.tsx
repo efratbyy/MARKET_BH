@@ -92,8 +92,7 @@ const EditUsersCRM = () => {
     user &&
     user.isAdmin && (
       <>
-        <Navbar showSearchBar={false} showDataFilter={false} />
-        <CssBaseline />
+        {/* <CssBaseline /> */}
 
         <Grid
           sx={{
@@ -108,7 +107,7 @@ const EditUsersCRM = () => {
             opacity: 0.3,
           }}
         ></Grid>
-
+        <Navbar showSearchBar={false} showDataFilter={false} />
         <Grid
           sx={{
             display: { xs: "none", lg: "block" },

@@ -94,7 +94,6 @@ const PurchaseHistoryDetails = () => {
 
   return (
     <>
-      <Navbar showSearchBar={false} showDataFilter={false} />
       <PurchaseHistoryDetailsBreadCrumb orderNumber={orderNumber || ""} />
       <Grid
         sx={{
@@ -115,6 +114,7 @@ const PurchaseHistoryDetails = () => {
           backgroundAttachment: "fixed",
         }}
       />
+      <Navbar showSearchBar={false} showDataFilter={false} />
       <Grid
         container
         spacing={3}
