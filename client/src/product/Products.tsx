@@ -50,7 +50,6 @@ const Products: React.FC<Props> = ({ productListShow = false }) => {
       if (deletedProduct) {
         snack("success", "המוצר נמחק בהצלחה!");
         setDeleteTrigger((prev) => !prev);
-        console.log("deleted");
       } else snack("error", "לא ניתן למחוק את המוצר, נסה שוב מאוחר יותר!");
     } catch (error) {
       console.log(error);
@@ -103,7 +102,6 @@ const Products: React.FC<Props> = ({ productListShow = false }) => {
   }, [searchParams]);
 
   useEffect(() => {
-    console.log(deleteTrigger);
     handleGetProducts()
       .then((products) => {
         // Filter by q
@@ -173,12 +171,6 @@ const Products: React.FC<Props> = ({ productListShow = false }) => {
 
         // Filter by category
         if (categoryCode !== "") {
-          // console.log(
-          //   filteredProducts?.filter((product) =>
-          //     product.categoryCode.some((code) => code.startsWith(categoryCode))
-          //   )
-          // );
-
           // If category searchParams is empty, no need to filter
           filteredProducts = filteredProducts?.filter((product) =>
             product.categoryCode.some((code) => code.startsWith(categoryCode))

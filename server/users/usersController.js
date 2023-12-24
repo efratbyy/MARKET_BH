@@ -111,7 +111,6 @@ const updateInventory = async (cart) => {
 
     product.inventory -= productInCart.amount;
 
-    console.log(product);
     await Product.findByIdAndUpdate(product._id, product, {
       new: true,
     });
@@ -391,9 +390,6 @@ const updatePassword = async (req, res) => {
     if (userFromDB.forgotPasswordKeyCreatedTime < oneHourBefore) {
       throw new Error("Link expired!");
     }
-
-    console.log(newPassword);
-    console.log(req.body);
 
     // encrypt user password
     userFromDB.password = bcrypt.hashSync(newPassword, 10);

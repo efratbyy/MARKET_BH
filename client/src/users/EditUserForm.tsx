@@ -120,7 +120,6 @@ const EditUserForm = () => {
     const validationResult = Joi.object(registerSchema).validate(formData, {
       allowUnknown: true,
     });
-    console.log("validationResult", validationResult);
     const newErrors: { [key: string]: string } = {}; // Define the type for newErrors
 
     if (validationResult.error) {
@@ -146,8 +145,6 @@ const EditUserForm = () => {
   };
 
   useEffect(() => {
-    console.log("errors", errors);
-    console.log("newPasswordError", newPasswordError);
     setAllFieldsValid(
       // update the state variable allFieldsValid based on the following conditions:
 

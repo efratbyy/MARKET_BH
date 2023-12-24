@@ -88,8 +88,6 @@ const deleteProduct = async (req, res) => {
       throw new Error(
         "You must be an admin type user in order to delete products"
       );
-
-    console.log("barocde", barcode);
     const deletedProduct = await Product.findOneAndDelete({ barcode: barcode });
 
     if (!deletedProduct)

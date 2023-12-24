@@ -90,7 +90,6 @@ const InventoryManagement = () => {
     }));
 
     handleUpdatePrice(barcode, Number(event.target.value));
-    console.log("barcode", barcode, "value", event.target.value);
   };
 
   const handleUpdateInventory = useCallback(
@@ -120,7 +119,6 @@ const InventoryManagement = () => {
     }));
 
     handleUpdateInventory(barcode, Number(event.target.value));
-    console.log("barcode", barcode, "value", event.target.value);
   };
 
   const handleClose = () => {

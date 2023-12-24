@@ -24,7 +24,6 @@ const PurchaseHistory = () => {
       //setLoading(true);
       if (userId) {
         const purchaseHistory = await getPurchaseHistoryApi(userId);
-        console.log(purchaseHistory);
 
         //requestStatus(false, null, cart);
         return Promise.resolve(purchaseHistory);

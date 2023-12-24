@@ -63,13 +63,6 @@ const EditUsersCRM = () => {
     }
   }, []);
 
-  //   useEffect(() => {
-  //     handleGetUsers().then((data) => {
-  //       setUsers(data || []);
-  //       console.log(data);
-  //     });
-  //   }, []);
-
   useEffect(() => {
     const fetchData = async () => {
       try {

@@ -69,8 +69,7 @@ const AddProductForm: React.FC = () => {
 
   const handleChange = useCallback((e: any) => {
     const { name, value } = e.target;
-
-    console.log(name, value);
+    
     // Handle other fields
     setFormData((prevData) => ({
       ...prevData,

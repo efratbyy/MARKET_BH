@@ -66,7 +66,6 @@ const ShoppingCartMobilePage = () => {
       } else {
         setOutOfStockProducts([]);
       }
-      console.log(outOfStockProducts);
     } catch (error) {
       console.log(error);
     }

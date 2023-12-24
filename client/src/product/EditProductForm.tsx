@@ -66,8 +66,6 @@ const EditProductForm = () => {
     try {
       const barcode = searchParams.get("barcode");
       const productFromDB = await getProductByBarcodeApi(barcode || "");
-      console.log(productFromDB);
-
       return Promise.resolve(productFromDB);
     } catch (error) {
       console.log(error);
@@ -94,7 +92,6 @@ const EditProductForm = () => {
 
   const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    console.log(name, value);
     // Handle other fields
     setFormData((prevData) => ({
       ...prevData,

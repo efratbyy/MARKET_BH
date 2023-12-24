@@ -36,10 +36,7 @@ const ForgotPassword = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      console.log("hi");
       const updatedUser = await createResetPasswordKeyApi(userEmail);
-
-      console.log(updatedUser);
       const expireDate = updatedUser.forgotPasswordKeyCreatedTime
         ? new Date(updatedUser.forgotPasswordKeyCreatedTime)
         : new Date();
