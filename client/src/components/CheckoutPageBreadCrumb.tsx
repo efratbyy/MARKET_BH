@@ -13,10 +13,10 @@ const CheckoutPageBreadCrumb = () => {
       </Link>
     </Typography>,
 
-    <Link underline="hover" key="1" color="inherit" href="/shopping_cart">
+    <Link underline="hover" key="2" color="inherit" href="/shopping_cart">
       קופה
     </Link>,
-    <Typography>תשלום</Typography>,
+    <Typography key="4">תשלום</Typography>,
   ];
 
   return (

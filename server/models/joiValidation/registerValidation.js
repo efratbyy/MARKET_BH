@@ -30,7 +30,7 @@ const registerJoiValidationSchema = Joi.object({
   city: Joi.string().required(),
   street: Joi.string().required(),
   houseNumber: Joi.number().min(1).required(),
-  isAdmin: Joi.boolean().required(),
+  isAdmin: Joi.boolean(),
   // address: Joi.object()
   //   .keys({
   //     city: Joi.string().required(),
