@@ -17,7 +17,7 @@ const DataFilter = () => {
   const [openSort, setOpenSort] = useState(true);
   const [openBrands, setOpenBrands] = useState(true);
   const [openMarkingSticker, setOpenMarkingSticker] = useState(true);
-  const [searchParams, setSearch] = useSearchParams();
+  const [searchParams, setSearch] = useSearchParams(new URLSearchParams());
   const [brands, setBrands] = useState<string[] | undefined>([]);
   const [selectedBrands, setSelectedBrands] = useState<string[] | undefined>(
     searchParams.get("brand")?.split(", ")
@@ -30,9 +30,9 @@ const DataFilter = () => {
     "מוצר בפיקוח",
     "הסימון הירוק",
   ]);
-  const [selectedStickers, setSelectedStickers] = useState<
-    string[] | undefined
-  >(searchParams.get("sticker")?.split(", "));
+  const [selectedStickers, setSelectedStickers] = useState<string[]>(
+    searchParams.get("sticker")?.split(", ") || []
+  );
 
   const { handleGetProducts } = useProducts();
 

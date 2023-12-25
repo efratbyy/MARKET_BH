@@ -122,6 +122,7 @@ const DesktopListProductCard: React.FC<Props> = ({
       <Grid item xs={2} sx={{ textAlign: "center" }}>
         {/* Product Brand */}
         <Grid
+          item
           xs={12}
           sx={{
             fontSize: "17px",
@@ -143,12 +144,14 @@ const DesktopListProductCard: React.FC<Props> = ({
       {/* Price, Price per... and Add/Remove from Cart */}
       <Grid
         container
+        item
         xs={4}
         justifyContent={"space-between"}
         alignItems={"center"}
       >
         {/* Product Price */}
         <Grid
+          item
           xs={12}
           sx={{
             paddingRight: "10%",
@@ -177,6 +180,7 @@ const DesktopListProductCard: React.FC<Props> = ({
         {user && user.isAdmin && (
           <Grid
             container
+            item
             justifyContent="space-between"
             sx={{
               marginTop: "auto",
@@ -203,7 +207,7 @@ const DesktopListProductCard: React.FC<Props> = ({
         )}
 
         {user && inventory !== 0 && (
-          <Grid xs={12} margin={"10px"} textAlign={"center"}>
+          <Grid item xs={12} margin={"10px"} textAlign={"center"}>
             {/* Add and Remove from cart */}
 
             <ButtonGroup
@@ -274,6 +278,7 @@ const DesktopListProductCard: React.FC<Props> = ({
         )}
         {inventory === 0 && (
           <Grid
+            item
             xs={12}
             margin={"10px"}
             textAlign={"center"}

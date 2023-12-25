@@ -206,6 +206,7 @@ const Products: React.FC<Props> = ({ productListShow = false }) => {
       {!productListShow && (
         <Grid
           container
+          item
           sx={{
             "--Grid-borderWidth": "0.5px",
             borderTop: "var(--Grid-borderWidth) 0px solid",
@@ -232,6 +233,7 @@ const Products: React.FC<Props> = ({ productListShow = false }) => {
       {productListShow && (
         <Grid
           container
+          item
           sx={{
             "--Grid-borderWidth": "0.5px",
             borderTop: "var(--Grid-borderWidth) 0px solid",
@@ -249,6 +251,7 @@ const Products: React.FC<Props> = ({ productListShow = false }) => {
             <React.Fragment key={product.barcode}>
               <Grid
                 container
+                item
                 xs={12}
                 sx={{
                   display: { xs: "none", md: "flex" },

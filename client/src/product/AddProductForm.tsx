@@ -69,7 +69,7 @@ const AddProductForm: React.FC = () => {
 
   const handleChange = useCallback((e: any) => {
     const { name, value } = e.target;
-    
+
     // Handle other fields
     setFormData((prevData) => ({
       ...prevData,
@@ -386,7 +386,7 @@ const AddProductForm: React.FC = () => {
                 </Grid>
               </Grid>
               <Grid container>
-                <Grid container xs={1} alignItems={"center"}>
+                <Grid container item xs={1} alignItems={"center"}>
                   <InfoIcon text="אנא בחר את משקל המוצר לפי יחידת המשקל שבחרת בשדה הקודם" />
                 </Grid>
                 <Grid item xs={11}>

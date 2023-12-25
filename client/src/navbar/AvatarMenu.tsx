@@ -55,34 +55,52 @@ const AvatarMenu = () => {
             open={Boolean(anchorElUser)}
             onClose={handleCloseUserMenu}
           >
-            <MenuItem onClick={() => navigate(`${ROUTES.EDIT_USER}`)}>
-              <Typography textAlign="center">האזור האישי</Typography>
-            </MenuItem>
+            {[
+              <MenuItem
+                key="edit_user"
+                onClick={() => navigate(`${ROUTES.EDIT_USER}`)}
+              >
+                <Typography textAlign="center">האזור האישי</Typography>
+              </MenuItem>,
 
-            <MenuItem onClick={() => navigate(`${ROUTES.PURCHASE_HISTORY}`)}>
-              <Typography textAlign="center">הסטוריית הזמנות</Typography>
-            </MenuItem>
-            {user && user.isAdmin && (
-              <>
-                <MenuItem onClick={() => navigate(`${ROUTES.ADD_PRODUCT}`)}>
+              <MenuItem
+                key="purchase_history"
+                onClick={() => navigate(`${ROUTES.PURCHASE_HISTORY}`)}
+              >
+                <Typography textAlign="center">הסטוריית הזמנות</Typography>
+              </MenuItem>,
+
+              user && user.isAdmin && (
+                <MenuItem
+                  key="add_product"
+                  onClick={() => navigate(`${ROUTES.ADD_PRODUCT}`)}
+                >
                   <Typography textAlign="center">הוספת מוצר חדש</Typography>
                 </MenuItem>
+              ),
 
-                <MenuItem onClick={() => navigate(`${ROUTES.USERS_CRM}`)}>
+              user && user.isAdmin && (
+                <MenuItem
+                  key="user_crm"
+                  onClick={() => navigate(`${ROUTES.USERS_CRM}`)}
+                >
                   <Typography textAlign="center">עריכת משתמשים</Typography>
                 </MenuItem>
+              ),
 
+              user && user.isAdmin && (
                 <MenuItem
+                  key="inventory_management"
                   onClick={() => navigate(`${ROUTES.INVENTORY_MANAGEMENT}`)}
                 >
                   <Typography textAlign="center">ניהול מלאי</Typography>
                 </MenuItem>
-              </>
-            )}
+              ),
 
-            <MenuItem onClick={handleLogout}>
-              <Typography textAlign="center">התנתקות</Typography>
-            </MenuItem>
+              <MenuItem key="disconnect" onClick={handleLogout}>
+                <Typography textAlign="center">התנתקות</Typography>
+              </MenuItem>,
+            ]}
           </Menu>
         </>
       )}

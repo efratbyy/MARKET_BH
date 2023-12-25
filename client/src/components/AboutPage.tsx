@@ -1,12 +1,11 @@
 import React from "react";
 import Navbar from "../navbar/Navbar";
 import Footer from "../footer/Footer";
-import { CssBaseline, Grid, Typography } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 
 const AboutPage = () => {
   return (
     <>
-      {/* <CssBaseline /> */}
       <Grid
         sx={{
           backgroundImage:
@@ -22,6 +21,7 @@ const AboutPage = () => {
       ></Grid>
       <Navbar showSearchBar={false} showDataFilter={false} />
       <Grid
+        container
         spacing={3}
         direction="column"
         justifyContent="center"
@@ -30,6 +30,7 @@ const AboutPage = () => {
           minHeight: "70vh",
           width: "100%",
           height: "30%",
+          padding: "20px",
         }}
       >
         <Typography
@@ -40,6 +41,7 @@ const AboutPage = () => {
             marginBottom: 2,
             color: "primary.main",
             textAlign: "center",
+            paddingTop: "30px",
           }}
         >
           אודות מינימרקט גבעת בית הכרם ואתר האינטרנט שלנו :)

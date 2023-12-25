@@ -83,14 +83,14 @@ const MobileListProductCard: React.FC<Props> = ({
             </Grid>
 
             <Grid sx={{ padding: "15px" }} item xs={4.45}>
-              <Grid container xs={12} justifyContent={"space-between"}>
+              <Grid container item xs={12} justifyContent={"space-between"}>
                 {/* Product Name */}
-                <Grid sx={{ fontSize: "17px" }} xs={12}>
+                <Grid item sx={{ fontSize: "17px" }} xs={12}>
                   {title}
                 </Grid>
               </Grid>
               {/* Product Amount */}
-              <Grid xs={12}>
+              <Grid item xs={12}>
                 <Typography
                   variant="body2"
                   color="textSecondary"
@@ -104,7 +104,7 @@ const MobileListProductCard: React.FC<Props> = ({
                 </Typography>
               </Grid>
               {/* Product Barcode, Ingredients, Content, ManufacturingCountry */}
-              <Grid xs={12}>
+              <Grid item xs={12}>
                 <Typography variant="body1">
                   <span style={{ fontWeight: "bold" }}>ברקוד:</span> {barcode}
                 </Typography>
@@ -115,6 +115,7 @@ const MobileListProductCard: React.FC<Props> = ({
             <Grid item xs={1.5} sx={{ textAlign: "center" }}>
               {/* Product Brand */}
               <Grid
+                item
                 xs={12}
                 sx={{
                   fontSize: "17px",
@@ -144,14 +145,14 @@ const MobileListProductCard: React.FC<Props> = ({
             {/* Price, Price per... and Add/Remove from Cart */}
             <Grid
               container
+              item
               xs={3.5}
               justifyContent={"space-between"}
               alignItems={"center"}
             >
-              {/* <Grid xs={12}> </Grid> */}
-
               {/* Product Price */}
               <Grid
+                item
                 xs={12}
                 sx={{
                   paddingRight: "10%",
@@ -189,7 +190,7 @@ const MobileListProductCard: React.FC<Props> = ({
                     marginTop: "auto",
                   }}
                 >
-                  <Grid xs={6}>
+                  <Grid item xs={6}>
                     <Button
                       sx={{
                         color: "rgba(0, 0, 0, 0.87)",
@@ -204,7 +205,7 @@ const MobileListProductCard: React.FC<Props> = ({
                     </Button>
                   </Grid>
 
-                  <Grid xs={6}>
+                  <Grid item xs={6}>
                     <Button
                       sx={{
                         color: "rgba(0, 0, 0, 0.87)",
@@ -222,12 +223,7 @@ const MobileListProductCard: React.FC<Props> = ({
               )}
 
               {user && (
-                <Grid
-                  xs={12}
-                  // margin={"10px"}
-                  padding={"10px"}
-                  textAlign={"center"}
-                >
+                <Grid item xs={12} padding={"10px"} textAlign={"center"}>
                   {/* Add and Remove from cart */}
                   {inventory !== 0 && (
                     <ButtonGroup

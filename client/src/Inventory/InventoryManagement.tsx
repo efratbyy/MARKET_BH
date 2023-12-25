@@ -11,6 +11,7 @@ import {
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
   TablePagination,
   TableRow,
@@ -189,121 +190,149 @@ const InventoryManagement = () => {
           <SearchBar />
         </Grid>
         <Grid sx={{ display: { xs: "none", md: "block" } }}>
-          <Table component={Paper} stickyHeader sx={{ textAlign: "right" }}>
-            <TableHead>
-              <TableRow>
-                <TableCell
-                  sx={{ fontSize: "20px", backgroundColor: "olivedrab" }}
-                  align="right"
-                >
-                  שם המוצר
-                </TableCell>
-                <TableCell
-                  sx={{ fontSize: "20px", backgroundColor: "olivedrab" }}
-                  align="right"
-                >
-                  ספק
-                </TableCell>
-                <TableCell
-                  sx={{ fontSize: "20px", backgroundColor: "olivedrab" }}
-                  align="right"
-                >
-                  מחיר
-                </TableCell>
-                <TableCell
-                  sx={{ fontSize: "20px", backgroundColor: "olivedrab" }}
-                  align="right"
-                >
-                  מלאי
-                </TableCell>
-                <TableCell
-                  sx={{ fontSize: "20px", backgroundColor: "olivedrab" }}
-                  align="right"
-                >
-                  ברקוד
-                </TableCell>
-                <TableCell
-                  sx={{ fontSize: "20px", backgroundColor: "olivedrab" }}
-                  align="right"
-                >
-                  ערוך מוצר
-                </TableCell>
-                <TableCell
-                  sx={{ fontSize: "20px", backgroundColor: "olivedrab" }}
-                  align="right"
-                >
-                  מחק מוצר
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {products?.map((product, rowIndex) => (
-                <TableRow
-                  key={product.barcode}
-                  sx={{ backgroundColor: getRowColor(rowIndex) }}
-                >
-                  <TableCell align="right">{product.title}</TableCell>
-                  <TableCell align="right">{product.brand}</TableCell>
-                  <TableCell align="right">
-                    {/* price input */}
-                    <TextField
-                      type="number" // Assuming 'inventory' is a numeric value
-                      value={editedPrice[product.barcode] || product.price}
-                      onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                        handlePriceChange(event, product.barcode)
-                      }
-                    />
+          <TableContainer component={Paper}>
+            <Table stickyHeader sx={{ textAlign: "right" }}>
+              <TableHead>
+                <TableRow>
+                  <TableCell
+                    sx={{
+                      fontSize: "20px",
+                      backgroundColor: "olivedrab",
+                      fontFamily: "Fredoka",
+                    }}
+                    align="right"
+                  >
+                    שם המוצר
                   </TableCell>
-                  <TableCell align="right">
-                    {/* inventory input */}
-                    <TextField
-                      type="number" // Assuming 'inventory' is a numeric value
-                      value={
-                        editedInventory[product.barcode] || product.inventory
-                      }
-                      onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                        handleInventoryChange(event, product.barcode)
-                      }
-                    />
+                  <TableCell
+                    sx={{
+                      fontSize: "20px",
+                      backgroundColor: "olivedrab",
+                      fontFamily: "Fredoka",
+                    }}
+                    align="right"
+                  >
+                    ספק
                   </TableCell>
-                  <TableCell align="right">{product.barcode}</TableCell>
-                  <TableCell>
-                    <Button
-                      sx={{ color: "green" }}
-                      onClick={() =>
-                        navigate(
-                          `${ROUTES.EDIT_PRODUCT}?barcode=${product.barcode}`,
-                          {
-                            replace: true,
-                          }
-                        )
-                      }
-                    >
-                      <EditTwoToneIcon />
-                    </Button>
+                  <TableCell
+                    sx={{
+                      fontSize: "20px",
+                      backgroundColor: "olivedrab",
+                      fontFamily: "Fredoka",
+                    }}
+                    align="right"
+                  >
+                    מחיר
                   </TableCell>
-                  <TableCell>
-                    <Button
-                      sx={{ color: "red" }}
-                      onClick={() => {
-                        handleClickOpen(product.barcode);
-                      }}
-                    >
-                      <DeleteTwoToneIcon />
-                    </Button>
+                  <TableCell
+                    sx={{
+                      fontSize: "20px",
+                      backgroundColor: "olivedrab",
+                      fontFamily: "Fredoka",
+                    }}
+                    align="right"
+                  >
+                    מלאי
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      fontSize: "20px",
+                      backgroundColor: "olivedrab",
+                      fontFamily: "Fredoka",
+                    }}
+                    align="right"
+                  >
+                    ברקוד
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      fontSize: "20px",
+                      backgroundColor: "olivedrab",
+                      fontFamily: "Fredoka",
+                    }}
+                    align="right"
+                  >
+                    ערוך מוצר
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      fontSize: "20px",
+                      backgroundColor: "olivedrab",
+                      fontFamily: "Fredoka",
+                    }}
+                    align="right"
+                  >
+                    מחק מוצר
                   </TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-            <TablePagination
-              style={{ position: "relative", marginBottom: "30px" }}
-              onPageChange={handleChangePage}
-              component="div"
-              rowsPerPage={rowsPerPage}
-              page={page}
-              count={products?.length ?? 0} //(??) to provide a default value of 0 if products is undefined
-            />
-          </Table>
+              </TableHead>
+              <TableBody>
+                {products?.map((product, rowIndex) => (
+                  <TableRow
+                    key={product.barcode}
+                    sx={{ backgroundColor: getRowColor(rowIndex) }}
+                  >
+                    <TableCell align="right" sx={{ fontFamily: "Fredoka" }}>
+                      {product.title}
+                    </TableCell>
+                    <TableCell align="right" sx={{ fontFamily: "Fredoka" }}>
+                      {product.brand}
+                    </TableCell>
+                    <TableCell align="right" sx={{ fontFamily: "Fredoka" }}>
+                      {/* price input */}
+                      <TextField
+                        type="number" // Assuming 'inventory' is a numeric value
+                        value={editedPrice[product.barcode] || product.price}
+                        onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                          handlePriceChange(event, product.barcode)
+                        }
+                      />
+                    </TableCell>
+                    <TableCell align="right" sx={{ fontFamily: "Fredoka" }}>
+                      {/* inventory input */}
+                      <TextField
+                        type="number" // Assuming 'inventory' is a numeric value
+                        value={
+                          editedInventory[product.barcode] || product.inventory
+                        }
+                        onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                          handleInventoryChange(event, product.barcode)
+                        }
+                      />
+                    </TableCell>
+                    <TableCell align="right" sx={{ fontFamily: "Fredoka" }}>
+                      {product.barcode}
+                    </TableCell>
+                    <TableCell>
+                      <Button
+                        sx={{ color: "green" }}
+                        onClick={() =>
+                          navigate(
+                            `${ROUTES.EDIT_PRODUCT}?barcode=${product.barcode}`,
+                            {
+                              replace: true,
+                            }
+                          )
+                        }
+                      >
+                        <EditTwoToneIcon />
+                      </Button>
+                    </TableCell>
+                    <TableCell>
+                      <Button
+                        sx={{ color: "red" }}
+                        onClick={() => {
+                          handleClickOpen(product.barcode);
+                        }}
+                      >
+                        <DeleteTwoToneIcon />
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
         </Grid>
         <Grid
           container

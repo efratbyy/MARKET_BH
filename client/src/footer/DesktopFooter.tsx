@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import Paper from "@mui/material/Paper";
 import { useNavigate } from "react-router-dom";
 import ROUTES from "../routes/routesModel";
-import { Button, Grid } from "@mui/material";
+import { Button, Grid, Link } from "@mui/material";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
@@ -14,7 +14,7 @@ import PolicyIcon from "@mui/icons-material/Policy";
 
 const DesktopFooter = () => {
   const navigate = useNavigate();
-  const [isClicked, setIsClicked] = useState(false);
+  // const [isClicked, setIsClicked] = useState(false);
 
   // const handleClick = () => {
   //   setIsClicked(!isClicked);
@@ -48,8 +48,11 @@ const DesktopFooter = () => {
                 paddingBottom: "20px",
               }}
             >
-              <Grid xs={12} sx={{ paddingTop: "20px" }}>
-                <a href="tel:+97226437197" style={{ textDecoration: "none" }}>
+              <Grid item xs={12} sx={{ paddingTop: "20px" }}>
+                <Link
+                  href="tel:+97226437197"
+                  style={{ textDecoration: "none" }}
+                >
                   <Grid
                     item
                     sx={{
@@ -58,11 +61,14 @@ const DesktopFooter = () => {
                   >
                     טלפון: 02-6437197
                   </Grid>
-                </a>
+                </Link>
               </Grid>
 
-              <Grid xs={12} sx={{ paddingTop: "20px" }}>
-                <a href="tel:+97226427215" style={{ textDecoration: "none" }}>
+              <Grid item xs={12} sx={{ paddingTop: "20px" }}>
+                <Link
+                  href="tel:+97226427215"
+                  style={{ textDecoration: "none" }}
+                >
                   <Grid
                     item
                     sx={{
@@ -71,24 +77,24 @@ const DesktopFooter = () => {
                   >
                     פקס: 02-6437197
                   </Grid>
-                </a>
+                </Link>
               </Grid>
 
-              <Grid xs={12} sx={{ paddingTop: "20px" }}>
-                <a
+              <Grid item xs={12} sx={{ paddingTop: "20px" }}>
+                <Link
                   href="mailto:example@example.com"
                   style={{ textDecoration: "none" }}
                 >
                   <Grid item sx={{ color: "#555" }}>
                     דואר אלקטרוני: market_bh@gmail.com
                   </Grid>
-                </a>
+                </Link>
               </Grid>
             </Grid>
 
             {/* Second Colum */}
             <Grid xs={3} item sx={{ paddingBottom: "20px" }}>
-              <Grid xs={12} sx={{ paddingTop: "20px" }}>
+              <Grid item xs={12} sx={{ paddingTop: "20px" }}>
                 <Button
                   onClick={() => {
                     window.open("https://wa.me/123456789", "_blank");
@@ -99,7 +105,7 @@ const DesktopFooter = () => {
                 </Button>
               </Grid>
 
-              <Grid xs={12} sx={{ paddingTop: "20px" }}>
+              <Grid item xs={12} sx={{ paddingTop: "20px" }}>
                 <Button
                   onClick={() => {
                     window.open(
@@ -113,7 +119,7 @@ const DesktopFooter = () => {
                 </Button>
               </Grid>
 
-              <Grid xs={12} sx={{ paddingTop: "20px" }}>
+              <Grid item xs={12} sx={{ paddingTop: "20px" }}>
                 <Button
                   onClick={() => {
                     window.open(
@@ -169,7 +175,7 @@ const DesktopFooter = () => {
                 </Button>
               </Grid>
 
-              <Grid xs={12} sx={{ paddingTop: "20px" }}>
+              <Grid item xs={12} sx={{ paddingTop: "20px" }}>
                 <Button
                   onClick={() => {
                     window.open(

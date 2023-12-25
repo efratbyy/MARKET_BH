@@ -194,6 +194,7 @@ const CheckoutPage: React.FC = () => {
       <Navbar showSearchBar={false} showDataFilter={false} />
 
       <Grid
+        container
         spacing={3}
         direction="column"
         justifyContent="center"
@@ -208,6 +209,7 @@ const CheckoutPage: React.FC = () => {
 
         <Grid item xs={12}>
           <Typography
+            key="payment"
             variant="h4"
             align="center"
             gutterBottom
@@ -241,6 +243,7 @@ const CheckoutPage: React.FC = () => {
             />
 
             <Grid
+              container
               item
               sx={{
                 direction: "ltr",
@@ -249,6 +252,7 @@ const CheckoutPage: React.FC = () => {
               }}
             >
               <CreditCardInput
+                container
                 containerStyle={{
                   direction: "ltr",
                   width: "100%",

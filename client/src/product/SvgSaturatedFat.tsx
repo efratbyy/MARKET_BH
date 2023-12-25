@@ -21,7 +21,7 @@ const SvgSaturatedFat: React.FC<Props> = ({
       viewBox="0 0 78.133 78.133"
     >
       <defs data-v-5a2cdfca="">
-        <clipPath data-v-5a2cdfca="" id="clip-path">
+        <clipPath data-v-5a2cdfca="" id="clipPath">
           <rect
             data-v-5a2cdfca=""
             id="Rectangle_2346"
@@ -44,7 +44,7 @@ const SvgSaturatedFat: React.FC<Props> = ({
           id="Group_6541"
           data-name="Group 6541"
           transform="translate(0 0.002)"
-          clip-path="url(#clip-path)"
+          clipPath="url(#clipPath)"
         >
           <path
             data-v-5a2cdfca=""

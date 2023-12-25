@@ -59,7 +59,7 @@ const RegistrationForm: React.FC = () => {
     Object.keys(errors).length === 0 &&
     recaptchaValue &&
     Object.values(formData)
-      .map((value) => value.trim() !== "")
+      .map((value) => String(value).trim() !== "")
       .every(Boolean);
 
   useEffect(() => {

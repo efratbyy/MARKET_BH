@@ -7,7 +7,6 @@ import Typography from "@mui/material/Typography";
 const AccessibilityStatementPage = () => {
   return (
     <>
-      <Navbar />
       <Grid
         sx={{
           backgroundImage: 'url("/assets/images/accessibility_statement.png")',
@@ -20,6 +19,8 @@ const AccessibilityStatementPage = () => {
           opacity: 0.7,
         }}
       ></Grid>
+      <Navbar />
+
       <Grid
         sx={{
           maxWidth: "800px",
