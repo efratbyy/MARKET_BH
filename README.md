@@ -4,8 +4,6 @@ React TS Node express mongoDB app
 
 # Minimarket Givat Beit HaKerem
 
-![Background Image](https://cdn.pixabay.com/photo/2022/12/30/12/39/flowers-7686890_1280.jpg)
-
 ## Introduction
 
 Welcome to Minimarket Givat Beit HaKerem! Located at 72 Hahalutz Street in Jerusalem, we take pride in being the leading place in the neighborhood for all your daily needs.
@@ -47,3 +45,40 @@ We are proud to offer you our online shopping experience! Through our website, y
 ## Conclusion
 
 Minimarket Givat Beit HaKerem aims to provide a seamless online shopping experience. For any inquiries or assistance, feel free to contact our friendly team. Thank you for choosing Minimarket Givat Beit HaKerem!
+
+# Bottom Navigation Bar
+
+This project includes the code for the bottom navigation bar, which is designed with two different versions: one for desktop computers and the other for tablets and mobile devices.
+
+## Desktop Version
+
+### Options
+
+- **Phone and Fax:** Clicking on these options will initiate a call to the store.
+- **Email:** Opens an immediate email draft to the store.
+- **WhatsApp Contact:** Opens WhatsApp with the store's contact number.
+- **Facebook and Instagram Links:** Direct links to the store's social media pages.
+- **About Us:** Redirects to a page explaining the store, including accessibility statement, terms of use, privacy policy, and store address with a direct link for Google Maps navigation.
+
+## Mobile Version
+
+### Options
+
+- **Home Button:** Directly navigates to the home page.
+- **About Us Button:** Redirects to information about the store and explanations about the website.
+- **Menu Icon (Center):** Opens a menu for product categories and subcategories, enabling users to filter displayed products.
+- **Back Button:** Navigates one step back in the menu.
+- **Close Menu Icon:** Closes the menu.
+- **Facebook and Instagram Icons:** Direct links to the store's social media pages.
+
+## Support Team
+
+A dedicated support team is available to assist users with any questions or issues during their use of the website.
+
+## Thank You
+
+We appreciate your choice to shop at Minimarket Givat Beit Hakerem and invite you to continue enjoying the wide variety of products and services.
+
+## Contact Us
+
+Feel free to reach out with any questions or requests. Thank you for visiting!
