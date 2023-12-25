@@ -23,6 +23,7 @@ import TermsOfServicePage from "../components/TermsOfServicePage";
 import PrivacyPolicyPage from "../components/PrivacyPolicyPage";
 import AccessibilityStatementPage from "../components/AccessibilityStatementPage";
 import InventoryManagement from "../Inventory/InventoryManagement";
+import ContactInformation from "../components/ContactInformation";
 
 const Router = () => {
   return (
@@ -59,6 +60,10 @@ const Router = () => {
       <Route
         path={ROUTES.INVENTORY_MANAGEMENT}
         element={<InventoryManagement />}
+      />
+      <Route
+        path={ROUTES.CONTACT_INFORMATION}
+        element={<ContactInformation />}
       />
       <Route path="*" element={<ErrorPage />} />
     </Routes>

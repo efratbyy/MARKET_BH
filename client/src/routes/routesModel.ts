@@ -21,6 +21,7 @@ const ROUTES = {
   PRIVACY_POLICY: "/privacy_policy",
   ACCESSIBILITY_STATEMENT: "/accessibility_statement",
   INVENTORY_MANAGEMENT: "/inventory_management",
+  CONTACT_INFORMATION: "/contact_information",
 };
 
 export default ROUTES;
