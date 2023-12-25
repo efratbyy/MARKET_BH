@@ -12,6 +12,8 @@ const {
   InitProductsData,
 } = require("./initialData/initialDataService");
 
+const connectToDb = require("./mongoDB/connectToMongodb");
+
 app.use(morganLogger);
 app.use(cors);
 app.use(express.json());
@@ -23,7 +25,7 @@ const PORT = config.get("PORT") || 9000;
 
 app.listen(PORT, () => {
   console.log(chalk.blackBright(`Listening on: http://localhost: ${PORT}`));
-  require("./mongoDB/connectToMongodb");
+  connectToDb();
 
   InitCategoriesData("./initialData/Market_BH.categories.json");
 
