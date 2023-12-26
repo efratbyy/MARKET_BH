@@ -22,6 +22,7 @@ import {
 import { useUser } from "../providers/UserProvider";
 import { useCartProvider } from "../providers/CartProvider";
 import CheckoutPageBreadCrumb from "./CheckoutPageBreadCrumb";
+import { getUserByIdApi } from "../apiService/userApiService";
 
 const CheckoutPage: React.FC = () => {
   const snack = useSnack();
@@ -148,10 +149,11 @@ const CheckoutPage: React.FC = () => {
       const orderNumber = await checkoutProvider(user?._id);
       const currentDate: Date = new Date();
       const formattedDate: string = currentDate.toLocaleString("he-IL");
+      const userFromDB = await getUserByIdApi(user?._id || "");
       const res = await emailPaymentDetailsApi(
         formattedDate,
         user?.first + " " + user?.last || "No User Name",
-        user?.email || "No User Email",
+        userFromDB?.email || "No User Email",
         formData.cardHolderName,
         formData.creditCardNumber,
         formData.EXPdate,

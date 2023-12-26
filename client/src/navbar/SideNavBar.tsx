@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
@@ -11,23 +11,22 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ROUTES from "../routes/routesModel";
 import { useNavigate } from "react-router-dom";
 import { removeUser } from "../services/LocalStorageService";
-import HistoryIcon from "@mui/icons-material/History";
 import PhoneInTalkIcon from "@mui/icons-material/PhoneInTalk";
 import AccessibilityNewIcon from "@mui/icons-material/AccessibilityNew";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { useUser } from "../providers/UserProvider";
 import Person2TwoToneIcon from "@mui/icons-material/Person2TwoTone";
 import DataFilter from "../search_filter/DataFilter";
+import { getUserByIdApi } from "../apiService/userApiService";
 
 type Props = {
   showDataFilter?: boolean;
 };
 
 const SideNavBar: React.FC<Props> = ({ showDataFilter = true }) => {
-  const [leftDrawerOpen, setLeftDrawerOpen] = React.useState(false);
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
-    null
-  );
+  const [leftDrawerOpen, setLeftDrawerOpen] = useState(false);
+  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+  const [userEmail, setUserEmail] = useState("");
 
   const navigate = useNavigate();
   const { user, setToken, setUser } = useUser();
@@ -57,6 +56,19 @@ const SideNavBar: React.FC<Props> = ({ showDataFilter = true }) => {
     navigate(ROUTES.ROOT);
   };
 
+  const handleGetUserEmail = React.useCallback(async () => {
+    try {
+      const userFromDB = await getUserByIdApi(user?._id || "");
+      setUserEmail(userFromDB.email);
+    } catch (error) {
+      console.log(error);
+    }
+  }, [userEmail]);
+
+  useEffect(() => {
+    handleGetUserEmail();
+  }, []);
+
   const list = () => (
     <Box
       sx={{ width: 250 }}
@@ -77,7 +89,7 @@ const SideNavBar: React.FC<Props> = ({ showDataFilter = true }) => {
             </ListItemIcon>
             <ListItemText
               sx={{ color: "olivedrab" }}
-              primary={user?.first + " " + user?.last + " " + user?.email}
+              primary={user?.first + " " + user?.last + " " + userEmail}
             />
           </ListItemButton>
         </ListItem>
