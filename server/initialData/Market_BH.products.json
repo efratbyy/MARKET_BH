@@ -5,30 +5,36 @@
   "title": "שוקו טרה בבקבוק",
   "brand": "טרה",
   "barcode": "123456789",
-  "price": 8.9,
+  "price": 11.9,
   "image": {
     "url": "https://www.rami-levy.co.il/_ipx/w_366,f_webp/https://img.rami-levy.co.il/product/7290102398560/small.jpg",
-    "alt": "שוקו טרה"
+    "alt": "שוקו טרה",
+    "_id": {
+      "$oid": "65858685dce9cc6282306e12"
+    }
   },
   "details": {
-    "weight": 1000,
-    "weightUnit": "100 מ״ל",
     "weightTopDisplay": 1,
     "weightUnitTopDisplay": "ליטר",
+    "weight": 1000,
+    "weightUnit": "מ״ל",
     "divideBy": 100,
     "isSodium": false,
-    "isSugar": false,
+    "isSugar": true,
     "isSaturatedFat": false,
-    "categoryCode": "",
     "isGreenMark": false,
-    "isSupervised": false
+    "isSupervised": false,
+    "manufacturingCountry": "ישראל",
+    "ingredients": "חלב מפוסטר (77%), מים, רכז חלבוני חלב (8.8%), קקאו, סידן (קלציום קרבונט), חומרי טעם וריח, מייצבים (קרגינן, ג'לן גאם), מלח, ממתיק טבעי מצמח הסטיביה (סטיביול גליקוזיד), ויטמין D.\n",
+    "content": "1 ליטר",
+    "_id": {
+      "$oid": "65858685dce9cc6282306e13"
+    }
   },
-  "ingredients": "חלב מפוסטר (77%), מים, רכז חלבוני חלב (8.8%), קקאו, סידן (קלציום קרבונט), חומרי טעם וריח, מייצבים (קרגינן, ג'לן גאם), מלח, ממתיק טבעי מצמח הסטיביה (סטיביול גליקוזיד), ויטמין D.\n",
-  "content": "1 ליטר",
-  "manufacturingCountry": "ישראל",
   "categoryCode": [
     "15_2_2"
-  ]
+  ],
+  "inventory": 0
 },
 {
   "_id": {
@@ -40,27 +46,33 @@
   "price": 10.3,
   "image": {
     "url": "https://www.rami-levy.co.il/_ipx/w_366,f_webp/https://img.rami-levy.co.il/product/7290106525382/small.jpg",
-    "alt": "קפה טורקי עלית"
+    "alt": "קפה טורקי עלית",
+    "_id": {
+      "$oid": "658178b763098161d55771d4"
+    }
   },
   "details": {
-    "weight": 125,
-    "weightUnit": "100 גר׳",
-    "weightTopDisplay": 150,
+    "weightTopDisplay": 125,
     "weightUnitTopDisplay": "גרם",
+    "weight": 125,
+    "weightUnit": "גר׳",
     "divideBy": 100,
-    "isSodium": false,
+    "isSodium": true,
     "isSugar": false,
     "isSaturatedFat": true,
     "isGreenMark": false,
-    "isSupervised": false,
-    "categoryCode": ""
+    "isSupervised": true,
+    "manufacturingCountry": "ישראל",
+    "ingredients": "קפה",
+    "content": "125 גר׳",
+    "_id": {
+      "$oid": "658178b763098161d55771d5"
+    }
   },
-  "ingredients": "",
-  "content": "125 גר׳",
-  "manufacturingCountry": "ישראל",
   "categoryCode": [
     "6_2_3"
-  ]
+  ],
+  "inventory": 49
 },
 {
   "_id": {
@@ -72,28 +84,34 @@
   "price": 44.9,
   "image": {
     "url": "https://www.rami-levy.co.il/_ipx/w_245,f_webp/https://img.rami-levy.co.il/product/7290111346828/small.jpg",
-    "alt": "לילי אקסקלוסיב קומפורט וורוד"
+    "alt": "לילי אקסקלוסיב קומפורט וורוד",
+    "_id": {
+      "$oid": "65817aae63098161d5579d7b"
+    }
   },
   "details": {
-    "weight": 32,
-    "weightUnit": "יחידה",
     "weightTopDisplay": 32,
     "weightUnitTopDisplay": "גלילים",
+    "weight": 32,
+    "weightUnit": "יחידה",
     "divideBy": 1,
     "isSodium": false,
     "isSugar": false,
     "isSaturatedFat": false,
     "isGreenMark": false,
     "isSupervised": false,
-    "categoryCode": ""
+    "manufacturingCountry": "ישראל",
+    "ingredients": "אין",
+    "content": "32 יחידות",
+    "_id": {
+      "$oid": "65817aae63098161d5579d7c"
+    }
   },
-  "ingredients": "",
-  "content": "",
-  "manufacturingCountry": "",
   "categoryCode": [
     "16_3_1",
     "2_2_1"
-  ]
+  ],
+  "inventory": 12
 },
 {
   "_id": {
@@ -105,27 +123,33 @@
   "price": 7.9,
   "image": {
     "url": "https://www.rami-levy.co.il/_ipx/w_366,f_webp/https://img.rami-levy.co.il/product/7290000060903/small.jpg",
-    "alt": "פתיתים אפויים אורז אסם"
+    "alt": "פתיתים אפויים אורז אסם",
+    "_id": {
+      "$oid": "658176a763098161d5574606"
+    }
   },
   "details": {
-    "weight": 500,
-    "weightUnit": "100 גר׳",
     "weightTopDisplay": 500,
     "weightUnitTopDisplay": "גרם",
+    "weight": 500,
+    "weightUnit": "גרם",
+    "divideBy": 100,
     "isSodium": false,
     "isSugar": false,
-    "divideBy": 100,
     "isSaturatedFat": false,
     "isGreenMark": false,
     "isSupervised": false,
-    "categoryCode": ""
+    "manufacturingCountry": "ישראל",
+    "ingredients": "קמח חיטה (מכיל גלוטן)",
+    "content": "500 גרם",
+    "_id": {
+      "$oid": "658176a763098161d5574607"
+    }
   },
-  "ingredients": "",
-  "content": "",
-  "manufacturingCountry": "",
   "categoryCode": [
     "9_3_4"
-  ]
+  ],
+  "inventory": 22
 },
 {
   "_id": {
@@ -137,27 +161,33 @@
   "price": 7.8,
   "image": {
     "url": "https://www.rami-levy.co.il/_ipx/w_366,f_webp/https://img.rami-levy.co.il/product/7290016523447/small.jpg",
-    "alt": "אטריות ביצים"
+    "alt": "אטריות ביצים",
+    "_id": {
+      "$oid": "6581773163098161d5574d55"
+    }
   },
   "details": {
-    "weight": 300,
-    "weightUnit": "100 גר׳",
     "weightTopDisplay": 300,
     "weightUnitTopDisplay": "גרם",
+    "weight": 300,
+    "weightUnit": "גרם",
+    "divideBy": 100,
     "isSodium": false,
     "isSugar": false,
-    "divideBy": 100,
     "isSaturatedFat": false,
     "isGreenMark": false,
     "isSupervised": false,
-    "categoryCode": ""
+    "manufacturingCountry": "ישראל",
+    "ingredients": "קמח חיטה (מכיל גלוטן), מים, ביצים (3%), מלח, כורכום",
+    "content": "300 גרם",
+    "_id": {
+      "$oid": "6581773163098161d5574d56"
+    }
   },
-  "ingredients": "",
-  "content": "",
-  "manufacturingCountry": "",
   "categoryCode": [
     "9_3_3"
-  ]
+  ],
+  "inventory": 10
 },
 {
   "_id": {
@@ -169,27 +199,33 @@
   "price": 2.9,
   "image": {
     "url": "https://www.rami-levy.co.il/_ipx/w_366,f_webp/https://img.rami-levy.co.il/product/7290000178707/small.jpg",
-    "alt": "תפוצ׳יפס טבעי 50 גר׳"
+    "alt": "תפוצ׳יפס טבעי 50 גר׳",
+    "_id": {
+      "$oid": "6581766b63098161d5573eb7"
+    }
   },
   "details": {
-    "weight": 200,
-    "weightUnit": "100 גר׳",
-    "weightTopDisplay": 200,
+    "weightTopDisplay": 50,
     "weightUnitTopDisplay": "גרם",
+    "weight": 50,
+    "weightUnit": "גר׳",
+    "divideBy": 100,
     "isSodium": true,
     "isSugar": false,
-    "divideBy": 100,
     "isSaturatedFat": false,
     "isGreenMark": false,
     "isSupervised": false,
-    "categoryCode": ""
+    "manufacturingCountry": "ישראל",
+    "ingredients": "תפוח אדמה (63%), שמן חמניות ,מלח.",
+    "content": "50 גרם",
+    "_id": {
+      "$oid": "6581766b63098161d5573eb8"
+    }
   },
-  "ingredients": "",
-  "content": "",
-  "manufacturingCountry": "",
   "categoryCode": [
     "3_1_2"
-  ]
+  ],
+  "inventory": 3
 },
 {
   "_id": {
@@ -201,27 +237,33 @@
   "price": 49.9,
   "image": {
     "url": "https://www.rami-levy.co.il/_ipx/w_245,f_webp/https://img.rami-levy.co.il/product/1004746/390754/medium.jpg",
-    "alt": "בשר טחון טרי"
+    "alt": "בשר טחון טרי",
+    "_id": {
+      "$oid": "65817ac963098161d557a4c2"
+    }
   },
   "details": {
-    "weight": 1,
-    "weightUnit": "ק״ג",
-    "weightTopDisplay": 0,
+    "weightTopDisplay": 1,
     "weightUnitTopDisplay": "ק״ג",
+    "weight": 1000,
+    "weightUnit": "גרם",
+    "divideBy": 100,
     "isSodium": false,
     "isSugar": false,
-    "divideBy": 1,
     "isSaturatedFat": false,
     "isGreenMark": false,
     "isSupervised": false,
-    "categoryCode": ""
+    "manufacturingCountry": "ישראל",
+    "ingredients": "בשר בקר",
+    "content": "1 ק״ג",
+    "_id": {
+      "$oid": "65817ac963098161d557a4c3"
+    }
   },
-  "ingredients": "",
-  "content": "",
-  "manufacturingCountry": "",
   "categoryCode": [
     "12_3_1"
-  ]
+  ],
+  "inventory": 22
 },
 {
   "_id": {
@@ -233,27 +275,33 @@
   "price": 31.3,
   "image": {
     "url": "https://www.rami-levy.co.il/_ipx/w_366,f_webp/https://img.rami-levy.co.il/product/185/65/medium.jpg",
-    "alt": "ענבים ירוקים"
+    "alt": "ענבים ירוקים",
+    "_id": {
+      "$oid": "6581796d63098161d5578eed"
+    }
   },
   "details": {
-    "weight": 1,
-    "weightUnit": "ק״ג",
-    "weightTopDisplay": 0,
+    "weightTopDisplay": 1,
     "weightUnitTopDisplay": "ק״ג",
+    "weight": 1,
+    "weightUnit": "גרם",
+    "divideBy": 1,
     "isSodium": false,
     "isSugar": false,
-    "divideBy": 1,
     "isSaturatedFat": false,
     "isGreenMark": false,
     "isSupervised": false,
-    "categoryCode": ""
+    "manufacturingCountry": "ישראל",
+    "ingredients": "ענבים",
+    "content": "1 ק״ג",
+    "_id": {
+      "$oid": "6581796d63098161d5578eee"
+    }
   },
-  "ingredients": "",
-  "content": "",
-  "manufacturingCountry": "",
   "categoryCode": [
     "14_1_1"
-  ]
+  ],
+  "inventory": 56
 },
 {
   "_id": {
@@ -265,27 +313,33 @@
   "price": 8.9,
   "image": {
     "url": "https://www.rami-levy.co.il/_ipx/w_366,f_webp/https://img.rami-levy.co.il/product/104/6/medium.jpg",
-    "alt": "פלפל אדום"
+    "alt": "פלפל אדום",
+    "_id": {
+      "$oid": "658177e763098161d5575bf3"
+    }
   },
   "details": {
+    "weightTopDisplay": 1,
+    "weightUnitTopDisplay": "ק״ג",
     "weight": 1,
     "weightUnit": "ק״ג",
-    "weightTopDisplay": 0,
-    "weightUnitTopDisplay": "ק״ג",
     "divideBy": 1,
     "isSodium": false,
     "isSugar": false,
     "isSaturatedFat": false,
     "isGreenMark": false,
     "isSupervised": false,
-    "categoryCode": ""
+    "manufacturingCountry": "ישראל",
+    "ingredients": "פלפל אדום",
+    "content": "1 ק״ג",
+    "_id": {
+      "$oid": "658177e763098161d5575bf4"
+    }
   },
-  "ingredients": "",
-  "content": "",
-  "manufacturingCountry": "",
   "categoryCode": [
     "14_2_1"
-  ]
+  ],
+  "inventory": 98
 },
 {
   "_id": {
@@ -297,25 +351,187 @@
   "price": 9.96,
   "image": {
     "url": "https://www.rami-levy.co.il/_ipx/w_366,f_webp/https://img.rami-levy.co.il/product/7290018500361/small.jpg",
-    "alt": "לחם אחיד פרוס"
+    "alt": "לחם אחיד פרוס",
+    "_id": {
+      "$oid": "6581784d63098161d5576346"
+    }
   },
   "details": {
-    "weight": 900,
-    "weightUnit": "גר׳",
     "weightTopDisplay": 900,
     "weightUnitTopDisplay": "גרם",
+    "weight": 900,
+    "weightUnit": "גר׳",
+    "divideBy": 100,
     "isSodium": false,
     "isSugar": false,
-    "divideBy": 100,
     "isSaturatedFat": false,
     "isGreenMark": false,
     "isSupervised": false,
-    "categoryCode": ""
+    "manufacturingCountry": "ישראל",
+    "ingredients": "קמח חיטה לבן (גלוטן), מים, סוכר, שמרים, מרגרינה (סויה) (מכיל חומר משמר (E200)), מלח, חומר משמר (E282), מתחלב (E481), מווסת חומציות (E330), עמילן תירס למאכל, חומר מעכב חמצון (E300), אנזימים.",
+    "content": "900 גרם",
+    "_id": {
+      "$oid": "6581784d63098161d5576347"
+    }
   },
-  "ingredients": "",
-  "content": "",
-  "manufacturingCountry": "",
   "categoryCode": [
     "13_1_1"
-  ]
+  ],
+  "inventory": 18
+},
+{
+  "_id": {
+    "$oid": "656f6af0693b7b5275284aeb"
+  },
+  "title": "חומוס",
+  "brand": "שטראוס",
+  "barcode": "876534678",
+  "categoryCode": [
+    "8_1_2"
+  ],
+  "price": 12.9,
+  "image": {
+    "url": "https://www.ynet.co.il/picserver5/2018/08/14/8714581/87145771677778980769no.jpg",
+    "alt": "חומוס שטראוס",
+    "_id": {
+      "$oid": "658178f663098161d557805f"
+    }
+  },
+  "details": {
+    "weightTopDisplay": 750,
+    "weightUnitTopDisplay": "גרם",
+    "weight": 750,
+    "weightUnit": "גרם",
+    "divideBy": 100,
+    "isSodium": true,
+    "isSugar": false,
+    "isSaturatedFat": false,
+    "isGreenMark": false,
+    "isSupervised": false,
+    "manufacturingCountry": "ישראל",
+    "ingredients": "חומוס מבושל 63% (מים חומוס מווסת חומציות (סודיום ביקרבונט= סודה לשתייה),מים, טחינה, גולמית 16% (שומשום)מלח,מווסת חומציות (חומצת לימון), תערובת תיבול, חומר משמר (פוטסיום סורבט)",
+    "content": "750 גרם",
+    "_id": {
+      "$oid": "658178f663098161d5578060"
+    }
+  },
+  "__v": 0,
+  "inventory": 4
+},
+{
+  "_id": {
+    "$oid": "656f6bf8693b7b5275285282"
+  },
+  "title": "שזיפים מיובשים מגולענים",
+  "brand": "היל ויו",
+  "barcode": "7363849476",
+  "categoryCode": [
+    "14_3_3"
+  ],
+  "price": 32.9,
+  "image": {
+    "url": "https://d226b0iufwcjmj.cloudfront.net/product-images/global/640637/734446/large.jpg",
+    "alt": "שזיפים מיובשים מגולענים",
+    "_id": {
+      "$oid": "65817a0463098161d5579634"
+    }
+  },
+  "details": {
+    "weightTopDisplay": 567,
+    "weightUnitTopDisplay": "גרם",
+    "weight": 567,
+    "weightUnit": "גרם",
+    "divideBy": 100,
+    "isSodium": true,
+    "isSugar": false,
+    "isSaturatedFat": false,
+    "isGreenMark": true,
+    "isSupervised": false,
+    "manufacturingCountry": "קליפורניה, ארה״ב",
+    "ingredients": "שזיפים מיובשים,משמר E202 (פוטסיום סורבט)",
+    "content": "567 גרם",
+    "_id": {
+      "$oid": "65817a0463098161d5579635"
+    }
+  },
+  "__v": 0,
+  "inventory": 12
+},
+{
+  "_id": {
+    "$oid": "656f6cb1693b7b52752865cd"
+  },
+  "title": "במבה",
+  "brand": "אסם",
+  "barcode": "573937464",
+  "categoryCode": [
+    "3_1_3"
+  ],
+  "price": 10,
+  "image": {
+    "url": "https://d226b0iufwcjmj.cloudfront.net/gs1-products/1184/x-large/7290104508943.jpg?_a=1677640894016",
+    "alt": "במבה אסם",
+    "_id": {
+      "$oid": "6583376242c6c1abc0096ee8"
+    }
+  },
+  "details": {
+    "weightTopDisplay": 200,
+    "weightUnitTopDisplay": "גרם",
+    "weight": 200,
+    "weightUnit": "גרם",
+    "divideBy": 100,
+    "isSodium": true,
+    "isSugar": false,
+    "isSaturatedFat": false,
+    "isGreenMark": false,
+    "isSupervised": false,
+    "manufacturingCountry": "ישראל",
+    "ingredients": "בוטנים טחונים (54%), גריסי תירס, שמן חמניות, מלח, ויטמינים (ויטמין C, ויטמין B3 (ניאצין), ויטמין E, ויטמין B1 (תיאמין), ויטמין B6, ויטמין A, חומצה פולית, ויטמין B12), ברזל.",
+    "content": "200 גרם",
+    "_id": {
+      "$oid": "6583376242c6c1abc0096ee9"
+    }
+  },
+  "__v": 0,
+  "inventory": 3
+},
+{
+  "_id": {
+    "$oid": "657ecd6d94248491b91e0390"
+  },
+  "title": "מגבוני האגיס נטורל",
+  "brand": "האגיס",
+  "barcode": "72901113442",
+  "categoryCode": [
+    "1_6_2"
+  ],
+  "price": 19.9,
+  "image": {
+    "url": "https://www.dynstore.co.il/images/catalog/mothers/haggies/7290000195773-1.jpg",
+    "alt": "מגבוני האגיס רביעייה",
+    "_id": {
+      "$oid": "6581794f63098161d55787a6"
+    }
+  },
+  "details": {
+    "weightTopDisplay": 4,
+    "weightUnitTopDisplay": "יחידות",
+    "weight": 4,
+    "weightUnit": "יחידה",
+    "divideBy": 1,
+    "isSodium": false,
+    "isSugar": false,
+    "isSaturatedFat": false,
+    "isGreenMark": false,
+    "isSupervised": false,
+    "manufacturingCountry": "ישראל",
+    "ingredients": "96% מים מטוהרים, ללא SLS,  ללא בישום,  ללא אלכוהול,  ללא פרבנים",
+    "content": "4 יחידות",
+    "_id": {
+      "$oid": "6581794f63098161d55787a7"
+    }
+  },
+  "__v": 0,
+  "inventory": 6
 }]

@@ -3,6 +3,7 @@ const DB_Category = require("../models/mongooseValidation/BigCategory"); // Adju
 const DB_Users = require("../models/mongooseValidation/User");
 const DB_Products = require("../models/mongooseValidation/Product");
 const fs = require("fs");
+const { log } = require("console");
 
 // Recursive way for update any _id filed in any level for match MongoDB _id field (ObjectId)
 const convertToObjectId = (data) => {
@@ -25,6 +26,9 @@ const convertToDateObjects = (usersData) => {
     // Convert date strings to Date objects
     user.createdAt = new Date(user.createdAt["$date"]);
     user.blockedTime = new Date(user.blockedTime["$date"]);
+    user.forgotPasswordKeyCreatedTime = new Date(
+      user.forgotPasswordKeyCreatedTime["$date"]
+    );
     if (user.purchaseHistory && Array.isArray(user.purchaseHistory)) {
       user.purchaseHistory = user.purchaseHistory.map((pHistory) => {
         if (pHistory.orderDate && pHistory.orderDate["$date"]) {
