@@ -1,5 +1,9 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { deleteUserApi, getUsersApi } from "../apiService/userApiService";
+import {
+  deleteUserApi,
+  getUserByIdApi,
+  getUsersApi,
+} from "../apiService/userApiService";
 import { UserInterface } from "../models/interfaces/interfaces.ts";
 import {
   Button,
@@ -27,6 +31,7 @@ const EditUsersCRM = () => {
   const [deleteTrigger, setDeleteTrigger] = useState<boolean>(true);
   const [userByEmailToDelete, setUserByEmailToDelete] = useState<string>("");
   const [open, setOpen] = useState(false);
+  const [currentUserEmail, setCurrentUserEmail] = useState<string>("");
 
   const { user } = useUser();
 
@@ -45,6 +50,15 @@ const EditUsersCRM = () => {
   const handleGetUsers = useCallback(async () => {
     try {
       const usersFromDB = await getUsersApi();
+      return Promise.resolve(usersFromDB);
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
+  const handleGetCurrentUserEmail = useCallback(async () => {
+    try {
+      const usersFromDB = await getUserByIdApi(user?._id || "");
       return Promise.resolve(usersFromDB);
     } catch (error) {
       console.log(error);
@@ -80,6 +94,12 @@ const EditUsersCRM = () => {
       navigate(ROUTES.ROOT);
     }
   }, [handleGetUsers, user, navigate, deleteTrigger]);
+
+  useEffect(() => {
+    handleGetCurrentUserEmail().then((currentUser) => {
+      setCurrentUserEmail(currentUser?.email || "");
+    });
+  }, []);
 
   return (
     user &&
@@ -203,60 +223,63 @@ const EditUsersCRM = () => {
               מחק לקוח
             </Grid>
           </Grid>
-          {users?.map((user: UserInterface, index) => (
-            <Grid
-              container
-              key={user.email}
-              sx={{
-                borderBottom: "1px solid black",
-                alignItems: "center",
-                lineHeight: "50px",
-              }}
-            >
-              <Grid xs={1} item>
-                {user.last}
-              </Grid>
-              <Grid xs={2} item sx={{ borderRight: "1px solid black" }}>
-                {user.first}
-              </Grid>
-              <Grid xs={2} item sx={{ borderRight: "1px solid black" }}>
-                {user.phone}
-              </Grid>
-              <Grid xs={3} item sx={{ borderRight: "1px solid black" }}>
-                {`${user.city}, ${user.street} ${user.houseNumber}`}
-              </Grid>
-              <Grid xs={2} item sx={{ borderRight: "1px solid black" }}>
-                {user.email}
-              </Grid>
-              <Grid xs={1} item sx={{ borderRight: "1px solid black" }}>
-                <Button
-                  sx={{ color: "green" }}
-                  onClick={() =>
-                    navigate(`${ROUTES.EDIT_USER}`, {
-                      replace: true,
-                      state: {
-                        // Pass the props
-                        userEmail: user.email,
-                      },
-                    })
-                  }
-                >
-                  <EditTwoToneIcon />
-                </Button>
-              </Grid>
-
-              <Grid xs={1} item sx={{ borderRight: "1px solid black" }}>
-                <Button
-                  sx={{ color: "red" }}
-                  onClick={() => {
-                    handleClickOpen(user.email);
+          {users?.map(
+            (user: UserInterface, index) =>
+              user.email !== currentUserEmail && (
+                <Grid
+                  container
+                  key={user.email}
+                  sx={{
+                    borderBottom: "1px solid black",
+                    alignItems: "center",
+                    lineHeight: "50px",
                   }}
                 >
-                  <DeleteTwoToneIcon />
-                </Button>
-              </Grid>
-            </Grid>
-          ))}
+                  <Grid xs={1} item>
+                    {user.last}
+                  </Grid>
+                  <Grid xs={2} item sx={{ borderRight: "1px solid black" }}>
+                    {user.first}
+                  </Grid>
+                  <Grid xs={2} item sx={{ borderRight: "1px solid black" }}>
+                    {user.phone}
+                  </Grid>
+                  <Grid xs={3} item sx={{ borderRight: "1px solid black" }}>
+                    {`${user.city}, ${user.street} ${user.houseNumber}`}
+                  </Grid>
+                  <Grid xs={2} item sx={{ borderRight: "1px solid black" }}>
+                    {user.email}
+                  </Grid>
+                  <Grid xs={1} item sx={{ borderRight: "1px solid black" }}>
+                    <Button
+                      sx={{ color: "green" }}
+                      onClick={() =>
+                        navigate(`${ROUTES.EDIT_USER}`, {
+                          replace: true,
+                          state: {
+                            // Pass the props
+                            userEmail: user.email,
+                          },
+                        })
+                      }
+                    >
+                      <EditTwoToneIcon />
+                    </Button>
+                  </Grid>
+
+                  <Grid xs={1} item sx={{ borderRight: "1px solid black" }}>
+                    <Button
+                      sx={{ color: "red" }}
+                      onClick={() => {
+                        handleClickOpen(user.email);
+                      }}
+                    >
+                      <DeleteTwoToneIcon />
+                    </Button>
+                  </Grid>
+                </Grid>
+              )
+          )}
         </Grid>
 
         <Fab
