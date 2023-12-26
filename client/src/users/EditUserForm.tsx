@@ -261,6 +261,7 @@ const EditUserForm = () => {
                 label="מייל"
                 color="success"
                 fullWidth
+                disabled
                 margin="normal"
                 value={formData.email}
                 onChange={handleChange}
