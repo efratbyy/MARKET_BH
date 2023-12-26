@@ -9,7 +9,7 @@ const registerJoiValidationSchema = Joi.object({
   first: Joi.string().min(2).max(256).required(),
   last: Joi.string().min(2).max(256).required(),
   phone: Joi.string()
-    .ruleset.regex(/0[0-9]{1,2}\-?\s?[0-9]{3}\s?[0-9]{4}/)
+    .ruleset.regex(/0[0-9]{1,2}\-?\s?[0-9]{7}/)
     .rule({ message: 'user "phone" mast be a valid phone number' })
     .required(),
   email: Joi.string()

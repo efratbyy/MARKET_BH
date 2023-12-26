@@ -4,7 +4,7 @@ const registerSchema = {
   first: Joi.string().min(2).max(256).required(),
   last: Joi.string().min(2).max(256).required(),
   phone: Joi.string()
-    .pattern(/0[0-9]{1,2}-?\s?[0-9]{3}\s?[0-9]{4}/)
+    .pattern(/0[0-9]{1,2}-?\s?[0-9]{7}/)
     .message('user "phone" must be a valid phone number')
     .required(),
   email: Joi.string()

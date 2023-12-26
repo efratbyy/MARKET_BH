@@ -20,7 +20,7 @@ const convertToObjectId = (data) => {
   return data;
 };
 
-function convertToDateObjects(usersData) {
+const convertToDateObjects = (usersData) => {
   return usersData.map((user) => {
     // Convert date strings to Date objects
     user.createdAt = new Date(user.createdAt["$date"]);
@@ -35,7 +35,7 @@ function convertToDateObjects(usersData) {
     }
     return user;
   });
-}
+};
 
 const InitCategoriesData = async (categoriesJsonFilePath) => {
   const jsonData = fs.readFileSync(categoriesJsonFilePath, "utf-8");
