@@ -4,8 +4,8 @@ const config = require("config");
 const KEY = config.get("JWT_KEY");
 
 const generateAuthToken = (user) => {
-  const { _id, isAdmin, email, first, last } = user;
-  const token = jwt.sign({ _id, isAdmin, email, first, last }, JWT_KEY);
+  const { _id, isAdmin, first, last } = user;
+  const token = jwt.sign({ _id, isAdmin, first, last }, JWT_KEY);
   return token;
 };
 

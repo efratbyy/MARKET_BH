@@ -29,7 +29,7 @@ const register = async (req, res) => {
 
     const userFromDB = await newUser.save();
     const { _id, isAdmin, first, last } = userFromDB;
-    const token = jwt.sign({ _id, isAdmin, email, first, last }, JWT_KEY);
+    const token = jwt.sign({ _id, isAdmin, first, last }, JWT_KEY);
     res.status(201).send(token);
   } catch (error) {
     return handleError(res, 404, `Mongoose Error: ${error.message}`);
@@ -67,7 +67,7 @@ const login = async (req, res) => {
       const { _id, isAdmin, email, first, last } = userInDB;
       userInDB.loginFailedCounter = 0;
       await User.findByIdAndUpdate(userInDB.id, userInDB);
-      const token = jwt.sign({ _id, isAdmin, email, first, last }, JWT_KEY);
+      const token = jwt.sign({ _id, isAdmin, first, last }, JWT_KEY);
       res.send(token);
     } else {
       const twentyFourHoursBefore = new Date(
@@ -80,7 +80,7 @@ const login = async (req, res) => {
         userInDB.loginFailedCounter = 0;
         await User.findByIdAndUpdate(userInDB.id, userInDB);
         const { _id, isAdmin, email, first, last } = userInDB;
-        const token = jwt.sign({ _id, isAdmin, email, first, last }, JWT_KEY);
+        const token = jwt.sign({ _id, isAdmin, first, last }, JWT_KEY);
         res.send(token);
       } else {
         const currentTime = new Date();
@@ -116,6 +116,7 @@ const updateInventory = async (cart) => {
     });
   }
 };
+
 // Move cart to parches history
 const checkout = async (req, res) => {
   try {
@@ -436,7 +437,7 @@ const createNewUser = async (req, res) => {
 
     const userFromDB = await newUser.save();
     const { _id, isAdmin, first, last } = userFromDB;
-    const token = jwt.sign({ _id, isAdmin, email, first, last }, JWT_KEY);
+    const token = jwt.sign({ _id, isAdmin, first, last }, JWT_KEY);
     res.status(201).send(token);
   } catch (error) {
     return handleError(res, 404, `Mongoose Error: ${error.message}`);
