@@ -163,7 +163,6 @@ const InventoryManagement = () => {
   useEffect(() => {
     handleGetProducts()
       .then((products) => {
-        // TODO: filter
         // Filter by q
         let filteredProducts = products?.filter(
           (product) =>

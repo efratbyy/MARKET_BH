@@ -8,7 +8,7 @@ const DB_PASSWORD = config.get("DB_PASSWORD");
 
 mongoose
   .connect(
-    `mongodb+srv://${DB_NAME}:${DB_PASSWORD}@efrat.a0lfqho.mongodb.net/Market_BH`
+    `mongodb+srv://${DB_NAME}:${DB_PASSWORD}@marketbh.vuyvihf.mongodb.net/Market_BH`
   )
   .then(() => console.log(chalk.magentaBright("Connected to mongoDb Atlas!")))
   .catch((error) =>

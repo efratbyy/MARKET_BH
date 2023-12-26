@@ -1,6 +1,6 @@
 {
   "NODE_ENV": "production",
   "PORT": 8188,
-  "DB_NAME": "", // Username for Atlas (Sent in mail)
-  "DB_PASSWORD": "" // password for Atlas (Sent in mail)
+  "DB_NAME": "",
+  "DB_PASSWORD": ""
 }

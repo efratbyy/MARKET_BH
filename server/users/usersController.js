@@ -210,7 +210,7 @@ const editUser = async (req, res) => {
         !loginUser.isAdmin &&
         loginUser.email !== userToUpdate.email)
     ) {
-      return handleError(res, 404, `UnAuth Access`);
+      return handleError(res, 404, `UnAuthorized Access!`);
     }
 
     // search for the user to update in the DB
@@ -431,7 +431,6 @@ const createNewUser = async (req, res) => {
     if (isUserExistInDB) throw new Error("User already registered");
     const newUser = new User(user); //  the user variable contains the data for the new user. If the user doesn't exist, it creates a new user according to Mongo's User model and saves it to the database.
 
-    // TODO: create a difault password
     // encrypt user password
     newUser.password = bcrypt.hashSync(newUser.password, 10);
 
