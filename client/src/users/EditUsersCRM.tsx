@@ -25,6 +25,7 @@ import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 import EditTwoToneIcon from "@mui/icons-material/EditTwoTone";
 import AddIcon from "@mui/icons-material/Add";
 import { useSnack } from "../providers/SnackbarProvider";
+import GeneralDialog from "../generic components/GeneralDialog";
 
 const EditUsersCRM = () => {
   const [users, setUsers] = useState<UserInterface[] | undefined>([]);
@@ -296,32 +297,17 @@ const EditUsersCRM = () => {
           <AddIcon />
         </Fab>
 
-        <Dialog
+        <GeneralDialog
+          title="מחיקת משתמש!"
+          text="האם הינך בטוח/ה כי בצונך למחוק משתמש זה? משתמש שימחק מהמערכת ימחק לצמיתות!"
           open={open}
-          onClose={handleClose}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <DialogTitle id="alert-dialog-title">מחיקת משתמש!</DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-              האם הינך בטוח/ה כי בצונך למחוק משתמש זה? משתמש שימחק מהמערכת ימחק
-              לצמיתות!
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose}>ביטול</Button>
-            <Button
-              onClick={() => {
-                handleDeleteUser(userByEmailToDelete);
-                handleClose();
-              }}
-              autoFocus
-            >
-              אישור
-            </Button>
-          </DialogActions>
-        </Dialog>
+          handleConfirm={() => {
+            handleDeleteUser(userByEmailToDelete);
+            handleClose();
+          }}
+          handleClose={handleClose}
+          showCancelButton={true}
+        />
 
         <Footer />
       </>

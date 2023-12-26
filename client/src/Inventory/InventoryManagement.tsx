@@ -34,6 +34,7 @@ import {
   updateProductInventoryApi,
   updateProductPriceApi,
 } from "../apiService/productApiService";
+import GeneralDialog from "../generic components/GeneralDialog";
 
 const InventoryManagement = () => {
   const [products, setProducts] = useState<ProductInterface[] | undefined>(
@@ -358,31 +359,18 @@ const InventoryManagement = () => {
             דף זה אינו נתמך במובייל!
           </Grid>
         </Grid>
-        <Dialog
+
+        <GeneralDialog
+          title="מחיקת מוצר!"
+          text="האם הינך בטוח/ה כי בצונך למחוק מוצר זה? מוצר שימחק ימחק לצמיתות!"
           open={open}
-          onClose={handleClose}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <DialogTitle id="alert-dialog-title">מחיקת מוצר!</DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-              האם הינך בטוח/ה כי בצונך למחוק מוצר זה? מוצר שימחק ימחק לצמיתות!
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose}>ביטול</Button>
-            <Button
-              onClick={() => {
-                handleDeleteProduct(barcodeToDelete);
-                handleClose();
-              }}
-              autoFocus
-            >
-              אישור
-            </Button>
-          </DialogActions>
-        </Dialog>
+          handleConfirm={() => {
+            handleDeleteProduct(barcodeToDelete);
+            handleClose();
+          }}
+          showCancelButton={true}
+          handleClose={handleClose}
+        />
         <Footer />
       </>
     )

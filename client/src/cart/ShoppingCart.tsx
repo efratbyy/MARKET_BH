@@ -5,11 +5,6 @@ import {
 } from "../models/interfaces/interfaces.ts";
 import {
   Box,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
   Divider,
   Grid,
   Input,
@@ -32,6 +27,7 @@ import DesktopCartNavbar from "../navbar/DesktopCartNavbar";
 import { useNavigate } from "react-router-dom";
 import ROUTES from "../routes/routesModel";
 import { getOutOfStockProductsApi } from "../apiService/cartApiService";
+import GeneralDialog from "../generic components/GeneralDialog";
 
 const ShoppingCart = () => {
   const [totalItemsInCart, setTotalItemsInCart] = useState<number>(0);
@@ -82,6 +78,29 @@ const ShoppingCart = () => {
       handleGetOutOfStockProducts();
     }
   }, [cart]);
+
+  const dialogTable = (
+    <Table sx={{ textAlign: "right" }}>
+      <TableHead>
+        <TableRow>
+          <TableCell align="right">שם המוצר</TableCell>
+          <TableCell align="right">כמות שיש להסיר</TableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {outOfStockProducts?.map((product: ProductInterface, index) => (
+          <TableRow key={product.barcode}>
+            <TableCell align="right">{product.title}</TableCell>
+            <TableCell align="right">
+              {(cart?.find(
+                (cartProduct) => cartProduct.barcode === product.barcode
+              )?.amount || 0) - product.inventory}
+            </TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
+  );
 
   return (
     <>
@@ -285,45 +304,13 @@ const ShoppingCart = () => {
         </Grid>
       </Grid>
 
-      <Dialog
+      <GeneralDialog
+        title={" ישנם בעגלה מוצרים שאזלו במלאי. אנא הסר את המוצרים הבאים:"}
+        text={dialogTable}
         open={open}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">
-          ישנם בעגלה מוצרים שאזלו במלאי. אנא הסר את המוצרים הבאים:
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            <Table sx={{ textAlign: "right" }}>
-              <TableHead>
-                <TableRow>
-                  <TableCell align="right">שם המוצר</TableCell>
-                  <TableCell align="right">כמות שיש להסיר</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {outOfStockProducts?.map((product: ProductInterface, index) => (
-                  <TableRow key={product.barcode}>
-                    <TableCell align="right">{product.title}</TableCell>
-                    <TableCell align="right">
-                      {(cart?.find(
-                        (cartProduct) => cartProduct.barcode === product.barcode
-                      )?.amount || 0) - product.inventory}
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} autoFocus>
-            אישור
-          </Button>
-        </DialogActions>
-      </Dialog>
+        showCancelButton={false}
+        handleConfirm={handleClose}
+      />
     </>
   );
 };

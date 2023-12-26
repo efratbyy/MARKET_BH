@@ -17,6 +17,7 @@ import DesktopListProductCard from "./DesktopListProductCard";
 import { deleteProductApi } from "../apiService/productApiService";
 import { useSnack } from "../providers/SnackbarProvider";
 import MobileListProductCard from "./MobileListProductCard";
+import GeneralDialog from "../generic components/GeneralDialog";
 
 type Props = { productListShow: boolean };
 
@@ -280,32 +281,17 @@ const Products: React.FC<Props> = ({ productListShow = false }) => {
           ))}
         </Grid>
       )}
-      <Dialog
+      <GeneralDialog
+        title="מחיקת מוצר!"
+        text=" האם הינך בטוח/ה כי בצונך למחוק מוצר זה? מוצר שימחק מהמערכת ימחק לצמיתות!"
+        showCancelButton={true}
         open={open}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">מחיקת משתמש!</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            האם הינך בטוח/ה כי בצונך למחוק משתמש זה? משתמש שימחק מהמערכת ימחק
-            לצמיתות!
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>ביטול</Button>
-          <Button
-            onClick={() => {
-              handleDeleteProduct();
-              handleClose();
-            }}
-            autoFocus
-          >
-            אישור
-          </Button>
-        </DialogActions>
-      </Dialog>
+        handleClose={handleClose}
+        handleConfirm={() => {
+          handleDeleteProduct();
+          handleClose();
+        }}
+      />
     </>
   );
 };

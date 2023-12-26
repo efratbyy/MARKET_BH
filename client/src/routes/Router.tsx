@@ -16,7 +16,7 @@ import EditProductForm from "../product/EditProductForm";
 import EditUserForm from "../users/EditUserForm";
 import ForgotPassword from "../login/ForgotPassword";
 import CreateNewPassword from "../login/CreateNewPassword";
-import GeneralMessage from "../components/GeneralMessage";
+import GeneralMessage from "../generic components/GeneralMessage";
 import EditUsersCRM from "../users/EditUsersCRM";
 import AddUser from "../users/CreateNewUser";
 import TermsOfServicePage from "../components/TermsOfServicePage";
