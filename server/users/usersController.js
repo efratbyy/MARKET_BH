@@ -336,12 +336,13 @@ const createResetPasswordKey = async (req, res) => {
       return handleError(res, 404, `User not found`);
     }
 
+    // Creating a unique random key for the user and putting it in the existingUser.forgotPasswordKey key and setting the valu of the existingUser.forgotPasswordKeyCreatedTime as the current date
     const uniqueRandomKey = await generateUniqueRandomKey();
     existingUser.forgotPasswordKey = uniqueRandomKey;
     existingUser.forgotPasswordKeyCreatedTime = new Date();
 
     // _id - The key by which we will search for the user
-    // updatedFields - This containing the fields and their updated values for update
+    // existingUser - This containing the fields and their updated values for update
     // new: true - returns the updated document
     const updatedUser = await User.findOneAndUpdate(
       existingUser._id,

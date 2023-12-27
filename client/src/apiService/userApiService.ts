@@ -175,21 +175,6 @@ export const updatePasswordApi = async (
   }
 };
 
-export const createNewUserApi = async (user: LoginType) => {
-  try {
-    const { data } = await axios.post<string>(
-      `${apiUrl}/users/create_user`,
-      user
-    );
-    return Promise.resolve(data);
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      return Promise.reject(error.response?.data);
-    }
-    return Promise.reject("An unexpected error occurred!");
-  }
-};
-
 export const deleteUserApi = async (userEmail: string) => {
   try {
     const token = localStorage.getItem("token_key");

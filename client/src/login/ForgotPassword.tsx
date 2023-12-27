@@ -16,48 +16,56 @@ const ForgotPassword = () => {
   const [userEmail, setUserEmail] = useState<string>("");
   const [userEmailError, setUserEmailError] = useState<string>("");
 
-  const handleChangeEmail = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
+  const handleChangeEmail = useCallback(
+    (newEmail: ChangeEvent<HTMLInputElement>) => {
+      const { value } = newEmail.target;
 
-    // validate userEmail
-    const validationResult = Joi.string()
-      .pattern(/^([a-zA-Z0-9_\-.]+)@([a-zA-Z0-9_\-.]+)\.([a-zA-Z]{2,5})$/)
-      .message('user "mail" must be a valid mail')
-      .required()
-      .validate(value);
+      // validate userEmail
+      const validationResult = Joi.string()
+        .pattern(/^([a-zA-Z0-9_\-.]+)@([a-zA-Z0-9_\-.]+)\.([a-zA-Z]{2,5})$/)
+        .message('user "mail" must be a valid mail')
+        .required()
+        .validate(value);
 
-    setUserEmail(value);
+      setUserEmail(value);
 
-    if (validationResult.error) {
-      setUserEmailError(validationResult.error.details[0].message);
-    } else setUserEmailError("");
-  }, []);
+      if (validationResult.error) {
+        setUserEmailError(validationResult.error.details[0].message);
+      } else setUserEmailError("");
+    },
+    []
+  );
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       const updatedUser = await createResetPasswordKeyApi(userEmail);
+      //check if forgotPasswordKeyCreatedTime exists in updatedUser. If it does, it creates a Date object using that value; otherwise, it creates a Date object with the current date and time
       const expireDate = updatedUser.forgotPasswordKeyCreatedTime
         ? new Date(updatedUser.forgotPasswordKeyCreatedTime)
         : new Date();
 
-      expireDate?.setHours(expireDate?.getHours() + 1);
+      expireDate?.setHours(expireDate?.getHours() + 1); //setting the expiration date by adding one hour to the current date and time
       await emailResetPasswordApi(
         updatedUser.first,
         updatedUser.email,
-        expireDate
-          ? new Intl.DateTimeFormat("en-GB", {
-              timeZone: "Asia/Jerusalem",
-              year: "numeric",
-              month: "2-digit",
-              day: "2-digit",
-              hour: "2-digit",
-              minute: "2-digit",
-              second: "2-digit",
-              hour12: false, // Use 24-hour format
-            }).format(expireDate)
+        expireDate // Check if expireDate exists. otherwise, it passes an empty string
+          ? new Intl.DateTimeFormat(
+              //determines the format of the expiration date
+              "en-GB",
+              {
+                timeZone: "Asia/Jerusalem",
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit",
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit",
+                hour12: false, // Use 24-hour format
+              }
+            ).format(expireDate)
           : "",
-        updatedUser.forgotPasswordKey ? updatedUser.forgotPasswordKey : ""
+        updatedUser.forgotPasswordKey ? updatedUser.forgotPasswordKey : "" //check if forgotPasswordKey exists in updatedUser. If it does, it He puts the value of updatedUser.forgotPasswordKey into it; otherwise, it passes an empty string
       );
 
       navigate(`${ROUTES.GENERAL_MESSAGE}`, {
