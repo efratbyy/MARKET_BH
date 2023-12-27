@@ -22,6 +22,10 @@ client/npm-debug.log*
 client/yarn-debug.log*
 client/yarn-error.log*
 
+client/public/.DS_Store
+client/public/assets/.DS_Store
+client/public/assets/images/.DS_Store
+
 # dependencies
 server/node_modules
 server/node_modules/*
@@ -44,9 +48,6 @@ server/.env.production.local
 server/npm-debug.log*
 server/yarn-debug.log*
 server/yarn-error.log*
-client/public/.DS_Store
-client/public/assets/.DS_Store
-client/public/assets/images/.DS_Store
 .DS_Store
 
 server/loggers/logs/*
