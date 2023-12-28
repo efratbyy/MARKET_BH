@@ -2,9 +2,11 @@ const mongoose = require("mongoose");
 const chalk = require("chalk");
 const config = require("config");
 
+console.log("Connecting to Atlas DB...");
+
 // (PRODUCTION/DEVELOPMENT) קובע את סביבת העבודה
-const DB_NAME = config.get("DB_NAME");
-const DB_PASSWORD = config.get("DB_PASSWORD");
+const DB_NAME = process.env.DB_NAME || config.get("DB_NAME");
+const DB_PASSWORD = process.env.DB_PASSWORD || config.get("DB_PASSWORD");
 
 mongoose
   .connect(

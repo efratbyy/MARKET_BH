@@ -21,7 +21,7 @@ app.use(router);
 app.use(express.static("./public"));
 app.use(express.text());
 
-const PORT = config.get("PORT") || 9000;
+const PORT = process.env.PORT || config.get("PORT") || 9000;
 
 app.listen(PORT, () => {
   console.log(chalk.blackBright(`Listening on: http://localhost: ${PORT}`));

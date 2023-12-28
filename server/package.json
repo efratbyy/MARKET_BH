@@ -4,9 +4,13 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "export || cross-env NODE_ENV=production&& node .",
     "test": "node test.js",
-    "dev": "export || cross-env NODE_ENV=development&& nodemon ."
+    "start": "npm run start:unix || npm run start:win",
+    "start:unix": "export NODE_ENV=production && node .",
+    "start:win": "set NODE_ENV=production && node .",
+    "dev": "npm run dev:unix || npm run dev:win",
+    "dev:unix": "export NODE_ENV=development && node .",
+    "dev:win": "set NODE_ENV=development && node ."
   },
   "keywords": [],
   "author": "Efrat Ben Yosef",
@@ -25,6 +29,7 @@
     "morgan": "^1.10.0"
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "nodemon": "^3.0.1"
   }
 }

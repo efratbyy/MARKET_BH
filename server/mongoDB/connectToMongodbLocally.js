@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const chalk = require("chalk");
 
+console.log("Connecting to Local DB...");
+
 mongoose
   .connect("mongodb://127.0.0.1:27017/Market_BH")
   .then(() => console.log(chalk.magentaBright("Connected to mongoDB Locally!")))

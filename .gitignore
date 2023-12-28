@@ -50,4 +50,5 @@ server/yarn-debug.log*
 server/yarn-error.log*
 .DS_Store
 
+server/config/production.json
 server/loggers/logs/*
