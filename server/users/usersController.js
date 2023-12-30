@@ -14,7 +14,6 @@ const register = async (req, res) => {
   try {
     const user = req.body;
     const { email } = user;
-    // return schema
 
     const { error } = registerJoiValidationSchema.validate(user, {});
 
@@ -54,7 +53,7 @@ const login = async (req, res) => {
     if (!isPasswordValid) {
       userInDB.loginFailedCounter += 1;
       if (userInDB.loginFailedCounter >= 3) {
-        //במידה ושווה או גדול ל 3 אז ייחסם
+        //If it is equal to or greater than 3 then it will be blocked
         userInDB.isBlocked = true;
         userInDB.blockedTime = new Date();
         await User.findByIdAndUpdate(userInDB.id, userInDB);
@@ -63,7 +62,7 @@ const login = async (req, res) => {
       await User.findByIdAndUpdate(userInDB.id, userInDB);
       throw new Error("Authentication Error: Invalid email or password");
     } else if (!userInDB.isBlocked) {
-      // במידה ולא חסום והכניס מייל וסיסמא נכונים אז יוכנס למערכת
+      // If the user is not blocked and has entered a correct email and password, then he will be entered into the website
       const { _id, isAdmin, email, first, last } = userInDB;
       userInDB.loginFailedCounter = 0;
       await User.findByIdAndUpdate(userInDB.id, userInDB);
@@ -71,10 +70,10 @@ const login = async (req, res) => {
       res.send(token);
     } else {
       const twentyFourHoursBefore = new Date(
-        new Date().getTime() - 24 * 60 * 60 * 1000 // המרה ל-24 שעות
+        new Date().getTime() - 24 * 60 * 60 * 1000 // Converted to 24 hours
       );
       if (userInDB.blockedTime < twentyFourHoursBefore) {
-        // במידה ועברו 24 שעות והמשתמש ביצע כניסה עם מייל וסיסמא נכונים אז כל השדות יתאפסו
+        // If 24 hours have passed and the user logged in with the correct email and password, then all fields will be reset
         userInDB.isBlocked = false;
         userInDB.blockedTime = new Date();
         userInDB.loginFailedCounter = 0;
@@ -105,6 +104,7 @@ const login = async (req, res) => {
     return handleError(res, isAuthError ? 403 : 500, `שגיאה: ${error.message}`);
   }
 };
+
 const updateInventory = async (cart) => {
   for (let productInCart of cart) {
     const product = await Product.findOne({ barcode: productInCart.barcode });

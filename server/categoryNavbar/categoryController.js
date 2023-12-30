@@ -15,19 +15,19 @@ const getTranslatedCategoryCode = async (req, res) => {
 
   const smallCategory = await BigCategory.aggregate([
     {
-      $unwind: "$data", // שיטוח של האובייקט
+      $unwind: "$data", // Flattening of the object
     },
     {
       $unwind: "$data.data",
     },
     {
       $match: {
-        "data.data.code": { $eq: categoryCode }, // parsms שנשלח ב categoryCode חיפוש משהו שתואם ל
+        "data.data.code": { $eq: categoryCode }, // Searching for something that matches categoryCode that was sent in the parsms
       },
     },
     {
       $project: {
-        // שליפה של השדות שבחרנו למטה
+        // Retrieving the fields we selected below
         _id: 0,
         title: "$data.data.title",
       },
@@ -51,7 +51,7 @@ const getTranslatedCategoryCode = async (req, res) => {
     },
   ]).exec();
 
-  // רק אחת מהקטגוריות יכולה לחזור עם תוכן ולכן מי שיהיה לה תוכן אותו נציג או שנציג ״״
+  // Only one of the categories can return with content, so whoever has content we will display it or we will display ""
   if (mediumCategory.length > 0) {
     return res.send(mediumCategory[0].title);
   } else if (smallCategory.length > 0) {

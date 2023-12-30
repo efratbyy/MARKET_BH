@@ -26,7 +26,7 @@ you can run:
 - The page will not reload if you make edits.
 - You must have a mongoDB Atlas Cluster
 
-### `NODE_ENV=development npm start`
+### `npm run dev`
 
 - Runs the app with nodemon
 - The page will reload if you make edits
@@ -38,7 +38,7 @@ And if there are no login errors you should see the message painted in purple:
 
 `connected to MongoDb Locally!`
 
-### `NODE_ENV=production npm start`
+### `npm start`
 
 - Runs the app with nodemon
 - The page will reload if you make edits
@@ -233,32 +233,6 @@ In the request body you will need to provide an object with the following keys a
 
 - Updating the user password
 
-#### API for creating a new user
-
-```http
-  POST /api/users/create_user
-```
-
-#### Request
-
-In the request body you will need to provide an object with the following keys and values
-
-| index       | type    | index | type | min | max | remark   |
-| ----------- | ------- | ----- | ---- | --- | --- | -------- |
-| first       | string  |       |      | 2   | 256 | required |
-| last        | string  |       |      | 2   | 256 | required |
-| phone       | string  |       |      | 9   | 11  | required |
-| email       | string  |       |      | 2   | 5   | required |
-| password    | string  |       |      | 8   | 20  | required |
-| city        | string  |       |      | 2   | 256 | required |
-| street      | number  |       |      | 2   | 256 | required |
-| houseNumber | number  |       |      | 2   | 256 | required |
-| isBusiness  | boolean |       |      |     |     | required |
-
-- The admin will create a default password for the user: Aa12345! ("password" must be at least eight characters long and contain an uppercase letter, a lowercase letter, a number and one of the following characters !@#$%^&\*-)
-- "phone" must be a standard Israeli phone number
-- "email" must be a standard email
-
 #### API for getting a user by his email
 
 ```http
@@ -390,12 +364,98 @@ In the request body you will need to provide an object with the following keys a
 
 ### Cart API
 
-#### API for updating a product price
+#### API for adding to cart
 
 ```http
   PATCH /api/cart/addToCart/:userId/:barcode/:amount
 ```
 
-- You will need to provide the user id, the product barcode and the and the quantity of the product to add to the cart to get an answer from this api
+- You will need to provide the user id, the product barcode and the quantity of the product to add to the cart and to get an answer from this api
 - You will need to provide a token to get an answer from this api
-- You must be a registerd user in order to add a product to cart
+- You must be a logged in user in order to add a product to cart
+
+#### API for removing product from cart
+
+```http
+  PATCH /api/cart/removeFromCart/:userId/:barcode/:amount
+```
+
+- You will need to provide the user id, the product barcode and the quantity of the product to remove from the cart and to get an answer from this api
+- You will need to provide a token to get an answer from this api
+- You must be a logged in user in order to remove a product from cart
+
+#### API for adding a comment on a product in the cart
+
+```http
+  PATCH /api/cart/addNote/:userId/:barcode
+```
+
+- You will need to provide the user id and the product barcode for adding a comment on a product in the cart and to get an answer from this api
+- You will need to provide a token to get an answer from this api
+- You must be a logged in user in order to add a comment on a product in the cart
+
+#### API for getting the user's cart
+
+```http
+  GET /api/cart/:userId
+```
+
+- You will need to provide the user id in order to get the user's cart and to get an answer from this api
+- You will need to provide a token to get an answer from this api
+- You must be a logged in user in order to get the user's cart
+
+#### API for getting out of stock products
+
+```http
+  GET /api/cart/out_of_stock/:userId
+```
+
+- You will need to provide the user id in order to get the out of stock products and to get an answer from this api
+- You will need to provide a token to get an answer from this api
+- You must be a logged in user in order to get out of stock products
+
+### Email API
+
+#### API for email payment details
+
+```http
+  POST /api/api/v1.0/email/send
+```
+
+- You will need to provide the current date, the user's name, the user's email, the credit card holder's name, the card number, the card expiration date, the card CVV, the card holder's ID, the cart and the order number in order to get an answer from this api (When the user checks out, an email with the order details is sent to both the customer and the business owner)
+- You must be a logged in user in order to send the payment email
+
+#### API for sending an email for reset the password
+
+```http
+  POST /api/api/v1.0/email/send
+```
+
+- You will need to provide the user's name, the user's email, the expiration time of the reset token and the reset token to reset the password and to get an answer from this api (When the user clicks on the "Forgot password" button he is taken to a page where he will enter his email address and an email will be sent to him to reset his password)
+- You must be a logged in user in order to send the reset password email
+
+#### API for sending an order details email to client
+
+```http
+  POST /api/api/v1.0/email/send
+```
+
+- You will need to provide the current date, the user's name, the user's email, the user's cart and the order number to get an answer from this api (When the user checks out, an email with the order details is sent to both the customer and the business owner)
+- You must be a logged in user in order to send the order details email
+
+### Categories API
+
+#### API to get all categories for the category navbar
+
+```http
+  GET /api/categories
+```
+
+#### API to get all category codes
+
+```http
+  GET /api/categories/:categoryCode
+```
+
+- You will need to provide the category code to get an answer from this api
+- In order to see on the breadcrumbs the name of the category instead of the code of the category (a number), it translate the code (the number) is to a string

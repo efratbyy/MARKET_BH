@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const chalk = require("chalk");
-const config = require("config"); // (DEVELOPMENT/PRODUCTION) מאפשר לעבור לסביבות עבודה שונות
+const config = require("config"); // Allows you to move to different work environments (DEVELOPMENT/PRODUCTION)
 const router = require("./router/router");
 const cors = require("./middlewares/cors");
 const morganLogger = require("./loggers/morganLogger");

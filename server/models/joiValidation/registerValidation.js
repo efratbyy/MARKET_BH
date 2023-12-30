@@ -1,11 +1,6 @@
 const Joi = require("joi");
 
 const registerJoiValidationSchema = Joi.object({
-  // name: Joi.object()
-  //   .keys({
-  //     first: Joi.string().min(2).max(256).required(),
-  //     last: Joi.string().min(2).max(256).required(),
-  //   })
   first: Joi.string().min(2).max(256).required(),
   last: Joi.string().min(2).max(256).required(),
   phone: Joi.string()
@@ -25,23 +20,12 @@ const registerJoiValidationSchema = Joi.object({
     .rule({
       message:
         'user "password" must be at least 8 characters long and contain an uppercase letter, a lowercase letter, at least 4 numbers and one of the following characters !@#$%^&*-',
-    }) // /((?=.*\d{1})(?=.*[A-Z]{1})(?=.*[a-z]{1})(?=.*[!@#$%^&*-]{1}).{7,20})/
+    })
     .required(),
   city: Joi.string().required(),
   street: Joi.string().required(),
   houseNumber: Joi.number().min(1).required(),
   isAdmin: Joi.boolean(),
-  // address: Joi.object()
-  //   .keys({
-  //     city: Joi.string().required(),
-  //     street: Joi.string().required(),
-  //     houseNumber: Joi.number().min(1).required(),
-  //   })
-  //   .required(),
-  // isGoogleSignup: Joi.boolean().allow(""),
-  // isBlocked: Joi.boolean().required(),
-  // loginFailedCounter: Joi.number().required(),
-  // blockedTime: Joi.date().required(),
 });
 
 module.exports = registerJoiValidationSchema;

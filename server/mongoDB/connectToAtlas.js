@@ -4,7 +4,7 @@ const config = require("config");
 
 console.log("Connecting to Atlas DB...");
 
-// (PRODUCTION/DEVELOPMENT) קובע את סביבת העבודה
+// Determines the work environment (PRODUCTION/DEVELOPMENT)
 const DB_NAME = process.env.DB_NAME || config.get("DB_NAME");
 const DB_PASSWORD = process.env.DB_PASSWORD || config.get("DB_PASSWORD");
 
