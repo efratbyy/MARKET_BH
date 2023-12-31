@@ -119,8 +119,8 @@ If the user is in the database and the password sent is correct, a token will be
 
 ### Request
 
-- You will need to provide a token to get an answer from this api
-- You will need to be Admin type user to get an answer from this api
+- You will need to provide a token to get an response from this api
+- You will need to be Admin type user to get an response from this api
 
 #### API for Information about a user
 
@@ -130,8 +130,8 @@ If the user is in the database and the password sent is correct, a token will be
 
 ### Request
 
-- You will need to provide a token to get an answer from this api
-- You will need to be the registered user or Admin type user to get an answer from this api
+- You will need to provide a token to get an response from this api
+- You will need to be the registered user or Admin type user to get an response from this api
 
 #### API for Updating User information
 
@@ -158,8 +158,8 @@ In the request body you will need to provide an object with the following keys a
 - The user "password" must be at least eight characters long and contain an uppercase letter, a lowercase letter, a number and one of the following characters !@#$%^&\*-
 - "phone" must be a standard Israeli phone number
 - "email" must be a standard email
-- You will need to provide a token to get an answer from this api
-- You need to be Admin to get an answer from this api
+- You will need to provide a token to get an response from this api
+- You need to be Admin to get an response from this api
 
 #### API for deleting a user
 
@@ -167,8 +167,8 @@ In the request body you will need to provide an object with the following keys a
   DELETE /api/users/delete_user
 ```
 
-- You will need to provide a token to get an answer from this api
-- You will need to be the registered user or Admin to get an answer from this api
+- You will need to provide a token to get an response from this api
+- You will need to be the registered user or Admin to get an response from this api
 
 #### API for checkout
 
@@ -176,8 +176,8 @@ In the request body you will need to provide an object with the following keys a
   PATCH /api/users/checkout/:id
 ```
 
-- You will need to provide a token to get an answer from this api
-- You will need to be the registered user to get an answer from this api
+- You will need to provide a token to get an response from this api
+- You will need to be the registered user to get an response from this api
 
 #### API for getting the user purches history
 
@@ -185,8 +185,8 @@ In the request body you will need to provide an object with the following keys a
   GET /api/users/purchase-history/:id
 ```
 
-- You will need to provide a token to get an answer from this api
-- You will need to be the registered user to get an answer from this api
+- You will need to provide a token to get an response from this api
+- You will need to be the registered user to get an response from this api
 
 #### API for getting the user purches history details
 
@@ -194,8 +194,8 @@ In the request body you will need to provide an object with the following keys a
   GET /api/users/purchase-history-details/:id/:orderNumber
 ```
 
-- You will need to provide a token to get an answer from this api
-- You will need to be the registered user to get an answer from this api
+- You will need to provide a token to get an response from this api
+- You will need to be the registered user to get an response from this api
 
 #### API for creating a reset password key
 
@@ -241,8 +241,8 @@ In the request body you will need to provide an object with the following keys a
 
 ### Request
 
-- You will need to provide a token to get an answer from this api
-- You will need to be an Admin type user to get an answer from this api
+- You will need to provide a token to get an response from this api
+- You will need to be an Admin type user to get an response from this api
 
 ### Products API
 
@@ -292,8 +292,8 @@ In the request body you will need to provide an object with the following keys a
 | manufacturingCountry | string  |       |      | 2   | 256 |          |
 | inventory            | number  |       |      |     |     | required |
 
-- You will need to provide a token to get an answer from this api
-- You will need to be an admin type user to get an answer from this api
+- You will need to provide a token to get an response from this api
+- You will need to be an admin type user to get an response from this api
 
 #### API for edit product information
 
@@ -329,8 +329,8 @@ In the request body you will need to provide an object with the following keys a
 | manufacturingCountry | string  |       |      | 2   | 256 |          |
 | inventory            | number  |       |      |     |     | required |
 
-- You will need to provide a token to get an answer from this api
-- You will need to be an admin type user to get an answer from this api
+- You will need to provide a token to get an response from this api
+- You will need to be an admin type user to get an response from this api
 
 #### API for deleting a product
 
@@ -338,8 +338,8 @@ In the request body you will need to provide an object with the following keys a
   DELETE /api/products/delete-product
 ```
 
-- You will need to provide the product barcode to get an answer from this api
-- You will need to provide a token to get an answer from this api
+- You will need to provide the product barcode to get an response from this api
+- You will need to provide a token to get an response from this api
 - You must be an admin user in order to delete the product
 
 #### API for updating a product inventory
@@ -348,8 +348,8 @@ In the request body you will need to provide an object with the following keys a
   PATCH /api/products/update_inventory/barcode/newInventory
 ```
 
-- You will need to provide the product barcode and the new inventory quantity to get an answer from this api
-- You will need to provide a token to get an answer from this api
+- You will need to provide the product barcode and the new inventory quantity to get an response from this api
+- You will need to provide a token to get an response from this api
 - You must be an admin user in order to update a product inventory
 
 #### API for updating a product price
@@ -358,8 +358,8 @@ In the request body you will need to provide an object with the following keys a
   PATCH /api/products/update_price/barcode/newPrice
 ```
 
-- You will need to provide the product barcode and the new price to get an answer from this api
-- You will need to provide a token to get an answer from this api
+- You will need to provide the product barcode and the new price to get an response from this api
+- You will need to provide a token to get an response from this api
 - You must be an admin user in order to update a product price
 
 ### Cart API
@@ -370,8 +370,8 @@ In the request body you will need to provide an object with the following keys a
   PATCH /api/cart/addToCart/:userId/:barcode/:amount
 ```
 
-- You will need to provide the user id, the product barcode and the quantity of the product to add to the cart and to get an answer from this api
-- You will need to provide a token to get an answer from this api
+- You will need to provide the user id, the product barcode and the quantity of the product to add to the cart and to get an response from this api
+- You will need to provide a token to get an response from this api
 - You must be a logged in user in order to add a product to cart
 
 #### API for removing product from cart
@@ -380,8 +380,8 @@ In the request body you will need to provide an object with the following keys a
   PATCH /api/cart/removeFromCart/:userId/:barcode/:amount
 ```
 
-- You will need to provide the user id, the product barcode and the quantity of the product to remove from the cart and to get an answer from this api
-- You will need to provide a token to get an answer from this api
+- You will need to provide the user id, the product barcode and the quantity of the product to remove from the cart and to get an response from this api
+- You will need to provide a token to get an response from this api
 - You must be a logged in user in order to remove a product from cart
 
 #### API for adding a comment on a product in the cart
@@ -390,8 +390,8 @@ In the request body you will need to provide an object with the following keys a
   PATCH /api/cart/addNote/:userId/:barcode
 ```
 
-- You will need to provide the user id and the product barcode for adding a comment on a product in the cart and to get an answer from this api
-- You will need to provide a token to get an answer from this api
+- You will need to provide the user id and the product barcode for adding a comment on a product in the cart and to get an response from this api
+- You will need to provide a token to get an response from this api
 - You must be a logged in user in order to add a comment on a product in the cart
 
 #### API for getting the user's cart
@@ -400,8 +400,8 @@ In the request body you will need to provide an object with the following keys a
   GET /api/cart/:userId
 ```
 
-- You will need to provide the user id in order to get the user's cart and to get an answer from this api
-- You will need to provide a token to get an answer from this api
+- You will need to provide the user id in order to get the user's cart and to get an response from this api
+- You will need to provide a token to get an response from this api
 - You must be a logged in user in order to get the user's cart
 
 #### API for getting out of stock products
@@ -410,8 +410,8 @@ In the request body you will need to provide an object with the following keys a
   GET /api/cart/out_of_stock/:userId
 ```
 
-- You will need to provide the user id in order to get the out of stock products and to get an answer from this api
-- You will need to provide a token to get an answer from this api
+- You will need to provide the user id in order to get the out of stock products and to get an response from this api
+- You will need to provide a token to get an response from this api
 - You must be a logged in user in order to get out of stock products
 
 ### Email API
@@ -422,7 +422,7 @@ In the request body you will need to provide an object with the following keys a
   POST /api/api/v1.0/email/send
 ```
 
-- You will need to provide the current date, the user's name, the user's email, the credit card holder's name, the card number, the card expiration date, the card CVV, the card holder's ID, the cart and the order number in order to get an answer from this api (When the user checks out, an email with the order details is sent to both the customer and the business owner)
+- You will need to provide the current date, the user's name, the user's email, the credit card holder's name, the card number, the card expiration date, the card CVV, the card holder's ID, the cart and the order number in order to get an response from this api (When the user checks out, an email with the order details is sent to both the customer and the business owner)
 - You must be a logged in user in order to send the payment email
 
 #### API for sending an email for reset the password
@@ -431,7 +431,7 @@ In the request body you will need to provide an object with the following keys a
   POST /api/api/v1.0/email/send
 ```
 
-- You will need to provide the user's name, the user's email, the expiration time of the reset token and the reset token to reset the password and to get an answer from this api (When the user clicks on the "Forgot password" button he is taken to a page where he will enter his email address and an email will be sent to him to reset his password)
+- You will need to provide the user's name, the user's email, the expiration time of the reset token and the reset token to reset the password and to get an response from this api (When the user clicks on the "Forgot password" button he is taken to a page where he will enter his email address and an email will be sent to him to reset his password)
 - You must be a logged in user in order to send the reset password email
 
 #### API for sending an order details email to client
@@ -440,7 +440,7 @@ In the request body you will need to provide an object with the following keys a
   POST /api/api/v1.0/email/send
 ```
 
-- You will need to provide the current date, the user's name, the user's email, the user's cart and the order number to get an answer from this api (When the user checks out, an email with the order details is sent to both the customer and the business owner)
+- You will need to provide the current date, the user's name, the user's email, the user's cart and the order number to get an response from this api (When the user checks out, an email with the order details is sent to both the customer and the business owner)
 - You must be a logged in user in order to send the order details email
 
 ### Categories API
@@ -457,5 +457,5 @@ In the request body you will need to provide an object with the following keys a
   GET /api/categories/:categoryCode
 ```
 
-- You will need to provide the category code to get an answer from this api
+- You will need to provide the category code to get an response from this api
 - In order to see on the breadcrumbs the name of the category instead of the code of the category (a number), it translate the code (the number) is to a string
